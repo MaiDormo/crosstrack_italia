@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "737346394316",
+    "project_id": "crosstrack-italia",
+    "storage_bucket": "crosstrack-italia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737346394316:android:68e36959d81943396a0a69",
+        "android_client_info": {
+          "package_name": "com.example.crosstrack_italia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737346394316-sl518256stlcl8n4k6jc66sejr54mnk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crosstrack_italia",
+            "certificate_hash": "d8b738fcb66f72aee3767f63850e5153f2059ebe"
+          }
+        },
+        {
+          "client_id": "737346394316-u3809v74qsh8h0dna84ctjpcksvhef7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqoDKgMiYBnelX1B9NQPXFbZc4gBSwcNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737346394316-fjb79dmuls8u8ocsimola5g83ova8hbl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "737346394316-ot6m6stbisilj5q9k883osiduih5kjnf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.crosstrackItalia"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

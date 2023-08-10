@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>737346394316-ot6m6stbisilj5q9k883osiduih5kjnf.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.737346394316-ot6m6stbisilj5q9k883osiduih5kjnf</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA8V5-jGWVfV-aWT6V735T64XQy4pH-sJs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>737346394316</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.crosstrackItalia</string>
+	<key>PROJECT_ID</key>
+	<string>crosstrack-italia</string>
+	<key>STORAGE_BUCKET</key>
+	<string>crosstrack-italia.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:737346394316:ios:12ccfd37dabe8e4a6a0a69</string>
+</dict>
+</plist>
