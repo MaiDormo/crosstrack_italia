@@ -11,9 +11,7 @@ class SettingsPageView extends ConsumerWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          onPressed: () async {
-            await ref.read(authStateProvider.notifier).logOut();
-          },
+          onPressed: ref.read(authStateProvider.notifier).logOut,
           child: const Text(
             'Sign out',
             style: TextStyle(fontSize: 20),

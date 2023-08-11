@@ -46,6 +46,10 @@ class MyApp extends StatelessWidget {
       home: Consumer(
         builder: (context, ref, child) {
           //take care of displaying the loading screen
+          //in all possible instaces in all possible widgets
+          //it does only need to listen to the isLoadingProvider,
+          //which itself listen to the AuthStateProvider to get the
+          //'loading' state
           ref.listen<bool>(
             isLoadingProvider,
             (_, isLoading) {
@@ -70,4 +74,4 @@ class MyApp extends StatelessWidget {
 //Difference between watch and listen in providers:
 // watch: is asynchronous that means that it is mostly used to rebuild the
 //        closest widget in the hierarchy when something happens
-// listen: 
+// listen:

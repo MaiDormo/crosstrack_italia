@@ -16,7 +16,7 @@ class AuthState {
 
   const AuthState.unknown()
       : result = null,
-        isLoading = true,
+        isLoading = false,
         userId = null;
 
   AuthState copiedWithIsLoading(bool isLoading) => AuthState(

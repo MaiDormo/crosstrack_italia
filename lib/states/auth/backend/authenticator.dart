@@ -4,7 +4,6 @@ import 'package:crosstrack_italia/states/posts/typedefs/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 //Responsible for handling all the backend authentication logic
 //basically a bunch of functions that call firebase auth
 
@@ -21,7 +20,7 @@ class Authenticator {
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    await FacebookAuth.instance.logOut();
+    // await FacebookAuth.instance.logOut();
   }
 
   Future<AuthResult> loginWithFacebook() async {
