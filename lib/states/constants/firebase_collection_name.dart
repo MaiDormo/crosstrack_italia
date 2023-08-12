@@ -6,6 +6,7 @@ class FirebaseFieldName {
   static const userId = 'userId';
   static const displayName = 'displayName';
   static const email = 'email';
+  static const createdAt = 'created_at';
   static const trackId = 'trackId';
   static const trackDisplayName = 'trackName';
   static const trackLocation = 'trackLocation';

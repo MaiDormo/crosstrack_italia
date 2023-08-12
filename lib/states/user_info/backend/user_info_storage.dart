@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/states/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/states/constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/states/posts/typedefs/user_id.dart';
+import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/states/user_info/models/user_info_payload.dart';
 import 'package:flutter/foundation.dart' show immutable;

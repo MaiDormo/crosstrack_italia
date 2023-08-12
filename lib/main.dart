@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/states/providers/is_loading_provider.dart';
-import 'package:crosstrack_italia/ui/home_page_view.dart';
+import 'package:crosstrack_italia/views/homepage/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
