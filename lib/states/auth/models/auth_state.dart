@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart' show immutable;
 import 'package:crosstrack_italia/states/auth/models/auth_result.dart';
-import 'package:crosstrack_italia/states/posts/typedefs/user_id.dart';
+import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 
 @immutable
 class AuthState {

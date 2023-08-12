@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/states/auth/constants/constants.dart';
 import 'package:crosstrack_italia/states/auth/models/auth_result.dart';
-import 'package:crosstrack_italia/states/posts/typedefs/user_id.dart';
+import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

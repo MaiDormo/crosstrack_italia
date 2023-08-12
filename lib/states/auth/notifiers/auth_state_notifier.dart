@@ -1,7 +1,7 @@
 import 'package:crosstrack_italia/states/auth/backend/authenticator.dart';
 import 'package:crosstrack_italia/states/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/states/auth/models/auth_state.dart';
-import 'package:crosstrack_italia/states/posts/typedefs/user_id.dart';
+import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/states/user_info/backend/user_info_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
