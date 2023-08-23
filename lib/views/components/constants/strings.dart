@@ -34,6 +34,9 @@ class Strings {
   //cancel
   static const cancel = 'Cancella';
 
+  //tracks
+  static const noTracksAvaiable = 'Nessun tracciato disponibile';
+
   //private const constructor
   const Strings._();
 }

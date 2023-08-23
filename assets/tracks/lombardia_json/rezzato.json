@@ -1,0 +1,28 @@
+{
+    "nome": "Rezzato",
+    "regione": "Lombardia",
+    "posto": "Rezzato (BS)",
+    "motoclub": "Uisp Brescia",
+    "categoria": "2",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "duro",
+    "lunghezza": "1400 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "338-5646110"
+    ],
+    "email": "mcuispbrescia@gmail.com",
+    "orari_e_info": "Aperta Martedi e Giovedi nel pomeriggio Sabato e Domenica aperta tutto il giorno Consigliamo di contattare sempre il circuito per l'orario in quanto variabile",
+    "latitudine": "45.49476",
+    "longitudine": "10.30686"
+}

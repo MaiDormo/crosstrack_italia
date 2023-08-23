@@ -1,0 +1,31 @@
+{
+    "nome": "Storo",
+    "regione": "Trentino Alto Adige",
+    "posto": "Roversella - Storo (TN)",
+    "motoclub": "Storo",
+    "categoria": "3",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "medio duro",
+    "lunghezza": "1400 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "0465-296682"
+    ],
+    "fax": [
+        "0465-296286"
+    ],
+    "email": "segreteria@motoclubstoro.it",
+    "sito_web": "http://www.motoclubstoro.it/",
+    "orari_e_info": "Aperta da Febbraio a Ottobre (esclusi Luglio e Agosto) Sabato e Domenica dalle 8:00 alle 12:00 e dalle 14:00 alle 19:00",
+    "latitudine": "45.82665",
+    "longitudine": "10.55474"
+}

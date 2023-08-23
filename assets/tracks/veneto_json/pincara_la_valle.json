@@ -1,0 +1,31 @@
+{
+    "nome": "Pincara - La Valle",
+    "regione": "Veneto",
+    "posto": "Ca Bernarda di Pincara (RO)",
+    "motoclub": "Mc Pozzato Tito",
+    "categoria": "3",
+    "omologazione": [
+        "uisp",
+        "fmi"
+    ],
+    "terreno": "terra-sabbia",
+    "lunghezza": "1300 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "347-4305890",
+        "0425-947613"
+    ],
+    "fax": [
+        "0425-91057"
+    ],
+    "orari_e_info": "Aperta il Sabato dalle 14:00 alle 18:00 Aperta la Domenica dalle 09:00 alle 12:00 Contattare la pista per eventuali ulteriori aperture",
+    "latitudine": "45.00917",
+    "longitudine": "11.66245"
+}

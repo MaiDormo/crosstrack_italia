@@ -1,0 +1,33 @@
+{
+    "nome": "Serle",
+    "regione": "Lombardia",
+    "posto": "Serle (BS)",
+    "motoclub": "Le Valli Serle",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "duro",
+    "lunghezza": "1500 m",
+    "minicross": "-",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "335-8250629",
+        "030-6910773",
+        "348-9109761"
+    ],
+    "fax": [
+        "030-6830516"
+    ],
+    "sito_web": "http://www.facebook.com/Pista-Serle-Motocross-786227484832226/",
+    "orari_e_info": "MartedA, giovedA e sabato dalle 12:00 alle 18:00 Domenica dalle 10:00 alle 18:00",
+    "latitudine": "45.5675",
+    "longitudine": "10.34861"
+}

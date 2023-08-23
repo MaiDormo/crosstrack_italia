@@ -1,0 +1,33 @@
+{
+    "nome": "Darfo Boario Terme",
+    "regione": "Lombardia",
+    "posto": "Darfo Boario Terme (BS)",
+    "motoclub": "Darfo Boario Terme",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "sabbia/terra",
+    "lunghezza": "1200 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "349-6346882",
+        "339-7297349"
+    ],
+    "fax": [
+        "035-973913"
+    ],
+    "email": "info@motoclubdarfo.com",
+    "sito_web": "http://www.motoclubdarfo.com/",
+    "orari_e_info": "Aperta il Sabato e prefestivi dalle ore 14:00 alle ore 18:00 Domenica e festivi dalle ore 09:00 alle 12:30 e dalle 13:30 alle 18:00 L'apertura del GiovedA viene effettuata solo previo appuntamento telefonico. Da Dicembre a Febbraio la pista rimane chiusa causa gelate, in Agosto la pista verrA  chiusa la prima Domenica del mese e riaperta all'ultima.",
+    "latitudine": "45.89278",
+    "longitudine": "10.20944"
+}

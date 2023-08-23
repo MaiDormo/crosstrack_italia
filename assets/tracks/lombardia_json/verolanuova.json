@@ -1,0 +1,33 @@
+{
+    "nome": "Verolanuova",
+    "regione": "Lombardia",
+    "posto": "Verolanuova (BS)",
+    "motoclub": "Verolese",
+    "categoria": "2",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1600 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "030-9361270",
+        "333-2430735"
+    ],
+    "fax": [
+        "030-9361270"
+    ],
+    "email": "info@mcverolese.it",
+    "sito_web": "http://www.mcverolese.it/",
+    "orari_e_info": "Mercoledi' aperta dalle 13:00 alle 19:00 Sabato aperta dalle 13:00 alle 18:00 Domenica aperta dalle 09:00 alle 12:00 e dalle 13:00 alle 18:00",
+    "latitudine": "45.31616",
+    "longitudine": "10.08730"
+}

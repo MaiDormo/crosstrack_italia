@@ -1,0 +1,26 @@
+{
+    "nome": "MX Giavera Park",
+    "regione": "Veneto",
+    "posto": "Santi Angeli  - Giavera del Montello (TV)",
+    "motoclub": "MC Montello",
+    "categoria": "2",
+    "omologazione": [
+        "fmi",
+        "csen"
+    ],
+    "terreno": "duro - argilla rossa",
+    "lunghezza": "1563 m",
+    "minicross": "no",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "email": "info@mxgiaverapark.com",
+    "sito_web": "http://www.mxgiaverapark.com/",
+    "orari_e_info": "Aperture programmate attraverso pagina Facebook https://www.facebook.com/mxgiaverapark/",
+    "latitudine": "45.817517",
+    "longitudine": "12.145096"
+}

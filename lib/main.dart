@@ -1,7 +1,8 @@
 import 'package:crosstrack_italia/states/providers/is_loading_provider.dart';
-import 'package:crosstrack_italia/views/homepage/home_page_view.dart';
+import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //initialise the tile cache
+  await FlutterMapTileCaching.initialise();
+  await FMTC.instance('mapStore').manage.createAsync();
   runApp(
     //Maintaining state of the App
     const ProviderScope(

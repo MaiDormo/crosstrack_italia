@@ -1,0 +1,32 @@
+{
+    "nome": "Crossodromo Credera Rubbiano - Chieve",
+    "regione": "Lombardia",
+    "posto": "Credera Rubbiano - Chieve (CR)",
+    "motoclub": "Zeta MX Park",
+    "categoria": "2",
+    "omologazione": [
+        "fmi",
+        "asi",
+        "uisp",
+        "aics"
+    ],
+    "terreno": "sabbia",
+    "lunghezza": "1730 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "346-6020682",
+        "342-8078515"
+    ],
+    "email": "info@pistamotocrosschieve.it",
+    "sito_web": "http://www.facebook.com/ZetaMxPark/",
+    "orari_e_info": "Pista aperta tutti i giorni dalle 09:00 alle ore 18:00",
+    "latitudine": "45.31131",
+    "longitudine": "9.63928"
+}

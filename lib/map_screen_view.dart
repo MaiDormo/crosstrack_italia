@@ -1,26 +1,44 @@
+import 'package:crosstrack_italia/states/map/providers/center_user_location_provider.dart';
+import 'package:crosstrack_italia/states/map/providers/has_location_permission_provider.dart';
+import 'package:crosstrack_italia/states/map/providers/show_current_location_provider.dart';
+import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
+import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
+import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';
+import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
+import 'package:crosstrack_italia/views/components/tracks/all_tracks_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart'; // Only import if required functionality is not exposed by default
+import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+final selectedRegionProvider = StateProvider<Choices>((ref) => Choices.all);
+final mapController = MapController();
+
+enum Choices {
+  all,
+  veneto,
+  lombardia,
+  trentinoAltoAdige,
+}
 
 class MapScreenView extends StatelessWidget {
   const MapScreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final mapController = MapController();
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20),
-          topRight: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
         ),
         child: Stack(
           fit: StackFit.expand,
@@ -34,7 +52,7 @@ class MapScreenView extends StatelessWidget {
   }
 }
 
-class Map extends StatelessWidget {
+class Map extends ConsumerWidget {
   const Map({
     super.key,
     required this.mapController,
@@ -43,34 +61,121 @@ class Map extends StatelessWidget {
   final MapController mapController;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final centerUserLocation = ref.watch(centerUserLocationProvider);
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
         center: const LatLng(46.066775, 11.149904),
-        zoom: 15.0,
-        minZoom: 10.0,
+        zoom: 10.0,
+        minZoom: 8.0,
         maxZoom: 18.0, // consider setting maxNativeZoom per TileLayer instead,
         // to allow tiles to scale (and lose quality) on the final zoom level, instead of setting a hard limit.
 
         //maxBounds: Limits how far the map can be moved by the user to a coordinate-based boundary
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        onPositionChanged: (position, hasGesture) {
+          if (hasGesture &&
+              centerUserLocation != FollowOnLocationUpdate.never) {
+            ref.read(centerUserLocationProvider.notifier).state =
+                FollowOnLocationUpdate.never;
+          }
+        },
         //keepAlive: true, in  order to keep the map from rebuilding in a nested widget tree (when out of sight)
       ),
-      nonRotatedChildren: const [], //should not be used in order to keep the map in place
+      nonRotatedChildren: [
+        RichAttributionWidget(
+          attributions: [
+            TextSourceAttribution(
+              'OpenStreetMap contributors',
+              onTap: () =>
+                  launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
+            ),
+          ],
+        ),
+      ], //should not be used in order to keep the map in place
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'com.crosstrack_italia.app',
+          tileProvider: FMTC.instance('mapStore').getTileProvider(),
         ),
         //contains layers
         //which themselves will contain all the makers
+        Consumer(
+          builder: (context, ref, child) {
+            final selectedRegion = ref.watch<Choices>(selectedRegionProvider);
+            return switch (selectedRegion) {
+              Choices.all => const AllTracksMarkers(),
+              Choices.veneto => const VenetoTracksMarkers(),
+              Choices.lombardia => const LombardiaTracksMarkers(),
+              Choices.trentinoAltoAdige =>
+                const TrentinoAltoAdigeTracksMarkers(),
+            };
+          },
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final hasLocationPermission =
+                ref.watch<bool>(hasLocationPermissionProvider);
+            final showCurrentLocation =
+                ref.watch<bool>(showCurrentLocationProvider);
+            final centerUserLocation = ref.watch(centerUserLocationProvider);
+            if (showCurrentLocation && hasLocationPermission) {
+              return CurrentLocationLayer(
+                followOnLocationUpdate: centerUserLocation,
+                turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                style: LocationMarkerStyle(
+                  marker: const DefaultLocationMarker(
+                    color: Colors.red,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                  ),
+                  markerSize: const Size.square(35),
+                  accuracyCircleColor: Colors.red.withOpacity(0.1),
+                  headingSectorColor: Colors.red.withOpacity(0.8),
+                  headingSectorRadius: 120,
+                ),
+                // moveAnimationDuration: Duration.zero,
+              );
+            } else {
+              return Container();
+            }
+          },
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+            return Positioned(
+              bottom: 90,
+              right: 8,
+              child: FloatingActionButton(
+                backgroundColor: showCurrentLocation
+                    ? Colors.black
+                    : Colors.black.withOpacity(0.5),
+                onPressed: showCurrentLocation
+                    ? () {
+                        ref.read(centerUserLocationProvider.notifier).state =
+                            FollowOnLocationUpdate.always;
+                      }
+                    : null,
+                child: const Icon(
+                  Icons.my_location,
+                  color: Colors.red,
+                ),
+              ),
+            );
+          },
+        )
+        // Add cases for other regions
       ],
     );
   }
 }
 
-class FloatingSearchMapBar extends StatelessWidget {
+class FloatingSearchMapBar extends ConsumerWidget {
   const FloatingSearchMapBar({
     super.key,
     required this.isPortrait,
@@ -79,7 +184,7 @@ class FloatingSearchMapBar extends StatelessWidget {
   final bool isPortrait;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FloatingSearchBar(
       hint: 'Search...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
@@ -107,18 +212,63 @@ class FloatingSearchMapBar extends StatelessWidget {
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
         ),
+        PopupMenuButton<Choices>(
+          onSelected: (Choices result) {
+            ref.read(selectedRegionProvider.notifier).state = result;
+            LatLng center;
+            switch (result) {
+              case Choices.veneto:
+                //pop current marker Layer
+                center = const LatLng(
+                    45.4384, 12.3272); // Replace with actual coordinates
+                break;
+              case Choices.lombardia:
+                center = const LatLng(45.4384, 12.3272);
+                break;
+              case Choices.trentinoAltoAdige:
+                center = const LatLng(45.4384, 12.3272);
+                break;
+              default:
+                center = const LatLng(46.066775, 11.149904);
+            }
+            mapController.move(
+                center, 8.0); // Center the map on the selected region
+            // Update markers here based on the selected region
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<Choices>>[
+            const PopupMenuItem<Choices>(
+              value: Choices.all,
+              child: Text('All Regions'),
+            ),
+            const PopupMenuItem<Choices>(
+              value: Choices.veneto,
+              child: Text('Veneto'),
+            ),
+            // Add more PopupMenuItem entries for other regions
+            const PopupMenuItem<Choices>(
+              value: Choices.lombardia,
+              child: Text('Lombardia'),
+            ),
+            const PopupMenuItem<Choices>(
+              value: Choices.trentinoAltoAdige,
+              child: Text('Trentino Alto Adige'),
+            ),
+          ],
+        ),
       ],
       builder: (context, transition) {
         return ClipRRect(
           borderRadius: BorderRadius.circular(20.0),
-          child: Material(
+          child: const Material(
             color: Colors.white,
             elevation: 4.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: Colors.accents.map((color) {
-                return Container(height: 112, color: color);
-              }).toList(),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  AllTracksView(),
+                ],
+              ),
             ),
           ),
         );

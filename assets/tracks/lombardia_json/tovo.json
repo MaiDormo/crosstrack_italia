@@ -1,0 +1,28 @@
+{
+    "nome": "Tovo",
+    "regione": "Lombardia",
+    "posto": "Tovo Di Sant'agata (SO)",
+    "motoclub": " Le Aquile di Madonna di Tirano",
+    "categoria": "4",
+    "omologazione": [
+        "fmi",
+        "asi"
+    ],
+    "terreno": "terra - sabbia",
+    "lunghezza": "1420 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "si",
+        "doccia_calda": "no",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "388-0772136 (Ardelio)"
+    ],
+    "email": "cogoardelio@libero.it",
+    "orari_e_info": "Aperta il Sabato e Domenica dalle 09:00 alle 18:00 Da Novembre a Marzo, possibilitA  di praticare AUTOCROSS",
+    "latitudine": "46.24028",
+    "longitudine": "10.23444"
+}

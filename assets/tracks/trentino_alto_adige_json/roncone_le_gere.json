@@ -1,0 +1,32 @@
+{
+    "nome": "Roncone - Le Gere",
+    "regione": "Trentino Alto Adige",
+    "posto": "Le Gere - Roncone (Tn)",
+    "motoclub": "Roncone",
+    "categoria": "3",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "terra/ghiaia",
+    "lunghezza": "1300 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "0465-901507",
+        "338-1446127"
+    ],
+    "fax": [
+        "0465-901507"
+    ],
+    "email": "motoclubroncone@virgilio.it",
+    "sito_web": "http://xoomer.virgilio.it/mcroncone/",
+    "orari_e_info": "Aperta da Aprile a Novembre tutti i giorni dalle 9:00 alle 18:00",
+    "latitudine": "45.98861",
+    "longitudine": "10.68528"
+}

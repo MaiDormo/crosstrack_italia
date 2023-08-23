@@ -20,15 +20,16 @@ class Authenticator {
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
-    // await FacebookAuth.instance.logOut();
+    await FacebookAuth.instance.logOut();
   }
 
   Future<AuthResult> loginWithFacebook() async {
     final loginResult = await FacebookAuth.instance.login();
     final token = loginResult.accessToken?.token;
-    if (token == null) {
+    if (loginResult.status != LoginStatus.success || token == null) {
       return AuthResult.aborted;
     }
+
     final oauthCredentials = FacebookAuthProvider.credential(token);
 
     try {

@@ -1,0 +1,30 @@
+{
+    "nome": "Girasoli (Ai Girasoli)",
+    "regione": "Veneto",
+    "posto": "Montecchio Maggiore (VI)",
+    "motoclub": "MC Ai Girasoli",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1250 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "335-209496 - 334-3741118",
+        "338-2949931 - 347-2320485"
+    ],
+    "email": "info@motoclubgirasoli.it",
+    "sito_web": "http://www.motoclubgirasoli.it/",
+    "orari_e_info": "ORARIO ESTIVO - Dal 01/03 al 31/10 (settimana di ferragosto esclusa) Mercoledi dalle 14:00 alle 18:00 (Almeno 5 piloti) Sabato dalle 14:00 alle 18:00 Domenica dalle 09:00 alle12:00 e dalle 14:00 alle 18:00 ORARIO INVERNALE - Dal 03/01 al 28/02 e dal 01/11 al 24/12 Sabato dalle 13:30 alle 17:00 Domenica dalle 10:00 alle 15:30 (Orario continuato) ORARIO SERALE - dal 01/05 al 31/09 Martedi dalle 19:00 alle 22:30 Giovedi dalle 19:00 alle 22:30",
+    "latitudine": "45.49502",
+    "longitudine": "11.38411"
+}

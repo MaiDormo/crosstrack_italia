@@ -1,0 +1,30 @@
+{
+    "nome": "Sandro Pastorelli",
+    "regione": "Veneto",
+    "posto": "Bergantino (RO)",
+    "motoclub": "Le Giare",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp",
+        "csen"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1316 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "327-6107513",
+        "392-8740427"
+    ],
+    "email": "motoclublegiare@gmail.it",
+    "orari_e_info": "Aperta di pomeriggio il MartedA, MercoledA, GiovedA, VenerdA Sabato e Domenica dalle ore 09:00 al tramonto Circuito aperto anche in orario notturno il MercoledA e VenerdA dalle ore 18:00 alle 22:00",
+    "latitudine": "45.09043",
+    "longitudine": "11.26818"
+}

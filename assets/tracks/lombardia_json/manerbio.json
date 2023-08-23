@@ -1,0 +1,30 @@
+{
+    "nome": "Manerbio",
+    "regione": "Lombardia",
+    "posto": "Manerbio (Bs)",
+    "motoclub": "Manerbio",
+    "categoria": "3",
+    "omologazione": [
+        "uisp"
+    ],
+    "terreno": "medio duro",
+    "lunghezza": "1500 m",
+    "minicross": "-",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "030-9382375",
+        "335-6593986"
+    ],
+    "fax": [
+        "030-9382375"
+    ],
+    "orari_e_info": "Aperta il Sabato dalle 14:00 alle 18:00 Domenica aperta dalle 09:00 alle 12:30 e dalle 14:00 alle 18:00",
+    "latitudine": "45.36459",
+    "longitudine": "10.14151"
+}

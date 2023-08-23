@@ -1,0 +1,30 @@
+{
+    "nome": "Lovolo",
+    "regione": "Veneto",
+    "posto": "Lovolo (Vi)",
+    "motoclub": "Lovolo",
+    "categoria": "1",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "duro",
+    "lunghezza": "2100 m",
+    "minicross": "-",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "340-2405965",
+        "347-2532663"
+    ],
+    "fax": [
+        "044-4638435"
+    ],
+    "orari_e_info": "Aperta il Giovedi dalle 13:00 alle 17:00 Domenica e festivi dalle 9:00 alle 12:00 e dalle 13:00 alle 18:00",
+    "latitudine": "45.37453",
+    "longitudine": "11.58264"
+}

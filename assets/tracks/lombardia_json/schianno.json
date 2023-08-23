@@ -1,0 +1,28 @@
+{
+    "nome": "Schianno",
+    "regione": "Lombardia",
+    "posto": "Schianno (VA)",
+    "motoclub": "Schianno",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "asi"
+    ],
+    "terreno": "medio-duro",
+    "lunghezza": "1550 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "335-6084032 (Davide)",
+        "347-9731474 (Maurizio)"
+    ],
+    "orari_e_info": "Aperta il MercoledA dalle 12:00 alle 18:00 ( orario estivo dalle 12:00 alle 19:00) Sabato dalle 10:00 alle 12:30 e dalle 13:30 alle 18:00 Domenica dalle 10:00 alle 12:30 e dalle 13:30 alle 18:00 ( contattare circuito prima di recarsi )",
+    "latitudine": "45.77667",
+    "longitudine": "8.84917"
+}

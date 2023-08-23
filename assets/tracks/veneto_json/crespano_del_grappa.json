@@ -1,0 +1,34 @@
+{
+    "nome": "Crespano Del Grappa - Rosset - Ardosa",
+    "regione": "Veneto",
+    "posto": "Crespano Del Grappa (TV)",
+    "motoclub": "Ardosa",
+    "categoria": "3",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1600 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "-",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "349-5679784 (Giuseppe)",
+        "339-8430907 (Dario)",
+        "340-6330892 (Alessandro)",
+        "338-2546496 (Domenico)",
+        "0423-920712 (segreteria)"
+    ],
+    "fax": [
+        "0423-920781"
+    ],
+    "sito_web": "http://www.facebook.com/groups/489055650401/",
+    "orari_e_info": "Contattare circuito o cliccare sul sito, dove troverete di volta in volta le indicazioni aggiornate.",
+    "latitudine": "45.81554",
+    "longitudine": "11.84507"
+}

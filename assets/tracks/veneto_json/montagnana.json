@@ -1,0 +1,34 @@
+{
+    "nome": "Montagnana",
+    "regione": "Veneto",
+    "posto": "Palù Di Montagnana (PD)",
+    "motoclub": "Motoclub Del Montagnanese",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp",
+        "csen"
+    ],
+    "terreno": "medio-duro",
+    "lunghezza": "1470 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "347-3498373",
+        "0429-83212"
+    ],
+    "fax": [
+        "0429-809970"
+    ],
+    "email": "info@mcmontagnanese.it",
+    "sito_web": "http://www.facebook.com/Motoclub-Del-Montagnanese-1608492236072674",
+    "orari_e_info": "Aperta dal 1 Maggio al 15 Settembre Martedi e Venerdi dalle 19:00 alle 23:00 Sabato dalle 12:00 alle 17:00 dal 15 Settembre al 1 Maggio Mercoledi e Sabato dalle 12:00 alle 17:30 Domenica dalle 09:00 alle 17:00",
+    "latitudine": "45.2408",
+    "longitudine": "11.43404"
+}

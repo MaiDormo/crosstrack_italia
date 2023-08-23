@@ -31,12 +31,14 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     final userId = _authenticator.userId;
     if (result == AuthResult.success && userId != null) {
       await saveUserInfo(userId: userId);
+      state = AuthState(
+        result: result,
+        isLoading: false,
+        userId: _authenticator.userId,
+      );
+    } else {
+      state = const AuthState.unknown();
     }
-    state = AuthState(
-      result: result,
-      isLoading: false,
-      userId: _authenticator.userId,
-    );
   }
 
   Future<void> loginWithFacebook() async {

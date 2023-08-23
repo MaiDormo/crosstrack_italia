@@ -1,0 +1,27 @@
+{
+    "nome": "Foresto",
+    "regione": "Veneto",
+    "posto": "Foresto (Ve)",
+    "motoclub": "Foresto",
+    "categoria": "3",
+    "omologazione": [
+        "uisp"
+    ],
+    "terreno": "duro",
+    "lunghezza": "",
+    "minicross": "-",
+    "servizi": {
+        "bar": "-",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "346-2403185",
+        "347-6449315 - 0426-308243"
+    ],
+    "orari_e_info": "latitudine: N 45 11' 73.6'' longitudine: E 12 3' 33.1''",
+    "latitudine": "45.18538",
+    "longitudine": "12.05921"
+}

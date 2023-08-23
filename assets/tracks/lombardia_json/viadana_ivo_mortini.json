@@ -1,0 +1,28 @@
+{
+    "nome": "Viadana - Ivo Mortini",
+    "regione": "Lombardia",
+    "posto": "Stradello S. Antonio - Viadana (MN)",
+    "motoclub": "Viadana - Asd Motocross Viadana",
+    "categoria": "2",
+    "omologazione": [
+        "uisp"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1550 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "si",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "3486013248 (Giuliano)",
+        "3498707332 (Roberto)"
+    ],
+    "email": "motocross.viadana@tiscali.it",
+    "orari_e_info": "Aperta il Sabato e Domenica dalle 09:00 alle 17:00 ( invernale ) Aperta il Sabato e Domenica dalle 09:00 alle 13:00 e dalle 14:00 alle 18:00 ( estivo ) Chiusa Agosto",
+    "latitudine": "44.92367",
+    "longitudine": "10.53297"
+}

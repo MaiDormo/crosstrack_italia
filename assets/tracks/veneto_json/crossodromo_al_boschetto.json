@@ -1,0 +1,29 @@
+{
+    "nome": "Crossodromo al Boschetto",
+    "regione": "Veneto",
+    "posto": "Gorgo al Monticano (TV)",
+    "motoclub": "The riders factory",
+    "categoria": "5",
+    "omologazione": [
+        "fmi",
+        "csen"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1500 m",
+    "minicross": "no",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "3463732002"
+    ],
+    "email": "carlo92carlo@hotmail.it",
+    "sito_web": "http://www.facebook.com/crossodromoAlBoschetto/",
+    "orari_e_info": "[ estate ] Aperta il GiovedA dalle 18:00 alle 22:00 e il sabato dalle 15:00 alle 19:00 [ inverno ] Aperta il GiovedA e Sabato dalle 13:30 alle 17:00",
+    "latitudine": "45.78167",
+    "longitudine": "12.53861"
+}

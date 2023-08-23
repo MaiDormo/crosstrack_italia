@@ -1,0 +1,30 @@
+{
+    "nome": "Croz del Cius",
+    "regione": "Trentino Alto Adige",
+    "posto": "Canezza, Pergine Valsugana (Tn)",
+    "motoclub": "Pergine",
+    "categoria": "3",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1265 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "373-7107733"
+    ],
+    "fax": [
+        "0461-822604"
+    ],
+    "email": "motoclub.pergine@virgilio.it",
+    "orari_e_info": "Aperta nei giorni festivi dalle 09:00 alle 12:00 e dalle 15:00 alle 19:00 Chiusa ad Agosto L'accesso in pista e consentito solo a motocicli con silenziatore in ordine ed a norma con i regolamenti vigenti con possibile prova fonometrica E' vivamente consigliato chiamare il giorno prima",
+    "latitudine": "46.07278",
+    "longitudine": "11.26167"
+}

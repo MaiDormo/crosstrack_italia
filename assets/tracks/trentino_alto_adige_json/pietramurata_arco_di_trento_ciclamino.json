@@ -1,0 +1,32 @@
+{
+    "nome": "Pietramurata - Arco di Trento - Ciclamino",
+    "regione": "Trentino Alto Adige",
+    "posto": "Pietramurata (TN)",
+    "motoclub": "Arco",
+    "categoria": "1",
+    "omologazione": [
+        "fmi"
+    ],
+    "terreno": "duro",
+    "lunghezza": "1600 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "0464-507317",
+        "335-237931"
+    ],
+    "fax": [
+        "0464-507317"
+    ],
+    "email": "info@motoclubarco.net",
+    "sito_web": "http://www.motoclubarco.net/",
+    "orari_e_info": "Orario estivo (Luglio - Agosto) : Aperta tutti i giorni dalle 10:00 alle 12:00 e dalle 14:00 alle 20:00 Orario (resto dell'anno) : Aperta il Lunedi, Martedi, Mercoledi, Sabato e Domenica dalle 10:00 alle 12:00 e dalle 14:00 alle 18:00",
+    "latitudine": "46.00944",
+    "longitudine": "10.93278"
+}

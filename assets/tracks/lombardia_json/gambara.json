@@ -1,0 +1,32 @@
+{
+    "nome": "Gambara",
+    "regione": "Lombardia",
+    "posto": "Seriola di Asola (BS)",
+    "motoclub": "Gambara",
+    "categoria": "3",
+    "omologazione": [
+        "uisp",
+        "aics"
+    ],
+    "terreno": "sabbia/terra",
+    "lunghezza": "1900 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "no",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "340-2948468 (Christian)",
+        "333-8787498 (Giuseppe)"
+    ],
+    "fax": [
+        "030-9567739"
+    ],
+    "sito_web": "http://www.mcgambara.it/",
+    "orari_e_info": "A Gennaio, Febbraio e Marzo la pista A  aperta il MartedA e GiovedA dalle 13:00 alle 18:00 il Sabato e Domenica  dalle 09:00 alle 17:30 ad Aprile, Maggio, Giugno, Luglio, Agosto e Settembre la pista A  aperta il MartedA dalle 13:00 alle 20:00, il GiovedA dalle 18:00 alle 23:00, il Sabato e Domenica dalle 09:00 alle 17:30 ad Ottobre, Novembre e Dicembre la pista A  aperta il MartedA e GiovedA dalle 13:00 alle 18:00, il Sabato e Domenica dalle 09:00/17:30",
+    "latitudine": "45.2475",
+    "longitudine": "10.3616"
+}

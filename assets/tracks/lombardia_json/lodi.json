@@ -1,0 +1,31 @@
+{
+    "nome": "Lodi",
+    "regione": "Lombardia",
+    "posto": "Bottedo - Lodi Vecchio (LO)",
+    "motoclub": "Emilio Marchi 1921 Lodi",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp",
+        "asi"
+    ],
+    "terreno": "medio duro",
+    "lunghezza": "1650 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "si",
+        "doccia_calda": "si",
+        "prese_220V": "si",
+        "illuminazione_notturna": "si"
+    },
+    "telefono": [
+        "329-2037335",
+        "348-4092233"
+    ],
+    "email": "lodicross@gmail.com",
+    "sito_web": "http://www.facebook.com/lodi.cross",
+    "orari_e_info": "Aperta dal Lunedi al Mercoledi e dal Venerdi alla Domenica dalle ore 09:00 AM alle ore 18:00 Giovedi ( in nottruna ) da Marzo a Ottobre dalle ore 19:00 alle ore 23:00 pista Mini aperta dalla ore 09:00 al calar del sole",
+    "latitudine": "45.31167",
+    "longitudine": "9.46"
+}

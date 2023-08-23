@@ -1,0 +1,30 @@
+{
+    "nome": "Gorla Minore",
+    "regione": "Lombardia",
+    "posto": "Gorla Minore (VA)",
+    "motoclub": "Gorlese Mario Colombo",
+    "categoria": "4",
+    "omologazione": [
+        "fmi",
+        "asi"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1200 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "347-2267073",
+        "320-5617789"
+    ],
+    "email": "mxgorlese@gmail.com",
+    "sito_web": "http://www.facebook.com/pages/Mx-Park-Gorla/266039900181443?fref=ts",
+    "orari_e_info": "Aperta il Sabato dalle 13:30 alle 18:00 e Domenica dalle 08:30 alle 12:30",
+    "latitudine": "45.65333",
+    "longitudine": "8.92050"
+}

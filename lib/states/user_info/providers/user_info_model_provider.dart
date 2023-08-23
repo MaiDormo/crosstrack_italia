@@ -2,10 +2,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/states/constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/states/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/states/user_info/models/user_info_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../constants/firebase_field_name.dart';
 
 // Define a Riverpod Provider for a Stream of UserInfoModel based on UserId
 final userInfoModelProvider =

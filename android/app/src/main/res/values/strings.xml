@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding = "utf-8"?>
 <resources>
-    <string name="app_name">crosstrack_italia</string>
     <string name="facebook_app_id">832509271464809</string>
     <string name="fb_login_protocol_scheme">fb832509271464809</string>
     <string name="facebook_client_token">0c40d51d432fd0d510031aa1505377f5</string>

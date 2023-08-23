@@ -1,0 +1,28 @@
+{
+    "nome": "MX Bagnolocross - Bagnolo Mella",
+    "regione": "Lombardia",
+    "posto": "Bagnolo Mella (BS)",
+    "motoclub": "Motoclub Bagnolocross",
+    "categoria": "4",
+    "omologazione": [
+        "uisp"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1400 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "si",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "si",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "347-8554714 (Roberto)",
+        "335-316803 (Ugo)"
+    ],
+    "email": "radial68@hotmail.com",
+    "orari_e_info": "Aperta Sabato e Domenica dalle ore 09:00 alle 18:00, il MartedA e GiovedA dalle 14:00 alle 18:00",
+    "latitudine": "45.43240",
+    "longitudine": "10.2069"
+}

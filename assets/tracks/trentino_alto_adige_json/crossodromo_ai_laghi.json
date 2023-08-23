@@ -1,0 +1,27 @@
+{
+    "nome": "Crossodromo ai Laghi",
+    "regione": "Trentino Alto Adige",
+    "posto": "Tenno (TN) - localitÃ  ",
+    "motoclub": "Tenno",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "csen"
+    ],
+    "terreno": "duro",
+    "lunghezza": "1150 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "3489314450"
+    ],
+    "orari_e_info": "Aperta il MercoledA dalle 14:00 alle 19:00, Sabato e Domenica dalle 09:00",
+    "latitudine": "45.935689",
+    "longitudine": "10.810553"
+}

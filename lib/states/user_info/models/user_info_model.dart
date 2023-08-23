@@ -1,8 +1,9 @@
 import 'dart:collection' show MapView;
 
-import 'package:crosstrack_italia/states/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/states/user_info/models/typedefs/user_id.dart';
 import 'package:flutter/foundation.dart' show immutable;
+
+import '../../constants/firebase_field_name.dart';
 
 @immutable
 class UserInfoModel extends MapView<String, String?> {

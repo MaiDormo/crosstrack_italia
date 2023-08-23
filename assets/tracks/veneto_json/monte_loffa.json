@@ -1,0 +1,27 @@
+{
+    "nome": "Monte Loffa",
+    "regione": "Veneto",
+    "posto": "Sant'Anna d'Alfaedo (VR)",
+    "motoclub": "Monte Loffa",
+    "categoria": "3",
+    "omologazione": [
+        "fmi",
+        "uisp"
+    ],
+    "terreno": "terra",
+    "lunghezza": "1300 m",
+    "minicross": "no",
+    "servizi": {
+        "bar": "-",
+        "doccia_fredda": "si",
+        "doccia_calda": "-",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "045-7519193"
+    ],
+    "orari_e_info": "Aperta da Aprile a Settembre il mercoledi dalle 14:30 alle 19:00 Domenica dalle 10:00 alle 12:30 e dalle 14:00 alle 19:00",
+    "latitudine": "45.633714",
+    "longitudine": "10.940980"
+}

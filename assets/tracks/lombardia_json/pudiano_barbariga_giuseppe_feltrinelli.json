@@ -1,0 +1,27 @@
+{
+    "nome": "Pudiano - Barbariga - Giuseppe Feltrinelli",
+    "regione": "Lombardia",
+    "posto": "Barbariga (BS)",
+    "motoclub": "A.S.D. Motocross La Boschina",
+    "categoria": "4",
+    "omologazione": [
+        "uisp"
+    ],
+    "terreno": "terra sabbia",
+    "lunghezza": "1500 m",
+    "minicross": "si",
+    "servizi": {
+        "bar": "no",
+        "doccia_fredda": "no",
+        "doccia_calda": "no",
+        "prese_220V": "no",
+        "illuminazione_notturna": "no"
+    },
+    "telefono": [
+        "347-5325397 (Giovanni)"
+    ],
+    "email": "motocross.laboschina@alice.it",
+    "orari_e_info": "Aperta la Domenica e festivi tutto il giorno dalle ore 08:00 Sabato pomeriggio solo pista Minicross",
+    "latitudine": "45.40987",
+    "longitudine": "10.024742"
+}
