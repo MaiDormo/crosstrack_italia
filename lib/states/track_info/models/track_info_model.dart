@@ -7,7 +7,7 @@ import '../../constants/firebase_field_name.dart';
 @immutable
 class TrackInfoModel {
   final TrackId? trackId;
-  final String? displayName;
+  final String trackName;
   final String region;
   final String location;
   final String motoclub;
@@ -24,11 +24,13 @@ class TrackInfoModel {
   final String? info;
   final Map<String, String>? openingHours;
   final LatLng coordinates;
+  final String trackWebCode;
+  final String photosUrl;
 
   TrackInfoModel({
     required this.trackId,
     Map<String, dynamic>? json,
-  })  : displayName = json?[FirebaseFieldName.displayName] ?? '',
+  })  : trackName = json?[FirebaseFieldName.trackName],
         region = json?[FirebaseFieldName.region],
         location = json?[FirebaseFieldName.location],
         motoclub = json?[FirebaseFieldName.motoclub],
@@ -57,5 +59,7 @@ class TrackInfoModel {
         coordinates = LatLng(
           double.parse(json?[FirebaseFieldName.latitude] ?? '0.0'),
           double.parse(json?[FirebaseFieldName.longitude] ?? '0.0'),
-        );
+        ),
+        trackWebCode = json?[FirebaseFieldName.trackWebCode],
+        photosUrl = json?[FirebaseFieldName.photosUrl];
 }

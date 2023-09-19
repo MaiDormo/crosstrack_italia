@@ -1,8 +1,10 @@
 {
+    "codice_web": "12",
     "nome": "Dorno",
     "regione": "Lombardia",
     "posto": "Dorno (PV)",
     "motoclub": "Castiglione",
+    "foto": "tracks/lombardia/12/",
     "categoria": "3",
     "omologazione": [
         "fmi",

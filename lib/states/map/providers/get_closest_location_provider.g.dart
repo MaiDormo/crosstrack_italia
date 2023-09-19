@@ -7,7 +7,7 @@ part of 'get_closest_location_provider.dart';
 // **************************************************************************
 
 String _$getClosestLocationHash() =>
-    r'c66fc58026b2488b69cca37e4b848e974a21a020';
+    r'1b6f9e94f53a51bb892d7eb4714d5c15b0702dcd';
 
 /// See also [getClosestLocation].
 @ProviderFor(getClosestLocation)

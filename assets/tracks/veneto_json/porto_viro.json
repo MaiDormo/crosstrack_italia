@@ -1,8 +1,10 @@
 {
+    "codice_web": "196",
     "nome": "Porto Viro",
     "regione": "Veneto",
     "posto": "Porto Viro (Ro)",
     "motoclub": "Porto Viro",
+    "foto": "tracks/veneto/196/",
     "categoria": "3",
     "omologazione": [
         "fmi",

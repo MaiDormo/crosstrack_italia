@@ -1,8 +1,10 @@
 {
+    "codice_web": "22",
     "nome": "Verolanuova",
     "regione": "Lombardia",
     "posto": "Verolanuova (BS)",
     "motoclub": "Verolese",
+    "foto": "tracks/lombardia/22/",
     "categoria": "2",
     "omologazione": [
         "fmi",

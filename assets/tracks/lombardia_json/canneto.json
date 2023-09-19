@@ -1,8 +1,10 @@
 {
+    "codice_web": "7",
     "nome": "Canneto",
     "regione": "Lombardia",
     "posto": "Canneto sull Oglio (MN)",
     "motoclub": "Canneto Cross",
+    "foto": "tracks/lombardia/7/",
     "categoria": "5",
     "omologazione": [
         "fmi",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "15",
     "nome": "Manerbio",
     "regione": "Lombardia",
     "posto": "Manerbio (Bs)",
     "motoclub": "Manerbio",
+    "foto": "tracks/lombardia/15/",
     "categoria": "3",
     "omologazione": [
         "uisp"

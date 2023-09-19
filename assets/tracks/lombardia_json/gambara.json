@@ -1,8 +1,10 @@
 {
+    "codice_web": "10",
     "nome": "Gambara",
     "regione": "Lombardia",
     "posto": "Seriola di Asola (BS)",
     "motoclub": "Gambara",
+    "foto": "tracks/lombardia/10/",
     "categoria": "3",
     "omologazione": [
         "uisp",

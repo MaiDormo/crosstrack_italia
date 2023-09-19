@@ -1,8 +1,10 @@
 {
+    "codice_web": "256",
     "nome": "Max land MX Raceway Park - Chignolo",
     "regione": "Lombardia",
     "posto": "Chignolo Po (PV)",
     "motoclub": "Max Land MX",
+    "foto": "tracks/lombardia/256/",
     "categoria": "1",
     "omologazione": [
         "uisp",

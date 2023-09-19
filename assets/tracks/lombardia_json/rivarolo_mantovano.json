@@ -1,8 +1,10 @@
 {
+    "codice_web": "19",
     "nome": "Rivarolo Mantovano",
     "regione": "Lombardia",
     "posto": "Rivarolo Mantovano (MN)",
     "motoclub": "Rivarolese",
+    "foto": "tracks/lombardia/19/",
     "categoria": "3",
     "omologazione": [
         "fmi",

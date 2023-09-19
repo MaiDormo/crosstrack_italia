@@ -1,8 +1,10 @@
 {
+    "codice_web": "205",
     "nome": "Tovo",
     "regione": "Lombardia",
     "posto": "Tovo Di Sant'agata (SO)",
     "motoclub": " Le Aquile di Madonna di Tirano",
+    "foto": "tracks/lombardia/205/",
     "categoria": "4",
     "omologazione": [
         "fmi",

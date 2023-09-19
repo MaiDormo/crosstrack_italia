@@ -1,8 +1,10 @@
 {
+    "codice_web": "280",
     "nome": "Crossodromo al Boschetto",
     "regione": "Veneto",
     "posto": "Gorgo al Monticano (TV)",
     "motoclub": "The riders factory",
+    "foto": "tracks/veneto/280/",
     "categoria": "5",
     "omologazione": [
         "fmi",

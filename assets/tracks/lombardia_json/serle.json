@@ -1,8 +1,10 @@
 {
+    "codice_web": "17",
     "nome": "Serle",
     "regione": "Lombardia",
     "posto": "Serle (BS)",
     "motoclub": "Le Valli Serle",
+    "foto": "tracks/lombardia/17/",
     "categoria": "3",
     "omologazione": [
         "fmi",

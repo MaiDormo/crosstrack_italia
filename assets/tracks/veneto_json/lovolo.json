@@ -1,8 +1,10 @@
 {
+    "codice_web": "197",
     "nome": "Lovolo",
     "regione": "Veneto",
     "posto": "Lovolo (Vi)",
     "motoclub": "Lovolo",
+    "foto": "tracks/veneto/197/",
     "categoria": "1",
     "omologazione": [
         "fmi"

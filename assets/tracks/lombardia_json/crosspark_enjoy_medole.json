@@ -1,8 +1,10 @@
 {
+    "codice_web": "55",
     "nome": "Crosspark Enjoy Medole",
     "regione": "Lombardia",
     "posto": "Medole (MN)",
     "motoclub": "Motoclub Enjoy S.S.D.R.L.",
+    "foto": "tracks/lombardia/55/",
     "categoria": "3",
     "omologazione": [
         "uisp",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "322",
     "nome": "MX Giavera Park",
     "regione": "Veneto",
     "posto": "Santi Angeli  - Giavera del Montello (TV)",
     "motoclub": "MC Montello",
+    "foto": "tracks/veneto/322/",
     "categoria": "2",
     "omologazione": [
         "fmi",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "5",
     "nome": "Mantova",
     "regione": "Lombardia",
     "posto": "Mantova (MN)",
     "motoclub": "Mantovano T.Nuvolari",
+    "foto": "tracks/lombardia/5/",
     "categoria": "1",
     "omologazione": [
         "fmi",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "127",
     "nome": "Storo",
     "regione": "Trentino Alto Adige",
     "posto": "Roversella - Storo (TN)",
     "motoclub": "Storo",
+    "foto": "tracks/trentino_alto_adige/127/",
     "categoria": "3",
     "omologazione": [
         "fmi"

@@ -12,7 +12,7 @@ class TrackInfoStorage {
   const TrackInfoStorage();
   Future<bool> saveTrackInfo({
     required TrackId? trackId,
-    required String? displayName,
+    required String trackName,
     required String region,
     required String location,
     required String motoclub,
@@ -30,6 +30,8 @@ class TrackInfoStorage {
     required Map<String, String>? openingHours,
     required String latitude,
     required String longitude,
+    required String trackWebCode,
+    required String photosUrl,
   }) async {
     try {
       //first check if we have this track's info from before
@@ -42,7 +44,7 @@ class TrackInfoStorage {
       if (trackInfo.docs.isNotEmpty) {
         //if we have it, update it
         await trackInfo.docs.first.reference.update({
-          FirebaseFieldName.displayName: displayName ?? '',
+          FirebaseFieldName.trackName: trackName,
           FirebaseFieldName.region: region,
           FirebaseFieldName.location: location,
           FirebaseFieldName.motoclub: motoclub,
@@ -60,12 +62,14 @@ class TrackInfoStorage {
           FirebaseFieldName.openingHours: openingHours ?? {},
           FirebaseFieldName.latitude: latitude,
           FirebaseFieldName.longitude: longitude,
+          FirebaseFieldName.trackWebCode: trackWebCode,
+          FirebaseFieldName.photosUrl: photosUrl,
         });
       }
 
       final payload = TrackInfoPayload(
         trackId: trackId,
-        displayName: displayName,
+        trackName: trackName,
         region: region,
         location: location,
         motoclub: motoclub,
@@ -83,6 +87,8 @@ class TrackInfoStorage {
         openingHours: openingHours,
         latitude: latitude,
         longitude: longitude,
+        trackWebCode: trackWebCode,
+        photosUrl: photosUrl,
       );
       await FirebaseFirestore.instance
           .collection(FirebaseCollectionName.tracks)

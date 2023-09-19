@@ -1,8 +1,10 @@
 {
+    "codice_web": "267",
     "nome": "MX Bagnolocross - Bagnolo Mella",
     "regione": "Lombardia",
     "posto": "Bagnolo Mella (BS)",
     "motoclub": "Motoclub Bagnolocross",
+    "foto": "tracks/lombardia/267/",
     "categoria": "4",
     "omologazione": [
         "uisp"

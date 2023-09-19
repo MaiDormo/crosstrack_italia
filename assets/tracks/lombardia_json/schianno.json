@@ -1,8 +1,10 @@
 {
+    "codice_web": "28",
     "nome": "Schianno",
     "regione": "Lombardia",
     "posto": "Schianno (VA)",
     "motoclub": "Schianno",
+    "foto": "tracks/lombardia/28/",
     "categoria": "3",
     "omologazione": [
         "fmi",

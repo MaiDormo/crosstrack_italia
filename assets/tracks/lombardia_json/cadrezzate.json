@@ -1,8 +1,10 @@
 {
+    "codice_web": "110",
     "nome": "Cadrezzate",
     "regione": "Lombardia",
     "posto": "Cadrezzate (VA)",
     "motoclub": "Caresana MX Club",
+    "foto": "tracks/lombardia/110/",
     "categoria": "3",
     "omologazione": [
         "fmi",

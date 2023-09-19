@@ -1,8 +1,10 @@
 {
+    "codice_web": "126",
     "nome": "Sette Sorelle - Santo Stino Di Livenza",
     "regione": "Veneto",
     "posto": "Santo Stino di Livenza (VE)",
     "motoclub": "Speedy",
+    "foto": "tracks/veneto/126/",
     "categoria": "3",
     "omologazione": [
         "fmi"

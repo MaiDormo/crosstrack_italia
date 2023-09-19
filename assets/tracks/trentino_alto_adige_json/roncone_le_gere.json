@@ -1,8 +1,10 @@
 {
+    "codice_web": "125",
     "nome": "Roncone - Le Gere",
     "regione": "Trentino Alto Adige",
     "posto": "Le Gere - Roncone (Tn)",
     "motoclub": "Roncone",
+    "foto": "tracks/trentino_alto_adige/125/",
     "categoria": "3",
     "omologazione": [
         "fmi"

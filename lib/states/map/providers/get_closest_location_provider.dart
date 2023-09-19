@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/states/map/providers/has_location_permission_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/show_current_location_provider.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,8 +9,11 @@ part 'get_closest_location_provider.g.dart';
 @riverpod
 Future<String> getClosestLocation(GetClosestLocationRef ref) async {
   final showCurrentLocation = ref.watch<bool>(showCurrentLocationProvider);
-
+  final hasLocationPermission = ref.watch<bool>(hasLocationPermissionProvider);
   if (showCurrentLocation) {
+    if (!hasLocationPermission) {
+      await ref.read(hasLocationPermissionProvider.notifier).checkPermission();
+    }
     final location = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high); // Get users location
     final userLatitude = location.latitude;

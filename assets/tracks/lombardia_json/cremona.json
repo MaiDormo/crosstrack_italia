@@ -1,8 +1,10 @@
 {
+    "codice_web": "2",
     "nome": "Cremona",
     "regione": "Lombardia",
     "posto": "Cremona (CR)",
     "motoclub": "Cremona",
+    "foto": "tracks/lombardia/2/",
     "categoria": "2",
     "omologazione": [
         "fmi",

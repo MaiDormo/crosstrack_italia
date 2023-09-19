@@ -1,8 +1,10 @@
 {
+    "codice_web": "35",
     "nome": "Malpensa - Motocross Malpensa",
     "regione": "Lombardia",
     "posto": "Cardano Al Campo (VA)",
     "motoclub": "M.V.Gallarate",
+    "foto": "tracks/lombardia/35/",
     "categoria": "1",
     "omologazione": [
         "fmi",

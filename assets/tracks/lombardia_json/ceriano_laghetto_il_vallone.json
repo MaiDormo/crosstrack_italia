@@ -1,8 +1,10 @@
 {
+    "codice_web": "33",
     "nome": "Ceriano Laghetto il Vallone",
     "regione": "Lombardia",
     "posto": "Ceriano Laghetto (MI)",
     "motoclub": "A.S.D. New Mac",
+    "foto": "tracks/lombardia/33/",
     "categoria": "1",
     "omologazione": [
         "fmi",

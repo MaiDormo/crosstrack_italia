@@ -1,8 +1,10 @@
 {
+    "codice_web": "254",
     "nome": "Gorla Minore",
     "regione": "Lombardia",
     "posto": "Gorla Minore (VA)",
     "motoclub": "Gorlese Mario Colombo",
+    "foto": "tracks/lombardia/254/",
     "categoria": "4",
     "omologazione": [
         "fmi",

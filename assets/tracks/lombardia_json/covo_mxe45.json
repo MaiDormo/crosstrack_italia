@@ -1,8 +1,10 @@
 {
+    "codice_web": "327",
     "nome": "Covo - MXE.45",
     "regione": "Lombardia",
     "posto": "Covo (BG)",
     "motoclub": "MXE.45",
+    "foto": "tracks/lombardia/327/",
     "categoria": "2",
     "omologazione": [
         "uisp",

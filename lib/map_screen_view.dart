@@ -1,11 +1,13 @@
 import 'package:crosstrack_italia/states/map/providers/center_user_location_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/has_location_permission_provider.dart';
+import 'package:crosstrack_italia/states/map/providers/panel_controller_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/show_current_location_provider.dart';
 import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/tracks/all_tracks_view.dart';
+import 'package:crosstrack_italia/views/components/tracks/panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -14,10 +16,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final selectedRegionProvider = StateProvider<Choices>((ref) => Choices.all);
 final mapController = MapController();
+final panelController = PanelController();
 
 enum Choices {
   all,
@@ -26,26 +29,41 @@ enum Choices {
   trentinoAltoAdige,
 }
 
-class MapScreenView extends StatelessWidget {
+class MapScreenView extends ConsumerWidget {
   const MapScreenView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-
+    final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
+    final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(20),
+      body: SlidingUpPanel(
+        controller: ref.watch(panelControllerProvider),
+        minHeight: _panelHeightClosed,
+        maxHeight: _panelHeightOpen,
+        parallaxEnabled: true,
+        parallaxOffset: 0.5,
+        color: Colors.orange.shade100,
+        body: ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Map(mapController: mapController),
+              FloatingSearchMapBar(isPortrait: isPortrait),
+            ],
+          ),
         ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Map(mapController: mapController),
-            FloatingSearchMapBar(isPortrait: isPortrait),
-          ],
+        panelBuilder: (scrollController) => PanelWidget(
+            scrollController: scrollController,
+            panelController: panelController),
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(20),
         ),
       ),
     );
@@ -68,12 +86,13 @@ class Map extends ConsumerWidget {
       options: MapOptions(
         center: const LatLng(46.066775, 11.149904),
         zoom: 10.0,
-        minZoom: 8.0,
+        minZoom: 7.0,
         maxZoom: 18.0, // consider setting maxNativeZoom per TileLayer instead,
         // to allow tiles to scale (and lose quality) on the final zoom level, instead of setting a hard limit.
 
         //maxBounds: Limits how far the map can be moved by the user to a coordinate-based boundary
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        onTap: (tapPosition, point) {},
         onPositionChanged: (position, hasGesture) {
           if (hasGesture &&
               centerUserLocation != FollowOnLocationUpdate.never) {
@@ -85,11 +104,10 @@ class Map extends ConsumerWidget {
       ),
       nonRotatedChildren: [
         RichAttributionWidget(
+          permanentHeight: 15,
           attributions: [
             TextSourceAttribution(
               'OpenStreetMap contributors',
-              onTap: () =>
-                  launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
             ),
           ],
         ),
@@ -102,18 +120,7 @@ class Map extends ConsumerWidget {
         ),
         //contains layers
         //which themselves will contain all the makers
-        Consumer(
-          builder: (context, ref, child) {
-            final selectedRegion = ref.watch<Choices>(selectedRegionProvider);
-            return switch (selectedRegion) {
-              Choices.all => const AllTracksMarkers(),
-              Choices.veneto => const VenetoTracksMarkers(),
-              Choices.lombardia => const LombardiaTracksMarkers(),
-              Choices.trentinoAltoAdige =>
-                const TrentinoAltoAdigeTracksMarkers(),
-            };
-          },
-        ),
+
         Consumer(
           builder: (context, ref, child) {
             final hasLocationPermission =
@@ -149,7 +156,7 @@ class Map extends ConsumerWidget {
           builder: (context, ref, child) {
             final showCurrentLocation = ref.watch(showCurrentLocationProvider);
             return Positioned(
-              bottom: 90,
+              top: 90,
               right: 8,
               child: FloatingActionButton(
                 backgroundColor: showCurrentLocation
@@ -168,7 +175,19 @@ class Map extends ConsumerWidget {
               ),
             );
           },
-        )
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final selectedRegion = ref.watch<Choices>(selectedRegionProvider);
+            return switch (selectedRegion) {
+              Choices.all => const AllTracksMarkers(),
+              Choices.veneto => const VenetoTracksMarkers(),
+              Choices.lombardia => const LombardiaTracksMarkers(),
+              Choices.trentinoAltoAdige =>
+                const TrentinoAltoAdigeTracksMarkers(),
+            };
+          },
+        ),
         // Add cases for other regions
       ],
     );

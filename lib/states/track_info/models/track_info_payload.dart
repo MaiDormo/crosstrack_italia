@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart' show immutable;
 class TrackInfoPayload extends MapView<String, dynamic> {
   TrackInfoPayload({
     required TrackId? trackId,
-    required String? displayName,
+    required String trackName,
     required String region,
     required String location,
     required String motoclub,
@@ -26,9 +26,11 @@ class TrackInfoPayload extends MapView<String, dynamic> {
     required Map<String, String>? openingHours,
     required String latitude,
     required String longitude,
+    required String trackWebCode,
+    required String photosUrl,
   }) : super({
           FirebaseFieldName.trackId: trackId ?? '',
-          FirebaseFieldName.displayName: displayName ?? '',
+          FirebaseFieldName.trackName: trackName,
           FirebaseFieldName.region: region,
           FirebaseFieldName.location: location,
           FirebaseFieldName.motoclub: motoclub,
@@ -46,5 +48,7 @@ class TrackInfoPayload extends MapView<String, dynamic> {
           FirebaseFieldName.openingHours: openingHours ?? {},
           FirebaseFieldName.latitude: latitude,
           FirebaseFieldName.longitude: longitude,
+          FirebaseFieldName.trackWebCode: trackWebCode,
+          FirebaseFieldName.photosUrl: photosUrl,
         });
 }

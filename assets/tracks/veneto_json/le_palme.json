@@ -1,8 +1,10 @@
 {
+    "codice_web": "194",
     "nome": "Le Palme",
     "regione": "Veneto",
     "posto": "Occhiobello (Ro)",
     "motoclub": "Mouse",
+    "foto": "tracks/veneto/194/",
     "categoria": "3",
     "omologazione": [
         "fmi"

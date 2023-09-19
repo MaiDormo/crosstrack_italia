@@ -1,8 +1,10 @@
 {
+    "codice_web": "244",
     "nome": "Monte Loffa",
     "regione": "Veneto",
     "posto": "Sant'Anna d'Alfaedo (VR)",
     "motoclub": "Monte Loffa",
+    "foto": "tracks/veneto/244/",
     "categoria": "3",
     "omologazione": [
         "fmi",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "191",
     "nome": "Bovolone",
     "regione": "Veneto",
     "posto": "Bovolone (VR)",
     "motoclub": "Motocross Bovolone",
+    "foto": "tracks/veneto/191/",
     "categoria": "3",
     "omologazione": [
         "fmi",

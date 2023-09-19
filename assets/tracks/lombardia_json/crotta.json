@@ -1,8 +1,10 @@
 {
+    "codice_web": "1",
     "nome": "Crotta",
     "regione": "Lombardia",
     "posto": "Crotta D'adda (CR)",
     "motoclub": "Gamma",
+    "foto": "tracks/lombardia/1/",
     "categoria": "3",
     "omologazione": [
         "fmi",

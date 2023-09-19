@@ -1,8 +1,10 @@
 {
+    "codice_web": "14",
     "nome": "Lodi",
     "regione": "Lombardia",
     "posto": "Bottedo - Lodi Vecchio (LO)",
     "motoclub": "Emilio Marchi 1921 Lodi",
+    "foto": "tracks/lombardia/14/",
     "categoria": "3",
     "omologazione": [
         "fmi",

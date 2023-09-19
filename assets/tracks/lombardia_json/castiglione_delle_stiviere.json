@@ -1,8 +1,10 @@
 {
+    "codice_web": "109",
     "nome": "Castiglione Delle Stiviere",
     "regione": "Lombardia",
     "posto": "Montenero Di Astore - Castiglione Stiviere (Mn)",
     "motoclub": "Castiglione",
+    "foto": "tracks/lombardia/109/",
     "categoria": "2",
     "omologazione": [
         "fmi",

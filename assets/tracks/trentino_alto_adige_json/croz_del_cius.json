@@ -1,8 +1,10 @@
 {
+    "codice_web": "233",
     "nome": "Croz del Cius",
     "regione": "Trentino Alto Adige",
     "posto": "Canezza, Pergine Valsugana (Tn)",
     "motoclub": "Pergine",
+    "foto": "tracks/trentino_alto_adige/233/",
     "categoria": "3",
     "omologazione": [
         "fmi"

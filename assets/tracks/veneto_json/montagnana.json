@@ -1,8 +1,10 @@
 {
+    "codice_web": "120",
     "nome": "Montagnana",
     "regione": "Veneto",
     "posto": "Palù Di Montagnana (PD)",
     "motoclub": "Motoclub Del Montagnanese",
+    "foto": "tracks/veneto/120/",
     "categoria": "3",
     "omologazione": [
         "fmi",

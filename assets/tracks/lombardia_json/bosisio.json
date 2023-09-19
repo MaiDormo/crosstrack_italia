@@ -1,8 +1,10 @@
 {
+    "codice_web": "26",
     "nome": "Bosisio",
     "regione": "Lombardia",
     "posto": "Bosisio Parini (LC)",
     "motoclub": "Parini",
+    "foto": "tracks/lombardia/26/",
     "categoria": "1",
     "omologazione": [
         "fmi",

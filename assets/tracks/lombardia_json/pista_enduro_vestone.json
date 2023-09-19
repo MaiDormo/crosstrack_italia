@@ -1,8 +1,10 @@
 {
+    "codice_web": "316",
     "nome": "Pista Enduro Vestone",
     "regione": "Lombardia",
     "posto": "Isola Vestone - Vestone(BS)",
     "motoclub": "3 Laghi",
+    "foto": "tracks/lombardia/316/",
     "categoria": "2",
     "omologazione": [
         "fmi",

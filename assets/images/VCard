@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:4.0
+N;LANGUAGE=it-IT:Vella;Flavio;;;
+FN:Flavio Vella
+ORG:Universita' di Trento
+ADR;HOME;PREF;ENCODING=QUOTED-PRINTABLE:;;Via Sommarive, 9 - 38123 Povo
+PHOTO;MEDIATYPE=image/jpeg:https://webapps.unitn.it/public/store/ermete/persona/per0211629/ufficiale.jpeg?c=1852091345
+TEL;WORK;VOICE:0461 282050
+EMAIL;PREF;INTERNET:flavio.vella@unitn.it
+END:VCARD

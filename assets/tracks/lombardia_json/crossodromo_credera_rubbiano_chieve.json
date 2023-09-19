@@ -1,8 +1,10 @@
 {
+    "codice_web": "23",
     "nome": "Crossodromo Credera Rubbiano - Chieve",
     "regione": "Lombardia",
     "posto": "Credera Rubbiano - Chieve (CR)",
     "motoclub": "Zeta MX Park",
+    "foto": "tracks/lombardia/23/",
     "categoria": "2",
     "omologazione": [
         "fmi",

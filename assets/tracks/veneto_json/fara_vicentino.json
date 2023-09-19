@@ -1,8 +1,10 @@
 {
+    "codice_web": "9",
     "nome": "Fara Vicentino",
     "regione": "Veneto",
     "posto": "Fara Vicentino (VI)",
     "motoclub": "Fara Vicentino",
+    "foto": "tracks/veneto/9/",
     "categoria": "1",
     "omologazione": [
         "fmi",

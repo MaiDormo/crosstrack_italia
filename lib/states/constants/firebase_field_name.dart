@@ -9,6 +9,7 @@ class FirebaseFieldName {
   static const createdAt = 'created_at';
 
   //track info
+  static const trackWebCode = 'codice_web';
   static const trackId = 'trackId';
   static const trackName = 'nome';
   static const location = 'posto';
@@ -24,11 +25,12 @@ class FirebaseFieldName {
   static const fax = 'fax';
   static const trackEmail = 'email';
   static const website = 'sito_web';
-  static const info = 'info';
+  static const info = 'orari_e_info';
   static const openingHours = 'apertura';
   static const latitude = 'latitudine';
   static const longitude = 'longitudine';
   static const images = 'immagini';
+  static const photosUrl = 'foto';
 
   const FirebaseFieldName._();
 }

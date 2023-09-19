@@ -1,8 +1,10 @@
 {
+    "codice_web": "119",
     "nome": "Sandro Pastorelli",
     "regione": "Veneto",
     "posto": "Bergantino (RO)",
     "motoclub": "Le Giare",
+    "foto": "tracks/veneto/119/",
     "categoria": "3",
     "omologazione": [
         "fmi",

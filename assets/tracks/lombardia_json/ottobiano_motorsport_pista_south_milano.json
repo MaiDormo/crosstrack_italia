@@ -1,8 +1,10 @@
 {
+    "codice_web": "291",
     "nome": "Ottobiano Motorsport - Pista South Milano",
     "regione": "Lombardia",
     "posto": "Ottobiano (PV)",
     "motoclub": "8biano",
+    "foto": "tracks/lombardia/291/",
     "categoria": "1",
     "omologazione": [
         "fmi",

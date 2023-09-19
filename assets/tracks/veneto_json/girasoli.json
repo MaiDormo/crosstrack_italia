@@ -1,8 +1,10 @@
 {
+    "codice_web": "241",
     "nome": "Girasoli (Ai Girasoli)",
     "regione": "Veneto",
     "posto": "Montecchio Maggiore (VI)",
     "motoclub": "MC Ai Girasoli",
+    "foto": "tracks/veneto/241/",
     "categoria": "3",
     "omologazione": [
         "fmi",

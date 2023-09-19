@@ -1,8 +1,10 @@
 {
+    "codice_web": "202",
     "nome": "Recoaro",
     "regione": "Veneto",
     "posto": "Recoaro Terme",
     "motoclub": "Recoaro",
+    "foto": "tracks/veneto/202/",
     "categoria": "2",
     "omologazione": [
         "uisp",

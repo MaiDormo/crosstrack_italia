@@ -1,8 +1,10 @@
 {
+    "codice_web": "324",
     "nome": "Crossodromo ai Laghi",
     "regione": "Trentino Alto Adige",
     "posto": "Tenno (TN) - localitÃ  ",
     "motoclub": "Tenno",
+    "foto": "tracks/trentino_alto_adige/324/",
     "categoria": "3",
     "omologazione": [
         "fmi",

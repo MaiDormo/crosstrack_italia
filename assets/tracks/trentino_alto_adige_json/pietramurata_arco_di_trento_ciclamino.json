@@ -1,8 +1,10 @@
 {
+    "codice_web": "117",
     "nome": "Pietramurata - Arco di Trento - Ciclamino",
     "regione": "Trentino Alto Adige",
     "posto": "Pietramurata (TN)",
     "motoclub": "Arco",
+    "foto": "tracks/trentino_alto_adige/117/",
     "categoria": "1",
     "omologazione": [
         "fmi"

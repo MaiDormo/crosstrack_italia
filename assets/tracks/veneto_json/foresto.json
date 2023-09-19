@@ -1,8 +1,10 @@
 {
+    "codice_web": "230",
     "nome": "Foresto",
     "regione": "Veneto",
     "posto": "Foresto (Ve)",
     "motoclub": "Foresto",
+    "foto": "tracks/veneto/230/",
     "categoria": "3",
     "omologazione": [
         "uisp"

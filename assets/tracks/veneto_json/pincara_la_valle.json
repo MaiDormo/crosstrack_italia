@@ -1,8 +1,10 @@
 {
+    "codice_web": "232",
     "nome": "Pincara - La Valle",
     "regione": "Veneto",
     "posto": "Ca Bernarda di Pincara (RO)",
     "motoclub": "Mc Pozzato Tito",
+    "foto": "tracks/veneto/232/",
     "categoria": "3",
     "omologazione": [
         "uisp",

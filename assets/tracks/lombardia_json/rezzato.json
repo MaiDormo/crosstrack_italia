@@ -1,8 +1,10 @@
 {
+    "codice_web": "21",
     "nome": "Rezzato",
     "regione": "Lombardia",
     "posto": "Rezzato (BS)",
     "motoclub": "Uisp Brescia",
+    "foto": "tracks/lombardia/21/",
     "categoria": "2",
     "omologazione": [
         "fmi",

@@ -1,8 +1,10 @@
 {
+    "codice_web": "25",
     "nome": "Galaello - Odolo",
     "regione": "Lombardia",
     "posto": "Gazzane Di Preseglie (BS)",
     "motoclub": "Gruppo Sportivo Galaello",
+    "foto": "tracks/lombardia/25/",
     "categoria": "1",
     "omologazione": [
         "fmi",

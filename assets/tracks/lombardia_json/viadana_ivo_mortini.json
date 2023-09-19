@@ -1,8 +1,10 @@
 {
+    "codice_web": "235",
     "nome": "Viadana - Ivo Mortini",
     "regione": "Lombardia",
     "posto": "Stradello S. Antonio - Viadana (MN)",
     "motoclub": "Viadana - Asd Motocross Viadana",
+    "foto": "tracks/lombardia/235/",
     "categoria": "2",
     "omologazione": [
         "uisp"

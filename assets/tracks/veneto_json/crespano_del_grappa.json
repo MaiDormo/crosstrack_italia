@@ -1,8 +1,10 @@
 {
+    "codice_web": "118",
     "nome": "Crespano Del Grappa - Rosset - Ardosa",
     "regione": "Veneto",
     "posto": "Crespano Del Grappa (TV)",
     "motoclub": "Ardosa",
+    "foto": "tracks/veneto/118/",
     "categoria": "3",
     "omologazione": [
         "fmi"

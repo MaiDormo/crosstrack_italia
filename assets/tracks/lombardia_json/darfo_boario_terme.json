@@ -1,8 +1,10 @@
 {
+    "codice_web": "3",
     "nome": "Darfo Boario Terme",
     "regione": "Lombardia",
     "posto": "Darfo Boario Terme (BS)",
     "motoclub": "Darfo Boario Terme",
+    "foto": "tracks/lombardia/3/",
     "categoria": "3",
     "omologazione": [
         "fmi",
