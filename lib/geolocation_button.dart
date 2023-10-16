@@ -26,7 +26,7 @@ class GeolocationButton extends ConsumerWidget {
           ? const Icon(Icons.gps_fixed)
           : const Icon(Icons.gps_not_fixed),
       color: Colors.red,
-      iconSize: 15,
+      iconSize: MediaQuery.of(context).size.width * 0.05,
     );
   }
 }

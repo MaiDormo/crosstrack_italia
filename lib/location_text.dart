@@ -15,7 +15,7 @@ class LocationText extends ConsumerWidget {
         error: (error, stackTrace) => 'Error: $error',
       ),
       style: TextStyle(
-        fontSize: 15,
+        fontSize: MediaQuery.of(context).size.width * 0.03,
         color: Theme.of(context).colorScheme.tertiary,
       ),
     );

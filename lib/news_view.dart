@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/views/components/animations/loading_animation_view.dart';
 import 'package:flutter/material.dart';
 
 class NewsView extends StatelessWidget {
@@ -5,6 +6,6 @@ class NewsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return LoadingAnimationView();
   }
 }

@@ -1,13 +1,16 @@
 import 'package:crosstrack_italia/states/map/providers/center_user_location_provider.dart';
+import 'package:crosstrack_italia/states/map/providers/floating_search_bar_controller_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/has_location_permission_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/panel_controller_provider.dart';
 import 'package:crosstrack_italia/states/map/providers/show_current_location_provider.dart';
+import 'package:crosstrack_italia/states/track_info/providers/all_track_info_provider.dart';
 import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
-import 'package:crosstrack_italia/views/components/tracks/all_tracks_view.dart';
+import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/panel_widget.dart';
+import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -19,8 +22,11 @@ import 'package:material_floating_search_bar_2/material_floating_search_bar_2.da
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 final selectedRegionProvider = StateProvider<Choices>((ref) => Choices.all);
+final searchTrackStringProvider = StateProvider<String>((ref) => '');
+
 final mapController = MapController();
 final panelController = PanelController();
+final floatingSearchBarController = FloatingSearchBarController();
 
 enum Choices {
   all,
@@ -36,17 +42,17 @@ class MapScreenView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
-    final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
+    // final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
     final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SlidingUpPanel(
         controller: ref.watch(panelControllerProvider),
-        minHeight: _panelHeightClosed,
+        minHeight: 0.0,
         maxHeight: _panelHeightOpen,
         parallaxEnabled: true,
         parallaxOffset: 0.5,
-        color: Colors.orange.shade100,
+        color: Theme.of(context).colorScheme.secondary,
         body: ClipRRect(
           borderRadius: const BorderRadius.all(
             Radius.circular(20),
@@ -204,18 +210,31 @@ class FloatingSearchMapBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final searchController = ref.watch(searchTrackProvider);
+
     return FloatingSearchBar(
-      hint: 'Search...',
+      controller: ref.watch(floatingSearchBarControllerProvider),
+      hint: 'Cerca...',
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
+      //progress: true, //TODO: da aggiungere quando avviene una ricerca
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
       width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         // Call your model, bloc, controller here.
+        ref.read(searchTrackStringProvider.notifier).state = query;
+        ref.read(searchTrackProvider.notifier).onSearchTrack(
+            query,
+            ref.read(allTrackInfoProvider).when(
+                      data: (tracks) => tracks,
+                      loading: () => [],
+                      error: (error, stackTrace) => [],
+                    ) ??
+                []);
       },
       // Specify a custom transition to be used for
       // animating between opened and closed stated.
@@ -276,20 +295,27 @@ class FloatingSearchMapBar extends ConsumerWidget {
         ),
       ],
       builder: (context, transition) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: const Material(
-            color: Colors.white,
-            elevation: 4.0,
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  AllTracksView(),
-                ],
+        return Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Material(
+                color: const Color.fromRGBO(255, 255, 255, 1),
+                elevation: 4.0,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ...searchController.map(
+                        (track) => TrackCard(track: track),
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

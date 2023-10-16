@@ -15,7 +15,6 @@ class TrackMarkerPopup extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final panelController = ref.watch(panelControllerProvider);
-    final trackSelected = ref.watch(trackSelectedProvider);
     return SizedBox(
       width: 200,
       child: Card(

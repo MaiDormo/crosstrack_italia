@@ -16,6 +16,8 @@ class Authenticator {
   String get displayName =>
       FirebaseAuth.instance.currentUser?.displayName ?? '';
   String? get email => FirebaseAuth.instance.currentUser?.email;
+  String? get profileImageUrl =>
+      FirebaseAuth.instance.currentUser?.photoURL ?? '';
 
   Future<void> logOut() async {
     await FirebaseAuth.instance.signOut();
@@ -32,6 +34,20 @@ class Authenticator {
 
     final oauthCredentials = FacebookAuthProvider.credential(token);
 
+    final userData = FacebookAuth.i.getUserData(
+      fields:
+          "${Constants.facebookName},${Constants.facebookEmailScope},${Constants.facebookImageRequest}",
+    );
+
+    await userData.then((value) {
+      //update the user display name and image
+      FirebaseAuth.instance.currentUser?.updateDisplayName(
+        value[Constants.facebookName],
+      );
+      // print(value['picture']['data']['url']);
+      // facebookImageUrl = value['picture']['data']['url'];
+    });
+
     try {
       await FirebaseAuth.instance.signInWithCredential(
         oauthCredentials,
@@ -47,7 +63,6 @@ class Authenticator {
             await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
         if (providers.contains(Constants.googleCom)) {
           await loginWithGoogle();
-          FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
         }
         return AuthResult.success;
       }
@@ -77,34 +92,6 @@ class Authenticator {
       );
       return AuthResult.success;
     } catch (e) {
-      return AuthResult.failure;
-    }
-  }
-
-  Future<AuthResult> loginWithEmailandPassword(
-    String email,
-    String password,
-  ) async {
-    try {
-      final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return result.user != null ? AuthResult.success : AuthResult.failure;
-    } on FirebaseAuthException catch (e) {
-      final email = e.email;
-      final credential = e.credential;
-      if (e.code == Constants.accountExistsWithDifferentCredentialsError &&
-          email != null &&
-          credential != null) {
-        final providers =
-            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
-        if (providers.contains(Constants.googleCom)) {
-          await loginWithGoogle();
-          FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
-        }
-        return AuthResult.success;
-      }
       return AuthResult.failure;
     }
   }

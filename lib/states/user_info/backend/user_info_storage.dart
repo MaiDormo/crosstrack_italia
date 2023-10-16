@@ -13,6 +13,7 @@ class UserInfoStorage {
     required UserId userId,
     required String displayName,
     required String? email,
+    required String? profileImageUrl,
   }) async {
     try {
       // first check if we have this user's info from before
@@ -32,6 +33,7 @@ class UserInfoStorage {
         await userInfo.docs.first.reference.update({
           FirebaseFieldName.displayName: displayName,
           FirebaseFieldName.email: email ?? '',
+          FirebaseFieldName.profileImageUrl: profileImageUrl ?? '',
         });
         return true;
       }
@@ -40,6 +42,7 @@ class UserInfoStorage {
         userId: userId,
         displayName: displayName,
         email: email,
+        profileImageUrl: profileImageUrl,
       );
       await FirebaseFirestore.instance
           .collection(

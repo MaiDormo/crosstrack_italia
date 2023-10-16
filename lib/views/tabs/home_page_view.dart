@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/views/components/animations/empty_contents_animation_view.dart';
+import 'package:crosstrack_italia/news_view.dart';
 import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,7 +11,7 @@ class HomePageView extends ConsumerWidget {
   const HomePageView({super.key});
   static List<Widget> widgetList = [
     const Flexible(child: MapScreenView()),
-    const Flexible(child: EmptyContentsAnimationView()),
+    const Flexible(child: NewsView()),
     const Flexible(child: SettingsPageView()),
   ];
   @override

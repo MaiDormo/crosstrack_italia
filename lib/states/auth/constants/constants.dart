@@ -7,6 +7,10 @@ class Constants {
       'account-exists-with-different-credential';
   static const googleCom = 'google.com';
   static const emailScope = 'email';
+  static const facebookProfileScope = 'public_profile';
+  static const facebookName = 'name';
+  static const facebookEmailScope = 'email';
+  static const facebookImageRequest = 'picture.width(50)';
 
   const Constants._();
 }

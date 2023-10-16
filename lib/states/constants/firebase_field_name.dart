@@ -32,5 +32,7 @@ class FirebaseFieldName {
   static const images = 'immagini';
   static const photosUrl = 'foto';
 
+  static var profileImageUrl;
+
   const FirebaseFieldName._();
 }

@@ -55,24 +55,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> loginWithEmailandPassword({
-    required String email,
-    required String password,
-  }) async {
-    state = state.copiedWithIsLoading(true);
-    final result =
-        await _authenticator.loginWithEmailandPassword(email, password);
-    final userId = _authenticator.userId;
-    if (result == AuthResult.success && userId != null) {
-      await saveUserInfo(userId: userId);
-    }
-    state = AuthState(
-      result: result,
-      isLoading: false,
-      userId: _authenticator.userId,
-    );
-  }
-
   Future<void> saveUserInfo({
     required UserId userId,
   }) =>
@@ -80,5 +62,6 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: userId,
         displayName: _authenticator.displayName,
         email: _authenticator.email,
+        profileImageUrl: _authenticator.profileImageUrl,
       );
 }

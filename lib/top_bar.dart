@@ -1,5 +1,7 @@
 import 'package:crosstrack_italia/geolocation_button.dart';
+import 'package:crosstrack_italia/states/user_info/providers/user_image_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'location_text.dart';
 import 'views/login/login_page_view.dart';
 
@@ -30,7 +32,7 @@ class TopBar extends StatelessWidget {
                 Text(
                   'Posizione Attuale:',
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
@@ -42,17 +44,29 @@ class TopBar extends StatelessWidget {
                 )
               ],
             ),
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const LoginPageView()),
-                );
-              },
-              icon: const Icon(Icons.person),
-              color: Theme.of(context).colorScheme.tertiary,
-              iconSize: 20,
+            Container(
+              width: MediaQuery.of(context).size.width * 0.2,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginPageView()),
+                  );
+                },
+                icon: Consumer(
+                  builder: (context, ref, child) {
+                    final UserImage = ref.watch(userImageProvider);
+                    return UserImage.when(
+                      data: (data) => data,
+                      loading: () => const CircularProgressIndicator(),
+                      error: (error, stack) => const Icon(Icons.error),
+                    );
+                  },
+                ),
+                iconSize: MediaQuery.of(context).size.width * 0.07,
+                color: Theme.of(context).colorScheme.tertiary,
+              ),
             ),
           ],
         ),

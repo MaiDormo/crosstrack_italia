@@ -17,7 +17,6 @@ Stream<Iterable<Image>> allTrackImages(
     final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
     final ref = storage.ref('tracks/${storageRegion}/${track.trackWebCode}/');
     final listResult = await ref.listAll();
-    print(listResult.items.length);
     final images = listResult.items.map((e) => e.fullPath);
     final urls =
         await Future.wait(images.map((e) => storage.ref(e).getDownloadURL()));
