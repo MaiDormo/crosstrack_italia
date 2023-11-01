@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../square_tile.dart';
 import '../../end_phrase_row.dart';
 import '../../helper_line_gestore.dart';
-import '../../states/auth/providers/auth_state_provider.dart';
+import '../../features/auth/providers/auth_state_provider.dart';
 
 class LoginPageView extends StatefulHookConsumerWidget {
   const LoginPageView({super.key});

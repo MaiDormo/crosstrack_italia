@@ -1,7 +1,7 @@
 import 'package:crosstrack_italia/views/components/post/post_thumbnail_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../states/posts/models/post.dart';
+import '../../../features/posts/models/post.dart';
 
 //takes care of displaying the post
 //thumbnail in a grid view

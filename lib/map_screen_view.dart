@@ -1,9 +1,9 @@
-import 'package:crosstrack_italia/states/map/providers/center_user_location_provider.dart';
-import 'package:crosstrack_italia/states/map/providers/floating_search_bar_controller_provider.dart';
-import 'package:crosstrack_italia/states/map/providers/has_location_permission_provider.dart';
-import 'package:crosstrack_italia/states/map/providers/panel_controller_provider.dart';
-import 'package:crosstrack_italia/states/map/providers/show_current_location_provider.dart';
-import 'package:crosstrack_italia/states/track_info/providers/all_track_info_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/center_user_location_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/has_location_permission_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/show_current_location_provider.dart';
+import 'package:crosstrack_italia/features/track_info/providers/all_track_info_provider.dart';
 import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';

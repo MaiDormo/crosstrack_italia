@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/states/track_info/providers/all_track_info_provider.dart';
+import 'package:crosstrack_italia/features/track_info/providers/all_track_info_provider.dart';
 import 'package:crosstrack_italia/views/components/animations/empty_contents_with_text_animation_view.dart';
 import 'package:crosstrack_italia/views/components/animations/error_animation_view.dart';
 import 'package:crosstrack_italia/views/components/animations/loading_animation_view.dart';

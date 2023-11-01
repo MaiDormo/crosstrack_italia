@@ -2,7 +2,7 @@ import 'package:crosstrack_italia/views/components/post/posts_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../states/posts/providers/user_posts_provider.dart';
+import '../../features/posts/providers/user_posts_provider.dart';
 
 class UserPostsView extends ConsumerWidget {
   const UserPostsView({super.key});

@@ -3,7 +3,7 @@ import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 
-import '../../states/auth/providers/auth_state_provider.dart';
+import '../../features/auth/providers/auth_state_provider.dart';
 
 class SettingsPageView extends ConsumerWidget {
   const SettingsPageView({super.key});

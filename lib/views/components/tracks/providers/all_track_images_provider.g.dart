@@ -29,8 +29,6 @@ class _SystemHash {
   }
 }
 
-typedef AllTrackImagesRef = AutoDisposeStreamProviderRef<Iterable<Image>>;
-
 /// See also [allTrackImages].
 @ProviderFor(allTrackImages)
 const allTrackImagesProvider = AllTrackImagesFamily();
@@ -78,10 +76,10 @@ class AllTrackImagesProvider
     extends AutoDisposeStreamProvider<Iterable<Image>> {
   /// See also [allTrackImages].
   AllTrackImagesProvider(
-    this.track,
-  ) : super.internal(
+    TrackInfoModel? track,
+  ) : this._internal(
           (ref) => allTrackImages(
-            ref,
+            ref as AllTrackImagesRef,
             track,
           ),
           from: allTrackImagesProvider,
@@ -93,9 +91,43 @@ class AllTrackImagesProvider
           dependencies: AllTrackImagesFamily._dependencies,
           allTransitiveDependencies:
               AllTrackImagesFamily._allTransitiveDependencies,
+          track: track,
         );
 
+  AllTrackImagesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.track,
+  }) : super.internal();
+
   final TrackInfoModel? track;
+
+  @override
+  Override overrideWith(
+    Stream<Iterable<Image>> Function(AllTrackImagesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllTrackImagesProvider._internal(
+        (ref) => create(ref as AllTrackImagesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        track: track,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Iterable<Image>> createElement() {
+    return _AllTrackImagesProviderElement(this);
+  }
 
   @override
   bool operator ==(Object other) {
@@ -110,5 +142,19 @@ class AllTrackImagesProvider
     return _SystemHash.finish(hash);
   }
 }
+
+mixin AllTrackImagesRef on AutoDisposeStreamProviderRef<Iterable<Image>> {
+  /// The parameter `track` of this provider.
+  TrackInfoModel? get track;
+}
+
+class _AllTrackImagesProviderElement
+    extends AutoDisposeStreamProviderElement<Iterable<Image>>
+    with AllTrackImagesRef {
+  _AllTrackImagesProviderElement(super.provider);
+
+  @override
+  TrackInfoModel? get track => (origin as AllTrackImagesProvider).track;
+}
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

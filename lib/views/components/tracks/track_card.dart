@@ -1,6 +1,6 @@
-import 'package:crosstrack_italia/states/map/providers/floating_search_bar_controller_provider.dart';
-import 'package:crosstrack_italia/states/map/providers/panel_controller_provider.dart';
-import 'package:crosstrack_italia/states/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
+import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

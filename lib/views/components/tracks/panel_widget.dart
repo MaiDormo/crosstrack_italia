@@ -1,12 +1,11 @@
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:crosstrack_italia/states/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/all_track_images_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
-import 'package:crosstrack_italia/views/components/weather/view/weather_view.dart';
+import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map_tile_caching/fmtc_module_api.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

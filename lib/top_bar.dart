@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/geolocation_button.dart';
-import 'package:crosstrack_italia/states/user_info/providers/user_image_provider.dart';
+import 'package:crosstrack_italia/features/user_info/providers/user_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'location_text.dart';

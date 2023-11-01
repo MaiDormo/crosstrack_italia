@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:crosstrack_italia/states/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

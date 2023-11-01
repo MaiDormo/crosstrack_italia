@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../states/posts/models/post.dart';
+import '../../../features/posts/models/post.dart';
 
 //keep on mind, this stateless widget is not aware of what it has to do,
 //it just knows that when tapped it has to call a voidCallback function

@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/states/map/providers/get_closest_location_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/get_closest_location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
