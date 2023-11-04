@@ -5,12 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../constants/firebase_collection_name.dart';
 import '../../constants/firebase_field_name.dart';
-import '../models/track_info_model.dart';
+import '../models/track.dart';
 
-final allTrackInfoProvider =
-    StreamProvider.autoDispose<Iterable<TrackInfoModel>>(
+final allTrackInfoProvider = StreamProvider.autoDispose<Iterable<Track>>(
   (ref) {
-    final controller = StreamController<Iterable<TrackInfoModel>>();
+    final controller = StreamController<Iterable<Track>>();
 
     final sub = FirebaseFirestore.instance
         .collection(
@@ -28,9 +27,8 @@ final allTrackInfoProvider =
         .listen(
       (snapshot) {
         final trackInfoModels = snapshot.docs.map(
-          (doc) => TrackInfoModel(
-            json: doc.data(),
-            trackId: doc.id,
+          (doc) => Track.fromJson(
+            doc.data(),
           ),
         );
         controller.add(trackInfoModels);

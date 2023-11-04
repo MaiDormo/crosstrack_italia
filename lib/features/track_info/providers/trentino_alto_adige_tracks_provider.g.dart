@@ -7,12 +7,12 @@ part of 'trentino_alto_adige_tracks_provider.dart';
 // **************************************************************************
 
 String _$trentinoAltoAdigeTracksHash() =>
-    r'0155371e54da0d0570de9c1110bd838be8b95b50';
+    r'015293a11bd0487e4b4d0c59eacb4f3d0c9dc6b4';
 
 /// See also [trentinoAltoAdigeTracks].
 @ProviderFor(trentinoAltoAdigeTracks)
 final trentinoAltoAdigeTracksProvider =
-    AutoDisposeStreamProvider<Iterable<TrackInfoModel>>.internal(
+    AutoDisposeStreamProvider<Iterable<Track>>.internal(
   trentinoAltoAdigeTracks,
   name: r'trentinoAltoAdigeTracksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,6 +23,6 @@ final trentinoAltoAdigeTracksProvider =
 );
 
 typedef TrentinoAltoAdigeTracksRef
-    = AutoDisposeStreamProviderRef<Iterable<TrackInfoModel>>;
+    = AutoDisposeStreamProviderRef<Iterable<Track>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

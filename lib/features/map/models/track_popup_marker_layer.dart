@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/features/map/models/track_marker.dart';
 import 'package:crosstrack_italia/features/map/models/track_marker_popup.dart';
-import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
@@ -11,7 +11,7 @@ class TrackPopupMarkerLayer extends StatelessWidget {
     required this.tracks,
   });
 
-  final Iterable<TrackInfoModel> tracks;
+  final Iterable<Track> tracks;
 
   @override
   Widget build(BuildContext context) {

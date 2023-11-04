@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/all_track_images_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
@@ -41,7 +41,7 @@ class PanelWidget extends ConsumerWidget {
     );
   }
 
-  Widget buildTrackInfo(TrackInfoModel? trackSelected,
+  Widget buildTrackInfo(Track? trackSelected,
       AsyncValue<Iterable<Image>> allTrackImages, BuildContext context) {
     ///TODO: how is changing if it's final
     final rating = (Random().nextDouble() * 5).floorToDouble();

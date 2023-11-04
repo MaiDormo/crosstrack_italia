@@ -6,7 +6,7 @@ part of 'track_images_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trackThumbnailHash() => r'a06c85d5d8a9c478bdce87fc4d6ae2226c9f4197';
+String _$trackThumbnailHash() => r'dd4c65dfa904b03f1dca6e48179e3c8c5aada43f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class TrackThumbnailFamily extends Family<AsyncValue<Image>> {
 
   /// See also [trackThumbnail].
   TrackThumbnailProvider call(
-    TrackInfoModel track,
+    Track track,
   ) {
     return TrackThumbnailProvider(
       track,
@@ -75,7 +75,7 @@ class TrackThumbnailFamily extends Family<AsyncValue<Image>> {
 class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
   /// See also [trackThumbnail].
   TrackThumbnailProvider(
-    TrackInfoModel track,
+    Track track,
   ) : this._internal(
           (ref) => trackThumbnail(
             ref as TrackThumbnailRef,
@@ -103,7 +103,7 @@ class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
     required this.track,
   }) : super.internal();
 
-  final TrackInfoModel track;
+  final Track track;
 
   @override
   Override overrideWith(
@@ -144,7 +144,7 @@ class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
 
 mixin TrackThumbnailRef on AutoDisposeFutureProviderRef<Image> {
   /// The parameter `track` of this provider.
-  TrackInfoModel get track;
+  Track get track;
 }
 
 class _TrackThumbnailProviderElement
@@ -152,7 +152,7 @@ class _TrackThumbnailProviderElement
   _TrackThumbnailProviderElement(super.provider);
 
   @override
-  TrackInfoModel get track => (origin as TrackThumbnailProvider).track;
+  Track get track => (origin as TrackThumbnailProvider).track;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

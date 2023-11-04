@@ -6,12 +6,12 @@ part of 'veneto_tracks_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$venetoTracksHash() => r'c0bdb9c9acc67805a400782a14b9022c3d5a8fb4';
+String _$venetoTracksHash() => r'de46dbe3a302b497980e26010fb8bf2f679ceebb';
 
 /// See also [venetoTracks].
 @ProviderFor(venetoTracks)
 final venetoTracksProvider =
-    AutoDisposeStreamProvider<Iterable<TrackInfoModel>>.internal(
+    AutoDisposeStreamProvider<Iterable<Track>>.internal(
   venetoTracks,
   name: r'venetoTracksProvider',
   debugGetCreateSourceHash:
@@ -20,7 +20,6 @@ final venetoTracksProvider =
   allTransitiveDependencies: null,
 );
 
-typedef VenetoTracksRef
-    = AutoDisposeStreamProviderRef<Iterable<TrackInfoModel>>;
+typedef VenetoTracksRef = AutoDisposeStreamProviderRef<Iterable<Track>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

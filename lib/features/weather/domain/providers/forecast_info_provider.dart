@@ -10,12 +10,12 @@ Future<Forecast> forecastInfo(ForecastInfoRef ref) async {
   const defaultValue = 0.0;
   late final forecast;
   final wf = await ref.watch(weatherFactoryProvider.future);
-  final coordinatesTrackSelected =
-      ref.watch(trackSelectedProvider.select((track) => track?.coordinates));
+  final coordinatesTrackSelected = ref.watch(trackSelectedProvider
+      .select((track) => (track?.longitude, track?.latitude)));
   try {
     forecast = await wf.fiveDayForecastByLocation(
-      coordinatesTrackSelected?.latitude ?? defaultValue,
-      coordinatesTrackSelected?.longitude ?? defaultValue,
+      coordinatesTrackSelected.$1 ?? defaultValue,
+      coordinatesTrackSelected.$2 ?? defaultValue,
     );
   } on Exception catch (e) {
     ///TODO: remove print and handle error

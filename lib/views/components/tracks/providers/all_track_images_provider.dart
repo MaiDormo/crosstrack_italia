@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,7 +9,7 @@ part 'all_track_images_provider.g.dart';
 
 @riverpod
 Stream<Iterable<Image>> allTrackImages(
-    AllTrackImagesRef ref, TrackInfoModel? track) async* {
+    AllTrackImagesRef ref, Track? track) async* {
   final controller = StreamController<Iterable<Image>>();
   final storage = FirebaseStorage.instance;
   //get all images inside the tracks/{track.region}/{track.trackWebCode}/

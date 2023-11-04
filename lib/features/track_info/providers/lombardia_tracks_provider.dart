@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/track_info/models/track_info_model.dart';
+import 'package:crosstrack_italia/features/track_info/models/track.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../constants/firebase_collection_name.dart';
@@ -10,9 +10,8 @@ import '../../constants/firebase_collection_name.dart';
 part 'lombardia_tracks_provider.g.dart';
 
 @riverpod
-Stream<Iterable<TrackInfoModel>> lombardiaTracks(
-    LombardiaTracksRef ref) async* {
-  final controller = StreamController<Iterable<TrackInfoModel>>();
+Stream<Iterable<Track>> lombardiaTracks(LombardiaTracksRef ref) async* {
+  final controller = StreamController<Iterable<Track>>();
   final sub = FirebaseFirestore.instance
       .collection(
         FirebaseCollectionName.tracks,
@@ -29,9 +28,8 @@ Stream<Iterable<TrackInfoModel>> lombardiaTracks(
       .listen(
     (snapshot) {
       final trackInfoModels = snapshot.docs.map(
-        (doc) => TrackInfoModel(
-          json: doc.data(),
-          trackId: doc.id,
+        (doc) => Track.fromJson(
+          doc.data(),
         ),
       );
       controller.add(trackInfoModels);

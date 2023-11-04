@@ -34,5 +34,7 @@ class FirebaseFieldName {
 
   static var profileImageUrl;
 
+  ///TODO remove this profile image variable above
+
   const FirebaseFieldName._();
 }

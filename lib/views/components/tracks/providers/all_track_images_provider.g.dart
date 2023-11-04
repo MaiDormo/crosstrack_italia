@@ -6,7 +6,7 @@ part of 'all_track_images_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$allTrackImagesHash() => r'f263fc5f07ac06832cd9bc9b53d34d3ca0925c79';
+String _$allTrackImagesHash() => r'cf4d503f766438eb3b19a3e098085cffc5ec926f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -40,7 +40,7 @@ class AllTrackImagesFamily extends Family<AsyncValue<Iterable<Image>>> {
 
   /// See also [allTrackImages].
   AllTrackImagesProvider call(
-    TrackInfoModel? track,
+    Track? track,
   ) {
     return AllTrackImagesProvider(
       track,
@@ -76,7 +76,7 @@ class AllTrackImagesProvider
     extends AutoDisposeStreamProvider<Iterable<Image>> {
   /// See also [allTrackImages].
   AllTrackImagesProvider(
-    TrackInfoModel? track,
+    Track? track,
   ) : this._internal(
           (ref) => allTrackImages(
             ref as AllTrackImagesRef,
@@ -104,7 +104,7 @@ class AllTrackImagesProvider
     required this.track,
   }) : super.internal();
 
-  final TrackInfoModel? track;
+  final Track? track;
 
   @override
   Override overrideWith(
@@ -145,7 +145,7 @@ class AllTrackImagesProvider
 
 mixin AllTrackImagesRef on AutoDisposeStreamProviderRef<Iterable<Image>> {
   /// The parameter `track` of this provider.
-  TrackInfoModel? get track;
+  Track? get track;
 }
 
 class _AllTrackImagesProviderElement
@@ -154,7 +154,7 @@ class _AllTrackImagesProviderElement
   _AllTrackImagesProviderElement(super.provider);
 
   @override
-  TrackInfoModel? get track => (origin as AllTrackImagesProvider).track;
+  Track? get track => (origin as AllTrackImagesProvider).track;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
