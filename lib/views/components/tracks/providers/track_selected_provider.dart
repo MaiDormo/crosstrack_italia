@@ -1,6 +1,16 @@
-import 'package:crosstrack_italia/features/track_info/models/track.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-final trackSelectedProvider = StateProvider.autoDispose<Track?>((ref) {
-  return null;
-});
+part 'track_selected_provider.g.dart';
+
+@riverpod
+class TrackSelected extends _$TrackSelected {
+  @override
+  Track? build() {
+    return null;
+  }
+
+  void setTrack(Track track) {
+    state = track;
+  }
+}

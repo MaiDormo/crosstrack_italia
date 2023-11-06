@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/features/map/models/track_popup_marker_layer.dart';
-import 'package:crosstrack_italia/features/track_info/providers/trentino_alto_adige_tracks_provider.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,7 +9,8 @@ class TrentinoAltoAdigeTracksMarkers extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tracks = ref.watch(trentinoAltoAdigeTracksProvider);
+    final tracks =
+        ref.watch(fetchTracksByRegionProvider('Trentino Alto Adige'));
     return tracks.when(
       data: (tracks) {
         return tracks.isNotEmpty

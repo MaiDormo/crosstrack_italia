@@ -3,13 +3,14 @@ import 'package:crosstrack_italia/features/map/providers/floating_search_bar_con
 import 'package:crosstrack_italia/features/map/providers/has_location_permission_provider.dart';
 import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
 import 'package:crosstrack_italia/features/map/providers/show_current_location_provider.dart';
-import 'package:crosstrack_italia/features/track_info/providers/all_track_info_provider.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/panel_widget.dart';
+import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -229,7 +230,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
         ref.read(searchTrackStringProvider.notifier).state = query;
         ref.read(searchTrackProvider.notifier).onSearchTrack(
             query,
-            ref.read(allTrackInfoProvider).when(
+            ref.read(fetchAllTracksProvider).when(
                       data: (tracks) => tracks,
                       loading: () => [],
                       error: (error, stackTrace) => [],

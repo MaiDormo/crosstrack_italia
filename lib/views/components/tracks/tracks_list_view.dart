@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/track_info/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 

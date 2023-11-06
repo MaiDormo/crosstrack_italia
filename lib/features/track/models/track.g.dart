@@ -7,11 +7,11 @@ part of 'track.dart';
 // **************************************************************************
 
 _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
-      trackId: json['trackId'] as String,
-      trackName: json['nome'] as String,
-      region: json['regione'] as String,
-      location: json['posto'] as String,
-      motoclub: json['motoclub'] as String,
+      trackId: json['trackId'] as String?,
+      trackName: json['nome'] as String? ?? '',
+      region: json['regione'] as String? ?? '',
+      location: json['posto'] as String? ?? '',
+      motoclub: json['motoclub'] as String? ?? '',
       category: json['categoria'] as String? ?? '',
       acceptedLicenses: (json['omologazione'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -19,7 +19,7 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
           const [],
       terrainType: json['terreno'] as String? ?? '',
       trackLength: json['lunghezza'] as String? ?? '',
-      hasMinicross: json['minicross'] as String? ?? '',
+      hasMinicross: json['minicross'] as String? ?? 'no',
       services: (json['servizi'] as Map<String, dynamic>?)?.map(
             (k, e) => MapEntry(k, e as String),
           ) ??
@@ -37,8 +37,8 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
             (k, e) => MapEntry(k, e as String),
           ) ??
           const {},
-      latitude: (json['latitudine'] as num).toDouble(),
-      longitude: (json['longitudine'] as num).toDouble(),
+      latitude: json['latitudine'] as String,
+      longitude: json['longitudine'] as String,
       trackWebCode: json['codice_web'] as String,
       photosUrl: json['foto'] as String,
     );

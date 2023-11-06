@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'lombardia_tracks_provider.dart';
+part of 'track_selected_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lombardiaTracksHash() => r'958c4a649cb7c1766b1a47f7786e6605b399d2fa';
+String _$trackSelectedHash() => r'2548e829bf1e527ba4e2e5c2918f9adea002d4bc';
 
-/// See also [lombardiaTracks].
-@ProviderFor(lombardiaTracks)
-final lombardiaTracksProvider =
-    AutoDisposeStreamProvider<Iterable<Track>>.internal(
-  lombardiaTracks,
-  name: r'lombardiaTracksProvider',
+/// See also [TrackSelected].
+@ProviderFor(TrackSelected)
+final trackSelectedProvider =
+    AutoDisposeNotifierProvider<TrackSelected, Track?>.internal(
+  TrackSelected.new,
+  name: r'trackSelectedProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$lombardiaTracksHash,
+      : _$trackSelectedHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef LombardiaTracksRef = AutoDisposeStreamProviderRef<Iterable<Track>>;
+typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

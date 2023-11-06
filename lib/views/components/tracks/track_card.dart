@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
 import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
-import 'package:crosstrack_italia/features/track_info/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -41,7 +41,7 @@ class TrackCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                track.trackName,
+                track.trackName ?? 'No name',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -56,7 +56,7 @@ class TrackCard extends ConsumerWidget {
                   Flexible(
                     // Wrap in Flexible to handle long text
                     child: Text(
-                      track.region,
+                      track.region ?? 'No region',
                       overflow: TextOverflow.ellipsis, // Truncate with ellipsis
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
@@ -65,7 +65,7 @@ class TrackCard extends ConsumerWidget {
                   Flexible(
                     // Wrap in Flexible to handle long text
                     child: Text(
-                      track.location,
+                      track.location ?? 'No location',
                       overflow: TextOverflow.ellipsis, // Truncate with ellipsis
                       style: Theme.of(context).textTheme.titleMedium,
                     ),

@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
-import 'package:crosstrack_italia/features/track_info/models/track.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/all_track_images_provider.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,8 @@ class PanelWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trackSelected = ref.watch(trackSelectedProvider);
-    final allTrackImages = ref.watch(allTrackImagesProvider(trackSelected));
+    // final allTrackImages = ref.watch(allTrackImagesProvider(trackSelected));
+    final allTrackImages = ref.watch(allTrackImagesProvider);
 
     return ListView(
       padding: EdgeInsets.zero,

@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/track_info/providers/all_track_info_provider.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/animations/empty_contents_with_text_animation_view.dart';
 import 'package:crosstrack_italia/views/components/animations/error_animation_view.dart';
 import 'package:crosstrack_italia/views/components/animations/loading_animation_view.dart';
@@ -12,10 +12,10 @@ class AllTracksView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tracks = ref.watch(allTrackInfoProvider);
+    var tracks = ref.watch(fetchAllTracksProvider);
     return RefreshIndicator(
       onRefresh: () {
-        ref.refresh(allTrackInfoProvider);
+        tracks = ref.refresh(fetchAllTracksProvider);
         return Future.delayed(
           const Duration(
             seconds: 1,

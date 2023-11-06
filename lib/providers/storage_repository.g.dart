@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trentino_alto_adige_tracks_provider.dart';
+part of 'storage_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$trentinoAltoAdigeTracksHash() =>
-    r'015293a11bd0487e4b4d0c59eacb4f3d0c9dc6b4';
+String _$storageRepositoryHash() => r'3590a3a529658f11a86a03750a941dcfa43188b4';
 
-/// See also [trentinoAltoAdigeTracks].
-@ProviderFor(trentinoAltoAdigeTracks)
-final trentinoAltoAdigeTracksProvider =
-    AutoDisposeStreamProvider<Iterable<Track>>.internal(
-  trentinoAltoAdigeTracks,
-  name: r'trentinoAltoAdigeTracksProvider',
+/// See also [storageRepository].
+@ProviderFor(storageRepository)
+final storageRepositoryProvider =
+    AutoDisposeProvider<StorageRepository>.internal(
+  storageRepository,
+  name: r'storageRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$trentinoAltoAdigeTracksHash,
+      : _$storageRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef TrentinoAltoAdigeTracksRef
-    = AutoDisposeStreamProviderRef<Iterable<Track>>;
+typedef StorageRepositoryRef = AutoDisposeProviderRef<StorageRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

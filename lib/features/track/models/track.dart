@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/track_info/models/typedefs/typedefs.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../constants/firebase_field_name.dart';
@@ -9,11 +9,11 @@ part 'track.g.dart';
 @freezed
 class Track with _$Track {
   factory Track({
-    required TrackId trackId,
-    @JsonKey(name: FirebaseFieldName.trackName) required String trackName,
-    @JsonKey(name: FirebaseFieldName.region) required String region,
-    @JsonKey(name: FirebaseFieldName.location) required String location,
-    @JsonKey(name: FirebaseFieldName.motoclub) required String motoclub,
+    TrackId? trackId,
+    @JsonKey(name: FirebaseFieldName.trackName) @Default('') String? trackName,
+    @JsonKey(name: FirebaseFieldName.region) @Default('') String? region,
+    @JsonKey(name: FirebaseFieldName.location) @Default('') String? location,
+    @JsonKey(name: FirebaseFieldName.motoclub) @Default('') String? motoclub,
     @JsonKey(name: FirebaseFieldName.category) @Default('') String? category,
     @JsonKey(name: FirebaseFieldName.acceptedLicenses)
     @Default([])
@@ -25,7 +25,7 @@ class Track with _$Track {
     @Default('')
     String? trackLength,
     @JsonKey(name: FirebaseFieldName.hasMinicross)
-    @Default('')
+    @Default('no')
     String? hasMinicross,
     @JsonKey(name: FirebaseFieldName.services)
     @Default({})
@@ -38,8 +38,8 @@ class Track with _$Track {
     @JsonKey(name: FirebaseFieldName.openingHours)
     @Default({})
     Map<String, String>? openingHours,
-    @JsonKey(name: FirebaseFieldName.latitude) required double latitude,
-    @JsonKey(name: FirebaseFieldName.longitude) required double longitude,
+    @JsonKey(name: FirebaseFieldName.latitude) required String latitude,
+    @JsonKey(name: FirebaseFieldName.longitude) required String longitude,
     @JsonKey(name: FirebaseFieldName.trackWebCode) required String trackWebCode,
     @JsonKey(name: FirebaseFieldName.photosUrl) required String photosUrl,
   }) = _Track;

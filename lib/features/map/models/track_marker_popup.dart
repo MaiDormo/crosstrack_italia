@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/track_images_provider.dart';
-import 'package:crosstrack_italia/features/track_info/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -49,13 +49,13 @@ class TrackMarkerPopup extends ConsumerWidget {
                   },
                 ),
                 onTap: () {
-                  ref.read(trackSelectedProvider.notifier).state = track;
+                  ref.read(trackSelectedProvider.notifier).setTrack(track);
                   panelController.isPanelClosed
                       ? panelController.open()
                       : panelController.close();
                 },
               ),
-              Text(track.trackName),
+              Text(track.trackName ?? 'No name'),
             ],
           ),
         ),
