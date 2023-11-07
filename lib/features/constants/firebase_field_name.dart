@@ -31,6 +31,12 @@ class FirebaseFieldName {
   static const longitude = 'longitudine';
   static const images = 'immagini';
   static const photosUrl = 'foto';
+  static const commentCount = 'numero_commenti';
+
+  //comment info
+  static const commentId = 'commentId';
+  static const comment = 'comment';
+  static const date = 'date';
 
   static var profileImageUrl;
 

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import 'package:crosstrack_italia/features/track/presentation/comment_section.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
@@ -861,7 +862,19 @@ class PanelWidget extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: WeatherView(),
             ),
-          )
+          ),
+
+          const SizedBox(height: 12 * height_unit),
+
+          //show comments
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CommentsSection(
+                trackId: trackSelected?.trackWebCode ?? '',
+              ),
+            ),
+          ),
         ],
       ),
     );

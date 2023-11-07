@@ -10,7 +10,6 @@ import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_t
 import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/panel_widget.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

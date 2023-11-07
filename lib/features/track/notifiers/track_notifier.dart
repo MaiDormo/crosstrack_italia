@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'package:crosstrack_italia/common/utils.dart';
+import 'package:crosstrack_italia/features/auth/providers/user_id_provider.dart';
 import 'package:crosstrack_italia/features/map/providers/constants/constants.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
+import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/providers/storage_repository.dart';
 import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 part 'track_notifier.g.dart';
 
@@ -39,6 +45,13 @@ Stream<Iterable<Image>> allTrackImages(AllTrackImagesRef ref) async* {
   final track = ref.watch(trackSelectedProvider);
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   yield* trackNotifier.allTrackImages(track);
+}
+
+@riverpod
+Stream<Iterable<Comment>> fetchCommentsByTrackId(
+    FetchCommentsByTrackIdRef ref, TrackId trackId) async* {
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  yield* trackNotifier.fetchCommentsByTrackId(trackId);
 }
 
 //------------------NOTIFIER------------------//
@@ -109,5 +122,33 @@ class TrackNotifier extends _$TrackNotifier {
       controller.add([]);
     }
     yield* controller.stream;
+  }
+
+  //add comment
+  void addComment(
+    BuildContext context,
+    String text,
+    TrackId trackId,
+  ) async {
+    final String commentId = Uuid().v1();
+    final userId = ref.read(userIdProvider)!;
+    final Comment comment = Comment(
+      commentId: commentId,
+      trackId: trackId,
+      userId: userId,
+      userName: FirebaseAuth.instance.currentUser!.displayName!,
+      text: text,
+      date: DateTime.now(),
+    );
+
+    final res = await _trackRepository.addComment(comment);
+
+    ///TODO: do something with the user
+    res.fold((l) => showSnackBar(context, l.message), (r) => null);
+  }
+
+  //get all comments related to a track
+  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) async* {
+    yield* _trackRepository.fetchCommentsByTrackId(trackId);
   }
 }

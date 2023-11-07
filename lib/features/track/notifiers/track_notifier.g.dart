@@ -318,7 +318,141 @@ final allTrackImagesProvider =
 );
 
 typedef AllTrackImagesRef = AutoDisposeStreamProviderRef<Iterable<Image>>;
-String _$trackNotifierHash() => r'c5b62e2818e87ac409569c398f7f3b29ae225c00';
+String _$fetchCommentsByTrackIdHash() =>
+    r'd56c2f046f6f9860caffb3172f8c39768bae9f63';
+
+/// See also [fetchCommentsByTrackId].
+@ProviderFor(fetchCommentsByTrackId)
+const fetchCommentsByTrackIdProvider = FetchCommentsByTrackIdFamily();
+
+/// See also [fetchCommentsByTrackId].
+class FetchCommentsByTrackIdFamily
+    extends Family<AsyncValue<Iterable<Comment>>> {
+  /// See also [fetchCommentsByTrackId].
+  const FetchCommentsByTrackIdFamily();
+
+  /// See also [fetchCommentsByTrackId].
+  FetchCommentsByTrackIdProvider call(
+    String trackId,
+  ) {
+    return FetchCommentsByTrackIdProvider(
+      trackId,
+    );
+  }
+
+  @override
+  FetchCommentsByTrackIdProvider getProviderOverride(
+    covariant FetchCommentsByTrackIdProvider provider,
+  ) {
+    return call(
+      provider.trackId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchCommentsByTrackIdProvider';
+}
+
+/// See also [fetchCommentsByTrackId].
+class FetchCommentsByTrackIdProvider
+    extends AutoDisposeStreamProvider<Iterable<Comment>> {
+  /// See also [fetchCommentsByTrackId].
+  FetchCommentsByTrackIdProvider(
+    String trackId,
+  ) : this._internal(
+          (ref) => fetchCommentsByTrackId(
+            ref as FetchCommentsByTrackIdRef,
+            trackId,
+          ),
+          from: fetchCommentsByTrackIdProvider,
+          name: r'fetchCommentsByTrackIdProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchCommentsByTrackIdHash,
+          dependencies: FetchCommentsByTrackIdFamily._dependencies,
+          allTransitiveDependencies:
+              FetchCommentsByTrackIdFamily._allTransitiveDependencies,
+          trackId: trackId,
+        );
+
+  FetchCommentsByTrackIdProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.trackId,
+  }) : super.internal();
+
+  final String trackId;
+
+  @override
+  Override overrideWith(
+    Stream<Iterable<Comment>> Function(FetchCommentsByTrackIdRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchCommentsByTrackIdProvider._internal(
+        (ref) => create(ref as FetchCommentsByTrackIdRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        trackId: trackId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<Iterable<Comment>> createElement() {
+    return _FetchCommentsByTrackIdProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchCommentsByTrackIdProvider && other.trackId == trackId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, trackId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchCommentsByTrackIdRef
+    on AutoDisposeStreamProviderRef<Iterable<Comment>> {
+  /// The parameter `trackId` of this provider.
+  String get trackId;
+}
+
+class _FetchCommentsByTrackIdProviderElement
+    extends AutoDisposeStreamProviderElement<Iterable<Comment>>
+    with FetchCommentsByTrackIdRef {
+  _FetchCommentsByTrackIdProviderElement(super.provider);
+
+  @override
+  String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
+}
+
+String _$trackNotifierHash() => r'53dcef3d7aeda04f461151067a436e9efedeeb36';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)
