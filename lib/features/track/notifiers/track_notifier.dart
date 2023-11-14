@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'package:crosstrack_italia/common/utils.dart';
 import 'package:crosstrack_italia/features/auth/providers/user_id_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/constants/constants.dart';
+import 'package:crosstrack_italia/features/map/providers/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/providers/storage_repository.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -55,6 +54,19 @@ Stream<Iterable<Comment>> fetchCommentsByTrackId(
 }
 
 //------------------NOTIFIER------------------//
+
+@riverpod
+class TrackSelected extends _$TrackSelected {
+  @override
+  Track? build() {
+    return null;
+  }
+
+  void setTrack(Track track) {
+    state = track;
+  }
+}
+
 @riverpod
 class TrackNotifier extends _$TrackNotifier {
   late final TrackRepository _trackRepository;
@@ -81,27 +93,26 @@ class TrackNotifier extends _$TrackNotifier {
   //collect track Thumbnail
   Future<Image> trackThumbnail(Track track) async {
     try {
-      final imageUrl =
-          await _storageRepository.getDownloadUrl(track.photosUrl + thumbnail);
+      final imageUrl = await _storageRepository
+          .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
       final image = Image.network(
         imageUrl,
         width: 200,
         height: 100,
         fit: BoxFit.cover,
-        scale: scaleImage,
+        scale: MapConstans.scaleImage,
       );
       state = true;
 
-      ///TODO: remove print
       return image;
     } catch (e) {
       state = false;
       return Image.asset(
-        placeholder,
+        MapConstans.placeholder,
         width: 200,
         height: 100,
         fit: BoxFit.cover,
-        scale: scaleImage,
+        scale: MapConstans.scaleImage,
       );
     }
   }
@@ -115,7 +126,7 @@ class TrackNotifier extends _$TrackNotifier {
       final path = 'tracks/${storageRegion}/${track.trackWebCode}/';
       final urls = await _storageRepository.listDownloadUrl(path);
       final imagesList = await urls.map((e) => Image.network(e));
-      controller.add(imagesList); //TODO: remove print
+      controller.add(imagesList);
       state = true;
     } else {
       state = false;

@@ -1,7 +1,6 @@
 import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

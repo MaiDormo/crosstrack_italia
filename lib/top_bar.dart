@@ -1,8 +1,8 @@
-import 'package:crosstrack_italia/geolocation_button.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/geolocation_button.dart';
 import 'package:crosstrack_italia/features/user_info/providers/user_image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'location_text.dart';
+import 'features/map/presentation/widget/location_text.dart';
 import 'views/login/login_page_view.dart';
 
 class TopBar extends StatelessWidget {

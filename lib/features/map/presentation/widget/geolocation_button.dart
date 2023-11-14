@@ -1,5 +1,4 @@
-import 'package:crosstrack_italia/features/map/providers/has_location_permission_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/show_current_location_provider.dart';
+import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +17,7 @@ class GeolocationButton extends ConsumerWidget {
         if (!hasLocationPermission) {
           await ref
               .read(hasLocationPermissionProvider.notifier)
-              .checkPermission();
+              .getPermission();
         }
         ref.read(showCurrentLocationProvider.notifier).toggle();
       },

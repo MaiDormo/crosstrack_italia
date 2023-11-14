@@ -24,12 +24,13 @@ class CommentCard extends ConsumerWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    FirebaseAuth.instance.currentUser!.photoURL!,
-                  ),
-                  radius: 18,
-                ),
+                ///TODO: find a fix for the image || remove it
+                // CircleAvatar(
+                //   backgroundImage: NetworkImage(
+                //     FirebaseAuth.instance.currentUser!.photoURL!,
+                //   ),
+                //   radius: 18,
+                // ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 16.0),
@@ -47,15 +48,6 @@ class CommentCard extends ConsumerWidget {
                     ),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.reply),
-                ),
-                const Text('Reply'),
               ],
             ),
           ],

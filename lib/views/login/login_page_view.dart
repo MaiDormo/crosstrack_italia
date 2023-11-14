@@ -1,10 +1,8 @@
-import 'package:crosstrack_italia/views/register/register_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../square_tile.dart';
-import '../../end_phrase_row.dart';
-import '../../helper_line_gestore.dart';
-import '../../features/auth/providers/auth_state_provider.dart';
+import 'package:crosstrack_italia/square_tile.dart';
+import 'package:crosstrack_italia/helper_line_gestore.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_state_provider.dart';
 
 class LoginPageView extends StatefulHookConsumerWidget {
   const LoginPageView({super.key});
@@ -100,21 +98,6 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                 ),
 
                 const SizedBox(height: 50),
-
-                //row containing se non hai un account puoi registrarti
-                EndPhraseRow(
-                  firstText: 'Non hai un account?',
-                  secondText: 'Registrati',
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPageView()),
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 20),
 
                 const HelperLineGestore(),
               ],

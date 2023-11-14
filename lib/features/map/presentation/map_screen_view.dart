@@ -1,15 +1,13 @@
-import 'package:crosstrack_italia/features/map/providers/center_user_location_provider.dart';
+import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/marker/all_tracks_markers.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/marker/lombardia_tracks_markers.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/marker/trentino_alto_adige_tracks_markers.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/marker/veneto_tracks_markers.dart';
 import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/has_location_permission_provider.dart';
 import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/show_current_location_provider.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/views/components/markers/all_tracks_markers.dart';
-import 'package:crosstrack_italia/views/components/markers/lombardia_tracks_markers.dart';
-import 'package:crosstrack_italia/views/components/markers/trentino_alto_adige_tracks_markers.dart';
-import 'package:crosstrack_italia/views/components/markers/veneto_tracks_markers.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
-import 'package:crosstrack_italia/views/components/tracks/panel_widget.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -40,8 +38,6 @@ class MapScreenView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
     // final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
     final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
     return Scaffold(
@@ -61,7 +57,7 @@ class MapScreenView extends ConsumerWidget {
             fit: StackFit.expand,
             children: [
               Map(mapController: mapController),
-              FloatingSearchMapBar(isPortrait: isPortrait),
+              FloatingSearchMapBar(),
             ],
           ),
         ),
@@ -86,7 +82,6 @@ class Map extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final centerUserLocation = ref.watch(centerUserLocationProvider);
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
@@ -98,14 +93,6 @@ class Map extends ConsumerWidget {
 
         //maxBounds: Limits how far the map can be moved by the user to a coordinate-based boundary
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
-        onTap: (tapPosition, point) {},
-        onPositionChanged: (position, hasGesture) {
-          if (hasGesture &&
-              centerUserLocation != FollowOnLocationUpdate.never) {
-            ref.read(centerUserLocationProvider.notifier).state =
-                FollowOnLocationUpdate.never;
-          }
-        },
         //keepAlive: true, in  order to keep the map from rebuilding in a nested widget tree (when out of sight)
       ),
       nonRotatedChildren: [
@@ -170,8 +157,15 @@ class Map extends ConsumerWidget {
                     : Colors.black.withOpacity(0.5),
                 onPressed: showCurrentLocation
                     ? () {
-                        ref.read(centerUserLocationProvider.notifier).state =
-                            FollowOnLocationUpdate.always;
+                        //wait for the map to center
+                        ref.read(centerUserLocationProvider.notifier).follow();
+                        print('[DEBUG] following user location');
+                        Future.delayed(const Duration(milliseconds: 500), () {
+                          ref
+                              .read(centerUserLocationProvider.notifier)
+                              .stopFollowing();
+                        });
+                        print('[DEBUG] stopped following user location');
                       }
                     : null,
                 child: const Icon(
@@ -203,11 +197,7 @@ class Map extends ConsumerWidget {
 class FloatingSearchMapBar extends ConsumerWidget {
   const FloatingSearchMapBar({
     super.key,
-    required this.isPortrait,
   });
-
-  final bool isPortrait;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
@@ -220,9 +210,9 @@ class FloatingSearchMapBar extends ConsumerWidget {
       transitionCurve: Curves.easeInOut,
       physics: const BouncingScrollPhysics(),
       //progress: true, //TODO: da aggiungere quando avviene una ricerca
-      axisAlignment: isPortrait ? 0.0 : -1.0,
+      axisAlignment: 0.0,
       openAxisAlignment: 0.0,
-      width: isPortrait ? 600 : 500,
+      width: 600,
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         // Call your model, bloc, controller here.

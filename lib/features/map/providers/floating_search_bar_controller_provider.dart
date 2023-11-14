@@ -5,6 +5,7 @@ part 'floating_search_bar_controller_provider.g.dart';
 
 @riverpod
 FloatingSearchBarController floatingSearchBarController(
-    FloatingSearchBarControllerRef ref) {
+  FloatingSearchBarControllerRef ref,
+) {
   return FloatingSearchBarController();
 }

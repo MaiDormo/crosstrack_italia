@@ -4,7 +4,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/comment_section.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';

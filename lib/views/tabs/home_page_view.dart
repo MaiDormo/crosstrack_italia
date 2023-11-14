@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_states/nav_states/nav_notifier.dart';
 import '../../top_bar.dart';
 import '../../bottom_bar.dart';
-import '../../map_screen_view.dart';
+import '../../features/map/presentation/map_screen_view.dart';
 
 class HomePageView extends ConsumerWidget {
   const HomePageView({super.key});

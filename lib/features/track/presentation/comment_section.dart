@@ -1,9 +1,7 @@
-import 'package:crosstrack_italia/common/resposive.dart';
+import 'package:crosstrack_italia/features/auth/providers/is_logged_in_provider.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/widget/comment_card.dart';
-import 'package:crosstrack_italia/map_screen_view.dart';
-import 'package:crosstrack_italia/views/components/tracks/providers/track_selected_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,6 +41,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
     // final user = ref.watch(userProvider)!;
     // final isGuest = !user.isAuthenticated;
     final trackId = ref.watch(trackSelectedProvider)?.trackWebCode ?? '';
+    final isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -51,9 +50,11 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         const SizedBox(height: 16),
         TextField(
           controller: commentController,
-          onSubmitted: (_) => addComment(trackId),
-          decoration: const InputDecoration(
-            hintText: 'Commenta',
+          onSubmitted: isLoggedIn ? (_) => addComment(trackId) : null,
+          enabled: isLoggedIn,
+          decoration: InputDecoration(
+            hintText:
+                isLoggedIn ? 'Commenta' : 'Completa il log-in per commentare',
             filled: true,
             border: InputBorder.none,
           ),
@@ -62,8 +63,19 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
         //button to add comment
         ElevatedButton(
-          onPressed: () => addComment(trackId),
+          onPressed: isLoggedIn ? () => addComment(trackId) : null,
           child: const Text('Commenta'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled)) {
+                  return Colors
+                      .grey; // Use the color you want for disabled state
+                }
+                return Colors.white; // Use the default color for other states
+              },
+            ),
+          ),
         ),
 
         const SizedBox(height: 16),
@@ -75,7 +87,6 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                 itemCount: comments.length,
                 itemBuilder: (context, index) {
                   final comment = comments.elementAt(index);
-                  print(comment);
                   return CommentCard(
                     comment: comment,
                   );

@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/map/models/track_popup_marker_layer.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_popup_marker_layer.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

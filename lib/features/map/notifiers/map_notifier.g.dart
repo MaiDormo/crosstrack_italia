@@ -1,24 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'forecast_info_provider.dart';
+part of 'map_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$forecastInfoHash() => r'aff804b3d63eba6385b2e4def47201a7c5c84361';
+String _$mapNotifierHash() => r'1f7c873627cc088c66c3f044e9649af0a45a5e27';
 
-/// See also [forecastInfo].
-@ProviderFor(forecastInfo)
-final forecastInfoProvider = AutoDisposeFutureProvider<Forecast>.internal(
-  forecastInfo,
-  name: r'forecastInfoProvider',
+/// See also [MapNotifier].
+@ProviderFor(MapNotifier)
+final mapNotifierProvider =
+    AutoDisposeNotifierProvider<MapNotifier, bool>.internal(
+  MapNotifier.new,
+  name: r'mapNotifierProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$forecastInfoHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$mapNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef ForecastInfoRef = AutoDisposeFutureProviderRef<Forecast>;
+typedef _$MapNotifier = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

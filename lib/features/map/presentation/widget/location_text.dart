@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/map/providers/get_closest_location_provider.dart';
+import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,7 +12,10 @@ class LocationText extends ConsumerWidget {
       location.when(
         data: (data) => data,
         loading: () => 'Loading...',
-        error: (error, stackTrace) => 'Error: $error',
+        error: (error, stackTrace) {
+          print('Error: $error');
+          return 'Error';
+        },
       ),
       style: TextStyle(
         fontSize: MediaQuery.of(context).size.width * 0.03,

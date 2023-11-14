@@ -10,8 +10,7 @@ Future<Widget> userImage(UserImageRef ref) async {
   final isLogged = ref.watch(isLoggedInProvider);
   final userProfileInfo = FirebaseAuth.instance.currentUser;
 
-  if (isLogged) {
-    print(userProfileInfo!.photoURL!);
+  if (isLogged && userProfileInfo != null) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(25),
       child: Image.network(

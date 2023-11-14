@@ -452,7 +452,23 @@ class _FetchCommentsByTrackIdProviderElement
   String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
 }
 
-String _$trackNotifierHash() => r'53dcef3d7aeda04f461151067a436e9efedeeb36';
+String _$trackSelectedHash() => r'2548e829bf1e527ba4e2e5c2918f9adea002d4bc';
+
+/// See also [TrackSelected].
+@ProviderFor(TrackSelected)
+final trackSelectedProvider =
+    AutoDisposeNotifierProvider<TrackSelected, Track?>.internal(
+  TrackSelected.new,
+  name: r'trackSelectedProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$trackSelectedHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
+String _$trackNotifierHash() => r'ffaf4ee08daad32c25fa4c2ceca4ffd5bc6a87d1';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)
