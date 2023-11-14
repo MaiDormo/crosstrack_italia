@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/map/providers/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';

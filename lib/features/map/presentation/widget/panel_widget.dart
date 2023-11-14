@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
+import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/comment_section.dart';
@@ -10,8 +11,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-const height_unit = 0.8;
 
 class PanelWidget extends ConsumerWidget {
   final ScrollController scrollController;
@@ -27,23 +26,28 @@ class PanelWidget extends ConsumerWidget {
     final trackSelected = ref.watch(trackSelectedProvider);
     // final allTrackImages = ref.watch(allTrackImagesProvider(trackSelected));
     final allTrackImages = ref.watch(allTrackImagesProvider);
+    final heightFactor = ref.watch(heightFactorProvider(context));
 
     return ListView(
       padding: EdgeInsets.zero,
       controller: scrollController,
       children: <Widget>[
-        const SizedBox(height: height_unit * 12),
+        SizedBox(height: heightFactor * 12),
         buildDragHandle(),
         Consumer(builder: (context, _, child) {
-          return buildTrackInfo(trackSelected, allTrackImages, context);
+          return buildTrackInfo(
+              trackSelected, allTrackImages, context, heightFactor);
         }),
-        const SizedBox(height: height_unit * 12),
+        SizedBox(height: heightFactor * 12),
       ],
     );
   }
 
-  Widget buildTrackInfo(Track? trackSelected,
-      AsyncValue<Iterable<Image>> allTrackImages, BuildContext context) {
+  Widget buildTrackInfo(
+      Track? trackSelected,
+      AsyncValue<Iterable<Image>> allTrackImages,
+      BuildContext context,
+      double heightFactor) {
     ///TODO: how is changing if it's final
     final rating = (Random().nextDouble() * 5).floorToDouble();
 
@@ -59,7 +63,7 @@ class PanelWidget extends ConsumerWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: 300 * height_unit,
+                    height: 300.0 * heightFactor,
                     width: MediaQuery.of(context).size.width,
                     child: Swiper(
                       layout: SwiperLayout.DEFAULT,
@@ -88,7 +92,7 @@ class PanelWidget extends ConsumerWidget {
               error: (error, stackTrace) {
                 return Image.asset(
                   'assets/images/placeholder.jpg',
-                  width: 200 * height_unit,
+                  width: 200 * heightFactor,
                   height: 100,
                   fit: BoxFit.cover,
                 );
@@ -99,7 +103,7 @@ class PanelWidget extends ConsumerWidget {
           Text(
             trackSelected?.trackName ?? 'No track selected',
             style: TextStyle(
-              fontSize: 20 * height_unit,
+              fontSize: 20 * heightFactor,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -117,7 +121,7 @@ class PanelWidget extends ConsumerWidget {
           Text(
             trackSelected?.location ?? '',
             style: TextStyle(
-              fontSize: 14 * height_unit,
+              fontSize: 14 * heightFactor,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),
@@ -128,7 +132,7 @@ class PanelWidget extends ConsumerWidget {
               Text(
                 'valutazione: ' + rating.toString(),
                 style: TextStyle(
-                  fontSize: 16 * height_unit,
+                  fontSize: 16 * heightFactor,
                   fontWeight: FontWeight.bold,
                   color: Colors.orangeAccent,
                 ),
@@ -136,7 +140,7 @@ class PanelWidget extends ConsumerWidget {
               RatingBarIndicator(
                 //random value between 0 and 5
                 physics: NeverScrollableScrollPhysics(),
-                itemSize: 20 * height_unit,
+                itemSize: 20 * heightFactor,
                 rating: rating,
                 direction: Axis.horizontal,
                 itemCount: 5,
@@ -148,7 +152,7 @@ class PanelWidget extends ConsumerWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12 * height_unit),
+          SizedBox(height: 12 * heightFactor),
 
           SafeArea(
             child: Column(
@@ -169,16 +173,16 @@ class PanelWidget extends ConsumerWidget {
                               Text(
                                 '${trackSelected?.motoclub}',
                                 style: TextStyle(
-                                    fontSize: 15 * height_unit,
+                                    fontSize: 15 * heightFactor,
                                     fontWeight: FontWeight.bold,
                                     color: Theme.of(context).primaryColor),
                               ),
-                              const SizedBox(
-                                height: 4 * height_unit,
+                              SizedBox(
+                                height: 4 * heightFactor,
                               ),
                               SvgPicture.asset(
                                 'assets/svgs/f_logo.svg',
-                                height: 50 * height_unit,
+                                height: 50 * heightFactor,
                                 colorFilter: ColorFilter.mode(
                                   Colors.blueAccent,
                                   BlendMode.srcIn,
@@ -202,7 +206,7 @@ class PanelWidget extends ConsumerWidget {
                               Text(
                                 'Infomazioni Tracciato',
                                 style: TextStyle(
-                                  fontSize: 15 * height_unit,
+                                  fontSize: 15 * heightFactor,
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).primaryColor,
                                 ),
@@ -215,23 +219,23 @@ class PanelWidget extends ConsumerWidget {
                                   const Icon(
                                     Icons.military_tech,
                                   ),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Categoria: ',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
                                   Text(
                                     trackSelected?.category ?? '_',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -242,23 +246,23 @@ class PanelWidget extends ConsumerWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   const Icon(Icons.gesture),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Lunghezza: ',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
                                   Text(
                                     trackSelected?.trackLength ?? '_',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -271,23 +275,23 @@ class PanelWidget extends ConsumerWidget {
                                   const Icon(
                                     Icons.terrain,
                                   ),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Terreno: ',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 4 * height_unit,
+                                  SizedBox(
+                                    width: 4 * heightFactor,
                                   ),
                                   Text(
                                     trackSelected?.terrainType ?? '_',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -300,7 +304,7 @@ class PanelWidget extends ConsumerWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 12 * height_unit),
+                SizedBox(height: 12 * heightFactor),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -317,7 +321,7 @@ class PanelWidget extends ConsumerWidget {
                               Text(
                                 'Info pilota',
                                 style: TextStyle(
-                                  fontSize: 15 * height_unit,
+                                  fontSize: 15 * heightFactor,
                                   fontWeight: FontWeight.bold,
                                   color: Theme.of(context).primaryColor,
                                 ),
@@ -329,13 +333,13 @@ class PanelWidget extends ConsumerWidget {
                                   const Icon(
                                     Icons.badge_outlined,
                                   ),
-                                  const SizedBox(
-                                    width: 5 * height_unit,
+                                  SizedBox(
+                                    width: 5 * heightFactor,
                                   ),
                                   // const Text(
                                   //   'Licenze: ',
                                   //   style: TextStyle(
-                                  //     fontSize: 15 * height_unit,
+                                  //     fontSize: 15 * heightFactor,
                                   //     fontWeight: FontWeight.bold,
                                   //   ),
                                   // ),
@@ -366,15 +370,15 @@ class PanelWidget extends ConsumerWidget {
                                                                   Image.asset(
                                                                 'assets/images/license_img/logo-fmi.jpg',
                                                                 height: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                                 width: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                               ),
                                                             ),
                                                             Text('fmi'),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 5.0 *
-                                                                  height_unit,
+                                                                  heightFactor,
                                                             ),
                                                           ],
                                                         ),
@@ -400,14 +404,14 @@ class PanelWidget extends ConsumerWidget {
                                                                   Image.asset(
                                                                 'assets/images/license_img/logo-uisp.jpg',
                                                                 height: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                                 width: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                               ),
                                                             ),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 5.0 *
-                                                                  height_unit,
+                                                                  heightFactor,
                                                             ),
                                                             Text('uisp'),
                                                           ],
@@ -434,14 +438,14 @@ class PanelWidget extends ConsumerWidget {
                                                                   Image.asset(
                                                                 'assets/images/license_img/logo_motoasi.jpg',
                                                                 height: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                                 width: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                               ),
                                                             ),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 5.0 *
-                                                                  height_unit,
+                                                                  heightFactor,
                                                             ),
                                                             Text('asi'),
                                                           ],
@@ -468,14 +472,14 @@ class PanelWidget extends ConsumerWidget {
                                                                   Image.asset(
                                                                 'assets/images/license_img/logo-csen.jpg',
                                                                 height: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                                 width: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                               ),
                                                             ),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 5.0 *
-                                                                  height_unit,
+                                                                  heightFactor,
                                                             ),
                                                             Text('csen'),
                                                           ],
@@ -503,14 +507,14 @@ class PanelWidget extends ConsumerWidget {
                                                                   Image.asset(
                                                                 'assets/images/license_img/logo-asc.jpg',
                                                                 height: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                                 width: 50 *
-                                                                    height_unit,
+                                                                    heightFactor,
                                                               ),
                                                             ),
-                                                            const SizedBox(
+                                                            SizedBox(
                                                               width: 5.0 *
-                                                                  height_unit,
+                                                                  heightFactor,
                                                             ),
                                                             Text('asc'),
                                                           ],
@@ -525,8 +529,8 @@ class PanelWidget extends ConsumerWidget {
                                               .toList() ??
                                           [],
 
-                                      const SizedBox(
-                                        width: 5 * height_unit,
+                                      SizedBox(
+                                        width: 5 * heightFactor,
                                       ),
 
                                       //UISP
@@ -541,7 +545,7 @@ class PanelWidget extends ConsumerWidget {
                                   Text(
                                     'Minicross:',
                                     style: TextStyle(
-                                      fontSize: 15 * height_unit,
+                                      fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -584,7 +588,7 @@ class PanelWidget extends ConsumerWidget {
                                 'Servizi: ',
                                 style: TextStyle(
                                   color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 16 * height_unit,
+                                  fontSize: 16 * heightFactor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -600,7 +604,7 @@ class PanelWidget extends ConsumerWidget {
                                                 color: Theme.of(context)
                                                     .colorScheme
                                                     .secondary,
-                                                fontSize: 13 * height_unit,
+                                                fontSize: 13 * heightFactor,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -613,12 +617,12 @@ class PanelWidget extends ConsumerWidget {
                                                   'si' => Icon(
                                                       Icons.check,
                                                       color: Colors.greenAccent,
-                                                      size: 18 * height_unit,
+                                                      size: 18 * heightFactor,
                                                     ),
                                                   'no' => Icon(
                                                       Icons.close,
                                                       color: Colors.redAccent,
-                                                      size: 18 * height_unit,
+                                                      size: 18 * heightFactor,
                                                     ),
                                                   _ => Container(),
                                                 },
@@ -640,7 +644,7 @@ class PanelWidget extends ConsumerWidget {
             ),
           ),
 
-          const SizedBox(height: 12 * height_unit),
+          SizedBox(height: 12 * heightFactor),
           //services
 
           // Card(
@@ -828,7 +832,7 @@ class PanelWidget extends ConsumerWidget {
           //           'Fax: ',
           //           style: TextStyle(
           //             color: Theme.of(context).colorScheme.primary,
-          //             fontSize: 16 * height_unit,
+          //             fontSize: 16 * heightFactor,
           //             fontWeight: FontWeight.bold,
           //           ),
           //         ),
@@ -840,7 +844,7 @@ class PanelWidget extends ConsumerWidget {
           //                     entry,
           //                     style: TextStyle(
           //                       color: Theme.of(context).colorScheme.secondary,
-          //                       fontSize: 16 * height_unit,
+          //                       fontSize: 16 * heightFactor,
           //                       fontWeight: FontWeight.bold,
           //                     ),
           //                   )
@@ -853,7 +857,7 @@ class PanelWidget extends ConsumerWidget {
           //   ),
           // ),
 
-          // const SizedBox(height: 12 * height_unit),
+          // const SizedBox(height: 12 * heightFactor),
 
           //show weather info
           Card(
@@ -863,7 +867,7 @@ class PanelWidget extends ConsumerWidget {
             ),
           ),
 
-          const SizedBox(height: 12 * height_unit),
+          SizedBox(height: 12 * heightFactor),
 
           //show comments
           Card(

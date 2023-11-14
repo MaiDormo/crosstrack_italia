@@ -1,5 +1,4 @@
-import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';

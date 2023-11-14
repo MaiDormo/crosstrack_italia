@@ -1,10 +1,12 @@
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/map/models/regions.dart';
 import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/all_tracks_markers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/lombardia_tracks_markers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/trentino_alto_adige_tracks_markers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/veneto_tracks_markers.dart';
-import 'package:crosstrack_italia/features/map/providers/floating_search_bar_controller_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/panel_controller_provider.dart';
+import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
+import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_utils.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.dart';
@@ -19,20 +21,6 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-final selectedRegionProvider = StateProvider<Choices>((ref) => Choices.all);
-final searchTrackStringProvider = StateProvider<String>((ref) => '');
-
-final mapController = MapController();
-final panelController = PanelController();
-final floatingSearchBarController = FloatingSearchBarController();
-
-enum Choices {
-  all,
-  veneto,
-  lombardia,
-  trentinoAltoAdige,
-}
-
 class MapScreenView extends ConsumerWidget {
   const MapScreenView({Key? key}) : super(key: key);
 
@@ -40,6 +28,8 @@ class MapScreenView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
     final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
+    final mapController = ref.watch(mapControllerProvider);
+    final panelController = ref.watch(panelControllerProvider);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SlidingUpPanel(
@@ -72,7 +62,7 @@ class MapScreenView extends ConsumerWidget {
   }
 }
 
-class Map extends ConsumerWidget {
+class Map extends StatelessWidget {
   const Map({
     super.key,
     required this.mapController,
@@ -81,7 +71,7 @@ class Map extends ConsumerWidget {
   final MapController mapController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(
@@ -159,13 +149,11 @@ class Map extends ConsumerWidget {
                     ? () {
                         //wait for the map to center
                         ref.read(centerUserLocationProvider.notifier).follow();
-                        print('[DEBUG] following user location');
                         Future.delayed(const Duration(milliseconds: 500), () {
                           ref
                               .read(centerUserLocationProvider.notifier)
                               .stopFollowing();
                         });
-                        print('[DEBUG] stopped following user location');
                       }
                     : null,
                 child: const Icon(
@@ -178,12 +166,12 @@ class Map extends ConsumerWidget {
         ),
         Consumer(
           builder: (context, ref, child) {
-            final selectedRegion = ref.watch<Choices>(selectedRegionProvider);
+            final selectedRegion = ref.watch<Regions>(selectedRegionProvider);
             return switch (selectedRegion) {
-              Choices.all => const AllTracksMarkers(),
-              Choices.veneto => const VenetoTracksMarkers(),
-              Choices.lombardia => const LombardiaTracksMarkers(),
-              Choices.trentinoAltoAdige =>
+              Regions.all => const AllTracksMarkers(),
+              Regions.veneto => const VenetoTracksMarkers(),
+              Regions.lombardia => const LombardiaTracksMarkers(),
+              Regions.trentinoAltoAdige =>
                 const TrentinoAltoAdigeTracksMarkers(),
             };
           },
@@ -201,6 +189,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
+    final mapController = ref.watch(mapControllerProvider);
 
     return FloatingSearchBar(
       controller: ref.watch(floatingSearchBarControllerProvider),
@@ -216,7 +205,9 @@ class FloatingSearchMapBar extends ConsumerWidget {
       debounceDelay: const Duration(milliseconds: 500),
       onQueryChanged: (query) {
         // Call your model, bloc, controller here.
-        ref.read(searchTrackStringProvider.notifier).state = query;
+        ref
+            .read(searchTrackStringProvider.notifier)
+            .setSearchTrackString(query);
         ref.read(searchTrackProvider.notifier).onSearchTrack(
             query,
             ref.read(fetchAllTracksProvider).when(
@@ -240,46 +231,47 @@ class FloatingSearchMapBar extends ConsumerWidget {
         FloatingSearchBarAction.searchToClear(
           showIfClosed: false,
         ),
-        PopupMenuButton<Choices>(
-          onSelected: (Choices result) {
-            ref.read(selectedRegionProvider.notifier).state = result;
+        PopupMenuButton<Regions>(
+          onSelected: (Regions result) {
+            ref.read(selectedRegionProvider.notifier).setRegion(result);
             LatLng center;
             switch (result) {
-              case Choices.veneto:
+              case Regions.veneto:
                 //pop current marker Layer
-                center = const LatLng(
-                    45.4384, 12.3272); // Replace with actual coordinates
+                center = MapConstans.venice; // Replace with actual coordinates
                 break;
-              case Choices.lombardia:
-                center = const LatLng(45.4384, 12.3272);
+              case Regions.lombardia:
+                center = MapConstans.milan;
                 break;
-              case Choices.trentinoAltoAdige:
-                center = const LatLng(45.4384, 12.3272);
+              case Regions.trentinoAltoAdige:
+                center = MapConstans.trento;
                 break;
               default:
-                center = const LatLng(46.066775, 11.149904);
+                center = MapConstans.defaultLocation;
             }
             mapController.move(
-                center, 8.0); // Center the map on the selected region
+                center,
+                MapConstans
+                    .defaultZoom); // Center the map on the selected region
             // Update markers here based on the selected region
           },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<Choices>>[
-            const PopupMenuItem<Choices>(
-              value: Choices.all,
-              child: Text('All Regions'),
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
+            const PopupMenuItem<Regions>(
+              value: Regions.all,
+              child: Text(MapConstans.all),
             ),
-            const PopupMenuItem<Choices>(
-              value: Choices.veneto,
-              child: Text('Veneto'),
+            const PopupMenuItem<Regions>(
+              value: Regions.veneto,
+              child: Text(MapConstans.veneto),
             ),
             // Add more PopupMenuItem entries for other regions
-            const PopupMenuItem<Choices>(
-              value: Choices.lombardia,
-              child: Text('Lombardia'),
+            const PopupMenuItem<Regions>(
+              value: Regions.lombardia,
+              child: Text(MapConstans.lombardia),
             ),
-            const PopupMenuItem<Choices>(
-              value: Choices.trentinoAltoAdige,
-              child: Text('Trentino Alto Adige'),
+            const PopupMenuItem<Regions>(
+              value: Regions.trentinoAltoAdige,
+              child: Text(MapConstans.trentinoAltoAdige),
             ),
           ],
         ),
@@ -290,7 +282,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
             return ClipRRect(
               borderRadius: BorderRadius.circular(20.0),
               child: Material(
-                color: const Color.fromRGBO(255, 255, 255, 1),
+                color: Theme.of(context).colorScheme.primary,
                 elevation: 4.0,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),

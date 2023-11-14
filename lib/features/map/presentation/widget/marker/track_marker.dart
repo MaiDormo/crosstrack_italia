@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/map/providers/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

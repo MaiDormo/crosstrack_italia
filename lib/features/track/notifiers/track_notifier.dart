@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:crosstrack_italia/common/utils.dart';
 import 'package:crosstrack_italia/features/auth/providers/user_id_provider.dart';
-import 'package:crosstrack_italia/features/map/providers/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';

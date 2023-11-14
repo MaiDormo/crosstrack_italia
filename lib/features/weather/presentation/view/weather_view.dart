@@ -1,15 +1,16 @@
+import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/weather/domain/models/forecast.dart';
 import 'package:crosstrack_italia/features/weather/domain/providers/forecast_info_provider.dart';
 import 'package:crosstrack_italia/views/components/animations/error_animation_view.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WeatherView extends StatelessWidget {
+class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final heightFactor = ref.read(heightFactorProvider(context));
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Column(
@@ -17,7 +18,7 @@ class WeatherView extends StatelessWidget {
           Text(
             'Meteo:',
             style: TextStyle(
-              fontSize: 16 * height_unit,
+              fontSize: 16 * heightFactor,
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
@@ -43,7 +44,7 @@ class WeatherView extends StatelessWidget {
   }
 }
 
-class WeatherWidget extends StatelessWidget {
+class WeatherWidget extends ConsumerWidget {
   final Forecast forecast;
   const WeatherWidget({
     super.key,
@@ -51,7 +52,8 @@ class WeatherWidget extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final heightFactor = ref.read(heightFactorProvider(context));
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
@@ -67,7 +69,7 @@ class WeatherWidget extends StatelessWidget {
                   Text(
                     forecast.list[i].date,
                     style: TextStyle(
-                      fontSize: 16 * height_unit,
+                      fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -75,19 +77,19 @@ class WeatherWidget extends StatelessWidget {
                   Text(
                     forecast.list[i].hour,
                     style: TextStyle(
-                      fontSize: 16 * height_unit,
+                      fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Image.network(
                     'https://openweathermap.org/img/wn/${forecast.list[i].iconUrl}.png',
-                    height: 50 * height_unit,
-                    width: 50 * height_unit,
+                    height: 50 * heightFactor,
+                    width: 50 * heightFactor,
                   ),
                   Text(
                     forecast.list[i].temperature,
                     style: TextStyle(
-                      fontSize: 16 * height_unit,
+                      fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
