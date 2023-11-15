@@ -62,7 +62,7 @@ class MapScreenView extends ConsumerWidget {
   }
 }
 
-class Map extends StatelessWidget {
+class Map extends ConsumerWidget {
   const Map({
     super.key,
     required this.mapController,
@@ -71,7 +71,7 @@ class Map extends StatelessWidget {
   final MapController mapController;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FlutterMap(
       mapController: mapController,
       options: MapOptions(

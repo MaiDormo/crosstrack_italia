@@ -22,8 +22,8 @@ class TrackMarkerPopup extends ConsumerWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
+            alignment: Alignment.bottomLeft,
             children: <Widget>[
               GestureDetector(
                 child: Consumer(
@@ -34,13 +34,20 @@ class TrackMarkerPopup extends ConsumerWidget {
                         return image;
                       },
                       loading: () {
-                        return const CircularProgressIndicator();
+                        return Container(
+                          width: 300,
+                          height: 150,
+                          color: Colors.grey[300],
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                       },
                       error: (error, stackTrace) {
                         return Image.asset(
                           'assets/images/placeholder.jpg',
-                          width: 200,
-                          height: 100,
+                          width: 300,
+                          height: 150,
                           fit: BoxFit.cover,
                         );
                       },
@@ -54,7 +61,17 @@ class TrackMarkerPopup extends ConsumerWidget {
                       : panelController.close();
                 },
               ),
-              Text(track.trackName ?? 'No name'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  track.trackName ?? 'No name',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 11,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

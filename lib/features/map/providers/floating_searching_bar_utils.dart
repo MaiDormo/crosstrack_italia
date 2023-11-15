@@ -1,5 +1,4 @@
 import 'package:crosstrack_italia/features/map/models/regions.dart';
-import 'package:crosstrack_italia/features/map/presentation/map_screen_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'floating_searching_bar_utils.g.dart';

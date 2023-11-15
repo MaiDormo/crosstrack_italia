@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:crosstrack_italia/common/utils.dart';
 import 'package:crosstrack_italia/features/auth/providers/user_id_provider.dart';
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
@@ -9,6 +10,7 @@ import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/providers/storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -64,6 +66,12 @@ class TrackSelected extends _$TrackSelected {
 
   void setTrack(Track track) {
     state = track;
+    ref.read(mapNotifierProvider.notifier).moveTo(
+          LatLng(
+            double.parse(track.latitude),
+            double.parse(track.longitude),
+          ),
+        );
   }
 }
 
@@ -97,8 +105,8 @@ class TrackNotifier extends _$TrackNotifier {
           .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
       final image = Image.network(
         imageUrl,
-        width: 200,
-        height: 100,
+        width: 300,
+        height: 120,
         fit: BoxFit.cover,
         scale: MapConstans.scaleImage,
       );
@@ -109,8 +117,8 @@ class TrackNotifier extends _$TrackNotifier {
       state = false;
       return Image.asset(
         MapConstans.placeholder,
-        width: 200,
-        height: 100,
+        width: 300,
+        height: 150,
         fit: BoxFit.cover,
         scale: MapConstans.scaleImage,
       );

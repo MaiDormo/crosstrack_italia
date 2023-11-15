@@ -452,7 +452,7 @@ class _FetchCommentsByTrackIdProviderElement
   String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
 }
 
-String _$trackSelectedHash() => r'2548e829bf1e527ba4e2e5c2918f9adea002d4bc';
+String _$trackSelectedHash() => r'e687dda4e2e643828d5f2581e820f41050b28c70';
 
 /// See also [TrackSelected].
 @ProviderFor(TrackSelected)
@@ -468,7 +468,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
-String _$trackNotifierHash() => r'ffaf4ee08daad32c25fa4c2ceca4ffd5bc6a87d1';
+String _$trackNotifierHash() => r'c29f0ee88caaa2b5b13fe5d62a6e8074f4ea5aa9';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

@@ -34,6 +34,11 @@ class TrackPopupMarkerLayer extends StatelessWidget {
           },
           animation: PopupAnimation.fade(),
         ),
+        markerCenterAnimation: MarkerCenterAnimation(
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 500),
+        ),
+        markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
       ),
     );
   }
