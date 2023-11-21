@@ -27,8 +27,8 @@ class TrackRepository {
 
   CollectionReference get _tracks =>
       _firestore.collection(FirebaseCollectionName.tracks);
-  CollectionReference get _users =>
-      _firestore.collection(FirebaseCollectionName.users);
+  // CollectionReference get _users =>
+  //     _firestore.collection(FirebaseCollectionName.users);
   CollectionReference get _comments =>
       _firestore.collection(FirebaseCollectionName.comments);
 
