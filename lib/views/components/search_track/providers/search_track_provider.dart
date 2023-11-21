@@ -26,7 +26,6 @@ class SearchTrack extends _$SearchTrack {
   }
 }
 
-
 // final searchTrackProvider = StateNotifierProvider<SearchTrack, Iterable>((ref) {
 //   return SearchTrack();
 // });

@@ -23,7 +23,6 @@ class WeatherInfo with _$WeatherInfo {
       );
 }
 
-
 // class WeatherInfo {
 //   final String date;
 //   final String hour;
