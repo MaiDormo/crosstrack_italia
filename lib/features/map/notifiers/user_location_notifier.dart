@@ -12,12 +12,12 @@ part 'user_location_notifier.g.dart';
 
 @riverpod
 Future<String> getClosestLocation(GetClosestLocationRef ref) async {
+  await ref.watch(locationServicesProvider.notifier).check();
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
-  final hasLocationPermission = ref.watch(hasLocationPermissionProvider);
+  final locationServices = ref.watch(locationServicesProvider);
   return userLocationNotifier.getClosestLocation(
-      showCurrentLocation: showCurrentLocation,
-      hasLocationPermission: hasLocationPermission);
+      showCurrentLocation, locationServices);
 }
 
 //------------------------NOTIFIER------------------------//
@@ -37,23 +37,49 @@ class ShowCurrentLocation extends _$ShowCurrentLocation {
 //This is the notifier that will be used to check if the user has location permission
 //and to get the user location
 @riverpod
-class HasLocationPermission extends _$HasLocationPermission {
+class LocationServices extends _$LocationServices {
   @override
   bool build() => false;
 
-  Future<void> getPermission() async {
-    final permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      final permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
+  Future<void> check() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled.
+      state = false;
+    }
+
+    // Check location permissions.
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next step is to ask the permissions from the user.
         state = false;
-      } else {
-        state = true;
       }
-    } else {
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      state = false;
+    }
+
+    // When we reach here, location services are enabled and we have permission to use location.
+
+    // Control the position stream
+    var position = null;
+    try {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    } catch (e) {}
+
+    if (position != null) {
       state = true;
+    } else {
+      state = false;
     }
   }
 }
@@ -81,14 +107,9 @@ class UserLocationNotifier extends _$UserLocationNotifier {
   @override
   bool build() => false;
 
-  Future<String> getClosestLocation({
-    required bool showCurrentLocation,
-    required bool hasLocationPermission,
-  }) async {
-    if (showCurrentLocation) {
-      if (!hasLocationPermission) {
-        await ref.read(hasLocationPermissionProvider.notifier).getPermission();
-      }
+  Future<String> getClosestLocation(
+      bool showCurrentLocation, bool locationServices) async {
+    if (showCurrentLocation && locationServices) {
       final location = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high); // Get users location
       final userLatitude = location.latitude;
@@ -101,14 +122,14 @@ class UserLocationNotifier extends _$UserLocationNotifier {
         String? closestLocation = closestPlacemark.locality ??
             closestPlacemark.subAdministrativeArea ??
             closestPlacemark.administrativeArea;
-        // state = true;
+        state = true;
         return closestLocation ?? MapConstans.noLocationFound;
         // Use the `closestLocation` string to display the closest main location to the user
       }
-      // state = false;
+      state = false;
       return MapConstans.noLocationFound;
     } else {
-      // state = false;
+      state = false;
       return MapConstans.initialLocation;
     }
   }

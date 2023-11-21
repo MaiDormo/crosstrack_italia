@@ -452,7 +452,7 @@ class _FetchCommentsByTrackIdProviderElement
   String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
 }
 
-String _$trackSelectedHash() => r'e687dda4e2e643828d5f2581e820f41050b28c70';
+String _$trackSelectedHash() => r'f845ec1b5c309d002d885f7f897d06e7b571dab1';
 
 /// See also [TrackSelected].
 @ProviderFor(TrackSelected)

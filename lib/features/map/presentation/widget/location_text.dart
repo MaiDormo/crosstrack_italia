@@ -13,7 +13,6 @@ class LocationText extends ConsumerWidget {
         data: (data) => data,
         loading: () => 'Loading...',
         error: (error, stackTrace) {
-          print('Error: $error');
           return 'Error';
         },
       ),

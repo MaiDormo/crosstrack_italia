@@ -39,20 +39,5 @@ final panelControllerProvider = AutoDisposeProvider<PanelController>.internal(
 );
 
 typedef PanelControllerRef = AutoDisposeProviderRef<PanelController>;
-String _$mapControllerHash() => r'f8b5c3866a8f131a2ab2026ec94836c54874b0a7';
-
-/// See also [mapController].
-@ProviderFor(mapController)
-final mapControllerProvider = AutoDisposeProvider<MapController>.internal(
-  mapController,
-  name: r'mapControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$mapControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef MapControllerRef = AutoDisposeProviderRef<MapController>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

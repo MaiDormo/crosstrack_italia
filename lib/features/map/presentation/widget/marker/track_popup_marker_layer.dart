@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker_popup.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
@@ -29,8 +30,9 @@ class TrackPopupMarkerLayer extends StatelessWidget {
           builder: (_, Marker marker) {
             if (marker is TrackMarker) {
               return TrackMarkerPopup(track: marker.track);
+            } else {
+              return const SizedBox();
             }
-            return const Card(child: Text('Not a Track'));
           },
           animation: PopupAnimation.fade(),
         ),
@@ -39,6 +41,26 @@ class TrackPopupMarkerLayer extends StatelessWidget {
           duration: const Duration(milliseconds: 500),
         ),
         markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
+        selectedMarkerBuilder: (context, marker) => Container(
+          height: MapConstans.markerSize,
+          width: MapConstans.markerSize,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: Colors.orange, // Set border color
+              width: 3.0, // Set border width
+            ),
+            borderRadius: BorderRadius.circular(MapConstans.markerSize),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(MapConstans.markerSize),
+            child: Icon(
+              Icons.exit_to_app_rounded,
+              size: 60.0 * MapConstans.scaleImage,
+              color: Colors.orange,
+            ),
+          ),
+        ),
       ),
     );
   }

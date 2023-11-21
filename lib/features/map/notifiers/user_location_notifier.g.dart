@@ -7,7 +7,7 @@ part of 'user_location_notifier.dart';
 // **************************************************************************
 
 String _$getClosestLocationHash() =>
-    r'f87aa1725eddf3e1ba8f1de0604fc0c518c4c525';
+    r'd6e5a4d9de475896c4d0985c104dad7cd312d4b9';
 
 /// See also [getClosestLocation].
 @ProviderFor(getClosestLocation)
@@ -39,23 +39,22 @@ final showCurrentLocationProvider =
 );
 
 typedef _$ShowCurrentLocation = AutoDisposeNotifier<bool>;
-String _$hasLocationPermissionHash() =>
-    r'eb9c4b5b5760a5a8d3145bd8a4560b7b9642043b';
+String _$locationServicesHash() => r'dfa962e8e37717ba64383ee73ded434f063082c6';
 
-/// See also [HasLocationPermission].
-@ProviderFor(HasLocationPermission)
-final hasLocationPermissionProvider =
-    AutoDisposeNotifierProvider<HasLocationPermission, bool>.internal(
-  HasLocationPermission.new,
-  name: r'hasLocationPermissionProvider',
+/// See also [LocationServices].
+@ProviderFor(LocationServices)
+final locationServicesProvider =
+    AutoDisposeNotifierProvider<LocationServices, bool>.internal(
+  LocationServices.new,
+  name: r'locationServicesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$hasLocationPermissionHash,
+      : _$locationServicesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$HasLocationPermission = AutoDisposeNotifier<bool>;
+typedef _$LocationServices = AutoDisposeNotifier<bool>;
 String _$centerUserLocationHash() =>
     r'bd528824bd4550efb6c347abf9ae86152f9fbce7';
 
@@ -74,7 +73,7 @@ final centerUserLocationProvider = AutoDisposeNotifierProvider<
 
 typedef _$CenterUserLocation = AutoDisposeNotifier<FollowOnLocationUpdate>;
 String _$userLocationNotifierHash() =>
-    r'25db72adfea714d15cdd5ea6a29578ea65c11754';
+    r'd49ec51dc585ef0e428d33337c0faf64c8f0127a';
 
 /// See also [UserLocationNotifier].
 @ProviderFor(UserLocationNotifier)

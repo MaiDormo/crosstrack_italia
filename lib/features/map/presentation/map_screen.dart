@@ -1,5 +1,6 @@
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/map/models/regions.dart';
+import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
 import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/all_tracks_markers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/lombardia_tracks_markers.dart';
@@ -13,6 +14,7 @@ import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,15 +23,41 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:material_floating_search_bar_2/material_floating_search_bar_2.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class MapScreenView extends ConsumerWidget {
-  const MapScreenView({Key? key}) : super(key: key);
+//------------------RIVERPOD------------------//
+class MapScreen extends ConsumerStatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final _panelHeightClosed = MediaQuery.of(context).size.height * 0.1;
+  _MapScreenState createState() => _MapScreenState();
+}
+
+class _MapScreenState extends ConsumerState<MapScreen>
+    with TickerProviderStateMixin {
+  // late AnimatedMapController _animatedMapController;
+
+  @override
+  void initState() {
+    super.initState();
+    // _animatedMapController = AnimatedMapController(
+    //   vsync: this,
+    //   duration: const Duration(milliseconds: 500),
+    //   curve: Curves.easeInOut,
+    // ); // Initialize AnimatedMapController
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
-    final mapController = ref.watch(mapControllerProvider);
+    final _animatedMapController = ref.watch(animatedMapControllerProvider);
     final panelController = ref.watch(panelControllerProvider);
+
+    //setting provider with animatedMap
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SlidingUpPanel(
@@ -46,8 +74,12 @@ class MapScreenView extends ConsumerWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              Map(mapController: mapController),
-              FloatingSearchMapBar(),
+              Map(
+                  // animatedMapController: _animatedMapController,
+                  ), // Pass the AnimatedMapController
+              FloatingSearchMapBar(
+                  // animatedMapController: _animatedMapController,
+                  ),
             ],
           ),
         ),
@@ -62,18 +94,40 @@ class MapScreenView extends ConsumerWidget {
   }
 }
 
-class Map extends ConsumerWidget {
+class Map extends ConsumerStatefulWidget {
   const Map({
-    super.key,
-    required this.mapController,
-  });
+    Key? key,
+    // required this.animatedMapController,
+  }) : super(key: key);
 
-  final MapController mapController;
+  // final AnimatedMapController
+  // animatedMapController; // Replace MapController with AnimatedMapController
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _MapState createState() => _MapState();
+}
+
+class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
+  // late AnimatedMapController
+  //     _animatedMapController; // Replace MapController with AnimatedMapController
+
+  @override
+  void initState() {
+    super.initState();
+    // _animatedMapController = widget
+    //     .animatedMapController; // Assign the AnimatedMapController from the widget
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _animatedMapController = ref.watch(animatedMapControllerProvider);
     return FlutterMap(
-      mapController: mapController,
+      mapController: _animatedMapController.mapController,
       options: MapOptions(
         center: const LatLng(46.066775, 11.149904),
         zoom: 10.0,
@@ -84,6 +138,9 @@ class Map extends ConsumerWidget {
         //maxBounds: Limits how far the map can be moved by the user to a coordinate-based boundary
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
         //keepAlive: true, in  order to keep the map from rebuilding in a nested widget tree (when out of sight)
+
+        //remove focus on the current widget when the user interacts with the map
+        onTap: (tapPosition, position) => FocusScope.of(context).unfocus(),
       ),
       nonRotatedChildren: [
         RichAttributionWidget(
@@ -94,7 +151,7 @@ class Map extends ConsumerWidget {
             ),
           ],
         ),
-      ], //should not be used in order to keep the map in place
+      ],
       children: [
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -106,12 +163,11 @@ class Map extends ConsumerWidget {
 
         Consumer(
           builder: (context, ref, child) {
-            final hasLocationPermission =
-                ref.watch<bool>(hasLocationPermissionProvider);
+            final locationServices = ref.watch<bool>(locationServicesProvider);
             final showCurrentLocation =
                 ref.watch<bool>(showCurrentLocationProvider);
             final centerUserLocation = ref.watch(centerUserLocationProvider);
-            if (showCurrentLocation && hasLocationPermission) {
+            if (showCurrentLocation && locationServices) {
               return CurrentLocationLayer(
                 followOnLocationUpdate: centerUserLocation,
                 turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
@@ -138,6 +194,7 @@ class Map extends ConsumerWidget {
         Consumer(
           builder: (context, ref, child) {
             final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+            final locationServices = ref.watch(locationServicesProvider);
             return Positioned(
               top: 90,
               right: 8,
@@ -145,7 +202,7 @@ class Map extends ConsumerWidget {
                 backgroundColor: showCurrentLocation
                     ? Colors.black
                     : Colors.black.withOpacity(0.5),
-                onPressed: showCurrentLocation
+                onPressed: showCurrentLocation && locationServices
                     ? () {
                         //wait for the map to center
                         ref.read(centerUserLocationProvider.notifier).follow();
@@ -176,21 +233,21 @@ class Map extends ConsumerWidget {
             };
           },
         ),
-        // Add cases for other regions
       ],
     );
   }
 }
 
 class FloatingSearchMapBar extends ConsumerWidget {
+  // final animatedMapController;
   const FloatingSearchMapBar({
     super.key,
+    // required this.animatedMapController,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
-    final mapController = ref.watch(mapControllerProvider);
-
+    final _animatedMapController = ref.watch(animatedMapControllerProvider);
     return FloatingSearchBar(
       controller: ref.watch(floatingSearchBarControllerProvider),
       hint: 'Cerca...',
@@ -249,9 +306,9 @@ class FloatingSearchMapBar extends ConsumerWidget {
               default:
                 center = MapConstans.defaultLocation;
             }
-            mapController.move(
-                center,
-                MapConstans
+            _animatedMapController.animateTo(
+                dest: center,
+                zoom: MapConstans
                     .defaultZoom); // Center the map on the selected region
             // Update markers here based on the selected region
           },

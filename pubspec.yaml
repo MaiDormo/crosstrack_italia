@@ -51,7 +51,7 @@ dependencies:
   url_launcher: ^6.1.12
   riverpod_annotation: ^2.3.0
   flutter_map_location_marker: ^7.0.4
-  geolocator: ^9.0.2
+  geolocator: ^10.1.0
   geocoding: ^2.1.0
   flutter_map_tile_caching: ^9.0.0-dev.3
   flutter_map_marker_popup: ^5.2.0

@@ -66,7 +66,8 @@ class TrackSelected extends _$TrackSelected {
 
   void setTrack(Track track) {
     state = track;
-    ref.read(mapNotifierProvider.notifier).moveTo(
+
+    ref.read(mapNotifierProvider.notifier).animateTo(
           LatLng(
             double.parse(track.latitude),
             double.parse(track.longitude),

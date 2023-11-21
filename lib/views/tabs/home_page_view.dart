@@ -5,12 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_states/nav_states/nav_notifier.dart';
 import '../../top_bar.dart';
 import '../../bottom_bar.dart';
-import '../../features/map/presentation/map_screen_view.dart';
+import '../../features/map/presentation/map_screen.dart';
 
 class HomePageView extends ConsumerWidget {
   const HomePageView({super.key});
   static List<Widget> widgetList = [
-    const Flexible(child: MapScreenView()),
+    Flexible(child: MapScreen()),
     const Flexible(child: NewsView()),
     const Flexible(child: SettingsPageView()),
   ];
