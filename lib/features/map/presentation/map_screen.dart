@@ -14,7 +14,6 @@ import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -53,7 +52,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
   @override
   Widget build(BuildContext context) {
     final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
-    final _animatedMapController = ref.watch(animatedMapControllerProvider);
     final panelController = ref.watch(panelControllerProvider);
 
     //setting provider with animatedMap
