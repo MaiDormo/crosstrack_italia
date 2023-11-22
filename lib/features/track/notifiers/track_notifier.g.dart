@@ -174,7 +174,7 @@ class _FetchTracksByRegionProviderElement
   String get region => (origin as FetchTracksByRegionProvider).region;
 }
 
-String _$trackThumbnailHash() => r'9000e276f3fa2bc8a1b2267213e6f60f4f831c80';
+String _$trackThumbnailHash() => r'b9adc03fcdc280e891219bf2c10e6474f0d9a37a';
 
 /// See also [trackThumbnail].
 @ProviderFor(trackThumbnail)
@@ -452,6 +452,151 @@ class _FetchCommentsByTrackIdProviderElement
   String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
 }
 
+String _$openGoogleMapHash() => r'19a0ee01b503a7253ff4095b2db84cabb9908836';
+
+/// See also [openGoogleMap].
+@ProviderFor(openGoogleMap)
+const openGoogleMapProvider = OpenGoogleMapFamily();
+
+/// See also [openGoogleMap].
+class OpenGoogleMapFamily extends Family<AsyncValue<bool>> {
+  /// See also [openGoogleMap].
+  const OpenGoogleMapFamily();
+
+  /// See also [openGoogleMap].
+  OpenGoogleMapProvider call(
+    Track? track,
+  ) {
+    return OpenGoogleMapProvider(
+      track,
+    );
+  }
+
+  @override
+  OpenGoogleMapProvider getProviderOverride(
+    covariant OpenGoogleMapProvider provider,
+  ) {
+    return call(
+      provider.track,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'openGoogleMapProvider';
+}
+
+/// See also [openGoogleMap].
+class OpenGoogleMapProvider extends AutoDisposeFutureProvider<bool> {
+  /// See also [openGoogleMap].
+  OpenGoogleMapProvider(
+    Track? track,
+  ) : this._internal(
+          (ref) => openGoogleMap(
+            ref as OpenGoogleMapRef,
+            track,
+          ),
+          from: openGoogleMapProvider,
+          name: r'openGoogleMapProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$openGoogleMapHash,
+          dependencies: OpenGoogleMapFamily._dependencies,
+          allTransitiveDependencies:
+              OpenGoogleMapFamily._allTransitiveDependencies,
+          track: track,
+        );
+
+  OpenGoogleMapProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.track,
+  }) : super.internal();
+
+  final Track? track;
+
+  @override
+  Override overrideWith(
+    FutureOr<bool> Function(OpenGoogleMapRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: OpenGoogleMapProvider._internal(
+        (ref) => create(ref as OpenGoogleMapRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        track: track,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<bool> createElement() {
+    return _OpenGoogleMapProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is OpenGoogleMapProvider && other.track == track;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, track.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin OpenGoogleMapRef on AutoDisposeFutureProviderRef<bool> {
+  /// The parameter `track` of this provider.
+  Track? get track;
+}
+
+class _OpenGoogleMapProviderElement
+    extends AutoDisposeFutureProviderElement<bool> with OpenGoogleMapRef {
+  _OpenGoogleMapProviderElement(super.provider);
+
+  @override
+  Track? get track => (origin as OpenGoogleMapProvider).track;
+}
+
+String _$toggleServicesViewHash() =>
+    r'3527e52be94afbe9ace8afda0a40081c20b470ce';
+
+/// See also [ToggleServicesView].
+@ProviderFor(ToggleServicesView)
+final toggleServicesViewProvider =
+    AutoDisposeNotifierProvider<ToggleServicesView, bool>.internal(
+  ToggleServicesView.new,
+  name: r'toggleServicesViewProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$toggleServicesViewHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ToggleServicesView = AutoDisposeNotifier<bool>;
 String _$trackSelectedHash() => r'f845ec1b5c309d002d885f7f897d06e7b571dab1';
 
 /// See also [TrackSelected].
@@ -468,7 +613,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
-String _$trackNotifierHash() => r'c29f0ee88caaa2b5b13fe5d62a6e8074f4ea5aa9';
+String _$trackNotifierHash() => r'321df25549ca6484e319fc6308af8b372c076d8a';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

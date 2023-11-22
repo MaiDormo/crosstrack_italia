@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'track_notifier.g.dart';
 
@@ -36,7 +37,7 @@ Stream<Iterable<Track>> fetchTracksByRegion(
 
 @riverpod
 Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
-  final trackNotifier = await ref.watch(trackNotifierProvider.notifier);
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   final image = await trackNotifier.trackThumbnail(track);
   return image;
 }
@@ -55,7 +56,30 @@ Stream<Iterable<Comment>> fetchCommentsByTrackId(
   yield* trackNotifier.fetchCommentsByTrackId(trackId);
 }
 
+@riverpod
+Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
+  final _trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  //ill'use '!' because i know that the function is called only when track is not null
+  if (track != null)
+    return await _trackNotifier.openGoogleMap(track);
+  else
+    return false;
+}
+
 //------------------NOTIFIER------------------//
+
+//toggle for the view of services
+@riverpod
+class ToggleServicesView extends _$ToggleServicesView {
+  @override
+  bool build() {
+    return false;
+  }
+
+  void toggle() {
+    state = !state;
+  }
+}
 
 @riverpod
 class TrackSelected extends _$TrackSelected {
@@ -66,7 +90,6 @@ class TrackSelected extends _$TrackSelected {
 
   void setTrack(Track track) {
     state = track;
-
     ref.read(mapNotifierProvider.notifier).animateTo(
           LatLng(
             double.parse(track.latitude),
@@ -170,5 +193,16 @@ class TrackNotifier extends _$TrackNotifier {
   //get all comments related to a track
   Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) async* {
     yield* _trackRepository.fetchCommentsByTrackId(trackId);
+  }
+
+  Future<bool> openGoogleMap(Track track) async {
+    final _url = Uri.parse(
+        'https://www.google.com/maps/dir/?api=1&destination=' +
+            track.latitude +
+            ',' +
+            track.longitude +
+            '&travelmode=driving');
+
+    return await launchUrl(_url);
   }
 }

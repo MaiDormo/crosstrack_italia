@@ -36,7 +36,11 @@ class PanelWidget extends ConsumerWidget {
         buildDragHandle(),
         Consumer(builder: (context, _, child) {
           return buildTrackInfo(
-              trackSelected, allTrackImages, context, heightFactor);
+            trackSelected,
+            allTrackImages,
+            context,
+            heightFactor,
+          );
         }),
         SizedBox(height: heightFactor * 12),
       ],
@@ -44,10 +48,11 @@ class PanelWidget extends ConsumerWidget {
   }
 
   Widget buildTrackInfo(
-      Track? trackSelected,
-      AsyncValue<Iterable<Image>> allTrackImages,
-      BuildContext context,
-      double heightFactor) {
+    Track? trackSelected,
+    AsyncValue<Iterable<Image>> allTrackImages,
+    BuildContext context,
+    double heightFactor,
+  ) {
     ///TODO: how is changing if it's final
     final rating = (Random().nextDouble() * 5).floorToDouble();
 
@@ -109,15 +114,6 @@ class PanelWidget extends ConsumerWidget {
             ),
           ),
 
-          //REGION
-          // Text(
-          //   trackSelected?.region ?? '',
-          //   style: TextStyle(
-          //     fontSize: 16,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-
           Text(
             trackSelected?.location ?? '',
             style: TextStyle(
@@ -128,27 +124,79 @@ class PanelWidget extends ConsumerWidget {
           ),
 
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
-                'valutazione: ' + rating.toString(),
-                style: TextStyle(
-                  fontSize: 16 * heightFactor,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.orangeAccent,
-                ),
+              Row(
+                children: [
+                  Text(
+                    'valutazione: ' + rating.toString(),
+                    style: TextStyle(
+                      fontSize: 16 * heightFactor,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orangeAccent,
+                    ),
+                  ),
+                  RatingBarIndicator(
+                    //random value between 0 and 5
+                    physics: NeverScrollableScrollPhysics(),
+                    itemSize: 20 * heightFactor,
+                    rating: rating,
+                    direction: Axis.horizontal,
+                    itemCount: 5,
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Colors.orangeAccent,
+                    ),
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  ),
+                ],
               ),
-              RatingBarIndicator(
-                //random value between 0 and 5
-                physics: NeverScrollableScrollPhysics(),
-                itemSize: 20 * heightFactor,
-                rating: rating,
-                direction: Axis.horizontal,
-                itemCount: 5,
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: Colors.orangeAccent,
-                ),
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+
+              //add a button to open google maps
+              Consumer(
+                builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                  return ElevatedButton(
+                    onPressed: () => ref
+                        .read(
+                      openGoogleMapProvider(trackSelected),
+                    )
+                        .when(
+                      data: (value) {
+                        if (value) {
+                          final snackBar = SnackBar(
+                              content: Text('Apertura Google Maps in corso'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          final snackBar = SnackBar(
+                              content: Text('Google Maps non disponibile'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      },
+                      loading: () {
+                        final snackBar = SnackBar(
+                            content: Text('Apertura Google Maps in corso'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      error: (error, stackTrace) {
+                        final snackBar = SnackBar(
+                            content: Text('Google Maps non disponibile'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Text('Indicazioni'),
+                        SizedBox(width: 4 * heightFactor),
+                        Icon(Icons.directions),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -269,8 +317,8 @@ class PanelWidget extends ConsumerWidget {
                                 ],
                               ),
 
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                              Wrap(
+                                alignment: WrapAlignment.start,
                                 children: [
                                   const Icon(
                                     Icons.terrain,
@@ -584,13 +632,55 @@ class PanelWidget extends ConsumerWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              Text(
-                                'Servizi: ',
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontSize: 16 * heightFactor,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    'Servizi: ',
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                      fontSize: 16 * heightFactor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+
+                                  //show a slider to toggle between services text and icons
+                                  Consumer(
+                                    builder: (
+                                      BuildContext context,
+                                      WidgetRef ref,
+                                      Widget? child,
+                                    ) {
+                                      final _value =
+                                          ref.watch(toggleServicesViewProvider);
+                                      return Tooltip(
+                                        message:
+                                            'Switch between text and icons',
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors
+                                              .orange, // Change the tooltip background color
+                                        ),
+                                        textStyle: TextStyle(
+                                          color: Colors
+                                              .white, // Change the tooltip text color
+                                          fontWeight: FontWeight
+                                              .bold, // Make the tooltip text bold
+                                        ),
+                                        child: Switch(
+                                          value: _value,
+                                          onChanged: (value) => ref
+                                              .read(toggleServicesViewProvider
+                                                  .notifier)
+                                              .toggle(),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
                               //display all of the values inside trackSelected.services in each row
                               // display all of the values inside trackSelected.services in each row
@@ -598,15 +688,47 @@ class PanelWidget extends ConsumerWidget {
                                       .map(
                                         (entry) => Row(
                                           children: [
-                                            Text(
-                                              entry.key,
-                                              style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .secondary,
-                                                fontSize: 13 * heightFactor,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                            Consumer(
+                                              builder: (
+                                                BuildContext context,
+                                                WidgetRef ref,
+                                                Widget? child,
+                                              ) {
+                                                final value = ref.watch(
+                                                    toggleServicesViewProvider);
+                                                final entryKeyCleaned = entry
+                                                    .key
+                                                    .replaceAll('_', ' ');
+                                                final icon =
+                                                    switch (entryKeyCleaned) {
+                                                  'prese 220V' => Icons.bolt,
+                                                  'bar' => Icons.wine_bar,
+                                                  'illuminazione notturna' =>
+                                                    Icons.nightlight_round,
+                                                  'doccia calda' =>
+                                                    Icons.shower,
+                                                  'doccia fredda' =>
+                                                    Icons.shower,
+                                                  _ =>
+                                                    Icons.check_circle_outline,
+                                                };
+
+                                                return value
+                                                    ? Icon(icon)
+                                                    : Text(
+                                                        entryKeyCleaned + ':',
+                                                        style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .secondary,
+                                                          fontSize:
+                                                              13 * heightFactor,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      );
+                                              },
                                             ),
                                             Card(
                                               child: Padding(
