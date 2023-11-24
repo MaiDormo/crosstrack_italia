@@ -7,7 +7,7 @@ part of 'track.dart';
 // **************************************************************************
 
 _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
-      trackId: json['trackId'] as String?,
+      id: json['id'] as String?,
       trackName: json['nome'] as String? ?? '',
       region: json['regione'] as String? ?? '',
       location: json['posto'] as String? ?? '',
@@ -39,13 +39,14 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
           const {},
       latitude: json['latitudine'] as String,
       longitude: json['longitudine'] as String,
-      trackWebCode: json['codice_web'] as String,
       photosUrl: json['foto'] as String,
+      commentCount: json['numero_commenti'] as int? ?? 0,
+      rating: (json['valutazione'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
     <String, dynamic>{
-      'trackId': instance.trackId,
+      'id': instance.id,
       'nome': instance.trackName,
       'regione': instance.region,
       'posto': instance.location,
@@ -64,6 +65,7 @@ Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
       'apertura': instance.openingHours,
       'latitudine': instance.latitude,
       'longitudine': instance.longitude,
-      'codice_web': instance.trackWebCode,
       'foto': instance.photosUrl,
+      'numero_commenti': instance.commentCount,
+      'valutazione': instance.rating,
     };

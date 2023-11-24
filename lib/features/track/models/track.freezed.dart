@@ -20,7 +20,7 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Track {
-  String? get trackId => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.trackName)
   String? get trackName => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.region)
@@ -57,10 +57,12 @@ mixin _$Track {
   String get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.longitude)
   String get longitude => throw _privateConstructorUsedError;
-  @JsonKey(name: FirebaseFieldName.trackWebCode)
-  String get trackWebCode => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.photosUrl)
   String get photosUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFieldName.commentCount)
+  int get commentCount => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFieldName.rating)
+  double get rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -73,7 +75,7 @@ abstract class $TrackCopyWith<$Res> {
       _$TrackCopyWithImpl<$Res, Track>;
   @useResult
   $Res call(
-      {String? trackId,
+      {String? id,
       @JsonKey(name: FirebaseFieldName.trackName) String? trackName,
       @JsonKey(name: FirebaseFieldName.region) String? region,
       @JsonKey(name: FirebaseFieldName.location) String? location,
@@ -94,8 +96,9 @@ abstract class $TrackCopyWith<$Res> {
       Map<String, String>? openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
-      @JsonKey(name: FirebaseFieldName.trackWebCode) String trackWebCode,
-      @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl});
+      @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
+      @JsonKey(name: FirebaseFieldName.commentCount) int commentCount,
+      @JsonKey(name: FirebaseFieldName.rating) double rating});
 }
 
 /// @nodoc
@@ -111,7 +114,7 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? trackId = freezed,
+    Object? id = freezed,
     Object? trackName = freezed,
     Object? region = freezed,
     Object? location = freezed,
@@ -130,13 +133,14 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
     Object? openingHours = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? trackWebCode = null,
     Object? photosUrl = null,
+    Object? commentCount = null,
+    Object? rating = null,
   }) {
     return _then(_value.copyWith(
-      trackId: freezed == trackId
-          ? _value.trackId
-          : trackId // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
       trackName: freezed == trackName
           ? _value.trackName
@@ -210,14 +214,18 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
-      trackWebCode: null == trackWebCode
-          ? _value.trackWebCode
-          : trackWebCode // ignore: cast_nullable_to_non_nullable
-              as String,
       photosUrl: null == photosUrl
           ? _value.photosUrl
           : photosUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      commentCount: null == commentCount
+          ? _value.commentCount
+          : commentCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -230,7 +238,7 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? trackId,
+      {String? id,
       @JsonKey(name: FirebaseFieldName.trackName) String? trackName,
       @JsonKey(name: FirebaseFieldName.region) String? region,
       @JsonKey(name: FirebaseFieldName.location) String? location,
@@ -251,8 +259,9 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
       Map<String, String>? openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
-      @JsonKey(name: FirebaseFieldName.trackWebCode) String trackWebCode,
-      @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl});
+      @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
+      @JsonKey(name: FirebaseFieldName.commentCount) int commentCount,
+      @JsonKey(name: FirebaseFieldName.rating) double rating});
 }
 
 /// @nodoc
@@ -266,7 +275,7 @@ class __$$TrackImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? trackId = freezed,
+    Object? id = freezed,
     Object? trackName = freezed,
     Object? region = freezed,
     Object? location = freezed,
@@ -285,13 +294,14 @@ class __$$TrackImplCopyWithImpl<$Res>
     Object? openingHours = freezed,
     Object? latitude = null,
     Object? longitude = null,
-    Object? trackWebCode = null,
     Object? photosUrl = null,
+    Object? commentCount = null,
+    Object? rating = null,
   }) {
     return _then(_$TrackImpl(
-      trackId: freezed == trackId
-          ? _value.trackId
-          : trackId // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String?,
       trackName: freezed == trackName
           ? _value.trackName
@@ -365,14 +375,18 @@ class __$$TrackImplCopyWithImpl<$Res>
           ? _value.longitude
           : longitude // ignore: cast_nullable_to_non_nullable
               as String,
-      trackWebCode: null == trackWebCode
-          ? _value.trackWebCode
-          : trackWebCode // ignore: cast_nullable_to_non_nullable
-              as String,
       photosUrl: null == photosUrl
           ? _value.photosUrl
           : photosUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      commentCount: null == commentCount
+          ? _value.commentCount
+          : commentCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -381,7 +395,7 @@ class __$$TrackImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TrackImpl implements _Track {
   _$TrackImpl(
-      {this.trackId,
+      {required this.id,
       @JsonKey(name: FirebaseFieldName.trackName) this.trackName = '',
       @JsonKey(name: FirebaseFieldName.region) this.region = '',
       @JsonKey(name: FirebaseFieldName.location) this.location = '',
@@ -404,8 +418,9 @@ class _$TrackImpl implements _Track {
       final Map<String, String>? openingHours = const {},
       @JsonKey(name: FirebaseFieldName.latitude) required this.latitude,
       @JsonKey(name: FirebaseFieldName.longitude) required this.longitude,
-      @JsonKey(name: FirebaseFieldName.trackWebCode) required this.trackWebCode,
-      @JsonKey(name: FirebaseFieldName.photosUrl) required this.photosUrl})
+      @JsonKey(name: FirebaseFieldName.photosUrl) required this.photosUrl,
+      @JsonKey(name: FirebaseFieldName.commentCount) this.commentCount = 0,
+      @JsonKey(name: FirebaseFieldName.rating) this.rating = 0.0})
       : _acceptedLicenses = acceptedLicenses,
         _services = services,
         _phones = phones,
@@ -416,7 +431,7 @@ class _$TrackImpl implements _Track {
       _$$TrackImplFromJson(json);
 
   @override
-  final String? trackId;
+  final String? id;
   @override
   @JsonKey(name: FirebaseFieldName.trackName)
   final String? trackName;
@@ -513,15 +528,18 @@ class _$TrackImpl implements _Track {
   @JsonKey(name: FirebaseFieldName.longitude)
   final String longitude;
   @override
-  @JsonKey(name: FirebaseFieldName.trackWebCode)
-  final String trackWebCode;
-  @override
   @JsonKey(name: FirebaseFieldName.photosUrl)
   final String photosUrl;
+  @override
+  @JsonKey(name: FirebaseFieldName.commentCount)
+  final int commentCount;
+  @override
+  @JsonKey(name: FirebaseFieldName.rating)
+  final double rating;
 
   @override
   String toString() {
-    return 'Track(trackId: $trackId, trackName: $trackName, region: $region, location: $location, motoclub: $motoclub, category: $category, acceptedLicenses: $acceptedLicenses, terrainType: $terrainType, trackLength: $trackLength, hasMinicross: $hasMinicross, services: $services, phones: $phones, fax: $fax, email: $email, website: $website, info: $info, openingHours: $openingHours, latitude: $latitude, longitude: $longitude, trackWebCode: $trackWebCode, photosUrl: $photosUrl)';
+    return 'Track(id: $id, trackName: $trackName, region: $region, location: $location, motoclub: $motoclub, category: $category, acceptedLicenses: $acceptedLicenses, terrainType: $terrainType, trackLength: $trackLength, hasMinicross: $hasMinicross, services: $services, phones: $phones, fax: $fax, email: $email, website: $website, info: $info, openingHours: $openingHours, latitude: $latitude, longitude: $longitude, photosUrl: $photosUrl, commentCount: $commentCount, rating: $rating)';
   }
 
   @override
@@ -529,7 +547,7 @@ class _$TrackImpl implements _Track {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TrackImpl &&
-            (identical(other.trackId, trackId) || other.trackId == trackId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.trackName, trackName) ||
                 other.trackName == trackName) &&
             (identical(other.region, region) || other.region == region) &&
@@ -559,17 +577,18 @@ class _$TrackImpl implements _Track {
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
                 other.longitude == longitude) &&
-            (identical(other.trackWebCode, trackWebCode) ||
-                other.trackWebCode == trackWebCode) &&
             (identical(other.photosUrl, photosUrl) ||
-                other.photosUrl == photosUrl));
+                other.photosUrl == photosUrl) &&
+            (identical(other.commentCount, commentCount) ||
+                other.commentCount == commentCount) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
-        trackId,
+        id,
         trackName,
         region,
         location,
@@ -588,8 +607,9 @@ class _$TrackImpl implements _Track {
         const DeepCollectionEquality().hash(_openingHours),
         latitude,
         longitude,
-        trackWebCode,
-        photosUrl
+        photosUrl,
+        commentCount,
+        rating
       ]);
 
   @JsonKey(ignore: true)
@@ -608,7 +628,7 @@ class _$TrackImpl implements _Track {
 
 abstract class _Track implements Track {
   factory _Track(
-      {final String? trackId,
+      {required final String? id,
       @JsonKey(name: FirebaseFieldName.trackName) final String? trackName,
       @JsonKey(name: FirebaseFieldName.region) final String? region,
       @JsonKey(name: FirebaseFieldName.location) final String? location,
@@ -631,15 +651,16 @@ abstract class _Track implements Track {
       @JsonKey(name: FirebaseFieldName.latitude) required final String latitude,
       @JsonKey(name: FirebaseFieldName.longitude)
       required final String longitude,
-      @JsonKey(name: FirebaseFieldName.trackWebCode)
-      required final String trackWebCode,
       @JsonKey(name: FirebaseFieldName.photosUrl)
-      required final String photosUrl}) = _$TrackImpl;
+      required final String photosUrl,
+      @JsonKey(name: FirebaseFieldName.commentCount) final int commentCount,
+      @JsonKey(name: FirebaseFieldName.rating)
+      final double rating}) = _$TrackImpl;
 
   factory _Track.fromJson(Map<String, dynamic> json) = _$TrackImpl.fromJson;
 
   @override
-  String? get trackId;
+  String? get id;
   @override
   @JsonKey(name: FirebaseFieldName.trackName)
   String? get trackName;
@@ -695,11 +716,14 @@ abstract class _Track implements Track {
   @JsonKey(name: FirebaseFieldName.longitude)
   String get longitude;
   @override
-  @JsonKey(name: FirebaseFieldName.trackWebCode)
-  String get trackWebCode;
-  @override
   @JsonKey(name: FirebaseFieldName.photosUrl)
   String get photosUrl;
+  @override
+  @JsonKey(name: FirebaseFieldName.commentCount)
+  int get commentCount;
+  @override
+  @JsonKey(name: FirebaseFieldName.rating)
+  double get rating;
   @override
   @JsonKey(ignore: true)
   _$$TrackImplCopyWith<_$TrackImpl> get copyWith =>

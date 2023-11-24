@@ -9,7 +9,7 @@ part 'track.g.dart';
 @freezed
 class Track with _$Track {
   factory Track({
-    TrackId? trackId,
+    required TrackId? id,
     @JsonKey(name: FirebaseFieldName.trackName) @Default('') String? trackName,
     @JsonKey(name: FirebaseFieldName.region) @Default('') String? region,
     @JsonKey(name: FirebaseFieldName.location) @Default('') String? location,
@@ -40,8 +40,9 @@ class Track with _$Track {
     Map<String, String>? openingHours,
     @JsonKey(name: FirebaseFieldName.latitude) required String latitude,
     @JsonKey(name: FirebaseFieldName.longitude) required String longitude,
-    @JsonKey(name: FirebaseFieldName.trackWebCode) required String trackWebCode,
     @JsonKey(name: FirebaseFieldName.photosUrl) required String photosUrl,
+    @JsonKey(name: FirebaseFieldName.commentCount) @Default(0) int commentCount,
+    @JsonKey(name: FirebaseFieldName.rating) @Default(0.0) double rating,
   }) = _Track;
 
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);

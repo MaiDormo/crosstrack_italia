@@ -12,6 +12,7 @@ class Comment with _$Comment {
     required String? userName,
     required String text,
     required DateTime date,
+    required double rating,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) =>

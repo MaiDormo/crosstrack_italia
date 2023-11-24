@@ -155,7 +155,7 @@ class TrackNotifier extends _$TrackNotifier {
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
     if (track != null) {
       final storageRegion = track.region?.toLowerCase().replaceAll(' ', '_');
-      final path = 'tracks/${storageRegion}/${track.trackWebCode}/';
+      final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
       final imagesList = await urls.map((e) => Image.network(e));
       controller.add(imagesList);
@@ -172,6 +172,7 @@ class TrackNotifier extends _$TrackNotifier {
     BuildContext context,
     String text,
     TrackId trackId,
+    double rating,
   ) async {
     final String commentId = Uuid().v1();
     final userId = ref.read(userIdProvider)!;
@@ -182,12 +183,44 @@ class TrackNotifier extends _$TrackNotifier {
       userName: FirebaseAuth.instance.currentUser!.displayName!,
       text: text,
       date: DateTime.now(),
+      rating: rating,
     );
-
+    print('debug: ${comment.toJson()}');
     final res = await _trackRepository.addComment(comment);
+    final trackSelected = ref.read(trackSelectedProvider)!;
+    print('debug: ${trackSelected.rating} ${trackSelected.commentCount}');
+    print('debug: $rating ${trackSelected.commentCount}');
+    final newRating =
+        (trackSelected.rating * trackSelected.commentCount + rating) /
+            (trackSelected.commentCount + 1);
+    final updatedTrack = trackSelected.copyWith(
+      rating: newRating,
+      commentCount: trackSelected.commentCount + 1,
+    );
+    print('debug: ${updatedTrack.rating} ${updatedTrack.commentCount}');
+    await updateTrack(updatedTrack);
+    print('debug: operazione update completata');
+    ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
+    res.fold((l) => showSnackBar(context, l.message),
+        (r) => showSnackBar(context, 'Commento aggiunto con successo'));
+  }
 
-    ///TODO: do something with the user
-    res.fold((l) => showSnackBar(context, l.message), (r) => null);
+  //remove comment
+  void removeComment(Comment comment, BuildContext context) async {
+    final res = await _trackRepository.removeComment(comment);
+    final trackSelected = ref.read(trackSelectedProvider)!;
+    final newRating =
+        (trackSelected.rating * trackSelected.commentCount - comment.rating) /
+            (trackSelected.commentCount - 1);
+    final updatedTrack = trackSelected.copyWith(
+      //in order to calculate the new rating
+      rating: trackSelected.commentCount == 1 ? 0.0 : newRating,
+      commentCount: trackSelected.commentCount - 1,
+    );
+    await updateTrack(updatedTrack);
+    ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
+    res.fold((l) => null,
+        (r) => showSnackBar(context, 'Commento rimosso con successo'));
   }
 
   //get all comments related to a track
@@ -204,5 +237,10 @@ class TrackNotifier extends _$TrackNotifier {
             '&travelmode=driving');
 
     return await launchUrl(_url);
+  }
+
+  //update track
+  Future<void> updateTrack(Track newTrack) async {
+    await _trackRepository.updateTrack(newTrack);
   }
 }

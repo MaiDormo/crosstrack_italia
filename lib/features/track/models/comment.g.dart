@@ -14,6 +14,7 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       userName: json['userName'] as String?,
       text: json['text'] as String,
       date: DateTime.parse(json['date'] as String),
+      rating: (json['rating'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'userName': instance.userName,
       'text': instance.text,
       'date': instance.date.toIso8601String(),
+      'rating': instance.rating,
     };

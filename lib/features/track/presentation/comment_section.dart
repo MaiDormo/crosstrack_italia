@@ -1,12 +1,15 @@
 import 'package:crosstrack_italia/features/auth/providers/is_logged_in_provider.dart';
+import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/widget/comment_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CommentsSection extends ConsumerStatefulWidget {
   final TrackId trackId;
+
   const CommentsSection({
     super.key,
     required this.trackId,
@@ -18,6 +21,7 @@ class CommentsSection extends ConsumerStatefulWidget {
 
 class _CommentsScreenState extends ConsumerState<CommentsSection> {
   final commentController = TextEditingController();
+  double userRating = 0;
 
   @override
   void dispose() {
@@ -30,17 +34,24 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
           context,
           commentController.text.trim(),
           trackId,
+          userRating, // Pass the user's rating to the addComment function
         );
     setState(() {
       commentController.text = '';
+      userRating = 0; // Reset the user's rating after submitting the comment
     });
+  }
+
+  void removeComment(Comment comment) {
+    ref.read(trackNotifierProvider.notifier).removeComment(
+          comment,
+          context,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
-    // final user = ref.watch(userProvider)!;
-    // final isGuest = !user.isAuthenticated;
-    final trackId = ref.watch(trackSelectedProvider)?.trackWebCode ?? '';
+    final trackId = ref.watch(trackSelectedProvider)?.id ?? '';
     final isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Column(
@@ -48,6 +59,37 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
+
+        // Star Rating Bar
+
+        isLoggedIn
+            ? Column(
+                children: [
+                  const Text('Vota la pista'),
+                  RatingBar(
+                    initialRating: userRating,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    ratingWidget: RatingWidget(
+                      full: Icon(Icons.star, color: Colors.amber),
+                      half: Icon(Icons.star_half, color: Colors.amber),
+                      empty: Icon(Icons.star_border, color: Colors.amber),
+                    ),
+                    onRatingUpdate: (rating) {
+                      setState(() {
+                        userRating = rating;
+                      });
+                    },
+                  ),
+                ],
+              )
+            : const Text('Completa il log-in per votare la pista'),
+
+        const SizedBox(height: 16),
+
         TextField(
           controller: commentController,
           onSubmitted: isLoggedIn ? (_) => addComment(trackId) : null,
@@ -61,7 +103,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         ),
         const SizedBox(height: 8),
 
-        //button to add comment
+        // Button to add comment
         ElevatedButton(
           onPressed: isLoggedIn ? () => addComment(trackId) : null,
           child: const Text('Commenta'),
@@ -69,10 +111,9 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.disabled)) {
-                  return Colors
-                      .grey; // Use the color you want for disabled state
+                  return Colors.grey;
                 }
-                return Colors.white; // Use the default color for other states
+                return Colors.white;
               },
             ),
           ),
@@ -89,6 +130,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                   final comment = comments.elementAt(index);
                   return CommentCard(
                     comment: comment,
+                    onRemove: () => removeComment(comment),
                   );
                 },
               ),

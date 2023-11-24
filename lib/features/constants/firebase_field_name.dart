@@ -9,8 +9,7 @@ class FirebaseFieldName {
   static const createdAt = 'created_at';
 
   //track info
-  static const trackWebCode = 'codice_web';
-  static const trackId = 'trackId';
+  static const id = 'id';
   static const trackName = 'nome';
   static const location = 'posto';
   static const region = 'regione';
@@ -32,6 +31,7 @@ class FirebaseFieldName {
   static const images = 'immagini';
   static const photosUrl = 'foto';
   static const commentCount = 'numero_commenti';
+  static const rating = 'valutazione';
 
   //comment info
   static const commentId = 'commentId';

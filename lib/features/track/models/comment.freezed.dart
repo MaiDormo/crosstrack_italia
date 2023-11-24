@@ -26,6 +26,7 @@ mixin _$Comment {
   String? get userName => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $CommentCopyWith<$Res> {
       String userId,
       String? userName,
       String text,
-      DateTime date});
+      DateTime date,
+      double rating});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
     Object? userName = freezed,
     Object? text = null,
     Object? date = null,
+    Object? rating = null,
   }) {
     return _then(_value.copyWith(
       commentId: null == commentId
@@ -91,6 +94,10 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -108,7 +115,8 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String userId,
       String? userName,
       String text,
-      DateTime date});
+      DateTime date,
+      double rating});
 }
 
 /// @nodoc
@@ -128,6 +136,7 @@ class __$$CommentImplCopyWithImpl<$Res>
     Object? userName = freezed,
     Object? text = null,
     Object? date = null,
+    Object? rating = null,
   }) {
     return _then(_$CommentImpl(
       commentId: null == commentId
@@ -154,6 +163,10 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      rating: null == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -167,7 +180,8 @@ class _$CommentImpl implements _Comment {
       required this.userId,
       required this.userName,
       required this.text,
-      required this.date});
+      required this.date,
+      required this.rating});
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
@@ -184,10 +198,12 @@ class _$CommentImpl implements _Comment {
   final String text;
   @override
   final DateTime date;
+  @override
+  final double rating;
 
   @override
   String toString() {
-    return 'Comment(commentId: $commentId, trackId: $trackId, userId: $userId, userName: $userName, text: $text, date: $date)';
+    return 'Comment(commentId: $commentId, trackId: $trackId, userId: $userId, userName: $userName, text: $text, date: $date, rating: $rating)';
   }
 
   @override
@@ -202,13 +218,14 @@ class _$CommentImpl implements _Comment {
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
             (identical(other.text, text) || other.text == text) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.rating, rating) || other.rating == rating));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, commentId, trackId, userId, userName, text, date);
+      runtimeType, commentId, trackId, userId, userName, text, date, rating);
 
   @JsonKey(ignore: true)
   @override
@@ -231,7 +248,8 @@ abstract class _Comment implements Comment {
       required final String userId,
       required final String? userName,
       required final String text,
-      required final DateTime date}) = _$CommentImpl;
+      required final DateTime date,
+      required final double rating}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -247,6 +265,8 @@ abstract class _Comment implements Comment {
   String get text;
   @override
   DateTime get date;
+  @override
+  double get rating;
   @override
   @JsonKey(ignore: true)
   _$$CommentImplCopyWith<_$CommentImpl> get copyWith =>

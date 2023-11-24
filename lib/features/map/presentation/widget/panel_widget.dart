@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
@@ -54,7 +53,6 @@ class PanelWidget extends ConsumerWidget {
     double heightFactor,
   ) {
     ///TODO: how is changing if it's final
-    final rating = (Random().nextDouble() * 5).floorToDouble();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -129,7 +127,10 @@ class PanelWidget extends ConsumerWidget {
               Row(
                 children: [
                   Text(
-                    'valutazione: ' + rating.toString(),
+                    'Valutazione: ' +
+                        (trackSelected == null
+                            ? '0.0'
+                            : trackSelected.rating.toStringAsFixed(1)),
                     style: TextStyle(
                       fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
@@ -140,7 +141,7 @@ class PanelWidget extends ConsumerWidget {
                     //random value between 0 and 5
                     physics: NeverScrollableScrollPhysics(),
                     itemSize: 20 * heightFactor,
-                    rating: rating,
+                    rating: trackSelected == null ? 0.0 : trackSelected.rating,
                     direction: Axis.horizontal,
                     itemCount: 5,
                     itemBuilder: (context, _) => const Icon(
@@ -199,6 +200,16 @@ class PanelWidget extends ConsumerWidget {
                 },
               ),
             ],
+          ),
+
+          //show the number of reviews/comments on the track
+          Text(
+            'Recensioni: ' + (trackSelected?.commentCount ?? 0).toString(),
+            style: TextStyle(
+              fontSize: 16 * heightFactor,
+              fontWeight: FontWeight.bold,
+              color: Colors.orangeAccent,
+            ),
           ),
           SizedBox(height: 12 * heightFactor),
 
@@ -996,7 +1007,7 @@ class PanelWidget extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CommentsSection(
-                trackId: trackSelected?.trackWebCode ?? '',
+                trackId: trackSelected?.id ?? '',
               ),
             ),
           ),

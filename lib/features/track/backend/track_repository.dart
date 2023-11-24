@@ -56,22 +56,17 @@ class TrackRepository {
   // Firebase call to get all comment related to a track
   Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) {
     return _comments
-        .where(FirebaseFieldName.trackId, isEqualTo: trackId)
+        .where(FirebaseFieldName.id, isEqualTo: trackId)
         .orderBy(FirebaseFieldName.date, descending: false)
         .snapshots()
         .map((snapshot) => snapshot.docs.map(
             (doc) => Comment.fromJson(doc.data() as Map<String, dynamic>)));
   }
 
-  //Firebase call to get all comment related to a trackName
-
   //add comment
   Future<Either<Failure, void>> addComment(Comment comment) async {
     try {
       await _comments.doc(comment.commentId).set(comment.toJson());
-      // return right(_tracks.doc(comment.commentId).update({
-      //   FirebaseFieldName.commentCount: FieldValue.increment(1),
-      // }));
       return right(unit);
     } on FirebaseException catch (e) {
       throw e;
@@ -80,8 +75,27 @@ class TrackRepository {
     }
   }
 
-  //remove comment
-  // Future<void> removeComment(Comment comment) async {
+  // remove comment
+  Future<Either<Failure, void>> removeComment(Comment comment) async {
+    try {
+      await _comments.doc(comment.commentId).delete();
+      return right(unit);
+    } on FirebaseException catch (e) {
+      throw e;
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 
-  // }
+  //update track
+  Future<Either<Failure, void>> updateTrack(Track newTrack) async {
+    try {
+      await _tracks.doc(newTrack.id).update(newTrack.toJson());
+      return right(unit);
+    } on FirebaseException catch (e) {
+      throw e;
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }
