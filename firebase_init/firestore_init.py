@@ -6,7 +6,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate('/home/eliagatti/Downloads/crosstrack-italia-firebase-adminsdk-2mxiw-c9aa1ad368.json')
+cred = credentials.Certificate('/home/eliagatti/Downloads/crosstrack-italia-firebase-adminsdk-2mxiw-cc9d3a3599.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -20,10 +20,12 @@ def upload_files_in_folder(folder_path, collection_name):
             with open(file_path, 'r') as file:
                 data = json.load(file)
 
-            doc_ref = collection_ref.document()
+            # Use 'codice_web' as the document ID
+            doc_ref = collection_ref.document(data['id'])
             batch.set(doc_ref, data)
 
     batch.commit()
+
 
 # Paths to your folders and collection names
 folders = ['veneto_json', 'lombardia_json', 'trentino_alto_adige_json']
