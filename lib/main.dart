@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/providers/is_loading_provider.dart';
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
 import 'package:flutter/material.dart';

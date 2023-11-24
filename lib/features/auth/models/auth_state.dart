@@ -1,41 +1,16 @@
-import 'package:flutter/foundation.dart' show immutable;
 import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class AuthState {
-  final AuthResult? result;
-  final bool isLoading;
-  final UserId? userId;
+part 'auth_state.freezed.dart';
 
-  const AuthState({
-    required this.result,
-    required this.isLoading,
-    required this.userId,
-  });
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState({
+    required final AuthResult? result,
+    required final bool isLoading,
+    required final UserId? userId,
+  }) = _AuthState;
 
-  const AuthState.unknown()
-      : result = null,
-        isLoading = false,
-        userId = null;
-
-  AuthState copiedWithIsLoading(bool isLoading) => AuthState(
-        result: result,
-        isLoading: isLoading,
-        userId: userId,
-      );
-
-  @override
-  bool operator ==(covariant AuthState other) =>
-      identical(this, other) ||
-      (result == other.result &&
-          isLoading == other.isLoading &&
-          userId == other.userId);
-
-  @override
-  int get hashCode => Object.hash(
-        result,
-        isLoading,
-        userId,
-      );
+  // const factory AuthState.unknown() = _Unknown;
 }

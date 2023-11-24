@@ -1,9 +1,8 @@
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
 import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-
-import '../../features/auth/providers/auth_state_provider.dart';
 
 class SettingsPageView extends ConsumerWidget {
   const SettingsPageView({super.key});
@@ -18,7 +17,7 @@ class SettingsPageView extends ConsumerWidget {
                 .present(context)
                 .then((value) => value ?? false);
             if (shouldLogOut) {
-              await ref.read(authStateProvider.notifier).logOut();
+              await ref.read(authStateNotifierProvider.notifier).logOut();
             }
           },
           child: const Text(

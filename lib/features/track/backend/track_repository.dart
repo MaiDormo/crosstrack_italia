@@ -54,9 +54,9 @@ class TrackRepository {
   }
 
   // Firebase call to get all comment related to a track
-  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) {
+  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId id) {
     return _comments
-        .where(FirebaseFieldName.id, isEqualTo: trackId)
+        .where(FirebaseFieldName.id, isEqualTo: id)
         .orderBy(FirebaseFieldName.date, descending: false)
         .snapshots()
         .map((snapshot) => snapshot.docs.map(

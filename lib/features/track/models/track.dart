@@ -9,7 +9,7 @@ part 'track.g.dart';
 @freezed
 class Track with _$Track {
   factory Track({
-    required TrackId? id,
+    TrackId? id,
     @JsonKey(name: FirebaseFieldName.trackName) @Default('') String? trackName,
     @JsonKey(name: FirebaseFieldName.region) @Default('') String? region,
     @JsonKey(name: FirebaseFieldName.location) @Default('') String? location,

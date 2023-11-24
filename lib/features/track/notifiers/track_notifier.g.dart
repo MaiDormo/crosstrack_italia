@@ -319,7 +319,7 @@ final allTrackImagesProvider =
 
 typedef AllTrackImagesRef = AutoDisposeStreamProviderRef<Iterable<Image>>;
 String _$fetchCommentsByTrackIdHash() =>
-    r'd56c2f046f6f9860caffb3172f8c39768bae9f63';
+    r'caae1c8154d8e4d68921a7948ea616d908716239';
 
 /// See also [fetchCommentsByTrackId].
 @ProviderFor(fetchCommentsByTrackId)
@@ -333,10 +333,10 @@ class FetchCommentsByTrackIdFamily
 
   /// See also [fetchCommentsByTrackId].
   FetchCommentsByTrackIdProvider call(
-    String trackId,
+    String id,
   ) {
     return FetchCommentsByTrackIdProvider(
-      trackId,
+      id,
     );
   }
 
@@ -345,7 +345,7 @@ class FetchCommentsByTrackIdFamily
     covariant FetchCommentsByTrackIdProvider provider,
   ) {
     return call(
-      provider.trackId,
+      provider.id,
     );
   }
 
@@ -369,11 +369,11 @@ class FetchCommentsByTrackIdProvider
     extends AutoDisposeStreamProvider<Iterable<Comment>> {
   /// See also [fetchCommentsByTrackId].
   FetchCommentsByTrackIdProvider(
-    String trackId,
+    String id,
   ) : this._internal(
           (ref) => fetchCommentsByTrackId(
             ref as FetchCommentsByTrackIdRef,
-            trackId,
+            id,
           ),
           from: fetchCommentsByTrackIdProvider,
           name: r'fetchCommentsByTrackIdProvider',
@@ -384,7 +384,7 @@ class FetchCommentsByTrackIdProvider
           dependencies: FetchCommentsByTrackIdFamily._dependencies,
           allTransitiveDependencies:
               FetchCommentsByTrackIdFamily._allTransitiveDependencies,
-          trackId: trackId,
+          id: id,
         );
 
   FetchCommentsByTrackIdProvider._internal(
@@ -394,10 +394,10 @@ class FetchCommentsByTrackIdProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.trackId,
+    required this.id,
   }) : super.internal();
 
-  final String trackId;
+  final String id;
 
   @override
   Override overrideWith(
@@ -413,7 +413,7 @@ class FetchCommentsByTrackIdProvider
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        trackId: trackId,
+        id: id,
       ),
     );
   }
@@ -425,13 +425,13 @@ class FetchCommentsByTrackIdProvider
 
   @override
   bool operator ==(Object other) {
-    return other is FetchCommentsByTrackIdProvider && other.trackId == trackId;
+    return other is FetchCommentsByTrackIdProvider && other.id == id;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, trackId.hashCode);
+    hash = _SystemHash.combine(hash, id.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -439,8 +439,8 @@ class FetchCommentsByTrackIdProvider
 
 mixin FetchCommentsByTrackIdRef
     on AutoDisposeStreamProviderRef<Iterable<Comment>> {
-  /// The parameter `trackId` of this provider.
-  String get trackId;
+  /// The parameter `id` of this provider.
+  String get id;
 }
 
 class _FetchCommentsByTrackIdProviderElement
@@ -449,7 +449,7 @@ class _FetchCommentsByTrackIdProviderElement
   _FetchCommentsByTrackIdProviderElement(super.provider);
 
   @override
-  String get trackId => (origin as FetchCommentsByTrackIdProvider).trackId;
+  String get id => (origin as FetchCommentsByTrackIdProvider).id;
 }
 
 String _$openGoogleMapHash() => r'19a0ee01b503a7253ff4095b2db84cabb9908836';
@@ -613,7 +613,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
-String _$trackNotifierHash() => r'998178e7cb6b205e6070890d9f3d6ffd7a7cf3db';
+String _$trackNotifierHash() => r'266eafee5ec2eb40de54ef721c832231cef93717';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

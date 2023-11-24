@@ -395,7 +395,7 @@ class __$$TrackImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TrackImpl implements _Track {
   _$TrackImpl(
-      {required this.id,
+      {this.id,
       @JsonKey(name: FirebaseFieldName.trackName) this.trackName = '',
       @JsonKey(name: FirebaseFieldName.region) this.region = '',
       @JsonKey(name: FirebaseFieldName.location) this.location = '',
@@ -628,7 +628,7 @@ class _$TrackImpl implements _Track {
 
 abstract class _Track implements Track {
   factory _Track(
-      {required final String? id,
+      {final String? id,
       @JsonKey(name: FirebaseFieldName.trackName) final String? trackName,
       @JsonKey(name: FirebaseFieldName.region) final String? region,
       @JsonKey(name: FirebaseFieldName.location) final String? location,

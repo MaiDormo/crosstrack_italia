@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:crosstrack_italia/common/utils.dart';
-import 'package:crosstrack_italia/features/auth/providers/user_id_provider.dart';
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
@@ -51,9 +51,9 @@ Stream<Iterable<Image>> allTrackImages(AllTrackImagesRef ref) async* {
 
 @riverpod
 Stream<Iterable<Comment>> fetchCommentsByTrackId(
-    FetchCommentsByTrackIdRef ref, TrackId trackId) async* {
+    FetchCommentsByTrackIdRef ref, TrackId id) async* {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  yield* trackNotifier.fetchCommentsByTrackId(trackId);
+  yield* trackNotifier.fetchCommentsByTrackId(id);
 }
 
 @riverpod
@@ -171,25 +171,22 @@ class TrackNotifier extends _$TrackNotifier {
   void addComment(
     BuildContext context,
     String text,
-    TrackId trackId,
+    TrackId id,
     double rating,
   ) async {
     final String commentId = Uuid().v1();
     final userId = ref.read(userIdProvider)!;
     final Comment comment = Comment(
       commentId: commentId,
-      trackId: trackId,
+      id: id,
       userId: userId,
       userName: FirebaseAuth.instance.currentUser!.displayName!,
       text: text,
       date: DateTime.now(),
       rating: rating,
     );
-    print('debug: ${comment.toJson()}');
     final res = await _trackRepository.addComment(comment);
     final trackSelected = ref.read(trackSelectedProvider)!;
-    print('debug: ${trackSelected.rating} ${trackSelected.commentCount}');
-    print('debug: $rating ${trackSelected.commentCount}');
     final newRating =
         (trackSelected.rating * trackSelected.commentCount + rating) /
             (trackSelected.commentCount + 1);
@@ -197,9 +194,7 @@ class TrackNotifier extends _$TrackNotifier {
       rating: newRating,
       commentCount: trackSelected.commentCount + 1,
     );
-    print('debug: ${updatedTrack.rating} ${updatedTrack.commentCount}');
     await updateTrack(updatedTrack);
-    print('debug: operazione update completata');
     ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
     res.fold((l) => showSnackBar(context, l.message),
         (r) => showSnackBar(context, 'Commento aggiunto con successo'));
@@ -224,8 +219,8 @@ class TrackNotifier extends _$TrackNotifier {
   }
 
   //get all comments related to a track
-  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) async* {
-    yield* _trackRepository.fetchCommentsByTrackId(trackId);
+  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId id) async* {
+    yield* _trackRepository.fetchCommentsByTrackId(id);
   }
 
   Future<bool> openGoogleMap(Track track) async {

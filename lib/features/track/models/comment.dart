@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comment.freezed.dart';
@@ -5,9 +6,9 @@ part 'comment.g.dart';
 
 @freezed
 class Comment with _$Comment {
-  factory Comment({
+  const factory Comment({
     required String commentId,
-    required String trackId,
+    required TrackId id,
     required String userId,
     required String? userName,
     required String text,

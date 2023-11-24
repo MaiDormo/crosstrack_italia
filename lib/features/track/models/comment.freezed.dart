@@ -21,7 +21,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Comment {
   String get commentId => throw _privateConstructorUsedError;
-  String get trackId => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $CommentCopyWith<$Res> {
   @useResult
   $Res call(
       {String commentId,
-      String trackId,
+      String id,
       String userId,
       String? userName,
       String text,
@@ -62,7 +62,7 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
   @override
   $Res call({
     Object? commentId = null,
-    Object? trackId = null,
+    Object? id = null,
     Object? userId = null,
     Object? userName = freezed,
     Object? text = null,
@@ -74,9 +74,9 @@ class _$CommentCopyWithImpl<$Res, $Val extends Comment>
           ? _value.commentId
           : commentId // ignore: cast_nullable_to_non_nullable
               as String,
-      trackId: null == trackId
-          ? _value.trackId
-          : trackId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
           ? _value.userId
@@ -111,7 +111,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
   @useResult
   $Res call(
       {String commentId,
-      String trackId,
+      String id,
       String userId,
       String? userName,
       String text,
@@ -131,7 +131,7 @@ class __$$CommentImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? commentId = null,
-    Object? trackId = null,
+    Object? id = null,
     Object? userId = null,
     Object? userName = freezed,
     Object? text = null,
@@ -143,9 +143,9 @@ class __$$CommentImplCopyWithImpl<$Res>
           ? _value.commentId
           : commentId // ignore: cast_nullable_to_non_nullable
               as String,
-      trackId: null == trackId
-          ? _value.trackId
-          : trackId // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       userId: null == userId
           ? _value.userId
@@ -174,9 +174,9 @@ class __$$CommentImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CommentImpl implements _Comment {
-  _$CommentImpl(
+  const _$CommentImpl(
       {required this.commentId,
-      required this.trackId,
+      required this.id,
       required this.userId,
       required this.userName,
       required this.text,
@@ -189,7 +189,7 @@ class _$CommentImpl implements _Comment {
   @override
   final String commentId;
   @override
-  final String trackId;
+  final String id;
   @override
   final String userId;
   @override
@@ -203,7 +203,7 @@ class _$CommentImpl implements _Comment {
 
   @override
   String toString() {
-    return 'Comment(commentId: $commentId, trackId: $trackId, userId: $userId, userName: $userName, text: $text, date: $date, rating: $rating)';
+    return 'Comment(commentId: $commentId, id: $id, userId: $userId, userName: $userName, text: $text, date: $date, rating: $rating)';
   }
 
   @override
@@ -213,7 +213,7 @@ class _$CommentImpl implements _Comment {
             other is _$CommentImpl &&
             (identical(other.commentId, commentId) ||
                 other.commentId == commentId) &&
-            (identical(other.trackId, trackId) || other.trackId == trackId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
@@ -225,7 +225,7 @@ class _$CommentImpl implements _Comment {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, commentId, trackId, userId, userName, text, date, rating);
+      runtimeType, commentId, id, userId, userName, text, date, rating);
 
   @JsonKey(ignore: true)
   @override
@@ -242,9 +242,9 @@ class _$CommentImpl implements _Comment {
 }
 
 abstract class _Comment implements Comment {
-  factory _Comment(
+  const factory _Comment(
       {required final String commentId,
-      required final String trackId,
+      required final String id,
       required final String userId,
       required final String? userName,
       required final String text,
@@ -256,7 +256,7 @@ abstract class _Comment implements Comment {
   @override
   String get commentId;
   @override
-  String get trackId;
+  String get id;
   @override
   String get userId;
   @override

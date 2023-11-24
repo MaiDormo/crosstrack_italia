@@ -1,8 +1,8 @@
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:crosstrack_italia/square_tile.dart';
 import 'package:crosstrack_italia/helper_line_gestore.dart';
-import 'package:crosstrack_italia/features/auth/providers/auth_state_provider.dart';
 
 class LoginPageView extends StatefulHookConsumerWidget {
   const LoginPageView({super.key});
@@ -81,8 +81,9 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     // google button
                     SquareTile(
                       imagePath: 'assets/svgs/g_logo.svg',
-                      onTap:
-                          ref.read(authStateProvider.notifier).loginWithGoogle,
+                      onTap: ref
+                          .read(authStateNotifierProvider.notifier)
+                          .loginWithGoogle,
                     ),
 
                     const SizedBox(width: 25),
@@ -91,7 +92,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     SquareTile(
                       imagePath: 'assets/svgs/f_logo.svg',
                       onTap: ref
-                          .read(authStateProvider.notifier)
+                          .read(authStateNotifierProvider.notifier)
                           .loginWithFacebook,
                     ),
                   ],

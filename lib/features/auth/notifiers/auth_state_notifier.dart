@@ -3,30 +3,64 @@ import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class AuthStateNotifier extends StateNotifier<AuthState> {
+part 'auth_state_notifier.g.dart';
+
+//------------------PROVIDERS------------------//
+
+@riverpod
+bool isLoggedIn(IsLoggedInRef ref) {
+  final authState = ref.watch(authStateNotifierProvider);
+  return authState.result != null;
+}
+
+@riverpod
+UserId? userId(UserIdRef ref) {
+  final authState = ref.watch(authStateNotifierProvider);
+  return authState.userId;
+}
+
+//for the loading screeen
+@riverpod
+bool isLoading(IsLoadingRef ref) {
+  final authState = ref.watch(authStateNotifierProvider);
+  return authState.isLoading;
+}
+
+//------------------NOTIFIERS------------------//
+@riverpod
+class AuthStateNotifier extends _$AuthStateNotifier {
   final _authenticator = const Authenticator();
   final _userInfoStorage = const UserInfoStorage();
 
-  AuthStateNotifier() : super(const AuthState.unknown()) {
-    if (_authenticator.isAlreadyLoggedIn) {
-      state = AuthState(
-        result: AuthResult.success,
-        isLoading: false,
-        userId: _authenticator.userId,
-      );
-    }
+  @override
+  AuthState build() {
+    return _authenticator.isAlreadyLoggedIn
+        ? AuthState(
+            result: AuthResult.success,
+            isLoading: false,
+            userId: _authenticator.userId,
+          )
+        : const AuthState(
+            result: null,
+            isLoading: false,
+            userId: null,
+          );
   }
 
   Future<void> logOut() async {
-    state = state.copiedWithIsLoading(true);
+    state = state.copyWith(isLoading: true);
     await _authenticator.logOut();
-    state = const AuthState.unknown();
+    state = const AuthState(
+      result: null,
+      isLoading: false,
+      userId: null,
+    );
   }
 
   Future<void> loginWithGoogle() async {
-    state = state.copiedWithIsLoading(true);
+    state = state.copyWith(isLoading: true);
     final result = await _authenticator.loginWithGoogle();
     final userId = _authenticator.userId;
     if (result == AuthResult.success && userId != null) {
@@ -37,12 +71,16 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
         userId: _authenticator.userId,
       );
     } else {
-      state = const AuthState.unknown();
+      state = const AuthState(
+        result: null,
+        isLoading: false,
+        userId: null,
+      );
     }
   }
 
   Future<void> loginWithFacebook() async {
-    state = state.copiedWithIsLoading(true);
+    state = state.copyWith(isLoading: true);
     final result = await _authenticator.loginWithFacebook();
     final userId = _authenticator.userId;
     if (result == AuthResult.success && userId != null) {

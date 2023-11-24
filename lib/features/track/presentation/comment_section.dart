@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/providers/is_logged_in_provider.dart';
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
@@ -29,11 +29,11 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
     commentController.dispose();
   }
 
-  void addComment(TrackId trackId) {
+  void addComment(TrackId id) {
     ref.read(trackNotifierProvider.notifier).addComment(
           context,
           commentController.text.trim(),
-          trackId,
+          id,
           userRating, // Pass the user's rating to the addComment function
         );
     setState(() {
@@ -51,7 +51,8 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
   @override
   Widget build(BuildContext context) {
-    final trackId = ref.watch(trackSelectedProvider)?.id ?? '';
+    final id = ref.watch(trackSelectedProvider)?.id ?? '';
+
     final isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Column(
@@ -92,7 +93,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
         TextField(
           controller: commentController,
-          onSubmitted: isLoggedIn ? (_) => addComment(trackId) : null,
+          onSubmitted: isLoggedIn ? (_) => addComment(id) : null,
           enabled: isLoggedIn,
           decoration: InputDecoration(
             hintText:
@@ -105,7 +106,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
         // Button to add comment
         ElevatedButton(
-          onPressed: isLoggedIn ? () => addComment(trackId) : null,
+          onPressed: isLoggedIn ? () => addComment(id) : null,
           child: const Text('Commenta'),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
@@ -121,7 +122,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
         const SizedBox(height: 16),
 
-        ref.watch(fetchCommentsByTrackIdProvider(trackId)).when(
+        ref.watch(fetchCommentsByTrackIdProvider(id)).when(
               data: (comments) => ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

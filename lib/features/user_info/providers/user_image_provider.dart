@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/providers/is_logged_in_provider.dart';
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
