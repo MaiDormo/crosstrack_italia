@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
+
   //initialise the tile cache
   await FlutterMapTileCaching.initialise();
   await FMTC.instance('mapStore').manage.createAsync();
@@ -33,12 +38,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cross Track Italia',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.amber[100],
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.orange,
           brightness: Brightness.light,
           primary: Colors.orange[800],
-          secondary: Colors.black,
+          secondary: Colors.orange[200],
           tertiary: Colors.white,
         ),
         useMaterial3: true,

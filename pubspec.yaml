@@ -71,6 +71,8 @@ dependencies:
   json_annotation: ^4.8.1
   fpdart: ^1.1.0
   uuid: ^3.0.7
+  firebase_app_check: ^0.2.1+5
+  performance: ^0.1.1
 
   
   
