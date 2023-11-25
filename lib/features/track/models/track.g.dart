@@ -7,7 +7,7 @@ part of 'track.dart';
 // **************************************************************************
 
 _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
-      id: json['id'] as String?,
+      id: json['id'] as String? ?? '',
       trackName: json['nome'] as String? ?? '',
       region: json['regione'] as String? ?? '',
       location: json['posto'] as String? ?? '',
@@ -37,9 +37,9 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
             (k, e) => MapEntry(k, e as String),
           ) ??
           const {},
-      latitude: json['latitudine'] as String,
-      longitude: json['longitudine'] as String,
-      photosUrl: json['foto'] as String,
+      latitude: json['latitudine'] as String? ?? '0.0',
+      longitude: json['longitudine'] as String? ?? '0.0',
+      photosUrl: json['foto'] as String? ?? '',
       commentCount: json['numero_commenti'] as int? ?? 0,
       rating: (json['valutazione'] as num?)?.toDouble() ?? 0.0,
     );

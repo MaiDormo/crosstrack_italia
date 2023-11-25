@@ -7,14 +7,13 @@ part 'forecast_info_provider.g.dart';
 
 @riverpod
 Future<Forecast> forecastInfo(ForecastInfoRef ref) async {
-  const defaultValue = '0.0';
   late final forecast;
   final wf = await ref.watch(weatherFactoryProvider.future);
   final coordinatesTrackSelected = ref.watch(
     trackSelectedProvider.select(
       (track) => (
-        double.parse(track?.longitude ?? defaultValue),
-        double.parse(track?.latitude ?? defaultValue),
+        double.parse(track.longitude),
+        double.parse(track.latitude),
       ),
     ),
   );

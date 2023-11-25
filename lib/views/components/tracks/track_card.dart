@@ -25,7 +25,6 @@ class TrackCard extends ConsumerWidget {
                 .animatePanelToPosition(0.5) //50% of the open height
             : panelController.close();
         floatingSearchBarController.close();
-        //TODO: add a function to center the map on the selected track
       },
       child: Card(
         elevation: 4,
@@ -40,7 +39,7 @@ class TrackCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                track.trackName ?? 'No name',
+                track.trackName,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 8),
@@ -55,7 +54,7 @@ class TrackCard extends ConsumerWidget {
                   Flexible(
                     // Wrap in Flexible to handle long text
                     child: Text(
-                      track.region ?? 'No region',
+                      track.region,
                       overflow: TextOverflow.ellipsis, // Truncate with ellipsis
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
@@ -64,7 +63,7 @@ class TrackCard extends ConsumerWidget {
                   Flexible(
                     // Wrap in Flexible to handle long text
                     child: Text(
-                      track.location ?? 'No location',
+                      track.location,
                       overflow: TextOverflow.ellipsis, // Truncate with ellipsis
                       style: Theme.of(context).textTheme.titleMedium,
                     ),

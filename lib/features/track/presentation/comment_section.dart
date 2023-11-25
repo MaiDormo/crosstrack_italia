@@ -5,7 +5,7 @@ import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/widget/comment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CommentsSection extends ConsumerStatefulWidget {
   final TrackId trackId;
@@ -34,12 +34,13 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
           context,
           commentController.text.trim(),
           id,
-          userRating, // Pass the user's rating to the addComment function
+          userRating,
         );
     setState(() {
       commentController.text = '';
-      userRating = 0; // Reset the user's rating after submitting the comment
+      userRating = 0;
     });
+    Navigator.of(context).pop(); // Close the pop-up after adding a comment
   }
 
   void removeComment(Comment comment) {
@@ -49,10 +50,65 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         );
   }
 
+  void _showCommentDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Aggiungi un commento'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              RatingBar(
+                initialRating: userRating,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                ratingWidget: RatingWidget(
+                  full: Icon(Icons.star, color: Colors.amber),
+                  half: Icon(Icons.star_half, color: Colors.amber),
+                  empty: Icon(Icons.star_border, color: Colors.amber),
+                ),
+                onRatingUpdate: (rating) {
+                  setState(() {
+                    userRating = rating;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: commentController,
+                maxLines: 5, // Imposta il numero massimo di righe
+                decoration: InputDecoration(
+                  hintText: 'Commenta qui...',
+                  border: OutlineInputBorder(), // Bordo del campo di testo
+                  contentPadding: const EdgeInsets.all(12), // Padding interno
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Chiudi il pop-up
+              },
+              child: const Text('Cancella'),
+            ),
+            ElevatedButton(
+              onPressed: () => addComment(widget.trackId),
+              child: const Text('Invia'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final id = ref.watch(trackSelectedProvider)?.id ?? '';
-
+    final id = ref.watch(trackSelectedProvider).id;
     final isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Column(
@@ -60,68 +116,11 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: 16),
-
-        // Star Rating Bar
-
-        isLoggedIn
-            ? Column(
-                children: [
-                  const Text('Vota la pista'),
-                  RatingBar(
-                    initialRating: userRating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    ratingWidget: RatingWidget(
-                      full: Icon(Icons.star, color: Colors.amber),
-                      half: Icon(Icons.star_half, color: Colors.amber),
-                      empty: Icon(Icons.star_border, color: Colors.amber),
-                    ),
-                    onRatingUpdate: (rating) {
-                      setState(() {
-                        userRating = rating;
-                      });
-                    },
-                  ),
-                ],
-              )
-            : const Text('Completa il log-in per votare la pista'),
-
-        const SizedBox(height: 16),
-
-        TextField(
-          controller: commentController,
-          onSubmitted: isLoggedIn ? (_) => addComment(id) : null,
-          enabled: isLoggedIn,
-          decoration: InputDecoration(
-            hintText:
-                isLoggedIn ? 'Commenta' : 'Completa il log-in per commentare',
-            filled: true,
-            border: InputBorder.none,
-          ),
-        ),
-        const SizedBox(height: 8),
-
-        // Button to add comment
         ElevatedButton(
-          onPressed: isLoggedIn ? () => addComment(id) : null,
+          onPressed: isLoggedIn ? _showCommentDialog : null,
           child: const Text('Commenta'),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                if (states.contains(MaterialState.disabled)) {
-                  return Colors.grey;
-                }
-                return Colors.white;
-              },
-            ),
-          ),
         ),
-
         const SizedBox(height: 16),
-
         ref.watch(fetchCommentsByTrackIdProvider(id)).when(
               data: (comments) => ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),

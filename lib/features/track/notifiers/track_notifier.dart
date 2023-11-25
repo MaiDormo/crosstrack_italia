@@ -84,8 +84,8 @@ class ToggleServicesView extends _$ToggleServicesView {
 @riverpod
 class TrackSelected extends _$TrackSelected {
   @override
-  Track? build() {
-    return null;
+  Track build() {
+    return Track.empty();
   }
 
   void setTrack(Track track) {
@@ -154,7 +154,7 @@ class TrackNotifier extends _$TrackNotifier {
     final controller = StreamController<Iterable<Image>>();
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
     if (track != null) {
-      final storageRegion = track.region?.toLowerCase().replaceAll(' ', '_');
+      final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
       final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
       final imagesList = await urls.map((e) => Image.network(e));
@@ -186,7 +186,7 @@ class TrackNotifier extends _$TrackNotifier {
       rating: rating,
     );
     final res = await _trackRepository.addComment(comment);
-    final trackSelected = ref.read(trackSelectedProvider)!;
+    final trackSelected = ref.read(trackSelectedProvider);
     final newRating =
         (trackSelected.rating * trackSelected.commentCount + rating) /
             (trackSelected.commentCount + 1);
@@ -203,7 +203,7 @@ class TrackNotifier extends _$TrackNotifier {
   //remove comment
   void removeComment(Comment comment, BuildContext context) async {
     final res = await _trackRepository.removeComment(comment);
-    final trackSelected = ref.read(trackSelectedProvider)!;
+    final trackSelected = ref.read(trackSelectedProvider);
     final newRating =
         (trackSelected.rating * trackSelected.commentCount - comment.rating) /
             (trackSelected.commentCount - 1);

@@ -64,7 +64,7 @@ class TrackMarkerPopup extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  track.trackName ?? 'No name',
+                  track.trackName,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,

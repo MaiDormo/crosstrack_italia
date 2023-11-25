@@ -597,12 +597,12 @@ final toggleServicesViewProvider =
 );
 
 typedef _$ToggleServicesView = AutoDisposeNotifier<bool>;
-String _$trackSelectedHash() => r'f845ec1b5c309d002d885f7f897d06e7b571dab1';
+String _$trackSelectedHash() => r'6504919610481210b3fc52781575960807ea423b';
 
 /// See also [TrackSelected].
 @ProviderFor(TrackSelected)
 final trackSelectedProvider =
-    AutoDisposeNotifierProvider<TrackSelected, Track?>.internal(
+    AutoDisposeNotifierProvider<TrackSelected, Track>.internal(
   TrackSelected.new,
   name: r'trackSelectedProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -612,8 +612,8 @@ final trackSelectedProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$TrackSelected = AutoDisposeNotifier<Track?>;
-String _$trackNotifierHash() => r'266eafee5ec2eb40de54ef721c832231cef93717';
+typedef _$TrackSelected = AutoDisposeNotifier<Track>;
+String _$trackNotifierHash() => r'89f6c0aed4ec443f1f8493cddd50c87b6bbbb71e';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

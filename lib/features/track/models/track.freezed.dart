@@ -20,39 +20,39 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Track {
-  String? get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.trackName)
-  String? get trackName => throw _privateConstructorUsedError;
+  String get trackName => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.region)
-  String? get region => throw _privateConstructorUsedError;
+  String get region => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.location)
-  String? get location => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.motoclub)
-  String? get motoclub => throw _privateConstructorUsedError;
+  String get motoclub => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.category)
-  String? get category => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String>? get acceptedLicenses => throw _privateConstructorUsedError;
+  List<String> get acceptedLicenses => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.terrainType)
-  String? get terrainType => throw _privateConstructorUsedError;
+  String get terrainType => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.trackLength)
-  String? get trackLength => throw _privateConstructorUsedError;
+  String get trackLength => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.hasMinicross)
-  String? get hasMinicross => throw _privateConstructorUsedError;
+  String get hasMinicross => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.services)
   Map<String, String>? get services => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.phones)
-  List<String>? get phones => throw _privateConstructorUsedError;
+  List<String> get phones => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.fax)
-  List<String>? get fax => throw _privateConstructorUsedError;
+  List<String> get fax => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.email)
-  String? get email => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.website)
-  String? get website => throw _privateConstructorUsedError;
+  String get website => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.info)
-  String? get info => throw _privateConstructorUsedError;
+  String get info => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String>? get openingHours => throw _privateConstructorUsedError;
+  Map<String, String> get openingHours => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.latitude)
   String get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.longitude)
@@ -75,25 +75,25 @@ abstract class $TrackCopyWith<$Res> {
       _$TrackCopyWithImpl<$Res, Track>;
   @useResult
   $Res call(
-      {String? id,
-      @JsonKey(name: FirebaseFieldName.trackName) String? trackName,
-      @JsonKey(name: FirebaseFieldName.region) String? region,
-      @JsonKey(name: FirebaseFieldName.location) String? location,
-      @JsonKey(name: FirebaseFieldName.motoclub) String? motoclub,
-      @JsonKey(name: FirebaseFieldName.category) String? category,
+      {String id,
+      @JsonKey(name: FirebaseFieldName.trackName) String trackName,
+      @JsonKey(name: FirebaseFieldName.region) String region,
+      @JsonKey(name: FirebaseFieldName.location) String location,
+      @JsonKey(name: FirebaseFieldName.motoclub) String motoclub,
+      @JsonKey(name: FirebaseFieldName.category) String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      List<String>? acceptedLicenses,
-      @JsonKey(name: FirebaseFieldName.terrainType) String? terrainType,
-      @JsonKey(name: FirebaseFieldName.trackLength) String? trackLength,
-      @JsonKey(name: FirebaseFieldName.hasMinicross) String? hasMinicross,
+      List<String> acceptedLicenses,
+      @JsonKey(name: FirebaseFieldName.terrainType) String terrainType,
+      @JsonKey(name: FirebaseFieldName.trackLength) String trackLength,
+      @JsonKey(name: FirebaseFieldName.hasMinicross) String hasMinicross,
       @JsonKey(name: FirebaseFieldName.services) Map<String, String>? services,
-      @JsonKey(name: FirebaseFieldName.phones) List<String>? phones,
-      @JsonKey(name: FirebaseFieldName.fax) List<String>? fax,
-      @JsonKey(name: FirebaseFieldName.email) String? email,
-      @JsonKey(name: FirebaseFieldName.website) String? website,
-      @JsonKey(name: FirebaseFieldName.info) String? info,
+      @JsonKey(name: FirebaseFieldName.phones) List<String> phones,
+      @JsonKey(name: FirebaseFieldName.fax) List<String> fax,
+      @JsonKey(name: FirebaseFieldName.email) String email,
+      @JsonKey(name: FirebaseFieldName.website) String website,
+      @JsonKey(name: FirebaseFieldName.info) String info,
       @JsonKey(name: FirebaseFieldName.openingHours)
-      Map<String, String>? openingHours,
+      Map<String, String> openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
       @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
@@ -114,23 +114,23 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? trackName = freezed,
-    Object? region = freezed,
-    Object? location = freezed,
-    Object? motoclub = freezed,
-    Object? category = freezed,
-    Object? acceptedLicenses = freezed,
-    Object? terrainType = freezed,
-    Object? trackLength = freezed,
-    Object? hasMinicross = freezed,
+    Object? id = null,
+    Object? trackName = null,
+    Object? region = null,
+    Object? location = null,
+    Object? motoclub = null,
+    Object? category = null,
+    Object? acceptedLicenses = null,
+    Object? terrainType = null,
+    Object? trackLength = null,
+    Object? hasMinicross = null,
     Object? services = freezed,
-    Object? phones = freezed,
-    Object? fax = freezed,
-    Object? email = freezed,
-    Object? website = freezed,
-    Object? info = freezed,
-    Object? openingHours = freezed,
+    Object? phones = null,
+    Object? fax = null,
+    Object? email = null,
+    Object? website = null,
+    Object? info = null,
+    Object? openingHours = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? photosUrl = null,
@@ -138,74 +138,74 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
     Object? rating = null,
   }) {
     return _then(_value.copyWith(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      trackName: freezed == trackName
+              as String,
+      trackName: null == trackName
           ? _value.trackName
           : trackName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
+              as String,
+      region: null == region
           ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      motoclub: freezed == motoclub
+              as String,
+      motoclub: null == motoclub
           ? _value.motoclub
           : motoclub // ignore: cast_nullable_to_non_nullable
-              as String?,
-      category: freezed == category
+              as String,
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
-      acceptedLicenses: freezed == acceptedLicenses
+              as String,
+      acceptedLicenses: null == acceptedLicenses
           ? _value.acceptedLicenses
           : acceptedLicenses // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      terrainType: freezed == terrainType
+              as List<String>,
+      terrainType: null == terrainType
           ? _value.terrainType
           : terrainType // ignore: cast_nullable_to_non_nullable
-              as String?,
-      trackLength: freezed == trackLength
+              as String,
+      trackLength: null == trackLength
           ? _value.trackLength
           : trackLength // ignore: cast_nullable_to_non_nullable
-              as String?,
-      hasMinicross: freezed == hasMinicross
+              as String,
+      hasMinicross: null == hasMinicross
           ? _value.hasMinicross
           : hasMinicross // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       services: freezed == services
           ? _value.services
           : services // ignore: cast_nullable_to_non_nullable
               as Map<String, String>?,
-      phones: freezed == phones
+      phones: null == phones
           ? _value.phones
           : phones // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      fax: freezed == fax
+              as List<String>,
+      fax: null == fax
           ? _value.fax
           : fax // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      email: freezed == email
+              as List<String>,
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      website: freezed == website
+              as String,
+      website: null == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
-              as String?,
-      info: freezed == info
+              as String,
+      info: null == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String?,
-      openingHours: freezed == openingHours
+              as String,
+      openingHours: null == openingHours
           ? _value.openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
+              as Map<String, String>,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -238,25 +238,25 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? id,
-      @JsonKey(name: FirebaseFieldName.trackName) String? trackName,
-      @JsonKey(name: FirebaseFieldName.region) String? region,
-      @JsonKey(name: FirebaseFieldName.location) String? location,
-      @JsonKey(name: FirebaseFieldName.motoclub) String? motoclub,
-      @JsonKey(name: FirebaseFieldName.category) String? category,
+      {String id,
+      @JsonKey(name: FirebaseFieldName.trackName) String trackName,
+      @JsonKey(name: FirebaseFieldName.region) String region,
+      @JsonKey(name: FirebaseFieldName.location) String location,
+      @JsonKey(name: FirebaseFieldName.motoclub) String motoclub,
+      @JsonKey(name: FirebaseFieldName.category) String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      List<String>? acceptedLicenses,
-      @JsonKey(name: FirebaseFieldName.terrainType) String? terrainType,
-      @JsonKey(name: FirebaseFieldName.trackLength) String? trackLength,
-      @JsonKey(name: FirebaseFieldName.hasMinicross) String? hasMinicross,
+      List<String> acceptedLicenses,
+      @JsonKey(name: FirebaseFieldName.terrainType) String terrainType,
+      @JsonKey(name: FirebaseFieldName.trackLength) String trackLength,
+      @JsonKey(name: FirebaseFieldName.hasMinicross) String hasMinicross,
       @JsonKey(name: FirebaseFieldName.services) Map<String, String>? services,
-      @JsonKey(name: FirebaseFieldName.phones) List<String>? phones,
-      @JsonKey(name: FirebaseFieldName.fax) List<String>? fax,
-      @JsonKey(name: FirebaseFieldName.email) String? email,
-      @JsonKey(name: FirebaseFieldName.website) String? website,
-      @JsonKey(name: FirebaseFieldName.info) String? info,
+      @JsonKey(name: FirebaseFieldName.phones) List<String> phones,
+      @JsonKey(name: FirebaseFieldName.fax) List<String> fax,
+      @JsonKey(name: FirebaseFieldName.email) String email,
+      @JsonKey(name: FirebaseFieldName.website) String website,
+      @JsonKey(name: FirebaseFieldName.info) String info,
       @JsonKey(name: FirebaseFieldName.openingHours)
-      Map<String, String>? openingHours,
+      Map<String, String> openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
       @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
@@ -275,23 +275,23 @@ class __$$TrackImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? trackName = freezed,
-    Object? region = freezed,
-    Object? location = freezed,
-    Object? motoclub = freezed,
-    Object? category = freezed,
-    Object? acceptedLicenses = freezed,
-    Object? terrainType = freezed,
-    Object? trackLength = freezed,
-    Object? hasMinicross = freezed,
+    Object? id = null,
+    Object? trackName = null,
+    Object? region = null,
+    Object? location = null,
+    Object? motoclub = null,
+    Object? category = null,
+    Object? acceptedLicenses = null,
+    Object? terrainType = null,
+    Object? trackLength = null,
+    Object? hasMinicross = null,
     Object? services = freezed,
-    Object? phones = freezed,
-    Object? fax = freezed,
-    Object? email = freezed,
-    Object? website = freezed,
-    Object? info = freezed,
-    Object? openingHours = freezed,
+    Object? phones = null,
+    Object? fax = null,
+    Object? email = null,
+    Object? website = null,
+    Object? info = null,
+    Object? openingHours = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? photosUrl = null,
@@ -299,74 +299,74 @@ class __$$TrackImplCopyWithImpl<$Res>
     Object? rating = null,
   }) {
     return _then(_$TrackImpl(
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      trackName: freezed == trackName
+              as String,
+      trackName: null == trackName
           ? _value.trackName
           : trackName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      region: freezed == region
+              as String,
+      region: null == region
           ? _value.region
           : region // ignore: cast_nullable_to_non_nullable
-              as String?,
-      location: freezed == location
+              as String,
+      location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String?,
-      motoclub: freezed == motoclub
+              as String,
+      motoclub: null == motoclub
           ? _value.motoclub
           : motoclub // ignore: cast_nullable_to_non_nullable
-              as String?,
-      category: freezed == category
+              as String,
+      category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String?,
-      acceptedLicenses: freezed == acceptedLicenses
+              as String,
+      acceptedLicenses: null == acceptedLicenses
           ? _value._acceptedLicenses
           : acceptedLicenses // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      terrainType: freezed == terrainType
+              as List<String>,
+      terrainType: null == terrainType
           ? _value.terrainType
           : terrainType // ignore: cast_nullable_to_non_nullable
-              as String?,
-      trackLength: freezed == trackLength
+              as String,
+      trackLength: null == trackLength
           ? _value.trackLength
           : trackLength // ignore: cast_nullable_to_non_nullable
-              as String?,
-      hasMinicross: freezed == hasMinicross
+              as String,
+      hasMinicross: null == hasMinicross
           ? _value.hasMinicross
           : hasMinicross // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       services: freezed == services
           ? _value._services
           : services // ignore: cast_nullable_to_non_nullable
               as Map<String, String>?,
-      phones: freezed == phones
+      phones: null == phones
           ? _value._phones
           : phones // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      fax: freezed == fax
+              as List<String>,
+      fax: null == fax
           ? _value._fax
           : fax // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      email: freezed == email
+              as List<String>,
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
-      website: freezed == website
+              as String,
+      website: null == website
           ? _value.website
           : website // ignore: cast_nullable_to_non_nullable
-              as String?,
-      info: freezed == info
+              as String,
+      info: null == info
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
-              as String?,
-      openingHours: freezed == openingHours
+              as String,
+      openingHours: null == openingHours
           ? _value._openingHours
           : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
+              as Map<String, String>,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -395,30 +395,30 @@ class __$$TrackImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$TrackImpl implements _Track {
   _$TrackImpl(
-      {this.id,
+      {this.id = '',
       @JsonKey(name: FirebaseFieldName.trackName) this.trackName = '',
       @JsonKey(name: FirebaseFieldName.region) this.region = '',
       @JsonKey(name: FirebaseFieldName.location) this.location = '',
       @JsonKey(name: FirebaseFieldName.motoclub) this.motoclub = '',
       @JsonKey(name: FirebaseFieldName.category) this.category = '',
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      final List<String>? acceptedLicenses = const [],
+      final List<String> acceptedLicenses = const [],
       @JsonKey(name: FirebaseFieldName.terrainType) this.terrainType = '',
       @JsonKey(name: FirebaseFieldName.trackLength) this.trackLength = '',
       @JsonKey(name: FirebaseFieldName.hasMinicross) this.hasMinicross = 'no',
       @JsonKey(name: FirebaseFieldName.services)
       final Map<String, String>? services = const {},
       @JsonKey(name: FirebaseFieldName.phones)
-      final List<String>? phones = const [],
-      @JsonKey(name: FirebaseFieldName.fax) final List<String>? fax = const [],
+      final List<String> phones = const [],
+      @JsonKey(name: FirebaseFieldName.fax) final List<String> fax = const [],
       @JsonKey(name: FirebaseFieldName.email) this.email = '',
       @JsonKey(name: FirebaseFieldName.website) this.website = '',
       @JsonKey(name: FirebaseFieldName.info) this.info = '',
       @JsonKey(name: FirebaseFieldName.openingHours)
-      final Map<String, String>? openingHours = const {},
-      @JsonKey(name: FirebaseFieldName.latitude) required this.latitude,
-      @JsonKey(name: FirebaseFieldName.longitude) required this.longitude,
-      @JsonKey(name: FirebaseFieldName.photosUrl) required this.photosUrl,
+      final Map<String, String> openingHours = const {},
+      @JsonKey(name: FirebaseFieldName.latitude) this.latitude = '0.0',
+      @JsonKey(name: FirebaseFieldName.longitude) this.longitude = '0.0',
+      @JsonKey(name: FirebaseFieldName.photosUrl) this.photosUrl = '',
       @JsonKey(name: FirebaseFieldName.commentCount) this.commentCount = 0,
       @JsonKey(name: FirebaseFieldName.rating) this.rating = 0.0})
       : _acceptedLicenses = acceptedLicenses,
@@ -431,43 +431,42 @@ class _$TrackImpl implements _Track {
       _$$TrackImplFromJson(json);
 
   @override
-  final String? id;
+  @JsonKey()
+  final String id;
   @override
   @JsonKey(name: FirebaseFieldName.trackName)
-  final String? trackName;
+  final String trackName;
   @override
   @JsonKey(name: FirebaseFieldName.region)
-  final String? region;
+  final String region;
   @override
   @JsonKey(name: FirebaseFieldName.location)
-  final String? location;
+  final String location;
   @override
   @JsonKey(name: FirebaseFieldName.motoclub)
-  final String? motoclub;
+  final String motoclub;
   @override
   @JsonKey(name: FirebaseFieldName.category)
-  final String? category;
-  final List<String>? _acceptedLicenses;
+  final String category;
+  final List<String> _acceptedLicenses;
   @override
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String>? get acceptedLicenses {
-    final value = _acceptedLicenses;
-    if (value == null) return null;
+  List<String> get acceptedLicenses {
     if (_acceptedLicenses is EqualUnmodifiableListView)
       return _acceptedLicenses;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_acceptedLicenses);
   }
 
   @override
   @JsonKey(name: FirebaseFieldName.terrainType)
-  final String? terrainType;
+  final String terrainType;
   @override
   @JsonKey(name: FirebaseFieldName.trackLength)
-  final String? trackLength;
+  final String trackLength;
   @override
   @JsonKey(name: FirebaseFieldName.hasMinicross)
-  final String? hasMinicross;
+  final String hasMinicross;
   final Map<String, String>? _services;
   @override
   @JsonKey(name: FirebaseFieldName.services)
@@ -479,46 +478,40 @@ class _$TrackImpl implements _Track {
     return EqualUnmodifiableMapView(value);
   }
 
-  final List<String>? _phones;
+  final List<String> _phones;
   @override
   @JsonKey(name: FirebaseFieldName.phones)
-  List<String>? get phones {
-    final value = _phones;
-    if (value == null) return null;
+  List<String> get phones {
     if (_phones is EqualUnmodifiableListView) return _phones;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_phones);
   }
 
-  final List<String>? _fax;
+  final List<String> _fax;
   @override
   @JsonKey(name: FirebaseFieldName.fax)
-  List<String>? get fax {
-    final value = _fax;
-    if (value == null) return null;
+  List<String> get fax {
     if (_fax is EqualUnmodifiableListView) return _fax;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_fax);
   }
 
   @override
   @JsonKey(name: FirebaseFieldName.email)
-  final String? email;
+  final String email;
   @override
   @JsonKey(name: FirebaseFieldName.website)
-  final String? website;
+  final String website;
   @override
   @JsonKey(name: FirebaseFieldName.info)
-  final String? info;
-  final Map<String, String>? _openingHours;
+  final String info;
+  final Map<String, String> _openingHours;
   @override
   @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String>? get openingHours {
-    final value = _openingHours;
-    if (value == null) return null;
+  Map<String, String> get openingHours {
     if (_openingHours is EqualUnmodifiableMapView) return _openingHours;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
+    return EqualUnmodifiableMapView(_openingHours);
   }
 
   @override
@@ -628,31 +621,29 @@ class _$TrackImpl implements _Track {
 
 abstract class _Track implements Track {
   factory _Track(
-      {final String? id,
-      @JsonKey(name: FirebaseFieldName.trackName) final String? trackName,
-      @JsonKey(name: FirebaseFieldName.region) final String? region,
-      @JsonKey(name: FirebaseFieldName.location) final String? location,
-      @JsonKey(name: FirebaseFieldName.motoclub) final String? motoclub,
-      @JsonKey(name: FirebaseFieldName.category) final String? category,
+      {final String id,
+      @JsonKey(name: FirebaseFieldName.trackName) final String trackName,
+      @JsonKey(name: FirebaseFieldName.region) final String region,
+      @JsonKey(name: FirebaseFieldName.location) final String location,
+      @JsonKey(name: FirebaseFieldName.motoclub) final String motoclub,
+      @JsonKey(name: FirebaseFieldName.category) final String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      final List<String>? acceptedLicenses,
-      @JsonKey(name: FirebaseFieldName.terrainType) final String? terrainType,
-      @JsonKey(name: FirebaseFieldName.trackLength) final String? trackLength,
-      @JsonKey(name: FirebaseFieldName.hasMinicross) final String? hasMinicross,
+      final List<String> acceptedLicenses,
+      @JsonKey(name: FirebaseFieldName.terrainType) final String terrainType,
+      @JsonKey(name: FirebaseFieldName.trackLength) final String trackLength,
+      @JsonKey(name: FirebaseFieldName.hasMinicross) final String hasMinicross,
       @JsonKey(name: FirebaseFieldName.services)
       final Map<String, String>? services,
-      @JsonKey(name: FirebaseFieldName.phones) final List<String>? phones,
-      @JsonKey(name: FirebaseFieldName.fax) final List<String>? fax,
-      @JsonKey(name: FirebaseFieldName.email) final String? email,
-      @JsonKey(name: FirebaseFieldName.website) final String? website,
-      @JsonKey(name: FirebaseFieldName.info) final String? info,
+      @JsonKey(name: FirebaseFieldName.phones) final List<String> phones,
+      @JsonKey(name: FirebaseFieldName.fax) final List<String> fax,
+      @JsonKey(name: FirebaseFieldName.email) final String email,
+      @JsonKey(name: FirebaseFieldName.website) final String website,
+      @JsonKey(name: FirebaseFieldName.info) final String info,
       @JsonKey(name: FirebaseFieldName.openingHours)
-      final Map<String, String>? openingHours,
-      @JsonKey(name: FirebaseFieldName.latitude) required final String latitude,
-      @JsonKey(name: FirebaseFieldName.longitude)
-      required final String longitude,
-      @JsonKey(name: FirebaseFieldName.photosUrl)
-      required final String photosUrl,
+      final Map<String, String> openingHours,
+      @JsonKey(name: FirebaseFieldName.latitude) final String latitude,
+      @JsonKey(name: FirebaseFieldName.longitude) final String longitude,
+      @JsonKey(name: FirebaseFieldName.photosUrl) final String photosUrl,
       @JsonKey(name: FirebaseFieldName.commentCount) final int commentCount,
       @JsonKey(name: FirebaseFieldName.rating)
       final double rating}) = _$TrackImpl;
@@ -660,55 +651,55 @@ abstract class _Track implements Track {
   factory _Track.fromJson(Map<String, dynamic> json) = _$TrackImpl.fromJson;
 
   @override
-  String? get id;
+  String get id;
   @override
   @JsonKey(name: FirebaseFieldName.trackName)
-  String? get trackName;
+  String get trackName;
   @override
   @JsonKey(name: FirebaseFieldName.region)
-  String? get region;
+  String get region;
   @override
   @JsonKey(name: FirebaseFieldName.location)
-  String? get location;
+  String get location;
   @override
   @JsonKey(name: FirebaseFieldName.motoclub)
-  String? get motoclub;
+  String get motoclub;
   @override
   @JsonKey(name: FirebaseFieldName.category)
-  String? get category;
+  String get category;
   @override
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String>? get acceptedLicenses;
+  List<String> get acceptedLicenses;
   @override
   @JsonKey(name: FirebaseFieldName.terrainType)
-  String? get terrainType;
+  String get terrainType;
   @override
   @JsonKey(name: FirebaseFieldName.trackLength)
-  String? get trackLength;
+  String get trackLength;
   @override
   @JsonKey(name: FirebaseFieldName.hasMinicross)
-  String? get hasMinicross;
+  String get hasMinicross;
   @override
   @JsonKey(name: FirebaseFieldName.services)
   Map<String, String>? get services;
   @override
   @JsonKey(name: FirebaseFieldName.phones)
-  List<String>? get phones;
+  List<String> get phones;
   @override
   @JsonKey(name: FirebaseFieldName.fax)
-  List<String>? get fax;
+  List<String> get fax;
   @override
   @JsonKey(name: FirebaseFieldName.email)
-  String? get email;
+  String get email;
   @override
   @JsonKey(name: FirebaseFieldName.website)
-  String? get website;
+  String get website;
   @override
   @JsonKey(name: FirebaseFieldName.info)
-  String? get info;
+  String get info;
   @override
   @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String>? get openingHours;
+  Map<String, String> get openingHours;
   @override
   @JsonKey(name: FirebaseFieldName.latitude)
   String get latitude;
