@@ -1,5 +1,4 @@
 import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
-import 'package:crosstrack_italia/news_view.dart';
 import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
 
 import 'package:flutter/material.dart';
