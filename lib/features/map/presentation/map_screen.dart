@@ -9,6 +9,7 @@ import 'package:crosstrack_italia/features/map/presentation/widget/marker/veneto
 import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_utils.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
@@ -222,6 +223,33 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
             );
           },
         ),
+
+        Consumer(
+          builder: (context, ref, child) {
+            return Positioned(
+              top: 160,
+              right: 8,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  backgroundColor: Colors.orange[200],
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TrackSelectionScreen()),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.compare_arrows,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+
         Consumer(
           builder: (context, ref, child) {
             final selectedRegion = ref.watch<Regions>(selectedRegionProvider);

@@ -22,6 +22,20 @@ final getClosestLocationProvider = AutoDisposeFutureProvider<String>.internal(
 );
 
 typedef GetClosestLocationRef = AutoDisposeFutureProviderRef<String>;
+String _$getPositionHash() => r'bb31af68592b7bc95017b3e5b843dcca4b6589d8';
+
+/// See also [getPosition].
+@ProviderFor(getPosition)
+final getPositionProvider = AutoDisposeFutureProvider<Position?>.internal(
+  getPosition,
+  name: r'getPositionProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$getPositionHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef GetPositionRef = AutoDisposeFutureProviderRef<Position?>;
 String _$showCurrentLocationHash() =>
     r'55be9755ecab2a7bbf0bdb32305ada517759f536';
 
@@ -39,7 +53,7 @@ final showCurrentLocationProvider =
 );
 
 typedef _$ShowCurrentLocation = AutoDisposeNotifier<bool>;
-String _$locationServicesHash() => r'dfa962e8e37717ba64383ee73ded434f063082c6';
+String _$locationServicesHash() => r'1df801ed86cbc084190d7f8e8d82b73bcf895f9a';
 
 /// See also [LocationServices].
 @ProviderFor(LocationServices)

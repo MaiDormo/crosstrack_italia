@@ -18,7 +18,7 @@ class UserInfoStorage extends _$UserInfoStorage {
     return false;
   }
 
-  Future<bool> saveUserInfo({
+  Future<void> saveUserInfo({
     required UserId id,
     required String displayName,
     required String? email,
@@ -45,7 +45,7 @@ class UserInfoStorage extends _$UserInfoStorage {
           FirebaseFieldName.profileImageUrl: profileImageUrl ?? '',
         });
         state = true;
-        return true;
+        return;
       }
 
       final payload = UserInfo(
@@ -61,10 +61,8 @@ class UserInfoStorage extends _$UserInfoStorage {
           )
           .add(payload);
       state = true;
-      return true;
     } catch (_) {
       state = false;
-      return false;
     }
   }
 }

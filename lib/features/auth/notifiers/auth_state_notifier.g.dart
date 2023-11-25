@@ -211,7 +211,7 @@ class _FetchUserInfoProviderElement
   String get userId => (origin as FetchUserInfoProvider).userId;
 }
 
-String _$authStateNotifierHash() => r'05c5c5e2cf52370a8a22bd509ae09d4fef92b100';
+String _$authStateNotifierHash() => r'62155fa5c18699397c79768434b855adefd51bbd';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)

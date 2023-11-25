@@ -20,6 +20,17 @@ Future<String> getClosestLocation(GetClosestLocationRef ref) async {
       showCurrentLocation, locationServices);
 }
 
+@riverpod
+Future<Position?> getPosition(GetPositionRef ref) async {
+  final locationServices = ref.watch(locationServicesProvider);
+  final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+  if (locationServices && showCurrentLocation) {
+    return await ref.watch(locationServicesProvider.notifier).check();
+  } else {
+    return null;
+  }
+}
+
 //------------------------NOTIFIER------------------------//
 
 //This is the notifier that will be used to toggle the showCurrentLocation bool
@@ -41,7 +52,7 @@ class LocationServices extends _$LocationServices {
   @override
   bool build() => false;
 
-  Future<void> check() async {
+  Future<Position?> check() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -74,13 +85,18 @@ class LocationServices extends _$LocationServices {
     try {
       position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-    } catch (e) {}
+    } catch (e) {
+      state = false;
+      return null;
+    }
 
     if (position != null) {
       state = true;
+      return position;
     } else {
       state = false;
     }
+    return null;
   }
 }
 

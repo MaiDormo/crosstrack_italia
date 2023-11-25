@@ -1,5 +1,7 @@
+import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/news_view.dart';
 import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app_states/nav_states/nav_notifier.dart';
@@ -11,7 +13,8 @@ class HomePageView extends ConsumerWidget {
   const HomePageView({super.key});
   static List<Widget> widgetList = [
     Flexible(child: MapScreen()),
-    const Flexible(child: NewsView()),
+    // const Flexible(child: NewsView()),
+    Flexible(child: TrackSelectionScreen()),
     const Flexible(child: SettingsPageView()),
   ];
   @override
