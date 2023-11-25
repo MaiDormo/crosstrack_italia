@@ -19,6 +19,7 @@ mixin _$AuthState {
   AuthResult? get result => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  String? get userImageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -30,7 +31,11 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({AuthResult? result, bool isLoading, String? userId});
+  $Res call(
+      {AuthResult? result,
+      bool isLoading,
+      String? userId,
+      String? userImageUrl});
 }
 
 /// @nodoc
@@ -49,6 +54,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? result = freezed,
     Object? isLoading = null,
     Object? userId = freezed,
+    Object? userImageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       result: freezed == result
@@ -63,6 +69,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      userImageUrl: freezed == userImageUrl
+          ? _value.userImageUrl
+          : userImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -75,7 +85,11 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthResult? result, bool isLoading, String? userId});
+  $Res call(
+      {AuthResult? result,
+      bool isLoading,
+      String? userId,
+      String? userImageUrl});
 }
 
 /// @nodoc
@@ -92,6 +106,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? result = freezed,
     Object? isLoading = null,
     Object? userId = freezed,
+    Object? userImageUrl = freezed,
   }) {
     return _then(_$AuthStateImpl(
       result: freezed == result
@@ -106,6 +121,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String?,
+      userImageUrl: freezed == userImageUrl
+          ? _value.userImageUrl
+          : userImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -114,7 +133,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 
 class _$AuthStateImpl implements _AuthState {
   const _$AuthStateImpl(
-      {required this.result, required this.isLoading, required this.userId});
+      {required this.result,
+      required this.isLoading,
+      required this.userId,
+      this.userImageUrl = ''});
 
   @override
   final AuthResult? result;
@@ -122,10 +144,13 @@ class _$AuthStateImpl implements _AuthState {
   final bool isLoading;
   @override
   final String? userId;
+  @override
+  @JsonKey()
+  final String? userImageUrl;
 
   @override
   String toString() {
-    return 'AuthState(result: $result, isLoading: $isLoading, userId: $userId)';
+    return 'AuthState(result: $result, isLoading: $isLoading, userId: $userId, userImageUrl: $userImageUrl)';
   }
 
   @override
@@ -136,11 +161,14 @@ class _$AuthStateImpl implements _AuthState {
             (identical(other.result, result) || other.result == result) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userImageUrl, userImageUrl) ||
+                other.userImageUrl == userImageUrl));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, result, isLoading, userId);
+  int get hashCode =>
+      Object.hash(runtimeType, result, isLoading, userId, userImageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +181,8 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {required final AuthResult? result,
       required final bool isLoading,
-      required final String? userId}) = _$AuthStateImpl;
+      required final String? userId,
+      final String? userImageUrl}) = _$AuthStateImpl;
 
   @override
   AuthResult? get result;
@@ -161,6 +190,8 @@ abstract class _AuthState implements AuthState {
   bool get isLoading;
   @override
   String? get userId;
+  @override
+  String? get userImageUrl;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

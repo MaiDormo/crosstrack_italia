@@ -1,58 +1,23 @@
-import 'dart:collection' show MapView;
-
+import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
-import 'package:flutter/foundation.dart' show immutable;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../constants/firebase_field_name.dart';
+part 'user_info_model.freezed.dart';
+part 'user_info_model.g.dart';
 
-@immutable
-class UserInfoModel extends MapView<String, String?> {
-  final UserId userId;
-  final String displayName;
-  final String? email;
-  final String? profileImageUrl;
+@freezed
+class UserInfo with _$UserInfo {
+  const factory UserInfo({
+    required UserId id,
+    @JsonKey(name: FirebaseFieldName.displayName) required String? displayName,
+    @Default('') String? email,
+    @JsonKey(name: FirebaseFieldName.profileImageUrl)
+    @Default('')
+    String? profileImageUrl,
+  }) = _UserInfo;
 
-  UserInfoModel({
-    required this.userId,
-    required this.displayName,
-    required this.email,
-    required this.profileImageUrl,
-  }) : super(
-          {
-            FirebaseFieldName.userId: userId,
-            FirebaseFieldName.displayName: displayName,
-            FirebaseFieldName.email: email,
-            FirebaseFieldName.profileImageUrl: profileImageUrl,
-          },
-        );
+  const UserInfo._();
 
-  UserInfoModel.fromJson(
-    Map<String, dynamic> json, {
-    required UserId userId,
-  }) : this(
-          userId: userId,
-          displayName: json[FirebaseFieldName.displayName] ?? '',
-          email: json[FirebaseFieldName.email],
-          profileImageUrl: json[FirebaseFieldName.profileImageUrl] ?? '',
-        );
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserInfoModel &&
-          runtimeType == other.runtimeType &&
-          userId == other.userId &&
-          displayName == other.displayName &&
-          email == other.email &&
-          profileImageUrl == other.profileImageUrl;
-
-  @override
-  int get hashCode => Object.hashAll(
-        [
-          userId,
-          displayName,
-          email,
-          profileImageUrl,
-        ],
-      );
+  factory UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoFromJson(json);
 }

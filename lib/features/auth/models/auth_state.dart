@@ -10,6 +10,7 @@ class AuthState with _$AuthState {
     required final AuthResult? result,
     required final bool isLoading,
     required final UserId? userId,
+    @Default('') final String? userImageUrl,
   }) = _AuthState;
 
   // const factory AuthState.unknown() = _Unknown;

@@ -1,26 +1,34 @@
 import 'package:crosstrack_italia/features/auth/constants/constants.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-//Responsible for handling all the backend authentication logic
-//basically a bunch of functions that call firebase auth
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class Authenticator {
-  const Authenticator();
+part 'auth_repository.g.dart';
+
+@riverpod
+AuthRepository authRepository(AuthRepositoryRef ref) {
+  return AuthRepository(
+    auth: ref.watch(authProvider),
+  );
+}
+
+class AuthRepository {
+  final FirebaseAuth _auth;
+  AuthRepository({required FirebaseAuth auth}) : _auth = auth;
 
   // getters
   bool get isAlreadyLoggedIn => userId != null;
-  UserId? get userId => FirebaseAuth.instance.currentUser?.uid;
-  String get displayName =>
-      FirebaseAuth.instance.currentUser?.displayName ?? '';
-  String? get email => FirebaseAuth.instance.currentUser?.email;
-  String? get profileImageUrl =>
-      FirebaseAuth.instance.currentUser?.photoURL ?? '';
+  UserId? get userId => _auth.currentUser?.uid;
+  String get displayName => _auth.currentUser?.displayName ?? '';
+  String? get email => _auth.currentUser?.email;
+  String? get profileImageUrl => _auth.currentUser?.photoURL ?? '';
 
   Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
+    await _auth.signOut();
     await GoogleSignIn().signOut();
     await FacebookAuth.instance.logOut();
   }
@@ -41,7 +49,7 @@ class Authenticator {
 
     await userData.then((value) {
       //update the user display name and image
-      FirebaseAuth.instance.currentUser?.updateDisplayName(
+      _auth.currentUser?.updateDisplayName(
         value[Constants.facebookName],
       );
       // print(value['picture']['data']['url']);
@@ -49,7 +57,7 @@ class Authenticator {
     });
 
     try {
-      await FirebaseAuth.instance.signInWithCredential(
+      await _auth.signInWithCredential(
         oauthCredentials,
       );
       return AuthResult.success;
@@ -59,8 +67,7 @@ class Authenticator {
       if (e.code == Constants.accountExistsWithDifferentCredentialsError &&
           email != null &&
           credential != null) {
-        final providers =
-            await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+        final providers = await _auth.fetchSignInMethodsForEmail(email);
         if (providers.contains(Constants.googleCom)) {
           await loginWithGoogle();
         }
@@ -87,7 +94,7 @@ class Authenticator {
       accessToken: googleAuth.accessToken,
     );
     try {
-      await FirebaseAuth.instance.signInWithCredential(
+      await _auth.signInWithCredential(
         oauthCredentials,
       );
       return AuthResult.success;

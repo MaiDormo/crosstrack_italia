@@ -48,7 +48,170 @@ final isLoadingProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoadingRef = AutoDisposeProviderRef<bool>;
-String _$authStateNotifierHash() => r'fb33fc1efb3fd885ed3859c63140bed47e7f4ea3';
+String _$userImageHash() => r'c497dd4e0d169c0f21512cfca2bb34256626f3e7';
+
+/// See also [userImage].
+@ProviderFor(userImage)
+final userImageProvider = AutoDisposeFutureProvider<Widget>.internal(
+  userImage,
+  name: r'userImageProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userImageHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef UserImageRef = AutoDisposeFutureProviderRef<Widget>;
+String _$fetchUserInfoHash() => r'14cf5378e7167f8a25f30fb24000a0469516493a';
+
+/// Copied from Dart SDK
+class _SystemHash {
+  _SystemHash._();
+
+  static int combine(int hash, int value) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + value);
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+    return hash ^ (hash >> 6);
+  }
+
+  static int finish(int hash) {
+    // ignore: parameter_assignments
+    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+    // ignore: parameter_assignments
+    hash = hash ^ (hash >> 11);
+    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
+  }
+}
+
+/// See also [fetchUserInfo].
+@ProviderFor(fetchUserInfo)
+const fetchUserInfoProvider = FetchUserInfoFamily();
+
+/// See also [fetchUserInfo].
+class FetchUserInfoFamily extends Family<AsyncValue<UserInfo>> {
+  /// See also [fetchUserInfo].
+  const FetchUserInfoFamily();
+
+  /// See also [fetchUserInfo].
+  FetchUserInfoProvider call(
+    String userId,
+  ) {
+    return FetchUserInfoProvider(
+      userId,
+    );
+  }
+
+  @override
+  FetchUserInfoProvider getProviderOverride(
+    covariant FetchUserInfoProvider provider,
+  ) {
+    return call(
+      provider.userId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchUserInfoProvider';
+}
+
+/// See also [fetchUserInfo].
+class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfo> {
+  /// See also [fetchUserInfo].
+  FetchUserInfoProvider(
+    String userId,
+  ) : this._internal(
+          (ref) => fetchUserInfo(
+            ref as FetchUserInfoRef,
+            userId,
+          ),
+          from: fetchUserInfoProvider,
+          name: r'fetchUserInfoProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchUserInfoHash,
+          dependencies: FetchUserInfoFamily._dependencies,
+          allTransitiveDependencies:
+              FetchUserInfoFamily._allTransitiveDependencies,
+          userId: userId,
+        );
+
+  FetchUserInfoProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.userId,
+  }) : super.internal();
+
+  final String userId;
+
+  @override
+  Override overrideWith(
+    Stream<UserInfo> Function(FetchUserInfoRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchUserInfoProvider._internal(
+        (ref) => create(ref as FetchUserInfoRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        userId: userId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeStreamProviderElement<UserInfo> createElement() {
+    return _FetchUserInfoProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchUserInfoProvider && other.userId == userId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, userId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchUserInfoRef on AutoDisposeStreamProviderRef<UserInfo> {
+  /// The parameter `userId` of this provider.
+  String get userId;
+}
+
+class _FetchUserInfoProviderElement
+    extends AutoDisposeStreamProviderElement<UserInfo> with FetchUserInfoRef {
+  _FetchUserInfoProviderElement(super.provider);
+
+  @override
+  String get userId => (origin as FetchUserInfoProvider).userId;
+}
+
+String _$authStateNotifierHash() => r'05c5c5e2cf52370a8a22bd509ae09d4fef92b100';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)

@@ -2,14 +2,16 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class FirebaseFieldName {
+  //shared
+  static const id = 'id';
+
   //still need to a dd all of the field names
-  static const userId = 'userId';
-  static const displayName = 'displayName';
-  static const email = 'email';
+  static const displayName = 'display_name';
   static const createdAt = 'created_at';
+  static const email = 'email';
+  static const profileImageUrl = 'profile_image_url';
 
   //track info
-  static const id = 'id';
   static const trackName = 'nome';
   static const location = 'posto';
   static const region = 'regione';
@@ -37,10 +39,6 @@ class FirebaseFieldName {
   static const commentId = 'commentId';
   static const comment = 'comment';
   static const date = 'date';
-
-  static var profileImageUrl;
-
-  ///TODO remove this profile image variable above
 
   const FirebaseFieldName._();
 }
