@@ -31,28 +31,37 @@ class _BottomBarState extends ConsumerState<BottomBar> {
       ),
     ];
 
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20.0),
-        topRight: Radius.circular(20.0),
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 8.0,
+        right: 8.0,
+        bottom: 8.0,
       ),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+          bottomLeft: Radius.circular(20.0),
+          bottomRight: Radius.circular(20.0),
         ),
-        child: BottomNavigationBar(
-          items: bottomNavigationBarItems,
-          currentIndex: navIndex,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.onSurface,
-          onTap: (value) {
-            ref.read(navProvider.notifier).onIndexChanged(value);
-          },
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 14.0,
-          unselectedFontSize: 12.0,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+          ),
+          child: BottomNavigationBar(
+            items: bottomNavigationBarItems,
+            currentIndex: navIndex,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Theme.of(context).colorScheme.onSurface,
+            onTap: (value) {
+              ref.read(navProvider.notifier).onIndexChanged(value);
+            },
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            type: BottomNavigationBarType.fixed,
+            selectedFontSize: 14.0,
+            unselectedFontSize: 12.0,
+          ),
         ),
       ),
     );

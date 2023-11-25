@@ -1,4 +1,3 @@
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
@@ -47,13 +46,11 @@ class PanelWidget extends ConsumerWidget {
   }
 
   Widget buildTrackInfo(
-    Track? trackSelected,
+    Track trackSelected,
     AsyncValue<Iterable<Image>> allTrackImages,
     BuildContext context,
     double heightFactor,
   ) {
-    ///TODO: how is changing if it's final
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -66,25 +63,21 @@ class PanelWidget extends ConsumerWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
-                    height: 300.0 * heightFactor,
+                    height: 350 * heightFactor,
                     width: MediaQuery.of(context).size.width,
                     child: Swiper(
                       layout: SwiperLayout.DEFAULT,
                       itemCount: images.length,
                       itemWidth: MediaQuery.of(context).size.width,
                       itemBuilder: (BuildContext context, int index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: images.elementAt(index),
-                        );
+                        return images.elementAt(index);
                       },
                       pagination: SwiperPagination(
+                        margin: const EdgeInsets.only(bottom: 10.0),
                         builder: SwiperPagination.dots,
                       ),
-                      control: SwiperControl(
-                        iconNext: Icons.arrow_forward_outlined,
-                        iconPrevious: Icons.arrow_back_outlined,
-                      ),
+                      autoplay: true,
+                      autoplayDelay: 4000,
                     ),
                   ),
                 );
@@ -104,7 +97,7 @@ class PanelWidget extends ConsumerWidget {
           ),
 
           Text(
-            trackSelected?.trackName ?? 'No track selected',
+            trackSelected.trackName,
             style: TextStyle(
               fontSize: 20 * heightFactor,
               fontWeight: FontWeight.bold,
@@ -113,7 +106,7 @@ class PanelWidget extends ConsumerWidget {
           ),
 
           Text(
-            trackSelected?.location ?? '',
+            trackSelected.location,
             style: TextStyle(
               fontSize: 14 * heightFactor,
               fontWeight: FontWeight.bold,
@@ -127,26 +120,23 @@ class PanelWidget extends ConsumerWidget {
               Row(
                 children: [
                   Text(
-                    'Valutazione: ' +
-                        (trackSelected == null
-                            ? '0.0'
-                            : trackSelected.rating.toStringAsFixed(1)),
+                    'Valutazione: ' + trackSelected.rating.toStringAsFixed(1),
                     style: TextStyle(
                       fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
-                      color: Colors.orangeAccent,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   RatingBarIndicator(
                     //random value between 0 and 5
                     physics: NeverScrollableScrollPhysics(),
                     itemSize: 20 * heightFactor,
-                    rating: trackSelected == null ? 0.0 : trackSelected.rating,
+                    rating: trackSelected.rating,
                     direction: Axis.horizontal,
                     itemCount: 5,
-                    itemBuilder: (context, _) => const Icon(
+                    itemBuilder: (context, _) => Icon(
                       Icons.star,
-                      color: Colors.orangeAccent,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   ),
@@ -204,11 +194,11 @@ class PanelWidget extends ConsumerWidget {
 
           //show the number of reviews/comments on the track
           Text(
-            'Recensioni: ' + (trackSelected?.commentCount ?? 0).toString(),
+            'Recensioni: ' + trackSelected.commentCount.toString(),
             style: TextStyle(
               fontSize: 16 * heightFactor,
               fontWeight: FontWeight.bold,
-              color: Colors.orangeAccent,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           SizedBox(height: 12 * heightFactor),
@@ -230,7 +220,7 @@ class PanelWidget extends ConsumerWidget {
                           child: Column(
                             children: [
                               Text(
-                                '${trackSelected?.motoclub}',
+                                '${trackSelected.motoclub}',
                                 style: TextStyle(
                                     fontSize: 15 * heightFactor,
                                     fontWeight: FontWeight.bold,
@@ -292,7 +282,7 @@ class PanelWidget extends ConsumerWidget {
                                     width: 4 * heightFactor,
                                   ),
                                   Text(
-                                    trackSelected?.category ?? '_',
+                                    trackSelected.category,
                                     style: TextStyle(
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
@@ -319,7 +309,7 @@ class PanelWidget extends ConsumerWidget {
                                     width: 4 * heightFactor,
                                   ),
                                   Text(
-                                    trackSelected?.trackLength ?? '_',
+                                    trackSelected.trackLength,
                                     style: TextStyle(
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
@@ -329,7 +319,6 @@ class PanelWidget extends ConsumerWidget {
                               ),
 
                               Wrap(
-                                alignment: WrapAlignment.start,
                                 children: [
                                   const Icon(
                                     Icons.terrain,
@@ -348,7 +337,7 @@ class PanelWidget extends ConsumerWidget {
                                     width: 4 * heightFactor,
                                   ),
                                   Text(
-                                    trackSelected?.terrainType ?? '_',
+                                    trackSelected.terrainType,
                                     style: TextStyle(
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
@@ -407,186 +396,170 @@ class PanelWidget extends ConsumerWidget {
 
                                   Column(
                                     children: [
-                                      ...trackSelected?.acceptedLicenses
-                                              ?.map(
-                                                (license) => switch (license) {
-                                                  'fmi' => Card(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 8.0,
-                                                          vertical: 4.0,
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/license_img/logo-fmi.jpg',
-                                                                height: 50 *
-                                                                    heightFactor,
-                                                                width: 50 *
-                                                                    heightFactor,
-                                                              ),
-                                                            ),
-                                                            Text('fmi'),
-                                                            SizedBox(
-                                                              width: 5.0 *
-                                                                  heightFactor,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
+                                      ...trackSelected.acceptedLicenses
+                                          .map(
+                                            (license) => switch (license) {
+                                              'fmi' => Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0,
                                                     ),
-                                                  /////////////////////////////
-                                                  'uisp' => Card(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 8.0,
-                                                          vertical: 4.0,
+                                                    child: Row(
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          child: Image.asset(
+                                                            'assets/images/license_img/logo-fmi.jpg',
+                                                            height: 50 *
+                                                                heightFactor,
+                                                            width: 50 *
+                                                                heightFactor,
+                                                          ),
                                                         ),
-                                                        child: Row(
-                                                          children: [
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/license_img/logo-uisp.jpg',
-                                                                height: 50 *
-                                                                    heightFactor,
-                                                                width: 50 *
-                                                                    heightFactor,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0 *
-                                                                  heightFactor,
-                                                            ),
-                                                            Text('uisp'),
-                                                          ],
+                                                        Text('fmi'),
+                                                        SizedBox(
+                                                          width: 5.0 *
+                                                              heightFactor,
                                                         ),
-                                                      ),
+                                                      ],
                                                     ),
-                                                  /////////////////////////////
-                                                  'asi' => Card(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 8.0,
-                                                          vertical: 4.0,
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/license_img/logo_motoasi.jpg',
-                                                                height: 50 *
-                                                                    heightFactor,
-                                                                width: 50 *
-                                                                    heightFactor,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0 *
-                                                                  heightFactor,
-                                                            ),
-                                                            Text('asi'),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                  ),
+                                                ),
+                                              /////////////////////////////
+                                              'uisp' => Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0,
                                                     ),
-                                                  //////////////////////////////
-                                                  'csen' => Card(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 8.0,
-                                                          vertical: 4.0,
+                                                    child: Row(
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          child: Image.asset(
+                                                            'assets/images/license_img/logo-uisp.jpg',
+                                                            height: 50 *
+                                                                heightFactor,
+                                                            width: 50 *
+                                                                heightFactor,
+                                                          ),
                                                         ),
-                                                        child: Row(
-                                                          children: [
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/license_img/logo-csen.jpg',
-                                                                height: 50 *
-                                                                    heightFactor,
-                                                                width: 50 *
-                                                                    heightFactor,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0 *
-                                                                  heightFactor,
-                                                            ),
-                                                            Text('csen'),
-                                                          ],
+                                                        SizedBox(
+                                                          width: 5.0 *
+                                                              heightFactor,
                                                         ),
-                                                      ),
+                                                        Text('uisp'),
+                                                      ],
                                                     ),
+                                                  ),
+                                                ),
+                                              /////////////////////////////
+                                              'asi' => Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          child: Image.asset(
+                                                            'assets/images/license_img/logo_motoasi.jpg',
+                                                            height: 50 *
+                                                                heightFactor,
+                                                            width: 50 *
+                                                                heightFactor,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5.0 *
+                                                              heightFactor,
+                                                        ),
+                                                        Text('asi'),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              //////////////////////////////
+                                              'csen' => Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0,
+                                                    ),
+                                                    child: Row(
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          child: Image.asset(
+                                                            'assets/images/license_img/logo-csen.jpg',
+                                                            height: 50 *
+                                                                heightFactor,
+                                                            width: 50 *
+                                                                heightFactor,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5.0 *
+                                                              heightFactor,
+                                                        ),
+                                                        Text('csen'),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
 
-                                                  ///
-                                                  'asc' => Card(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                          horizontal: 8.0,
-                                                          vertical: 4.0,
-                                                        ),
-                                                        child: Row(
-                                                          children: [
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          25),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/license_img/logo-asc.jpg',
-                                                                height: 50 *
-                                                                    heightFactor,
-                                                                width: 50 *
-                                                                    heightFactor,
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0 *
-                                                                  heightFactor,
-                                                            ),
-                                                            Text('asc'),
-                                                          ],
-                                                        ),
-                                                      ),
+                                              ///
+                                              'asc' => Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: 8.0,
+                                                      vertical: 4.0,
                                                     ),
+                                                    child: Row(
+                                                      children: [
+                                                        ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(25),
+                                                          child: Image.asset(
+                                                            'assets/images/license_img/logo-asc.jpg',
+                                                            height: 50 *
+                                                                heightFactor,
+                                                            width: 50 *
+                                                                heightFactor,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5.0 *
+                                                              heightFactor,
+                                                        ),
+                                                        Text('asc'),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
 
-                                                  ///
-                                                  _ => Container(),
-                                                },
-                                              )
-                                              .toList() ??
-                                          [],
+                                              ///
+                                              _ => Container(),
+                                            },
+                                          )
+                                          .toList(),
 
                                       SizedBox(
                                         width: 5 * heightFactor,
@@ -613,8 +586,7 @@ class PanelWidget extends ConsumerWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 8.0, vertical: 4.0),
                                       child: switch (
-                                          trackSelected?.hasMinicross ??
-                                              'default') {
+                                          trackSelected.hasMinicross) {
                                         'si' => Icon(
                                             Icons.check,
                                             color: Colors.greenAccent,
@@ -695,77 +667,70 @@ class PanelWidget extends ConsumerWidget {
                               ),
                               //display all of the values inside trackSelected.services in each row
                               // display all of the values inside trackSelected.services in each row
-                              ...trackSelected?.services!.entries
-                                      .map(
-                                        (entry) => Row(
-                                          children: [
-                                            Consumer(
-                                              builder: (
-                                                BuildContext context,
-                                                WidgetRef ref,
-                                                Widget? child,
-                                              ) {
-                                                final value = ref.watch(
-                                                    toggleServicesViewProvider);
-                                                final entryKeyCleaned = entry
-                                                    .key
-                                                    .replaceAll('_', ' ');
-                                                final icon =
-                                                    switch (entryKeyCleaned) {
-                                                  'prese 220V' => Icons.bolt,
-                                                  'bar' => Icons.wine_bar,
-                                                  'illuminazione notturna' =>
-                                                    Icons.nightlight_round,
-                                                  'doccia calda' =>
-                                                    Icons.shower,
-                                                  'doccia fredda' =>
-                                                    Icons.shower,
-                                                  _ =>
-                                                    Icons.check_circle_outline,
-                                                };
+                              ...trackSelected.services!.entries
+                                  .map(
+                                    (entry) => Row(
+                                      children: [
+                                        Consumer(
+                                          builder: (
+                                            BuildContext context,
+                                            WidgetRef ref,
+                                            Widget? child,
+                                          ) {
+                                            final value = ref.watch(
+                                                toggleServicesViewProvider);
+                                            final entryKeyCleaned =
+                                                entry.key.replaceAll('_', ' ');
+                                            final icon =
+                                                switch (entryKeyCleaned) {
+                                              'prese 220V' => Icons.bolt,
+                                              'bar' => Icons.wine_bar,
+                                              'illuminazione notturna' =>
+                                                Icons.nightlight_round,
+                                              'doccia calda' => Icons.shower,
+                                              'doccia fredda' => Icons.shower,
+                                              _ => Icons.check_circle_outline,
+                                            };
 
-                                                return value
-                                                    ? Icon(icon)
-                                                    : Text(
-                                                        entryKeyCleaned + ':',
-                                                        style: TextStyle(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .secondary,
-                                                          fontSize:
-                                                              13 * heightFactor,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      );
-                                              },
-                                            ),
-                                            Card(
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 8.0,
-                                                    vertical: 4.0),
-                                                child: switch (entry.value) {
-                                                  'si' => Icon(
-                                                      Icons.check,
-                                                      color: Colors.greenAccent,
-                                                      size: 18 * heightFactor,
+                                            return value
+                                                ? Icon(icon)
+                                                : Text(
+                                                    entryKeyCleaned + ':',
+                                                    style: TextStyle(
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary,
+                                                      fontSize:
+                                                          13 * heightFactor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                     ),
-                                                  'no' => Icon(
-                                                      Icons.close,
-                                                      color: Colors.redAccent,
-                                                      size: 18 * heightFactor,
-                                                    ),
-                                                  _ => Container(),
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                                  );
+                                          },
                                         ),
-                                      )
-                                      .toList() ??
-                                  [],
+                                        Card(
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.0, vertical: 4.0),
+                                            child: switch (entry.value) {
+                                              'si' => Icon(
+                                                  Icons.check,
+                                                  color: Colors.greenAccent,
+                                                  size: 18 * heightFactor,
+                                                ),
+                                              'no' => Icon(
+                                                  Icons.close,
+                                                  color: Colors.redAccent,
+                                                  size: 18 * heightFactor,
+                                                ),
+                                              _ => Container(),
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  .toList(),
                             ],
                           ),
                         ),
@@ -1007,7 +972,7 @@ class PanelWidget extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CommentsSection(
-                trackId: trackSelected?.id ?? '',
+                trackId: trackSelected.id,
               ),
             ),
           ),

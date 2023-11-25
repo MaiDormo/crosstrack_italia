@@ -6,7 +6,7 @@ part of 'panel_style.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$heightFactorHash() => r'25f046b88af58627d750389bddae2b217e50a6b4';
+String _$heightFactorHash() => r'94b36a8385d4e26114292f4e4148a6c7adbc0443';
 
 /// Copied from Dart SDK
 class _SystemHash {

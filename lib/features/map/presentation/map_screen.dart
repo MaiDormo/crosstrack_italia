@@ -56,36 +56,49 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
     //setting provider with animatedMap
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SlidingUpPanel(
-        controller: ref.watch(panelControllerProvider),
-        minHeight: 0.0,
-        maxHeight: _panelHeightOpen,
-        parallaxEnabled: true,
-        parallaxOffset: 0.5,
-        color: Theme.of(context).colorScheme.secondary,
-        body: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20),
-          ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Map(
-                  // animatedMapController: _animatedMapController,
-                  ), // Pass the AnimatedMapController
-              FloatingSearchMapBar(
-                  // animatedMapController: _animatedMapController,
-                  ),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
         ),
-        panelBuilder: (scrollController) => PanelWidget(
-            scrollController: scrollController,
-            panelController: panelController),
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(20),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.grey[300],
+          body: SafeArea(
+            child: SlidingUpPanel(
+              controller: ref.watch(panelControllerProvider),
+              minHeight: 0.0,
+              maxHeight: _panelHeightOpen,
+              parallaxEnabled: true,
+              parallaxOffset: 0.5,
+              color: Theme.of(context).colorScheme.secondary,
+              body: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Map(
+                        // animatedMapController: _animatedMapController,
+                        ), // Pass the AnimatedMapController
+                    FloatingSearchMapBar(
+                        // animatedMapController: _animatedMapController,
+                        ),
+                  ],
+                ),
+              ),
+              panelBuilder: (scrollController) => SafeArea(
+                child: PanelWidget(
+                    scrollController: scrollController,
+                    panelController: panelController),
+              ),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -95,25 +108,16 @@ class _MapScreenState extends ConsumerState<MapScreen>
 class Map extends ConsumerStatefulWidget {
   const Map({
     Key? key,
-    // required this.animatedMapController,
   }) : super(key: key);
-
-  // final AnimatedMapController
-  // animatedMapController; // Replace MapController with AnimatedMapController
 
   @override
   _MapState createState() => _MapState();
 }
 
 class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
-  // late AnimatedMapController
-  //     _animatedMapController; // Replace MapController with AnimatedMapController
-
   @override
   void initState() {
     super.initState();
-    // _animatedMapController = widget
-    //     .animatedMapController; // Assign the AnimatedMapController from the widget
   }
 
   @override
@@ -130,14 +134,8 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
         center: const LatLng(46.066775, 11.149904),
         zoom: 10.0,
         minZoom: 7.0,
-        maxZoom: 18.0, // consider setting maxNativeZoom per TileLayer instead,
-        // to allow tiles to scale (and lose quality) on the final zoom level, instead of setting a hard limit.
-
-        //maxBounds: Limits how far the map can be moved by the user to a coordinate-based boundary
+        maxZoom: 18.0,
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
-        //keepAlive: true, in  order to keep the map from rebuilding in a nested widget tree (when out of sight)
-
-        //remove focus on the current widget when the user interacts with the map
         onTap: (tapPosition, position) => FocusScope.of(context).unfocus(),
       ),
       nonRotatedChildren: [
@@ -196,24 +194,29 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
             return Positioned(
               top: 90,
               right: 8,
-              child: FloatingActionButton(
-                backgroundColor: showCurrentLocation
-                    ? Colors.black
-                    : Colors.black.withOpacity(0.5),
-                onPressed: showCurrentLocation && locationServices
-                    ? () {
-                        //wait for the map to center
-                        ref.read(centerUserLocationProvider.notifier).follow();
-                        Future.delayed(const Duration(milliseconds: 500), () {
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  backgroundColor: showCurrentLocation
+                      ? Colors.orange[200]
+                      : Colors.grey[300],
+                  onPressed: showCurrentLocation && locationServices
+                      ? () {
+                          //wait for the map to center
                           ref
                               .read(centerUserLocationProvider.notifier)
-                              .stopFollowing();
-                        });
-                      }
-                    : null,
-                child: const Icon(
-                  Icons.my_location,
-                  color: Colors.red,
+                              .follow();
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            ref
+                                .read(centerUserLocationProvider.notifier)
+                                .stopFollowing();
+                          });
+                        }
+                      : null,
+                  child: const Icon(
+                    Icons.my_location,
+                    color: Colors.red,
+                  ),
                 ),
               ),
             );
@@ -246,115 +249,119 @@ class FloatingSearchMapBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
     final _animatedMapController = ref.watch(animatedMapControllerProvider);
-    return FloatingSearchBar(
-      controller: ref.watch(floatingSearchBarControllerProvider),
-      hint: 'Cerca...',
-      scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
-      transitionDuration: const Duration(milliseconds: 800),
-      transitionCurve: Curves.easeInOut,
-      physics: const BouncingScrollPhysics(),
-      //progress: true, //TODO: da aggiungere quando avviene una ricerca
-      axisAlignment: 0.0,
-      openAxisAlignment: 0.0,
-      width: 600,
-      debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
-        ref
-            .read(searchTrackStringProvider.notifier)
-            .setSearchTrackString(query);
-        ref.read(searchTrackProvider.notifier).onSearchTrack(
-            query,
-            ref.read(fetchAllTracksProvider).when(
-                      data: (tracks) => tracks,
-                      loading: () => [],
-                      error: (error, stackTrace) => [],
-                    ) ??
-                []);
-      },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
-      transition: CircularFloatingSearchBarTransition(),
-      actions: [
-        FloatingSearchBarAction(
-          showIfOpened: false,
-          child: CircularButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FloatingSearchBar(
+        controller: ref.watch(floatingSearchBarControllerProvider),
+        hint: 'Cerca...',
+        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+        transitionDuration: const Duration(milliseconds: 800),
+        transitionCurve: Curves.easeInOut,
+        physics: const BouncingScrollPhysics(),
+        //progress: true, //TODO: da aggiungere quando avviene una ricerca
+        axisAlignment: 0.0,
+        openAxisAlignment: 0.0,
+        width: 600,
+        debounceDelay: const Duration(milliseconds: 500),
+        onQueryChanged: (query) {
+          // Call your model, bloc, controller here.
+          ref
+              .read(searchTrackStringProvider.notifier)
+              .setSearchTrackString(query);
+          ref.read(searchTrackProvider.notifier).onSearchTrack(
+              query,
+              ref.read(fetchAllTracksProvider).when(
+                        data: (tracks) => tracks,
+                        loading: () => [],
+                        error: (error, stackTrace) => [],
+                      ) ??
+                  []);
+        },
+        // Specify a custom transition to be used for
+        // animating between opened and closed stated.
+        transition: CircularFloatingSearchBarTransition(),
+        actions: [
+          FloatingSearchBarAction(
+            showIfOpened: false,
+            child: CircularButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {},
+            ),
           ),
-        ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-        PopupMenuButton<Regions>(
-          onSelected: (Regions result) {
-            ref.read(selectedRegionProvider.notifier).setRegion(result);
-            LatLng center;
-            switch (result) {
-              case Regions.veneto:
-                //pop current marker Layer
-                center = MapConstans.venice; // Replace with actual coordinates
-                break;
-              case Regions.lombardia:
-                center = MapConstans.milan;
-                break;
-              case Regions.trentinoAltoAdige:
-                center = MapConstans.trento;
-                break;
-              default:
-                center = MapConstans.defaultLocation;
-            }
-            _animatedMapController.animateTo(
-                dest: center,
-                zoom: MapConstans
-                    .defaultZoom); // Center the map on the selected region
-            // Update markers here based on the selected region
-          },
-          itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
-            const PopupMenuItem<Regions>(
-              value: Regions.all,
-              child: Text(MapConstans.all),
-            ),
-            const PopupMenuItem<Regions>(
-              value: Regions.veneto,
-              child: Text(MapConstans.veneto),
-            ),
-            // Add more PopupMenuItem entries for other regions
-            const PopupMenuItem<Regions>(
-              value: Regions.lombardia,
-              child: Text(MapConstans.lombardia),
-            ),
-            const PopupMenuItem<Regions>(
-              value: Regions.trentinoAltoAdige,
-              child: Text(MapConstans.trentinoAltoAdige),
-            ),
-          ],
-        ),
-      ],
-      builder: (context, transition) {
-        return Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Material(
-                color: Theme.of(context).colorScheme.primary,
-                elevation: 4.0,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ...searchController.map(
-                        (track) => TrackCard(track: track),
-                      )
-                    ],
+          FloatingSearchBarAction.searchToClear(
+            showIfClosed: false,
+          ),
+          PopupMenuButton<Regions>(
+            onSelected: (Regions result) {
+              ref.read(selectedRegionProvider.notifier).setRegion(result);
+              LatLng center;
+              switch (result) {
+                case Regions.veneto:
+                  //pop current marker Layer
+                  center =
+                      MapConstans.venice; // Replace with actual coordinates
+                  break;
+                case Regions.lombardia:
+                  center = MapConstans.milan;
+                  break;
+                case Regions.trentinoAltoAdige:
+                  center = MapConstans.trento;
+                  break;
+                default:
+                  center = MapConstans.defaultLocation;
+              }
+              _animatedMapController.animateTo(
+                  dest: center,
+                  zoom: MapConstans
+                      .defaultZoom); // Center the map on the selected region
+              // Update markers here based on the selected region
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
+              const PopupMenuItem<Regions>(
+                value: Regions.all,
+                child: Text(MapConstans.all),
+              ),
+              const PopupMenuItem<Regions>(
+                value: Regions.veneto,
+                child: Text(MapConstans.veneto),
+              ),
+              // Add more PopupMenuItem entries for other regions
+              const PopupMenuItem<Regions>(
+                value: Regions.lombardia,
+                child: Text(MapConstans.lombardia),
+              ),
+              const PopupMenuItem<Regions>(
+                value: Regions.trentinoAltoAdige,
+                child: Text(MapConstans.trentinoAltoAdige),
+              ),
+            ],
+          ),
+        ],
+        builder: (context, transition) {
+          return Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Material(
+                  color: Theme.of(context).colorScheme.primary,
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ...searchController.map(
+                          (track) => TrackCard(track: track),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

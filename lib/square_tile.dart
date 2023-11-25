@@ -21,13 +21,26 @@ class SquareTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: Theme.of(context).colorScheme.tertiary,
         ),
-        child: SvgPicture.asset(
-          imagePath,
-          height: 40,
-          colorFilter: ColorFilter.mode(
-            Theme.of(context).colorScheme.primary,
-            BlendMode.srcIn,
-          ),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Text(
+              imagePath.contains('f') ? 'Facebook' : 'Google',
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            const SizedBox(width: 5),
+            SvgPicture.asset(
+              imagePath,
+              height: 30,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.primary,
+                BlendMode.srcIn,
+              ),
+            ),
+          ],
         ),
       ),
     );

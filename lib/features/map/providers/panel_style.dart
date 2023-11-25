@@ -5,5 +5,5 @@ part 'panel_style.g.dart';
 
 @riverpod
 double heightFactor(HeightFactorRef ref, BuildContext context) {
-  return MediaQuery.of(context).size.height > 800 ? 0.8 : 0.9;
+  return MediaQuery.of(context).size.height > 800 ? 0.7 : 0.8;
 }
