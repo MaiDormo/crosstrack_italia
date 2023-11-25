@@ -173,9 +173,7 @@ class AuthStateNotifier extends _$AuthStateNotifier {
 
   Future<Widget> userImage(
       bool isLogged, UserId id, AsyncValue<UserInfo> userProfileInfo) async {
-    print('DEBUG: ' + isLogged.toString());
     if (isLogged) {
-      print('DEBUG: ' + userProfileInfo.toString());
       return ClipRRect(
           borderRadius: BorderRadius.circular(25),
           child: userProfileInfo.when(
