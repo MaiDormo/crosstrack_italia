@@ -6,12 +6,12 @@ part of 'track_selection_screen.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedTracksHash() => r'334f3adbbc1f3694adad3be42d5e8a47411f68e9';
+String _$selectedTracksHash() => r'6d7312a951449dea48e2d8ab652712be2e822214';
 
 /// See also [SelectedTracks].
 @ProviderFor(SelectedTracks)
 final selectedTracksProvider =
-    AutoDisposeNotifierProvider<SelectedTracks, List<Track>>.internal(
+    AutoDisposeNotifierProvider<SelectedTracks, List<Track?>>.internal(
   SelectedTracks.new,
   name: r'selectedTracksProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final selectedTracksProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedTracks = AutoDisposeNotifier<List<Track>>;
+typedef _$SelectedTracks = AutoDisposeNotifier<List<Track?>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

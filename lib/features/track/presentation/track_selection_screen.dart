@@ -12,16 +12,16 @@ part 'track_selection_screen.g.dart';
 @riverpod
 class SelectedTracks extends _$SelectedTracks {
   @override
-  List<Track> build() {
-    return [];
+  List<Track?> build() {
+    return [null, null];
   }
 
-  void add(Track track) {
-    state = [...state, track];
+  void add(Track track, int index) {
+    index == 0 ? state = [track, state[1]] : state = [state[0], track];
   }
 
-  void remove(Track track) {
-    state = state.where((element) => element != track).toList();
+  void remove(int index) {
+    index == 0 ? state = [null, state[1]] : state = [state[0], null];
   }
 }
 
@@ -30,38 +30,42 @@ class TrackSelectionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<Iterable<Track>> allTracks =
         ref.watch(fetchAllTracksProvider);
-    final List<Track> selectedTracks = ref.watch(selectedTracksProvider);
+    final List<Track?> selectedTracks = ref.watch(selectedTracksProvider);
     final AsyncValue<Position?> userLocation = ref.watch(getPositionProvider);
     final bool showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
     Widget _buildLocationSelector() {
       return userLocation.when(
         loading: () => CircularProgressIndicator(),
-        error: (error, stackTrace) => Text("Error loading location: $error"),
+        error: (error, stackTrace) =>
+            Text("Errore nel caricamento della posizione"),
         data: (userLocation) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 16),
-              Text("Provide your location:"),
+              Text("Condividi la tua posizione:"),
               SizedBox(height: 8),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Location: "),
+                  Text("Posizione: "),
                   if (userLocation != null)
                     Text(
-                      "${userLocation.latitude}, ${userLocation.longitude}",
+                      ref.watch(getClosestLocationProvider).when(
+                                data: (value) => value,
+                                loading: () => "Caricamento...",
+                                error: (error, stackTrace) => "Errore",
+                              ) ??
+                          "",
                     ),
                 ],
               ),
               SizedBox(height: 8),
               Checkbox(
-                value: userLocation != null,
-                onChanged: (value) async {
-                  if (value!) {
-                    ref.read(showCurrentLocationProvider.notifier).toggle();
-                  }
-                },
+                value: showCurrentLocation,
+                onChanged: (value) async =>
+                    ref.read(showCurrentLocationProvider.notifier).toggle(),
               ),
             ],
           );
@@ -72,13 +76,13 @@ class TrackSelectionScreen extends ConsumerWidget {
     Widget _buildComparisonButton(BuildContext context) {
       return ElevatedButton(
         onPressed: () {
-          if (selectedTracks.length == 2) {
+          if (selectedTracks[0] != null && selectedTracks[1] != null) {
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => TrackComparison(
-                  track1: selectedTracks[0],
-                  track2: selectedTracks[1],
+                  track1: selectedTracks[0]!,
+                  track2: selectedTracks[1]!,
                   userLocationAvailable: showCurrentLocation,
                   userLatitude: ref.watch(getPositionProvider).when(
                             data: (value) => value?.latitude,
@@ -99,30 +103,30 @@ class TrackSelectionScreen extends ConsumerWidget {
             // Inform the user to select two tracks
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("Please select two tracks."),
+                content: Text("Seleziona due tracciati tra i disponibliti."),
               ),
             );
           }
         },
-        child: Text("Compare Tracks"),
+        child: Text("Confronta"),
       );
     }
 
     Widget _buildTrackDropdown(
       Iterable<Track> tracks,
-      List<Track> selectedTracks,
+      List<Track?> selectedTracks,
       int trackNumber,
     ) {
       return DropdownButton<Track>(
-        value: selectedTracks.length > trackNumber
-            ? selectedTracks[trackNumber]
-            : null,
+        value: selectedTracks[trackNumber],
         onChanged: (selectedTrack) {
           if (selectedTrack != null) {
-            ref.read(selectedTracksProvider.notifier).add(selectedTrack);
+            ref
+                .read(selectedTracksProvider.notifier)
+                .add(selectedTrack, trackNumber);
           } else {
             ref.read(selectedTracksProvider.notifier).remove(
-                  selectedTracks[trackNumber],
+                  trackNumber,
                 );
           }
         },
@@ -147,11 +151,11 @@ class TrackSelectionScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
-          Text("Select Track 1:"),
+          Text("Scegli il primo tracciato 1:"),
           SizedBox(height: 8),
           _buildTrackDropdown(tracks, selectedTracks, 0),
           SizedBox(height: 16),
-          Text("Select Track 2:"),
+          Text("Scegli il secondo tracciato 2:"),
           SizedBox(height: 8),
           _buildTrackDropdown(tracks, selectedTracks, 1),
         ],
@@ -187,7 +191,7 @@ class TrackSelectionScreen extends ConsumerWidget {
           body: allTracks.when(
             loading: () => Center(child: CircularProgressIndicator()),
             error: (error, stackTrace) =>
-                Center(child: Text("Error loading tracks: $error")),
+                Center(child: Text("Errore nel caricamento dei tracciati")),
             data: (tracks) {
               return _buildSelectionForm(context, tracks);
             },

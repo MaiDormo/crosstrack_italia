@@ -22,18 +22,20 @@ class TrackComparison extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Confronto tracciati"),
-      ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTrackColumn(track1, "Tracciato 1", screenWidth),
-            _buildTrackColumn(track2, "Tracciato 2", screenWidth),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Confronto tracciati"),
+        ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildTrackColumn(track1, "Tracciato 1", screenWidth),
+              _buildTrackColumn(track2, "Tracciato 2", screenWidth),
+            ],
+          ),
         ),
       ),
     );
