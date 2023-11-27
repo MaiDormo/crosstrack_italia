@@ -84,13 +84,13 @@ class TrackSelectionScreen extends ConsumerWidget {
                   track1: selectedTracks[0]!,
                   track2: selectedTracks[1]!,
                   userLocationAvailable: showCurrentLocation,
-                  userLatitude: ref.watch(getPositionProvider).when(
+                  userLatitude: ref.read(getPositionProvider).when(
                             data: (value) => value?.latitude,
                             loading: () => 0.0,
                             error: (error, stackTrace) => 0.0,
                           ) ??
                       0.0,
-                  userLongitude: ref.watch(getPositionProvider).when(
+                  userLongitude: ref.read(getPositionProvider).when(
                             data: (value) => value?.longitude,
                             loading: () => 0.0,
                             error: (error, stackTrace) => 0.0,

@@ -274,6 +274,7 @@ class PanelWidget extends ConsumerWidget {
                                   Text(
                                     'Categoria: ',
                                     style: TextStyle(
+                                      color: Colors.black,
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -301,6 +302,7 @@ class PanelWidget extends ConsumerWidget {
                                   Text(
                                     'Lunghezza: ',
                                     style: TextStyle(
+                                      color: Colors.black,
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -329,6 +331,7 @@ class PanelWidget extends ConsumerWidget {
                                   Text(
                                     'Terreno: ',
                                     style: TextStyle(
+                                      color: Colors.black,
                                       fontSize: 15 * heightFactor,
                                       fontWeight: FontWeight.bold,
                                     ),

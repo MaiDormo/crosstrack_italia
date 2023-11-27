@@ -36,6 +36,14 @@ Stream<Iterable<Track>> fetchTracksByRegion(
 }
 
 @riverpod
+Future<List<Image>> fetchSelectedTracksThumbnail(
+    FetchSelectedTracksThumbnailRef ref, List<Track> tracks) async {
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  final images = await trackNotifier.fetchSelectedTracksThumbnail(tracks);
+  return images;
+}
+
+@riverpod
 Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   final image = await trackNotifier.trackThumbnail(track);
@@ -122,6 +130,16 @@ class TrackNotifier extends _$TrackNotifier {
     yield* _trackRepository.fetchTracksByRegion(region);
   }
 
+  Future<List<Image>> fetchSelectedTracksThumbnail(List<Track> tracks) async {
+    final List<Image> images = [];
+    for (final track in tracks) {
+      final image = await trackThumbnail(track);
+      images.add(image);
+    }
+    state = true;
+    return images;
+  }
+
   //collect track Thumbnail
   Future<Image> trackThumbnail(Track track) async {
     try {
@@ -135,9 +153,9 @@ class TrackNotifier extends _$TrackNotifier {
         scale: MapConstans.scaleImage,
       );
       state = true;
-
       return image;
     } catch (e) {
+      print(e);
       state = false;
       return Image.asset(
         MapConstans.placeholder,

@@ -174,6 +174,143 @@ class _FetchTracksByRegionProviderElement
   String get region => (origin as FetchTracksByRegionProvider).region;
 }
 
+String _$fetchSelectedTracksThumbnailHash() =>
+    r'4679a4383a07d517a37269cee7bd0028ca1fc096';
+
+/// See also [fetchSelectedTracksThumbnail].
+@ProviderFor(fetchSelectedTracksThumbnail)
+const fetchSelectedTracksThumbnailProvider =
+    FetchSelectedTracksThumbnailFamily();
+
+/// See also [fetchSelectedTracksThumbnail].
+class FetchSelectedTracksThumbnailFamily
+    extends Family<AsyncValue<List<Image>>> {
+  /// See also [fetchSelectedTracksThumbnail].
+  const FetchSelectedTracksThumbnailFamily();
+
+  /// See also [fetchSelectedTracksThumbnail].
+  FetchSelectedTracksThumbnailProvider call(
+    List<Track> tracks,
+  ) {
+    return FetchSelectedTracksThumbnailProvider(
+      tracks,
+    );
+  }
+
+  @override
+  FetchSelectedTracksThumbnailProvider getProviderOverride(
+    covariant FetchSelectedTracksThumbnailProvider provider,
+  ) {
+    return call(
+      provider.tracks,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchSelectedTracksThumbnailProvider';
+}
+
+/// See also [fetchSelectedTracksThumbnail].
+class FetchSelectedTracksThumbnailProvider
+    extends AutoDisposeFutureProvider<List<Image>> {
+  /// See also [fetchSelectedTracksThumbnail].
+  FetchSelectedTracksThumbnailProvider(
+    List<Track> tracks,
+  ) : this._internal(
+          (ref) => fetchSelectedTracksThumbnail(
+            ref as FetchSelectedTracksThumbnailRef,
+            tracks,
+          ),
+          from: fetchSelectedTracksThumbnailProvider,
+          name: r'fetchSelectedTracksThumbnailProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchSelectedTracksThumbnailHash,
+          dependencies: FetchSelectedTracksThumbnailFamily._dependencies,
+          allTransitiveDependencies:
+              FetchSelectedTracksThumbnailFamily._allTransitiveDependencies,
+          tracks: tracks,
+        );
+
+  FetchSelectedTracksThumbnailProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.tracks,
+  }) : super.internal();
+
+  final List<Track> tracks;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Image>> Function(FetchSelectedTracksThumbnailRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchSelectedTracksThumbnailProvider._internal(
+        (ref) => create(ref as FetchSelectedTracksThumbnailRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        tracks: tracks,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Image>> createElement() {
+    return _FetchSelectedTracksThumbnailProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchSelectedTracksThumbnailProvider &&
+        other.tracks == tracks;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, tracks.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchSelectedTracksThumbnailRef
+    on AutoDisposeFutureProviderRef<List<Image>> {
+  /// The parameter `tracks` of this provider.
+  List<Track> get tracks;
+}
+
+class _FetchSelectedTracksThumbnailProviderElement
+    extends AutoDisposeFutureProviderElement<List<Image>>
+    with FetchSelectedTracksThumbnailRef {
+  _FetchSelectedTracksThumbnailProviderElement(super.provider);
+
+  @override
+  List<Track> get tracks =>
+      (origin as FetchSelectedTracksThumbnailProvider).tracks;
+}
+
 String _$trackThumbnailHash() => r'b9adc03fcdc280e891219bf2c10e6474f0d9a37a';
 
 /// See also [trackThumbnail].
@@ -613,7 +750,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'89f6c0aed4ec443f1f8493cddd50c87b6bbbb71e';
+String _$trackNotifierHash() => r'4ad9cdf72b7416a9b7205ea59a5aa6e9d5505a0c';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)
