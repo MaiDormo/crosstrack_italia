@@ -38,12 +38,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cross Track Italia',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.amber[100],
+        scaffoldBackgroundColor: Colors.lightBlue[100],
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
+          seedColor: Colors.blue,
           brightness: Brightness.light,
-          primary: Colors.orange[800],
-          secondary: Colors.orange[200],
+          primary: Colors.blue[800],
+          secondary: Colors.blue[200],
           tertiary: Colors.white,
         ),
         useMaterial3: true,

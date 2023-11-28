@@ -37,9 +37,19 @@ class TrackComparison extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         appBar: AppBar(
-          title: Text("Confronto tracciati"),
+          title: Text(
+            "Confronto tracciati",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          forceMaterialTransparency: true,
+          iconTheme: IconThemeData(
+            color: Theme.of(context).colorScheme.tertiary,
+          ),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -129,6 +139,7 @@ class TrackComparison extends StatelessWidget {
     );
   }
 
+  ///TODO prova a ricontrollare il funzionamento di questo metodo se hai tempo
   Widget _buildComparisonImageRow(double columnWidth) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
@@ -383,12 +394,12 @@ class TrackComparison extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 19.0,
-              color: Colors.orange,
+              color: Colors.blue,
             ),
           ),
           const SizedBox(height: 4.0),
           Divider(
-            color: Colors.orangeAccent,
+            color: Colors.blueAccent,
             thickness: 1.0,
           ),
           const SizedBox(height: 8.0),

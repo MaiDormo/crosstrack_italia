@@ -25,7 +25,7 @@ bool isLoggedIn(IsLoggedInRef ref) {
 @riverpod
 UserId? userId(UserIdRef ref) {
   final authState = ref.watch(authStateNotifierProvider);
-  return authState.userId;
+  return authState.userId != null ? authState.userId : '';
 }
 
 //for the loading screeen
@@ -41,6 +41,7 @@ Future<Widget> userImage(UserImageRef ref) async {
   final userId = ref.watch(userIdProvider);
   final userProfileInfo = await ref.watch(fetchUserInfoProvider(userId!));
   final isLogged = ref.watch(isLoggedInProvider);
+
   return authState.userImage(
     isLogged,
     userId,
@@ -50,10 +51,8 @@ Future<Widget> userImage(UserImageRef ref) async {
 
 @riverpod
 Stream<UserInfo> fetchUserInfo(FetchUserInfoRef ref, UserId userId) async* {
-  // Create a StreamController to manage the stream of UserInfoModel
   final controller = StreamController<UserInfo>();
 
-  // Set up a Firestore query to listen for changes in user data
   final sub = ref
       .watch(firestoreProvider)
       .collection(
@@ -65,32 +64,22 @@ Stream<UserInfo> fetchUserInfo(FetchUserInfoRef ref, UserId userId) async* {
       )
       .limit(1)
       .snapshots()
-      .listen((snapshot) {
-    // When the Firestore query snapshot updates
-    if (snapshot.docs.isNotEmpty) {
-      // Get the first document in the snapshot
-      final doc = snapshot.docs.first;
+      .listen(
+    (snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        final doc = snapshot.docs.first;
+        final json = doc.data();
+        final userInfo = UserInfo.fromJson(json);
+        controller.add(userInfo);
+      }
+    },
+  );
 
-      // Extract JSON data from the document
-      final json = doc.data();
-
-      // Create a UserInfoModel instance from the JSON data
-      final userInfo = UserInfo.fromJson(json);
-
-      // Add the UserInfoModel to the stream
-      controller.add(userInfo);
-    }
-  });
-
-  // Define a cleanup action when the provider is disposed
   ref.onDispose(() {
-    // Cancel the Firestore query subscription
     sub.cancel();
-    // Close the StreamController
     controller.close();
   });
 
-  // Return the stream of UserInfoModel
   yield* controller.stream;
 }
 
@@ -171,21 +160,21 @@ class AuthStateNotifier extends _$AuthStateNotifier {
         profileImageUrl: _authRepository.profileImageUrl,
       );
 
-  Future<Widget> userImage(
-      bool isLogged, UserId id, AsyncValue<UserInfo> userProfileInfo) async {
+  Widget userImage(
+      bool isLogged, UserId id, AsyncValue<UserInfo> userProfileInfo) {
     if (isLogged) {
       return ClipRRect(
           borderRadius: BorderRadius.circular(25),
-          child: userProfileInfo.when(
-            data: (data) => Image.network(
-              data.profileImageUrl!,
-              fit: BoxFit.cover,
-              width: 35,
-              height: 35,
-            ),
-            loading: () => CircularProgressIndicator(),
-            error: (e, s) => Icon(Icons.account_circle),
-          ));
+          child: switch (userProfileInfo) {
+            AsyncData(:final value) => Image.network(
+                value.profileImageUrl!,
+                fit: BoxFit.cover,
+                width: 35,
+                height: 35,
+              ),
+            AsyncError() => Icon(Icons.account_circle),
+            _ => CircularProgressIndicator(),
+          });
     } else {
       return Icon(Icons.account_circle);
     }

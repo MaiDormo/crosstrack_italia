@@ -31,7 +31,11 @@ class TopBar extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+            top: 8.0,
+            right: 8.0,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -68,7 +72,9 @@ class TopBar extends StatelessWidget {
                       return UserImage.when(
                         data: (data) => data,
                         loading: () => const CircularProgressIndicator(),
-                        error: (error, stack) => const Icon(Icons.error),
+                        error: (error, stack) {
+                          return const Icon(Icons.error);
+                        },
                       );
                     },
                   ),

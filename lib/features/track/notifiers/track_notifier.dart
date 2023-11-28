@@ -78,7 +78,7 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
 
 //toggle for the view of services
 @riverpod
-class ToggleServicesView extends _$ToggleServicesView {
+class ToggleIconsServicesView extends _$ToggleIconsServicesView {
   @override
   bool build() {
     return false;
@@ -155,7 +155,6 @@ class TrackNotifier extends _$TrackNotifier {
       state = true;
       return image;
     } catch (e) {
-      print(e);
       state = false;
       return Image.asset(
         MapConstans.placeholder,

@@ -639,8 +639,8 @@ class PanelWidget extends ConsumerWidget {
                                       WidgetRef ref,
                                       Widget? child,
                                     ) {
-                                      final _value =
-                                          ref.watch(toggleServicesViewProvider);
+                                      final _value = ref.watch(
+                                          toggleIconsServicesViewProvider);
                                       return Tooltip(
                                         message:
                                             'Switch between text and icons',
@@ -659,8 +659,9 @@ class PanelWidget extends ConsumerWidget {
                                         child: Switch(
                                           value: _value,
                                           onChanged: (value) => ref
-                                              .read(toggleServicesViewProvider
-                                                  .notifier)
+                                              .read(
+                                                  toggleIconsServicesViewProvider
+                                                      .notifier)
                                               .toggle(),
                                         ),
                                       );
@@ -681,7 +682,7 @@ class PanelWidget extends ConsumerWidget {
                                             Widget? child,
                                           ) {
                                             final value = ref.watch(
-                                                toggleServicesViewProvider);
+                                                toggleIconsServicesViewProvider);
                                             final entryKeyCleaned =
                                                 entry.key.replaceAll('_', ' ');
                                             final icon =

@@ -717,23 +717,23 @@ class _OpenGoogleMapProviderElement
   Track? get track => (origin as OpenGoogleMapProvider).track;
 }
 
-String _$toggleServicesViewHash() =>
-    r'3527e52be94afbe9ace8afda0a40081c20b470ce';
+String _$toggleIconsServicesViewHash() =>
+    r'dbf9ba248439d91ddfcc61e02ea37ced3dcaa509';
 
-/// See also [ToggleServicesView].
-@ProviderFor(ToggleServicesView)
-final toggleServicesViewProvider =
-    AutoDisposeNotifierProvider<ToggleServicesView, bool>.internal(
-  ToggleServicesView.new,
-  name: r'toggleServicesViewProvider',
+/// See also [ToggleIconsServicesView].
+@ProviderFor(ToggleIconsServicesView)
+final toggleIconsServicesViewProvider =
+    AutoDisposeNotifierProvider<ToggleIconsServicesView, bool>.internal(
+  ToggleIconsServicesView.new,
+  name: r'toggleIconsServicesViewProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$toggleServicesViewHash,
+      : _$toggleIconsServicesViewHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ToggleServicesView = AutoDisposeNotifier<bool>;
+typedef _$ToggleIconsServicesView = AutoDisposeNotifier<bool>;
 String _$trackSelectedHash() => r'6504919610481210b3fc52781575960807ea423b';
 
 /// See also [TrackSelected].
@@ -750,7 +750,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'4ad9cdf72b7416a9b7205ea59a5aa6e9d5505a0c';
+String _$trackNotifierHash() => r'd3de4aa9a61dc7adfb247c23cf7900a9db1794f3';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

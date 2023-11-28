@@ -44,7 +44,14 @@ class TrackSelectionScreen extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 16),
-              Text("Condividi la tua posizione:"),
+              Text(
+                "Condividi la tua posizione:",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
               SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -151,11 +158,25 @@ class TrackSelectionScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 16),
-          Text("Scegli il primo tracciato 1:"),
+          Text(
+            "Scegli il primo tracciato:",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
           SizedBox(height: 8),
           _buildTrackDropdown(tracks, selectedTracks, 0),
           SizedBox(height: 16),
-          Text("Scegli il secondo tracciato 2:"),
+          Text(
+            "Scegli il secondo tracciato:",
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
           SizedBox(height: 8),
           _buildTrackDropdown(tracks, selectedTracks, 1),
         ],
@@ -184,10 +205,11 @@ class TrackSelectionScreen extends ConsumerWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20.0),
         child: Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           body: allTracks.when(
             loading: () => Center(child: CircularProgressIndicator()),
             error: (error, stackTrace) =>

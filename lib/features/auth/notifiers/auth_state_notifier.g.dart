@@ -20,7 +20,7 @@ final isLoggedInProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoggedInRef = AutoDisposeProviderRef<bool>;
-String _$userIdHash() => r'493d5594980a0279e8dd9b5c873b5d35cbee98e2';
+String _$userIdHash() => r'7855b8d585ec0e4cd2f11c723043bb42e4c26cfe';
 
 /// See also [userId].
 @ProviderFor(userId)
@@ -211,7 +211,7 @@ class _FetchUserInfoProviderElement
   String get userId => (origin as FetchUserInfoProvider).userId;
 }
 
-String _$authStateNotifierHash() => r'62155fa5c18699397c79768434b855adefd51bbd';
+String _$authStateNotifierHash() => r'661bfc444651d445cfbf88e10cf38d58dd92b2a4';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)
