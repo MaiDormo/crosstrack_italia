@@ -140,6 +140,7 @@ class TrackComparison extends StatelessWidget {
   }
 
   ///TODO prova a ricontrollare il funzionamento di questo metodo se hai tempo
+  //ignore: unused_element
   Widget _buildComparisonImageRow(double columnWidth) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {

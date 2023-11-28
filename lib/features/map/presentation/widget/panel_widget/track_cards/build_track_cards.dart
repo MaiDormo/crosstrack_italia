@@ -1,7 +1,7 @@
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/build_pilot_info_card.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/build_services_card.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/build_track_info_card.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/others/build_motoclub_card.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/cards/build_motoclub_card.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/cards/build_pilot_info_card.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/cards/build_services_card.dart';
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/cards/build_track_info_card.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/utilities.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/presentation/comment_section.dart';
