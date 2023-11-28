@@ -10,7 +10,7 @@ import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_utils.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/views/components/search_track/providers/search_track_provider.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget.dart';
+import 'package:crosstrack_italia/features/map/presentation/panel_widget.dart';
 import 'package:crosstrack_italia/views/components/tracks/track_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
