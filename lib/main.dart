@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/splash_screen.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -7,24 +8,48 @@ import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+
+///TODO control if you can
+final sharedPreferencesProvider =
+    Provider<SharedPreferences>((ref) => throw UnimplementedError());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-  );
 
-  //initialise the tile cache
-  await FlutterMapTileCaching.initialise();
-  await FMTC.instance('mapStore').manage.createAsync();
+  // Display splash screen
+  runApp(const SplashScreen());
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    // Activate Firebase App Check
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.debug,
+    );
+
+    // Initialize tile cache
+    await FlutterMapTileCaching.initialise();
+    await FMTC.instance('mapStore').manage.createAsync();
+  } catch (e) {
+    // Handle initialization errors
+    print('Error initializing app: $e');
+    // You may want to show an error screen or retry the initialization
+    return;
+  }
+
+  final prefs = await SharedPreferences.getInstance();
+
   runApp(
-    //Maintaining state of the App
-    const ProviderScope(
-      child: MyApp(),
+    // Maintain state of the App
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+      ],
+      child: const MyApp(),
     ),
   );
 }
