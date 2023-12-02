@@ -93,11 +93,19 @@ Widget buildMapButton(Track trackSelected, BuildContext context,
 
 Widget buildReviewCountText(
         Track trackSelected, BuildContext context, double heightFactor) =>
-    Text(
-      'Recensioni: ' + trackSelected.commentCount.toString(),
-      style: TextStyle(
-        fontSize: 16 * heightFactor,
-        fontWeight: FontWeight.bold,
-        color: Theme.of(context).colorScheme.primary,
+    Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            'Recensioni: ' + trackSelected.commentCount.toString(),
+            style: TextStyle(
+              fontSize: 16 * heightFactor,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
+        ],
       ),
     );

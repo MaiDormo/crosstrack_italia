@@ -7,6 +7,7 @@ import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
+import 'package:crosstrack_italia/features/user_info/providers/favorite_tracks_notifier.dart';
 import 'package:crosstrack_italia/providers/storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,14 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
     return await _trackNotifier.openGoogleMap(track);
   else
     return false;
+}
+
+@riverpod
+Future<Iterable<Track>> fetchTracksByIds(FetchTracksByIdsRef ref) async {
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  final favoriteTracks = await ref.watch(favoriteTracksNotifierProvider);
+  final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks);
+  return tracks;
 }
 
 //------------------NOTIFIER------------------//
@@ -254,5 +263,10 @@ class TrackNotifier extends _$TrackNotifier {
   //update track
   Future<void> updateTrack(Track newTrack) async {
     await _trackRepository.updateTrack(newTrack);
+  }
+
+  //fetch all tracks from a list of string ids
+  Future<Iterable<Track>> fetchTracksByIds(Iterable<TrackId> ids) async {
+    return await _trackRepository.fetchTracksByIds(ids);
   }
 }

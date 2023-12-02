@@ -98,4 +98,13 @@ class TrackRepository {
       return left(Failure(e.toString()));
     }
   }
+
+  //fetch all tracks from a list of string ids
+  Future<Iterable<Track>> fetchTracksByIds(Iterable<TrackId> ids) async {
+    if (ids.isEmpty) return [];
+    final tracks =
+        await _tracks.where(FirebaseFieldName.id, whereIn: ids).get();
+    return tracks.docs
+        .map((doc) => Track.fromJson(doc.data() as Map<String, dynamic>));
+  }
 }

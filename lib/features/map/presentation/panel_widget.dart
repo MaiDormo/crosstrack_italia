@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_favorite_button.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_swiper.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_track_name_and_location.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_track_rating_and_map_button.dart';
@@ -32,7 +33,7 @@ class PanelWidget extends ConsumerWidget {
         SizedBox(height: heightFactor * 12),
         buildDragHandle(),
         Consumer(
-          builder: (context, _, child) => buildTrackInfo(
+          builder: (ctx, ref, child) => buildTrackInfo(
             trackSelected,
             allTrackImages,
             context,
@@ -55,11 +56,11 @@ class PanelWidget extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            buildFavoriteButton(trackSelected, context, heightFactor),
             buildTrackImagesSwiper(allTrackImages, context, heightFactor),
             buildTrackName(trackSelected, context, heightFactor),
             buildTrackLocation(trackSelected, heightFactor),
             buildTrackRatingAndMapButton(trackSelected, context, heightFactor),
-            SizedBox(height: 12 * heightFactor),
             buildTrackCards(trackSelected, context, heightFactor),
           ],
         ),

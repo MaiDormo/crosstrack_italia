@@ -717,6 +717,22 @@ class _OpenGoogleMapProviderElement
   Track? get track => (origin as OpenGoogleMapProvider).track;
 }
 
+String _$fetchTracksByIdsHash() => r'6717fda70337434a0e4b973197ca747b374dfb04';
+
+/// See also [fetchTracksByIds].
+@ProviderFor(fetchTracksByIds)
+final fetchTracksByIdsProvider =
+    AutoDisposeFutureProvider<Iterable<Track>>.internal(
+  fetchTracksByIds,
+  name: r'fetchTracksByIdsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchTracksByIdsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchTracksByIdsRef = AutoDisposeFutureProviderRef<Iterable<Track>>;
 String _$toggleIconsServicesViewHash() =>
     r'dbf9ba248439d91ddfcc61e02ea37ced3dcaa509';
 
@@ -750,7 +766,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'd3de4aa9a61dc7adfb247c23cf7900a9db1794f3';
+String _$trackNotifierHash() => r'9e0ec52c5a8072ecc7b3655242e190427f9c8cc8';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

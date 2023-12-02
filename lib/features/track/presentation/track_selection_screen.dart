@@ -204,19 +204,22 @@ class TrackSelectionScreen extends ConsumerWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          body: allTracks.when(
-            loading: () => Center(child: CircularProgressIndicator()),
-            error: (error, stackTrace) =>
-                Center(child: Text("Errore nel caricamento dei tracciati")),
-            data: (tracks) {
-              return _buildSelectionForm(context, tracks);
-            },
+    return Hero(
+      tag: "track_selection_screen",
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            body: allTracks.when(
+              loading: () => Center(child: CircularProgressIndicator()),
+              error: (error, stackTrace) =>
+                  Center(child: Text("Errore nel caricamento dei tracciati")),
+              data: (tracks) {
+                return _buildSelectionForm(context, tracks);
+              },
+            ),
           ),
         ),
       ),

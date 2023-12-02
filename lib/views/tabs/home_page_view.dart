@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
+import 'package:crosstrack_italia/views/tabs/track_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,21 +8,22 @@ import '../../top_bar.dart';
 import '../../bottom_bar.dart';
 import '../../features/map/presentation/map_screen.dart';
 
-class HomePageView extends ConsumerWidget {
+class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
   static List<Widget> widgetList = [
     Flexible(child: MapScreen()),
     // const Flexible(child: NewsView()),
-    Flexible(child: TrackSelectionScreen()),
+    const Flexible(child: TrackAction()),
     const Flexible(child: SettingsPageView()),
   ];
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false, //to avoid overflow
         body: Center(
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //Top of the screen

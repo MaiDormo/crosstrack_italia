@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/common/shared_preferences.dart';
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/splash_screen.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
@@ -11,15 +12,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
-///TODO control if you can
-final sharedPreferencesProvider =
-    Provider<SharedPreferences>((ref) => throw UnimplementedError());
-
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
   // Display splash screen
   runApp(const SplashScreen());
+
+  WidgetsFlutterBinding.ensureInitialized();
 
   try {
     await Firebase.initializeApp(
@@ -42,7 +39,6 @@ Future<void> main() async {
   }
 
   final prefs = await SharedPreferences.getInstance();
-
   runApp(
     // Maintain state of the App
     ProviderScope(
