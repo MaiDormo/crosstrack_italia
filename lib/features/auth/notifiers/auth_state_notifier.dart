@@ -5,6 +5,7 @@ import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
@@ -19,13 +20,13 @@ part 'auth_state_notifier.g.dart';
 @riverpod
 bool isLoggedIn(IsLoggedInRef ref) {
   final authState = ref.watch(authStateNotifierProvider);
-  return authState.result != null;
+  return authState.userInfoModel?.id != null;
 }
 
 @riverpod
 UserId? userId(UserIdRef ref) {
   final authState = ref.watch(authStateNotifierProvider);
-  return authState.userId != null ? authState.userId : '';
+  return authState.userInfoModel?.id;
 }
 
 //for the loading screeen
@@ -37,21 +38,20 @@ bool isLoading(IsLoadingRef ref) {
 
 @riverpod
 Future<Widget> userImage(UserImageRef ref) async {
-  final authState = ref.watch(authStateNotifierProvider.notifier);
-  final userId = ref.watch(userIdProvider);
-  final userProfileInfo = await ref.watch(fetchUserInfoProvider(userId!));
-  final isLogged = ref.watch(isLoggedInProvider);
+  final _authstateNotifier = ref.watch(authStateNotifierProvider.notifier);
+  final _isLogged = ref.watch(isLoggedInProvider);
 
-  return authState.userImage(
-    isLogged,
-    userId,
-    userProfileInfo,
+  print('DEBUG USER IMAGE: $_isLogged');
+
+  return _authstateNotifier.userImage(
+    _isLogged,
   );
 }
 
 @riverpod
-Stream<UserInfo> fetchUserInfo(FetchUserInfoRef ref, UserId userId) async* {
-  final controller = StreamController<UserInfo>();
+Stream<UserInfoModel> fetchUserInfo(
+    FetchUserInfoRef ref, UserId userId) async* {
+  final controller = StreamController<UserInfoModel>();
 
   final sub = ref
       .watch(firestoreProvider)
@@ -69,7 +69,7 @@ Stream<UserInfo> fetchUserInfo(FetchUserInfoRef ref, UserId userId) async* {
       if (snapshot.docs.isNotEmpty) {
         final doc = snapshot.docs.first;
         final json = doc.data();
-        final userInfo = UserInfo.fromJson(json);
+        final userInfo = UserInfoModel.fromJson(json);
         controller.add(userInfo);
       }
     },
@@ -83,100 +83,172 @@ Stream<UserInfo> fetchUserInfo(FetchUserInfoRef ref, UserId userId) async* {
   yield* controller.stream;
 }
 
+@riverpod
+Future<List<TrackId>> fetchFavoriteTracks(FetchFavoriteTracksRef ref) async {
+  final authState = ref.watch(authStateNotifierProvider.notifier);
+  return await authState.fetchFavoriteTracks();
+}
+
 //------------------NOTIFIERS------------------//
 @riverpod
 class AuthStateNotifier extends _$AuthStateNotifier {
-  late final _authRepository;
-  late final _userInfoStorage;
+  late var _authRepository;
+  late var _userInfoStorage;
 
   @override
   AuthState build() {
     _userInfoStorage = ref.watch(userInfoStorageProvider.notifier);
     _authRepository = ref.watch(authRepositoryProvider);
-    return _authRepository.isAlreadyLoggedIn
+    return _authRepository.isLogged()
         ? AuthState(
             result: AuthResult.success,
             isLoading: false,
-            userId: _authRepository.userId,
+            userInfoModel: UserInfoModel.fromUser(_authRepository.user!),
           )
         : const AuthState(
             result: null,
             isLoading: false,
-            userId: null,
+            userInfoModel: null,
           );
   }
 
   Future<void> logOut() async {
     state = state.copyWith(isLoading: true);
+    print('DEBUG AUTH_STATE_NOTIFIER: LOGGING OUT');
     await _authRepository.logOut();
+    print('DEBUG AUTH_STATE_NOTIFIER: LOGGED OUT');
     state = const AuthState(
       result: null,
       isLoading: false,
-      userId: null,
+      userInfoModel: null,
     );
   }
 
   Future<void> loginWithGoogle() async {
-    state = state.copyWith(isLoading: true);
-    final result = await _authRepository.loginWithGoogle();
-    final id = _authRepository.userId;
-    if (result == AuthResult.success && id != null) {
-      await saveUserInfo(id: id);
+    try {
+      state = state.copyWith(isLoading: true);
+      print('DEBUG AUTH_STATE_NOTIFIER: LOGGING IN WITH GOOGLE');
+      final AuthState res = await _authRepository.loginWithGoogle();
+      print(
+          'DEBUG AUTH_STATE_NOTIFIER: LOGGED IN WITH GOOGLE' + res.toString());
+
+      if (res.result != AuthResult.success && res.userInfoModel?.id == null) {
+        state = res;
+        return;
+      }
+
+      final AsyncValue<UserInfoModel> _asyncUserInfo =
+          await ref.watch(fetchUserInfoProvider(res.userInfoModel!.id));
+      final UserInfoModel? userInfo = await _asyncUserInfo
+          .whenData((value) => value)
+          .asData
+          ?.unwrapPrevious()
+          .valueOrNull;
+
+      if (userInfo == null) {
+        print('DEBUG AUTH_STATE_NOTIFIER: SAVING USER INFO');
+        await saveUserInfo(
+          userInfoModel: res.userInfoModel,
+        );
+        state = res;
+      } else {
+        print('DEBUG AUTH_STATE_NOTIFIER: USER INFO ALREADY SAVED');
+        state = state.copyWith(userInfoModel: userInfo);
+      }
+    } catch (e) {
+      print('Error logging in with Google: $e');
       state = AuthState(
-        result: result,
-        isLoading: false,
-        userId: id,
-      );
-    } else {
-      state = const AuthState(
         result: null,
         isLoading: false,
-        userId: null,
+        userInfoModel: null,
       );
     }
   }
 
   Future<void> loginWithFacebook() async {
-    state = state.copyWith(isLoading: true);
-    final result = await _authRepository.loginWithFacebook();
-    final id = _authRepository.userId;
-    if (result == AuthResult.success && id != null) {
-      await saveUserInfo(id: id);
+    try {
+      state = state.copyWith(isLoading: true);
+      final AuthState res = await _authRepository.loginWithFacebook();
+
+      if (res.result != AuthResult.success && res.userInfoModel?.id == null) {
+        state = res;
+        return Future.value();
+      }
+
+      final AsyncValue<UserInfoModel> _asyncUserInfo =
+          await ref.watch(fetchUserInfoProvider(res.userInfoModel!.id));
+      final userInfo = await _asyncUserInfo
+          .whenData((value) => value)
+          .asData
+          ?.unwrapPrevious()
+          .valueOrNull;
+
+      if (userInfo == null) {
+        print('DEBUG AUTH_STATE_NOTIFIER: SAVING USER INFO');
+        await saveUserInfo(
+          userInfoModel: res.userInfoModel,
+        );
+        state = res;
+      } else {
+        print('DEBUG AUTH_STATE_NOTIFIER: USER INFO ALREADY SAVED');
+        state = state.copyWith(userInfoModel: userInfo);
+      }
+    } catch (e) {
+      print('Error logging in with Facebook: $e');
+      state = AuthState(
+        result: null,
+        isLoading: false,
+        userInfoModel: null,
+      );
     }
-    state = AuthState(
-      result: result,
-      isLoading: false,
-      userId: id,
-    );
   }
 
   Future<void> saveUserInfo({
-    required UserId id,
-  }) =>
-      _userInfoStorage.saveUserInfo(
-        id: id,
-        displayName: _authRepository.displayName,
-        email: _authRepository.email,
-        profileImageUrl: _authRepository.profileImageUrl,
-      );
+    UserInfoModel? userInfoModel,
+    List<TrackId>? favoriteTracks,
+  }) async {
+    return userInfoModel != null
+        ? favoriteTracks != null
+            ? await _userInfoStorage.saveUserInfo(
+                userInfoModel: userInfoModel,
+              )
+            : await _userInfoStorage.saveUserInfo(
+                userInfoModel: userInfoModel.copyWith(
+                  favoriteTracks: favoriteTracks,
+                ),
+              )
+        : Future.value();
+  }
 
-  Widget userImage(
-      bool isLogged, UserId id, AsyncValue<UserInfo> userProfileInfo) {
+  Widget userImage(bool isLogged) {
     if (isLogged) {
+      print('DEBUG USER IMAGE: ${state.userInfoModel!.profileImageUrl}');
       return ClipRRect(
-          borderRadius: BorderRadius.circular(25),
-          child: switch (userProfileInfo) {
-            AsyncData(:final value) => Image.network(
-                value.profileImageUrl!,
-                fit: BoxFit.cover,
-                width: 35,
-                height: 35,
-              ),
-            AsyncError() => Icon(Icons.account_circle),
-            _ => CircularProgressIndicator(),
-          });
+        borderRadius: BorderRadius.circular(25),
+        child: Image.network(
+          state.userInfoModel!.profileImageUrl!,
+          fit: BoxFit.cover,
+          width: 35,
+          height: 35,
+        ),
+      );
     } else {
       return Icon(Icons.account_circle);
     }
+  }
+
+  Future<List<TrackId>> fetchFavoriteTracks() async {
+    final id = state.userInfoModel?.id;
+    if (id == null) {
+      print('DEBUG FAVORITE TRACKS: USER ID IS NULL');
+      return [];
+    }
+    final AsyncValue<UserInfoModel> userInfoModel =
+        await ref.watch(fetchUserInfoProvider(id));
+    return userInfoModel.when(
+      data: (value) => value.favoriteTracks ?? [],
+      loading: () => [],
+      error: (error, stackTrace) => [],
+    );
   }
 }

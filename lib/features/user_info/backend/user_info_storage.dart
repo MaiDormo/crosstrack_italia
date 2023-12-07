@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,10 +18,7 @@ class UserInfoStorage extends _$UserInfoStorage {
   }
 
   Future<void> saveUserInfo({
-    required UserId id,
-    required String displayName,
-    required String? email,
-    required String? profileImageUrl,
+    required UserInfoModel userInfoModel,
   }) async {
     try {
       // first check if we have this user's info from before
@@ -32,28 +28,21 @@ class UserInfoStorage extends _$UserInfoStorage {
           )
           .where(
             FirebaseFieldName.id,
-            isEqualTo: id,
+            isEqualTo: userInfoModel.id,
           )
           .limit(1)
           .get();
 
       if (userInfo.docs.isNotEmpty) {
         // we already have this user's profile, save the new data instead
-        await userInfo.docs.first.reference.update({
-          FirebaseFieldName.displayName: displayName,
-          FirebaseFieldName.email: email ?? '',
-          FirebaseFieldName.profileImageUrl: profileImageUrl ?? '',
-        });
+        userInfo.docs.first.reference.update(
+          userInfoModel.toJson(),
+        );
         state = true;
         return;
       }
 
-      final payload = UserInfo(
-        id: id,
-        displayName: displayName,
-        email: email,
-        profileImageUrl: profileImageUrl,
-      ).toJson();
+      final payload = userInfoModel.toJson();
       await ref
           .watch(firestoreProvider)
           .collection(
@@ -61,7 +50,8 @@ class UserInfoStorage extends _$UserInfoStorage {
           )
           .add(payload);
       state = true;
-    } catch (_) {
+    } catch (e) {
+      print('DEBUG: $e');
       state = false;
     }
   }

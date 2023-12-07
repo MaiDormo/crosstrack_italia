@@ -1,12 +1,12 @@
+import 'package:crosstrack_italia/app_states/nav_states/nav_notifier.dart';
+import 'package:crosstrack_italia/bottom_bar.dart';
+import 'package:crosstrack_italia/features/map/presentation/map_screen.dart';
+import 'package:crosstrack_italia/top_bar.dart';
 import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
 import 'package:crosstrack_italia/views/tabs/track_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../app_states/nav_states/nav_notifier.dart';
-import '../../top_bar.dart';
-import '../../bottom_bar.dart';
-import '../../features/map/presentation/map_screen.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});

@@ -10,8 +10,10 @@ class HeartIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite =
-        ref.watch(favoriteTracksNotifierProvider).contains(trackId);
+    final isFavorite = switch (ref.watch(favoriteTracksNotifierProvider)) {
+      AsyncData(:final value) => value.contains(trackId),
+      _ => false,
+    };
     return IconButton(
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,

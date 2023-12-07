@@ -6,7 +6,7 @@ part of 'auth_state_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isLoggedInHash() => r'8ca0f8089d0722001c62f68a46814a709e6fd8d3';
+String _$isLoggedInHash() => r'7d848ac9cf29aaaf834be6184d84400e34505e02';
 
 /// See also [isLoggedIn].
 @ProviderFor(isLoggedIn)
@@ -20,7 +20,7 @@ final isLoggedInProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoggedInRef = AutoDisposeProviderRef<bool>;
-String _$userIdHash() => r'7855b8d585ec0e4cd2f11c723043bb42e4c26cfe';
+String _$userIdHash() => r'87282d0118ebcfb8e823fcb17f31ba63697b9476';
 
 /// See also [userId].
 @ProviderFor(userId)
@@ -48,7 +48,7 @@ final isLoadingProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoadingRef = AutoDisposeProviderRef<bool>;
-String _$userImageHash() => r'c497dd4e0d169c0f21512cfca2bb34256626f3e7';
+String _$userImageHash() => r'35a9a29efa1e7a5398ab109952335fbd126377e3';
 
 /// See also [userImage].
 @ProviderFor(userImage)
@@ -62,7 +62,7 @@ final userImageProvider = AutoDisposeFutureProvider<Widget>.internal(
 );
 
 typedef UserImageRef = AutoDisposeFutureProviderRef<Widget>;
-String _$fetchUserInfoHash() => r'14cf5378e7167f8a25f30fb24000a0469516493a';
+String _$fetchUserInfoHash() => r'dcefb319fd9307ae3fe93a137ed9ea299fea6519';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -90,7 +90,7 @@ class _SystemHash {
 const fetchUserInfoProvider = FetchUserInfoFamily();
 
 /// See also [fetchUserInfo].
-class FetchUserInfoFamily extends Family<AsyncValue<UserInfo>> {
+class FetchUserInfoFamily extends Family<AsyncValue<UserInfoModel>> {
   /// See also [fetchUserInfo].
   const FetchUserInfoFamily();
 
@@ -128,7 +128,7 @@ class FetchUserInfoFamily extends Family<AsyncValue<UserInfo>> {
 }
 
 /// See also [fetchUserInfo].
-class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfo> {
+class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfoModel> {
   /// See also [fetchUserInfo].
   FetchUserInfoProvider(
     String userId,
@@ -163,7 +163,7 @@ class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfo> {
 
   @override
   Override overrideWith(
-    Stream<UserInfo> Function(FetchUserInfoRef provider) create,
+    Stream<UserInfoModel> Function(FetchUserInfoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -180,7 +180,7 @@ class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfo> {
   }
 
   @override
-  AutoDisposeStreamProviderElement<UserInfo> createElement() {
+  AutoDisposeStreamProviderElement<UserInfoModel> createElement() {
     return _FetchUserInfoProviderElement(this);
   }
 
@@ -198,20 +198,38 @@ class FetchUserInfoProvider extends AutoDisposeStreamProvider<UserInfo> {
   }
 }
 
-mixin FetchUserInfoRef on AutoDisposeStreamProviderRef<UserInfo> {
+mixin FetchUserInfoRef on AutoDisposeStreamProviderRef<UserInfoModel> {
   /// The parameter `userId` of this provider.
   String get userId;
 }
 
 class _FetchUserInfoProviderElement
-    extends AutoDisposeStreamProviderElement<UserInfo> with FetchUserInfoRef {
+    extends AutoDisposeStreamProviderElement<UserInfoModel>
+    with FetchUserInfoRef {
   _FetchUserInfoProviderElement(super.provider);
 
   @override
   String get userId => (origin as FetchUserInfoProvider).userId;
 }
 
-String _$authStateNotifierHash() => r'661bfc444651d445cfbf88e10cf38d58dd92b2a4';
+String _$fetchFavoriteTracksHash() =>
+    r'0f518930a4036e680d7b7ff5045f347ed2b06ab4';
+
+/// See also [fetchFavoriteTracks].
+@ProviderFor(fetchFavoriteTracks)
+final fetchFavoriteTracksProvider =
+    AutoDisposeFutureProvider<List<TrackId>>.internal(
+  fetchFavoriteTracks,
+  name: r'fetchFavoriteTracksProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchFavoriteTracksHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchFavoriteTracksRef = AutoDisposeFutureProviderRef<List<TrackId>>;
+String _$authStateNotifierHash() => r'ddef172844ff57758dfe41fc90039b63ac33b3e9';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)

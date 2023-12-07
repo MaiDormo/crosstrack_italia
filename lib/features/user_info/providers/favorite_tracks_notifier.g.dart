@@ -7,12 +7,12 @@ part of 'favorite_tracks_notifier.dart';
 // **************************************************************************
 
 String _$favoriteTracksNotifierHash() =>
-    r'f6576ac1cc1f5b4b19fc8acd1550c62f47309cb9';
+    r'7004b95c74838324fc5cdf0f008011854a7b62dc';
 
 /// See also [FavoriteTracksNotifier].
 @ProviderFor(FavoriteTracksNotifier)
-final favoriteTracksNotifierProvider =
-    AutoDisposeNotifierProvider<FavoriteTracksNotifier, List<TrackId>>.internal(
+final favoriteTracksNotifierProvider = AutoDisposeAsyncNotifierProvider<
+    FavoriteTracksNotifier, List<TrackId>>.internal(
   FavoriteTracksNotifier.new,
   name: r'favoriteTracksNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final favoriteTracksNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$FavoriteTracksNotifier = AutoDisposeNotifier<List<TrackId>>;
+typedef _$FavoriteTracksNotifier = AutoDisposeAsyncNotifier<List<TrackId>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

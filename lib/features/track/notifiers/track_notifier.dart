@@ -78,7 +78,11 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
 @riverpod
 Future<Iterable<Track>> fetchTracksByIds(FetchTracksByIdsRef ref) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  final favoriteTracks = await ref.watch(favoriteTracksNotifierProvider);
+  final List<TrackId> favoriteTracks =
+      switch (ref.watch(favoriteTracksNotifierProvider)) {
+    AsyncData(:final value) => value,
+    _ => [],
+  };
   final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks);
   return tracks;
 }

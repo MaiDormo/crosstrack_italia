@@ -717,7 +717,7 @@ class _OpenGoogleMapProviderElement
   Track? get track => (origin as OpenGoogleMapProvider).track;
 }
 
-String _$fetchTracksByIdsHash() => r'6717fda70337434a0e4b973197ca747b374dfb04';
+String _$fetchTracksByIdsHash() => r'd9c06ce43954a497c7070043e0f8c74740a23da2';
 
 /// See also [fetchTracksByIds].
 @ProviderFor(fetchTracksByIds)

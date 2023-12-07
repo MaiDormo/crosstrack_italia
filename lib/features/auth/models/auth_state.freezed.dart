@@ -18,8 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   AuthResult? get result => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
-  String? get userId => throw _privateConstructorUsedError;
-  String? get userImageUrl => throw _privateConstructorUsedError;
+  UserInfoModel? get userInfoModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -31,11 +30,9 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call(
-      {AuthResult? result,
-      bool isLoading,
-      String? userId,
-      String? userImageUrl});
+  $Res call({AuthResult? result, bool isLoading, UserInfoModel? userInfoModel});
+
+  $UserInfoModelCopyWith<$Res>? get userInfoModel;
 }
 
 /// @nodoc
@@ -53,8 +50,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? result = freezed,
     Object? isLoading = null,
-    Object? userId = freezed,
-    Object? userImageUrl = freezed,
+    Object? userInfoModel = freezed,
   }) {
     return _then(_value.copyWith(
       result: freezed == result
@@ -65,15 +61,23 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userImageUrl: freezed == userImageUrl
-          ? _value.userImageUrl
-          : userImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      userInfoModel: freezed == userInfoModel
+          ? _value.userInfoModel
+          : userInfoModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserInfoModelCopyWith<$Res>? get userInfoModel {
+    if (_value.userInfoModel == null) {
+      return null;
+    }
+
+    return $UserInfoModelCopyWith<$Res>(_value.userInfoModel!, (value) {
+      return _then(_value.copyWith(userInfoModel: value) as $Val);
+    });
   }
 }
 
@@ -85,11 +89,10 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {AuthResult? result,
-      bool isLoading,
-      String? userId,
-      String? userImageUrl});
+  $Res call({AuthResult? result, bool isLoading, UserInfoModel? userInfoModel});
+
+  @override
+  $UserInfoModelCopyWith<$Res>? get userInfoModel;
 }
 
 /// @nodoc
@@ -105,8 +108,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
   $Res call({
     Object? result = freezed,
     Object? isLoading = null,
-    Object? userId = freezed,
-    Object? userImageUrl = freezed,
+    Object? userInfoModel = freezed,
   }) {
     return _then(_$AuthStateImpl(
       result: freezed == result
@@ -117,14 +119,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      userImageUrl: freezed == userImageUrl
-          ? _value.userImageUrl
-          : userImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      userInfoModel: freezed == userInfoModel
+          ? _value.userInfoModel
+          : userInfoModel // ignore: cast_nullable_to_non_nullable
+              as UserInfoModel?,
     ));
   }
 }
@@ -135,22 +133,18 @@ class _$AuthStateImpl implements _AuthState {
   const _$AuthStateImpl(
       {required this.result,
       required this.isLoading,
-      required this.userId,
-      this.userImageUrl = ''});
+      required this.userInfoModel});
 
   @override
   final AuthResult? result;
   @override
   final bool isLoading;
   @override
-  final String? userId;
-  @override
-  @JsonKey()
-  final String? userImageUrl;
+  final UserInfoModel? userInfoModel;
 
   @override
   String toString() {
-    return 'AuthState(result: $result, isLoading: $isLoading, userId: $userId, userImageUrl: $userImageUrl)';
+    return 'AuthState(result: $result, isLoading: $isLoading, userInfoModel: $userInfoModel)';
   }
 
   @override
@@ -161,14 +155,13 @@ class _$AuthStateImpl implements _AuthState {
             (identical(other.result, result) || other.result == result) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.userImageUrl, userImageUrl) ||
-                other.userImageUrl == userImageUrl));
+            (identical(other.userInfoModel, userInfoModel) ||
+                other.userInfoModel == userInfoModel));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, result, isLoading, userId, userImageUrl);
+      Object.hash(runtimeType, result, isLoading, userInfoModel);
 
   @JsonKey(ignore: true)
   @override
@@ -181,17 +174,14 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {required final AuthResult? result,
       required final bool isLoading,
-      required final String? userId,
-      final String? userImageUrl}) = _$AuthStateImpl;
+      required final UserInfoModel? userInfoModel}) = _$AuthStateImpl;
 
   @override
   AuthResult? get result;
   @override
   bool get isLoading;
   @override
-  String? get userId;
-  @override
-  String? get userImageUrl;
+  UserInfoModel? get userInfoModel;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

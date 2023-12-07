@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/common/shared_preferences.dart';
+import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,35 +9,96 @@ part 'favorite_tracks_notifier.g.dart';
 @riverpod
 class FavoriteTracksNotifier extends _$FavoriteTracksNotifier {
   late final SharedPreferences _sharedPreferences;
+  late final _authStateNotifier;
   @override
-  List<TrackId> build() {
+  Future<List<TrackId>> build() async {
     _sharedPreferences = ref.watch(sharedPreferencesProvider);
-    return _initializeState();
+    _authStateNotifier = ref.watch(authStateNotifierProvider.notifier);
+    final _isLoggedIn = ref.watch(isLoggedInProvider);
+    print('DEBUG FAVORITE TRACKS: STARTING BUILD');
+    if (_isLoggedIn) {
+      return _initializeStateFromFirebase();
+    } else {
+      print('DEBUG FAVORITE TRACKS: USER NOT LOGGED IN');
+      return _initializeStateFromSharedPreferences();
+    }
   }
 
-  void addFavorite(TrackId id) {
-    state = [...state, id];
+  Future<void> addFavorite(TrackId id) async {
+    final AsyncData<List<TrackId>> _state = switch (state) {
+      AsyncData(:final value) => AsyncData([...value, id]),
+      _ => AsyncData([id]),
+    };
+    state = _state;
     _saveToSharedPreferences();
   }
 
-  void removeFavorite(TrackId id) {
-    state = state.where((_id) => _id != id).toList();
+  Future<void> removeFavorite(TrackId id) async {
+    final AsyncData<List<TrackId>> _state = switch (state) {
+      AsyncData(:final value) =>
+        AsyncData(value.where((e) => e != id).toList()),
+      _ => AsyncData([]),
+    };
+    state = _state;
     _saveToSharedPreferences();
   }
 
-  void _saveToSharedPreferences() {
-    final sharedPreferences = ref.watch(sharedPreferencesProvider);
-    sharedPreferences.setStringList(
+  Future<void> _saveToSharedPreferences() async {
+    final List<TrackId> _state = switch (state) {
+      AsyncData(:final value) => value,
+      _ => [],
+    };
+    state = AsyncLoading();
+    await _sharedPreferences.setStringList(
       'favoriteTracks',
-      state,
+      _state,
     );
+    state = AsyncData(_state);
   }
 
-  List<TrackId> _initializeState() {
-    final savedTracks = _sharedPreferences.getStringList('favoriteTracks');
-    return savedTracks != null ? state = savedTracks : state = [];
+  Future<List<TrackId>> _initializeStateFromFirebase() async {
+    await reset();
+    final List<TrackId> _firebaseTracks =
+        await _authStateNotifier.fetchFavoriteTracks();
+    return _firebaseTracks;
   }
 
-  //upload to firebase
-  //download from firebase
+  List<TrackId> _initializeStateFromSharedPreferences() {
+    final _favoriteTracks = _sharedPreferences.getStringList('favoriteTracks');
+    if (_favoriteTracks != null) {
+      return _favoriteTracks;
+    } else {
+      return [];
+    }
+  }
+
+  Future<void> saveToFirebase() async {
+    final _id = ref.watch(userIdProvider);
+    final _isLoggedIn = ref.watch(isLoggedInProvider);
+    final List<TrackId> _state = switch (state) {
+      AsyncData(:final value) => value,
+      _ => [],
+    };
+    print('DEBUG FAVORITE TRACKS: STARTING SAVE TO FIREBASE');
+    print('DEBUG FAVORITE TRACKS: SAVING $_state');
+    if (_isLoggedIn) {
+      print('DEBUG FAVORITE TRACKS: USER LOGGED IN: ' +
+          _id.toString() +
+          ', SAVING TO FIREBASE');
+      await _authStateNotifier.saveUserInfo(
+        id: _id,
+        favoriteTracks: _state,
+      );
+      print('DEBUG FAVORITE TRACKS: SAVED TO FIREBASE');
+    }
+    print('DEBUG FAVORITE TRACKS: SAVING TO SHARED PREFERENCES');
+    state = AsyncData(_state);
+  }
+
+  //reset shared preferences
+  Future<void> reset() async {
+    print('DEBUG FAVORITE TRACKS: STARTING RESET SHARED PREFERENCES');
+    await _sharedPreferences.remove('favoriteTracks');
+    print('DEBUG FAVORITE TRACKS: FINISHED SHARED PREFERENCES RESET');
+  }
 }

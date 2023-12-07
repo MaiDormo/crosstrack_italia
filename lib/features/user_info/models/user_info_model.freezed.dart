@@ -14,42 +14,46 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
-  return _UserInfo.fromJson(json);
+UserInfoModel _$UserInfoModelFromJson(Map<String, dynamic> json) {
+  return _UserInfoModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$UserInfo {
+mixin _$UserInfoModel {
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.displayName)
   String? get displayName => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.profileImageUrl)
   String? get profileImageUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFieldName.favoriteTracks)
+  List<String>? get favoriteTracks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserInfoCopyWith<UserInfo> get copyWith =>
+  $UserInfoModelCopyWith<UserInfoModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserInfoCopyWith<$Res> {
-  factory $UserInfoCopyWith(UserInfo value, $Res Function(UserInfo) then) =
-      _$UserInfoCopyWithImpl<$Res, UserInfo>;
+abstract class $UserInfoModelCopyWith<$Res> {
+  factory $UserInfoModelCopyWith(
+          UserInfoModel value, $Res Function(UserInfoModel) then) =
+      _$UserInfoModelCopyWithImpl<$Res, UserInfoModel>;
   @useResult
   $Res call(
       {String id,
       @JsonKey(name: FirebaseFieldName.displayName) String? displayName,
       String? email,
-      @JsonKey(name: FirebaseFieldName.profileImageUrl)
-      String? profileImageUrl});
+      @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
+      @JsonKey(name: FirebaseFieldName.favoriteTracks)
+      List<String>? favoriteTracks});
 }
 
 /// @nodoc
-class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
-    implements $UserInfoCopyWith<$Res> {
-  _$UserInfoCopyWithImpl(this._value, this._then);
+class _$UserInfoModelCopyWithImpl<$Res, $Val extends UserInfoModel>
+    implements $UserInfoModelCopyWith<$Res> {
+  _$UserInfoModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -63,6 +67,7 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
     Object? displayName = freezed,
     Object? email = freezed,
     Object? profileImageUrl = freezed,
+    Object? favoriteTracks = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -81,32 +86,37 @@ class _$UserInfoCopyWithImpl<$Res, $Val extends UserInfo>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      favoriteTracks: freezed == favoriteTracks
+          ? _value.favoriteTracks
+          : favoriteTracks // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserInfoImplCopyWith<$Res>
-    implements $UserInfoCopyWith<$Res> {
-  factory _$$UserInfoImplCopyWith(
-          _$UserInfoImpl value, $Res Function(_$UserInfoImpl) then) =
-      __$$UserInfoImplCopyWithImpl<$Res>;
+abstract class _$$UserInfoModelImplCopyWith<$Res>
+    implements $UserInfoModelCopyWith<$Res> {
+  factory _$$UserInfoModelImplCopyWith(
+          _$UserInfoModelImpl value, $Res Function(_$UserInfoModelImpl) then) =
+      __$$UserInfoModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String id,
       @JsonKey(name: FirebaseFieldName.displayName) String? displayName,
       String? email,
-      @JsonKey(name: FirebaseFieldName.profileImageUrl)
-      String? profileImageUrl});
+      @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
+      @JsonKey(name: FirebaseFieldName.favoriteTracks)
+      List<String>? favoriteTracks});
 }
 
 /// @nodoc
-class __$$UserInfoImplCopyWithImpl<$Res>
-    extends _$UserInfoCopyWithImpl<$Res, _$UserInfoImpl>
-    implements _$$UserInfoImplCopyWith<$Res> {
-  __$$UserInfoImplCopyWithImpl(
-      _$UserInfoImpl _value, $Res Function(_$UserInfoImpl) _then)
+class __$$UserInfoModelImplCopyWithImpl<$Res>
+    extends _$UserInfoModelCopyWithImpl<$Res, _$UserInfoModelImpl>
+    implements _$$UserInfoModelImplCopyWith<$Res> {
+  __$$UserInfoModelImplCopyWithImpl(
+      _$UserInfoModelImpl _value, $Res Function(_$UserInfoModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,8 +126,9 @@ class __$$UserInfoImplCopyWithImpl<$Res>
     Object? displayName = freezed,
     Object? email = freezed,
     Object? profileImageUrl = freezed,
+    Object? favoriteTracks = freezed,
   }) {
-    return _then(_$UserInfoImpl(
+    return _then(_$UserInfoModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -134,23 +145,30 @@ class __$$UserInfoImplCopyWithImpl<$Res>
           ? _value.profileImageUrl
           : profileImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      favoriteTracks: freezed == favoriteTracks
+          ? _value._favoriteTracks
+          : favoriteTracks // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserInfoImpl extends _UserInfo {
-  const _$UserInfoImpl(
+class _$UserInfoModelImpl extends _UserInfoModel {
+  const _$UserInfoModelImpl(
       {required this.id,
       @JsonKey(name: FirebaseFieldName.displayName) required this.displayName,
       this.email = '',
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
-      this.profileImageUrl = ''})
-      : super._();
+      this.profileImageUrl = '',
+      @JsonKey(name: FirebaseFieldName.favoriteTracks)
+      final List<String>? favoriteTracks = const []})
+      : _favoriteTracks = favoriteTracks,
+        super._();
 
-  factory _$UserInfoImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserInfoImplFromJson(json);
+  factory _$UserInfoModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserInfoModelImplFromJson(json);
 
   @override
   final String id;
@@ -163,56 +181,70 @@ class _$UserInfoImpl extends _UserInfo {
   @override
   @JsonKey(name: FirebaseFieldName.profileImageUrl)
   final String? profileImageUrl;
+  final List<String>? _favoriteTracks;
+  @override
+  @JsonKey(name: FirebaseFieldName.favoriteTracks)
+  List<String>? get favoriteTracks {
+    final value = _favoriteTracks;
+    if (value == null) return null;
+    if (_favoriteTracks is EqualUnmodifiableListView) return _favoriteTracks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'UserInfo(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl)';
+    return 'UserInfoModel(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl, favoriteTracks: $favoriteTracks)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserInfoImpl &&
+            other is _$UserInfoModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.profileImageUrl, profileImageUrl) ||
-                other.profileImageUrl == profileImageUrl));
+                other.profileImageUrl == profileImageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._favoriteTracks, _favoriteTracks));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, displayName, email, profileImageUrl);
+  int get hashCode => Object.hash(runtimeType, id, displayName, email,
+      profileImageUrl, const DeepCollectionEquality().hash(_favoriteTracks));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserInfoImplCopyWith<_$UserInfoImpl> get copyWith =>
-      __$$UserInfoImplCopyWithImpl<_$UserInfoImpl>(this, _$identity);
+  _$$UserInfoModelImplCopyWith<_$UserInfoModelImpl> get copyWith =>
+      __$$UserInfoModelImplCopyWithImpl<_$UserInfoModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserInfoImplToJson(
+    return _$$UserInfoModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserInfo extends UserInfo {
-  const factory _UserInfo(
+abstract class _UserInfoModel extends UserInfoModel {
+  const factory _UserInfoModel(
       {required final String id,
       @JsonKey(name: FirebaseFieldName.displayName)
       required final String? displayName,
       final String? email,
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
-      final String? profileImageUrl}) = _$UserInfoImpl;
-  const _UserInfo._() : super._();
+      final String? profileImageUrl,
+      @JsonKey(name: FirebaseFieldName.favoriteTracks)
+      final List<String>? favoriteTracks}) = _$UserInfoModelImpl;
+  const _UserInfoModel._() : super._();
 
-  factory _UserInfo.fromJson(Map<String, dynamic> json) =
-      _$UserInfoImpl.fromJson;
+  factory _UserInfoModel.fromJson(Map<String, dynamic> json) =
+      _$UserInfoModelImpl.fromJson;
 
   @override
   String get id;
@@ -225,7 +257,10 @@ abstract class _UserInfo extends UserInfo {
   @JsonKey(name: FirebaseFieldName.profileImageUrl)
   String? get profileImageUrl;
   @override
+  @JsonKey(name: FirebaseFieldName.favoriteTracks)
+  List<String>? get favoriteTracks;
+  @override
   @JsonKey(ignore: true)
-  _$$UserInfoImplCopyWith<_$UserInfoImpl> get copyWith =>
+  _$$UserInfoModelImplCopyWith<_$UserInfoModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
