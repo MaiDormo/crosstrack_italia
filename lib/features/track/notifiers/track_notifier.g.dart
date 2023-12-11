@@ -717,22 +717,138 @@ class _OpenGoogleMapProviderElement
   Track? get track => (origin as OpenGoogleMapProvider).track;
 }
 
-String _$fetchTracksByIdsHash() => r'd9c06ce43954a497c7070043e0f8c74740a23da2';
+String _$fetchTracksByIdsHash() => r'538c2c9621ad57ca4dd66a486a8c85b5a85af0be';
 
 /// See also [fetchTracksByIds].
 @ProviderFor(fetchTracksByIds)
-final fetchTracksByIdsProvider =
-    AutoDisposeFutureProvider<Iterable<Track>>.internal(
-  fetchTracksByIds,
-  name: r'fetchTracksByIdsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchTracksByIdsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const fetchTracksByIdsProvider = FetchTracksByIdsFamily();
 
-typedef FetchTracksByIdsRef = AutoDisposeFutureProviderRef<Iterable<Track>>;
+/// See also [fetchTracksByIds].
+class FetchTracksByIdsFamily extends Family<AsyncValue<Iterable<Track>>> {
+  /// See also [fetchTracksByIds].
+  const FetchTracksByIdsFamily();
+
+  /// See also [fetchTracksByIds].
+  FetchTracksByIdsProvider call(
+    List<String> favoriteTracks,
+  ) {
+    return FetchTracksByIdsProvider(
+      favoriteTracks,
+    );
+  }
+
+  @override
+  FetchTracksByIdsProvider getProviderOverride(
+    covariant FetchTracksByIdsProvider provider,
+  ) {
+    return call(
+      provider.favoriteTracks,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchTracksByIdsProvider';
+}
+
+/// See also [fetchTracksByIds].
+class FetchTracksByIdsProvider
+    extends AutoDisposeFutureProvider<Iterable<Track>> {
+  /// See also [fetchTracksByIds].
+  FetchTracksByIdsProvider(
+    List<String> favoriteTracks,
+  ) : this._internal(
+          (ref) => fetchTracksByIds(
+            ref as FetchTracksByIdsRef,
+            favoriteTracks,
+          ),
+          from: fetchTracksByIdsProvider,
+          name: r'fetchTracksByIdsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchTracksByIdsHash,
+          dependencies: FetchTracksByIdsFamily._dependencies,
+          allTransitiveDependencies:
+              FetchTracksByIdsFamily._allTransitiveDependencies,
+          favoriteTracks: favoriteTracks,
+        );
+
+  FetchTracksByIdsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.favoriteTracks,
+  }) : super.internal();
+
+  final List<String> favoriteTracks;
+
+  @override
+  Override overrideWith(
+    FutureOr<Iterable<Track>> Function(FetchTracksByIdsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchTracksByIdsProvider._internal(
+        (ref) => create(ref as FetchTracksByIdsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        favoriteTracks: favoriteTracks,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Iterable<Track>> createElement() {
+    return _FetchTracksByIdsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchTracksByIdsProvider &&
+        other.favoriteTracks == favoriteTracks;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, favoriteTracks.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchTracksByIdsRef on AutoDisposeFutureProviderRef<Iterable<Track>> {
+  /// The parameter `favoriteTracks` of this provider.
+  List<String> get favoriteTracks;
+}
+
+class _FetchTracksByIdsProviderElement
+    extends AutoDisposeFutureProviderElement<Iterable<Track>>
+    with FetchTracksByIdsRef {
+  _FetchTracksByIdsProviderElement(super.provider);
+
+  @override
+  List<String> get favoriteTracks =>
+      (origin as FetchTracksByIdsProvider).favoriteTracks;
+}
+
 String _$toggleIconsServicesViewHash() =>
     r'dbf9ba248439d91ddfcc61e02ea37ced3dcaa509';
 

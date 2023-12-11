@@ -6,8 +6,26 @@ part of 'favorite_tracks_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+String _$favoriteTracksServiceHash() =>
+    r'ded920fd5aed55219cedb709199f8fcad2ad8437';
+
+/// See also [favoriteTracksService].
+@ProviderFor(favoriteTracksService)
+final favoriteTracksServiceProvider =
+    AutoDisposeProvider<FavoriteTracksService>.internal(
+  favoriteTracksService,
+  name: r'favoriteTracksServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$favoriteTracksServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FavoriteTracksServiceRef
+    = AutoDisposeProviderRef<FavoriteTracksService>;
 String _$favoriteTracksNotifierHash() =>
-    r'7004b95c74838324fc5cdf0f008011854a7b62dc';
+    r'74c9e154088a79a336d4219478a48a87ac168c49';
 
 /// See also [FavoriteTracksNotifier].
 @ProviderFor(FavoriteTracksNotifier)

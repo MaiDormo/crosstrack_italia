@@ -7,7 +7,6 @@ import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/providers/favorite_tracks_notifier.dart';
 import 'package:crosstrack_italia/providers/storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -76,13 +75,9 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
 }
 
 @riverpod
-Future<Iterable<Track>> fetchTracksByIds(FetchTracksByIdsRef ref) async {
+Future<Iterable<Track>> fetchTracksByIds(
+    FetchTracksByIdsRef ref, List<TrackId> favoriteTracks) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  final List<TrackId> favoriteTracks =
-      switch (ref.watch(favoriteTracksNotifierProvider)) {
-    AsyncData(:final value) => value,
-    _ => [],
-  };
   final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks);
   return tracks;
 }

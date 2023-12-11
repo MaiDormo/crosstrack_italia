@@ -10,22 +10,24 @@ class HeartIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite = switch (ref.watch(favoriteTracksNotifierProvider)) {
+    final favoriteTracksNotifier = ref.watch(favoriteTracksNotifierProvider);
+    final isFavorite = switch (favoriteTracksNotifier) {
       AsyncData(:final value) => value.contains(trackId),
       _ => false,
     };
+
     return IconButton(
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,
         color: isFavorite ? Colors.red : null,
       ),
       onPressed: () {
-        final favoriteTracksNotifier =
-            ref.read(favoriteTracksNotifierProvider.notifier);
         if (isFavorite) {
-          favoriteTracksNotifier.removeFavorite(trackId);
+          ref
+              .read(favoriteTracksNotifierProvider.notifier)
+              .removeTrack(trackId);
         } else {
-          favoriteTracksNotifier.addFavorite(trackId);
+          ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
         }
       },
     );

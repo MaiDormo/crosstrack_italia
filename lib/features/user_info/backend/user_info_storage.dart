@@ -34,10 +34,7 @@ class UserInfoStorage extends _$UserInfoStorage {
           .get();
 
       if (userInfo.docs.isNotEmpty) {
-        // we already have this user's profile, save the new data instead
-        userInfo.docs.first.reference.update(
-          userInfoModel.toJson(),
-        );
+        print('DEBUG: user info already exists');
         state = true;
         return;
       }
