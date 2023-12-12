@@ -717,7 +717,7 @@ class _OpenGoogleMapProviderElement
   Track? get track => (origin as OpenGoogleMapProvider).track;
 }
 
-String _$fetchTracksByIdsHash() => r'538c2c9621ad57ca4dd66a486a8c85b5a85af0be';
+String _$fetchTracksByIdsHash() => r'220aecb9b9c6a5fce4feb477817b15af4232e9d0';
 
 /// See also [fetchTracksByIds].
 @ProviderFor(fetchTracksByIds)
@@ -731,9 +731,11 @@ class FetchTracksByIdsFamily extends Family<AsyncValue<Iterable<Track>>> {
   /// See also [fetchTracksByIds].
   FetchTracksByIdsProvider call(
     List<String> favoriteTracks,
+    BuildContext context,
   ) {
     return FetchTracksByIdsProvider(
       favoriteTracks,
+      context,
     );
   }
 
@@ -743,6 +745,7 @@ class FetchTracksByIdsFamily extends Family<AsyncValue<Iterable<Track>>> {
   ) {
     return call(
       provider.favoriteTracks,
+      provider.context,
     );
   }
 
@@ -767,10 +770,12 @@ class FetchTracksByIdsProvider
   /// See also [fetchTracksByIds].
   FetchTracksByIdsProvider(
     List<String> favoriteTracks,
+    BuildContext context,
   ) : this._internal(
           (ref) => fetchTracksByIds(
             ref as FetchTracksByIdsRef,
             favoriteTracks,
+            context,
           ),
           from: fetchTracksByIdsProvider,
           name: r'fetchTracksByIdsProvider',
@@ -782,6 +787,7 @@ class FetchTracksByIdsProvider
           allTransitiveDependencies:
               FetchTracksByIdsFamily._allTransitiveDependencies,
           favoriteTracks: favoriteTracks,
+          context: context,
         );
 
   FetchTracksByIdsProvider._internal(
@@ -792,9 +798,11 @@ class FetchTracksByIdsProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.favoriteTracks,
+    required this.context,
   }) : super.internal();
 
   final List<String> favoriteTracks;
+  final BuildContext context;
 
   @override
   Override overrideWith(
@@ -810,6 +818,7 @@ class FetchTracksByIdsProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         favoriteTracks: favoriteTracks,
+        context: context,
       ),
     );
   }
@@ -822,13 +831,15 @@ class FetchTracksByIdsProvider
   @override
   bool operator ==(Object other) {
     return other is FetchTracksByIdsProvider &&
-        other.favoriteTracks == favoriteTracks;
+        other.favoriteTracks == favoriteTracks &&
+        other.context == context;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, favoriteTracks.hashCode);
+    hash = _SystemHash.combine(hash, context.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -837,6 +848,9 @@ class FetchTracksByIdsProvider
 mixin FetchTracksByIdsRef on AutoDisposeFutureProviderRef<Iterable<Track>> {
   /// The parameter `favoriteTracks` of this provider.
   List<String> get favoriteTracks;
+
+  /// The parameter `context` of this provider.
+  BuildContext get context;
 }
 
 class _FetchTracksByIdsProviderElement
@@ -847,6 +861,8 @@ class _FetchTracksByIdsProviderElement
   @override
   List<String> get favoriteTracks =>
       (origin as FetchTracksByIdsProvider).favoriteTracks;
+  @override
+  BuildContext get context => (origin as FetchTracksByIdsProvider).context;
 }
 
 String _$toggleIconsServicesViewHash() =>
@@ -882,7 +898,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'9e0ec52c5a8072ecc7b3655242e190427f9c8cc8';
+String _$trackNotifierHash() => r'3100db13735ed39ced4c0924a94c8318ea17b907';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

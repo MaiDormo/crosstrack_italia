@@ -68,16 +68,17 @@ class TrackComparison extends StatelessWidget {
                 //   },
                 // ),
 
-                _buildTitleSeparator("Motoclub"),
+                _buildTitleSeparator("Motoclub", context),
                 _buildTextRow(track1.motoclub, track2.motoclub, columnWidth),
 
-                _buildTitleSeparator("Posizione"),
+                _buildTitleSeparator("Posizione", context),
                 _buildComparisonRow(
                   "Regione",
                   track1.region,
                   track2.region,
                   false,
                   columnWidth,
+                  context,
                 ),
                 _buildComparisonRow(
                   "Città",
@@ -85,6 +86,7 @@ class TrackComparison extends StatelessWidget {
                   track2.location,
                   false,
                   columnWidth,
+                  context,
                 ),
                 _buildLocationComparisonRow(
                   track1.latitude,
@@ -92,15 +94,17 @@ class TrackComparison extends StatelessWidget {
                   track2.latitude,
                   track2.longitude,
                   columnWidth,
+                  context,
                 ),
 
-                _buildTitleSeparator("Caratteristiche"),
+                _buildTitleSeparator("Caratteristiche", context),
                 _buildComparisonRow(
                   "Categoria",
                   track1.category,
                   track2.category,
                   false,
                   columnWidth,
+                  context,
                 ),
                 _buildComparisonRow(
                   "Lunghezza",
@@ -108,6 +112,7 @@ class TrackComparison extends StatelessWidget {
                   track2.trackLength,
                   false,
                   columnWidth,
+                  context,
                 ),
                 _buildComparisonRow(
                   "Terreno",
@@ -115,9 +120,10 @@ class TrackComparison extends StatelessWidget {
                   track2.terrainType,
                   false,
                   columnWidth,
+                  context,
                 ),
 
-                _buildTitleSeparator("Info Pilota"),
+                _buildTitleSeparator("Info Pilota", context),
                 _buildAcceptedLicensesRow(
                   track1.acceptedLicenses,
                   track2.acceptedLicenses,
@@ -125,11 +131,12 @@ class TrackComparison extends StatelessWidget {
                 ),
 
                 //add track characteristics here
-                _buildTitleSeparator("Servizi"),
+                _buildTitleSeparator("Servizi", context),
                 _buildServicesComparisonRow(
                   track1.services,
                   track2.services,
                   columnWidth,
+                  context,
                 ),
               ],
             ),
@@ -192,7 +199,7 @@ class TrackComparison extends StatelessWidget {
   }
 
   Widget _buildComparisonRow(String label, String value1, String value2,
-      bool compare, double columnWidth) {
+      bool compare, double columnWidth, BuildContext context) {
     final bool isValue1Better = _isValue1Better(value1, value2);
 
     return Row(
@@ -206,9 +213,15 @@ class TrackComparison extends StatelessWidget {
             "$value1",
             style: TextStyle(
               color: compare
-                  ? (isValue1Better ? Colors.green : Colors.red)
-                  : Colors.black,
-              fontWeight: isValue1Better && compare
+                  ? (isValue1Better
+                      ? Theme.of(context).colorScheme.tertiary
+                      : Theme.of(context)
+                          .colorScheme
+                          .primary) // Use secondary and error colors from theme
+                  : Theme.of(context)
+                      .colorScheme
+                      .onSurface, // Use onSurface color from theme
+              fontWeight: !isValue1Better && compare
                   ? FontWeight.bold
                   : FontWeight.normal,
             ),
@@ -221,9 +234,15 @@ class TrackComparison extends StatelessWidget {
             "$value2",
             style: TextStyle(
               color: compare
-                  ? (isValue1Better ? Colors.red : Colors.green)
-                  : Colors.black,
-              fontWeight: !isValue1Better && compare
+                  ? (isValue1Better
+                      ? Theme.of(context).colorScheme.error
+                      : Theme.of(context)
+                          .colorScheme
+                          .primary) // Use error and secondary colors from theme
+                  : Theme.of(context)
+                      .colorScheme
+                      .onSurface, // Use onSurface color from theme
+              fontWeight: isValue1Better && compare
                   ? FontWeight.bold
                   : FontWeight.normal,
             ),
@@ -264,8 +283,11 @@ class TrackComparison extends StatelessWidget {
     );
   }
 
-  Widget _buildServicesComparisonRow(Map<String, String>? services1,
-      Map<String, String>? services2, double columnWidth) {
+  Widget _buildServicesComparisonRow(
+      Map<String, String>? services1,
+      Map<String, String>? services2,
+      double columnWidth,
+      BuildContext context) {
     if (services1 == null ||
         services2 == null ||
         services1.isEmpty ||
@@ -286,6 +308,7 @@ class TrackComparison extends StatelessWidget {
             value2,
             false,
             columnWidth,
+            context,
           );
         }).toList(),
       ],
@@ -345,8 +368,13 @@ class TrackComparison extends StatelessWidget {
     );
   }
 
-  Widget _buildLocationComparisonRow(String latitude1, String longitude1,
-      String latitude2, String longitude2, double columnWidth) {
+  Widget _buildLocationComparisonRow(
+      String latitude1,
+      String longitude1,
+      String latitude2,
+      String longitude2,
+      double columnWidth,
+      BuildContext context) {
     if (userLocationAvailable) {
       final double distance1 = _calculateDistance(userLatitude, userLongitude,
           double.parse(latitude1), double.parse(longitude1));
@@ -359,6 +387,7 @@ class TrackComparison extends StatelessWidget {
         "${distance2.toStringAsFixed(2)} km",
         true,
         columnWidth,
+        context,
       );
     } else {
       return Container(); // User location not available, skip distance comparison
@@ -387,7 +416,7 @@ class TrackComparison extends StatelessWidget {
         ),
       );
 
-  Widget _buildTitleSeparator(String text) => Column(
+  Widget _buildTitleSeparator(String text, BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -395,12 +424,16 @@ class TrackComparison extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 19.0,
-              color: Colors.blue,
+              color: Theme.of(context)
+                  .colorScheme
+                  .primary, // Use primary color from theme
             ),
           ),
           const SizedBox(height: 4.0),
           Divider(
-            color: Colors.blueAccent,
+            color: Theme.of(context)
+                .colorScheme
+                .primaryContainer, // Use primary variant color from theme
             thickness: 1.0,
           ),
           const SizedBox(height: 8.0),

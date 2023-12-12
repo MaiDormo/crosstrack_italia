@@ -3,28 +3,51 @@ import 'package:crosstrack_italia/features/user_info/presentation/favorite_track
 import 'package:flutter/material.dart';
 
 class TrackAction extends StatelessWidget {
-  const TrackAction({super.key});
+  const TrackAction({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16.0),
-        child: Container(
-          height: MediaQuery.of(context).size.height * 0.8,
+      padding: EdgeInsets.all(16.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Hero(
-                tag: "track_selection_screen",
-                child: IconButton(
-                  icon: Icon(
-                    Icons.compare_arrows,
-                    size: 50,
-                    color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(16.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton.icon(
+                  icon: Hero(
+                    tag: "track_selection_screen",
+                    child: Icon(
+                      Icons.compare_arrows,
+                      size: 50,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                  label: Text(
+                    'Confronto tracciati',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -35,13 +58,29 @@ class TrackAction extends StatelessWidget {
                   },
                 ),
               ),
-              Hero(
-                tag: "favorite_tracks_screen",
-                child: IconButton(
-                  icon: Icon(
-                    Icons.favorite,
-                    size: 50,
-                    color: Theme.of(context).colorScheme.primary,
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ElevatedButton.icon(
+                  icon: Hero(
+                    tag: "favorite_tracks_screen",
+                    child: Icon(
+                      Icons.favorite,
+                      size: 50,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  label: Text(
+                    'Tracciati Favoriti',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -52,8 +91,8 @@ class TrackAction extends StatelessWidget {
                   },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

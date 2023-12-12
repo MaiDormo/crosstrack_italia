@@ -36,45 +36,103 @@ class TrackSelectionScreen extends ConsumerWidget {
 
     Widget _buildLocationSelector() {
       return userLocation.when(
-        loading: () => CircularProgressIndicator(),
-        error: (error, stackTrace) =>
-            Text("Errore nel caricamento della posizione"),
+        loading: () => Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(
+          child: Text(
+            "Errore nel caricamento della posizione: $error",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+        ),
         data: (userLocation) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 16),
-              Text(
-                "Condividi la tua posizione:",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+          return Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 16),
+                Text(
+                  "Condividi la tua posizione:",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
-              ),
-              SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Posizione: "),
-                  if (userLocation != null)
-                    Text(
-                      ref.watch(getClosestLocationProvider).when(
-                                data: (value) => value,
-                                loading: () => "Caricamento...",
-                                error: (error, stackTrace) => "Errore",
-                              ) ??
-                          "",
+                SizedBox(height: 8),
+                ListTile(
+                  title: Text("Posizione: "),
+                  subtitle: userLocation != null && showCurrentLocation
+                      ? ref.watch(getClosestLocationProvider).when(
+                          data: (value) => Text(
+                                value,
+                                style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
+                          error: (error, stackTrace) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    "Errore nel caricamento della posizione: $error"),
+                              ),
+                            );
+                            return null;
+                          })
+                      : Text(""),
+                  trailing: Tooltip(
+                    message: showCurrentLocation
+                        ? 'Disable location'
+                        : 'Enable location',
+                    child: IconButton(
+                      icon: Icon(
+                        showCurrentLocation
+                            ? Icons.location_off
+                            : Icons.location_on,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () async {
+                        if (showCurrentLocation) {
+                          final confirm = await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('Conferma'),
+                              content: Text(
+                                  'Sei sicuro di voler rimuovere la posizione?'),
+                              actions: [
+                                TextButton(
+                                  child: Text('Annulla'),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(false),
+                                ),
+                                TextButton(
+                                  child: Text('Conferma'),
+                                  onPressed: () =>
+                                      Navigator.of(context).pop(true),
+                                ),
+                              ],
+                            ),
+                          );
+                          if (confirm) {
+                            ref
+                                .read(showCurrentLocationProvider.notifier)
+                                .toggle();
+                          }
+                        } else {
+                          ref
+                              .read(showCurrentLocationProvider.notifier)
+                              .toggle();
+                        }
+                      },
                     ),
-                ],
-              ),
-              SizedBox(height: 8),
-              Checkbox(
-                value: showCurrentLocation,
-                onChanged: (value) async =>
-                    ref.read(showCurrentLocationProvider.notifier).toggle(),
-              ),
-            ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
       );
@@ -204,22 +262,21 @@ class TrackSelectionScreen extends ConsumerWidget {
       );
     }
 
-    return Hero(
-      tag: "track_selection_screen",
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: Scaffold(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            body: allTracks.when(
-              loading: () => Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) =>
-                  Center(child: Text("Errore nel caricamento dei tracciati")),
-              data: (tracks) {
-                return _buildSelectionForm(context, tracks);
-              },
-            ),
+    return SafeArea(
+      child: Hero(
+        tag: "track_selection_screen",
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Confronto Tracciati'),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.secondary,
+          body: allTracks.when(
+            loading: () => Center(child: CircularProgressIndicator()),
+            error: (error, stackTrace) =>
+                Center(child: Text("Errore nel caricamento dei tracciati")),
+            data: (tracks) {
+              return _buildSelectionForm(context, tracks);
+            },
           ),
         ),
       ),

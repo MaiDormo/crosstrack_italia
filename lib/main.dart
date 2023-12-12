@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cross Track Italia',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.lightBlue[100],
+        scaffoldBackgroundColor: Colors.blue[50],
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
           brightness: Brightness.light,
@@ -68,9 +68,12 @@ class MyApp extends StatelessWidget {
           tertiary: Colors.white,
         ),
         useMaterial3: true,
-        //indeed it does
+        hintColor: Colors.amber,
         textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme,
+          Theme.of(context).textTheme.apply(
+                bodyColor: Colors.grey[900],
+                displayColor: Colors.grey[900],
+              ),
         ),
       ),
       home: Consumer(

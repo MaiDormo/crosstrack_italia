@@ -75,10 +75,10 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
 }
 
 @riverpod
-Future<Iterable<Track>> fetchTracksByIds(
-    FetchTracksByIdsRef ref, List<TrackId> favoriteTracks) async {
+Future<Iterable<Track>> fetchTracksByIds(FetchTracksByIdsRef ref,
+    List<TrackId> favoriteTracks, BuildContext context) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks);
+  final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks, context);
   return tracks;
 }
 
@@ -265,7 +265,16 @@ class TrackNotifier extends _$TrackNotifier {
   }
 
   //fetch all tracks from a list of string ids
-  Future<Iterable<Track>> fetchTracksByIds(Iterable<TrackId> ids) async {
-    return await _trackRepository.fetchTracksByIds(ids);
+  Future<Iterable<Track>> fetchTracksByIds(
+      Iterable<TrackId> ids, BuildContext context) async {
+    final res = await _trackRepository.fetchTracksByIds(ids);
+    return res.fold(
+      (l) {
+        ///TODO: add a more specific error message
+        showSnackBar(context, l.message);
+        return [];
+      },
+      (r) => r,
+    );
   }
 }

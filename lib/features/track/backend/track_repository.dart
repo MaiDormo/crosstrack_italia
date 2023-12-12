@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/common/failure.dart';
 import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
@@ -100,11 +102,31 @@ class TrackRepository {
   }
 
   //fetch all tracks from a list of string ids
-  Future<Iterable<Track>> fetchTracksByIds(Iterable<TrackId> ids) async {
-    if (ids.isEmpty) return [];
-    final tracks =
-        await _tracks.where(FirebaseFieldName.id, whereIn: ids).get();
-    return tracks.docs
-        .map((doc) => Track.fromJson(doc.data() as Map<String, dynamic>));
+  Future<Either<Failure, Iterable<Track>>> fetchTracksByIds(
+      Iterable<TrackId> ids) async {
+    if (ids.isEmpty) return Right([]);
+
+    try {
+      List<Track> tracks = [];
+      for (var chunk in partition(ids.toList(), 10)) {
+        final querySnapshot = await _tracks
+            .where(FirebaseFieldName.id, whereIn: chunk.toList())
+            .get();
+        tracks.addAll(querySnapshot.docs
+            .map((doc) => Track.fromJson(doc.data() as Map<String, dynamic>))
+            .toList());
+      }
+      return Right(tracks);
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
+}
+
+List<List<T>> partition<T>(List<T> list, int size) {
+  return List.generate((list.length / size).ceil(), (index) {
+    int start = index * size;
+    int end = min(start + size, list.length);
+    return list.sublist(start, end);
+  });
 }
