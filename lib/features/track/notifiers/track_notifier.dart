@@ -153,13 +153,7 @@ class TrackNotifier extends _$TrackNotifier {
     try {
       final imageUrl = await _storageRepository
           .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
-      final image = Image.network(
-        imageUrl,
-        width: 300,
-        height: 120,
-        fit: BoxFit.cover,
-        scale: MapConstans.scaleImage,
-      );
+      final image = await getCompressedImage(imageUrl);
       state = true;
       return image;
     } catch (e) {
@@ -174,7 +168,6 @@ class TrackNotifier extends _$TrackNotifier {
     }
   }
 
-  //collect all images related to a single track
   Stream<Iterable<Image>> allTrackImages(Track? track) async* {
     final controller = StreamController<Iterable<Image>>();
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
@@ -182,7 +175,7 @@ class TrackNotifier extends _$TrackNotifier {
       final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
       final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
-      final imagesList = await urls.map((e) => Image.network(e));
+      final imagesList = await Future.wait(urls.map(getCompressedImage));
       controller.add(imagesList);
       state = true;
     } else {

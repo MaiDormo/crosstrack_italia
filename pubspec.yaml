@@ -74,6 +74,7 @@ dependencies:
   firebase_app_check: ^0.2.1+5
   performance: ^0.1.1
   shared_preferences: ^2.2.2
+  flutter_image_compress: ^2.1.0
 
   
   
