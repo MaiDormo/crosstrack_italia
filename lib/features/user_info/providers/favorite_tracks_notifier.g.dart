@@ -7,7 +7,7 @@ part of 'favorite_tracks_notifier.dart';
 // **************************************************************************
 
 String _$favoriteTracksServiceHash() =>
-    r'ded920fd5aed55219cedb709199f8fcad2ad8437';
+    r'00557d5c3d55eca082e500ec55af22cc1e6e4cfb';
 
 /// See also [favoriteTracksService].
 @ProviderFor(favoriteTracksService)
@@ -25,7 +25,7 @@ final favoriteTracksServiceProvider =
 typedef FavoriteTracksServiceRef
     = AutoDisposeProviderRef<FavoriteTracksService>;
 String _$favoriteTracksNotifierHash() =>
-    r'74c9e154088a79a336d4219478a48a87ac168c49';
+    r'1af66c0fe29435ffcdb074685ce1ec2077fc5947';
 
 /// See also [FavoriteTracksNotifier].
 @ProviderFor(FavoriteTracksNotifier)

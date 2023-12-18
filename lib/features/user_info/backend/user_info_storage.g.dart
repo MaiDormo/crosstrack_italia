@@ -6,7 +6,7 @@ part of 'user_info_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userInfoStorageHash() => r'e47b184fc131f7e80bf1e0083fbde4324d2501fd';
+String _$userInfoStorageHash() => r'ea93f690e1f41b68ae0ecb10d36ba1b39a9f0c0f';
 
 /// See also [UserInfoStorage].
 @ProviderFor(UserInfoStorage)

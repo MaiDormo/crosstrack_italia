@@ -48,7 +48,7 @@ final isLoadingProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoadingRef = AutoDisposeProviderRef<bool>;
-String _$userImageHash() => r'35a9a29efa1e7a5398ab109952335fbd126377e3';
+String _$userImageHash() => r'538dfcdda159cc35150b067dd757163e047208c8';
 
 /// See also [userImage].
 @ProviderFor(userImage)
@@ -229,7 +229,7 @@ final fetchFavoriteTracksProvider =
 );
 
 typedef FetchFavoriteTracksRef = AutoDisposeFutureProviderRef<List<TrackId>>;
-String _$authStateNotifierHash() => r'ddef172844ff57758dfe41fc90039b63ac33b3e9';
+String _$authStateNotifierHash() => r'683578e191e3e943263993665f07eff3cc33e2e8';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)

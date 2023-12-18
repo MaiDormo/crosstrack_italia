@@ -10,7 +10,6 @@ part 'favorite_tracks_notifier.g.dart';
 FavoriteTracksService favoriteTracksService(FavoriteTracksServiceRef ref) {
   final _userId = ref.watch(userIdProvider);
   final _firestore = ref.watch(firestoreProvider);
-  print('DEBUG: favoriteTracksService userId: $_userId');
   return _userId != null
       ? FirebaseFavoriteTracksService(firestore: _firestore, userId: _userId)
       : SharedPrefsFavoriteTracksService();
@@ -28,17 +27,14 @@ class FavoriteTracksNotifier extends _$FavoriteTracksNotifier {
   Future<void> addTrack(TrackId trackId) async {
     await _service.addTrack(trackId);
     state = AsyncData(await _service.getFavoriteTracks());
-    print('DEBUG: favoriteTracksNotifier state: $state');
   }
 
   Future<void> removeTrack(TrackId trackId) async {
     await _service.removeTrack(trackId);
     state = AsyncData(await _service.getFavoriteTracks());
-    print('DEBUG: favoriteTracksNotifier state: $state');
   }
 
   Future<void> fetchFavoriteTracks() async {
     state = AsyncData(await _service.getFavoriteTracks());
-    print('DEBUG: favoriteTracksNotifier state: $state');
   }
 }

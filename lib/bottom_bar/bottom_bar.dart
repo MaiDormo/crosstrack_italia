@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/app_states/nav_states/nav_notifier.dart';
+import 'package:crosstrack_italia/bottom_bar/nav_states/nav_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,7 +14,7 @@ class BottomBar extends ConsumerStatefulWidget {
 class _BottomBarState extends ConsumerState<BottomBar> {
   @override
   Widget build(BuildContext context) {
-    var navIndex = ref.watch(navProvider).index;
+    var navIndex = ref.watch(navNotifierProvider).index;
 
     List<BottomNavigationBarItem> bottomNavigationBarItems = [
       const BottomNavigationBarItem(
@@ -55,7 +55,7 @@ class _BottomBarState extends ConsumerState<BottomBar> {
             selectedItemColor: Theme.of(context).colorScheme.primary,
             unselectedItemColor: Theme.of(context).colorScheme.onSurface,
             onTap: (value) {
-              ref.read(navProvider.notifier).onIndexChanged(value);
+              ref.read(navNotifierProvider.notifier).onIndexChanged(value);
             },
             backgroundColor: Theme.of(context).colorScheme.secondary,
             type: BottomNavigationBarType.fixed,

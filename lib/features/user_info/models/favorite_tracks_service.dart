@@ -65,7 +65,6 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
 
   @override
   Future<List<TrackId>> getFavoriteTracks() async {
-    print('DEBUG: getFavoriteTracks FirebaseFavoriteTracksService');
     final querySnapshot = await _firestore
         .collection(FirebaseCollectionName.users)
         .where(FirebaseFieldName.id, isEqualTo: _userId)
@@ -77,8 +76,6 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
     }
 
     final doc = querySnapshot.docs.first;
-    print('DEBUG: from firebase ' +
-        (doc.data()[FirebaseFieldName.favoriteTracks]?.toString() ?? 'null'));
     return (doc.data()[FirebaseFieldName.favoriteTracks] as List?)
             ?.cast<TrackId>() ??
         [];
@@ -104,7 +101,6 @@ class SharedPrefsFavoriteTracksService implements FavoriteTracksService {
 
   @override
   Future<List<TrackId>> getFavoriteTracks() async {
-    print('DEBUG: getFavoriteTracks SharedPrefsFavoriteTracksService');
     final prefs = await SharedPreferences.getInstance();
     return prefs
             .getStringList(FirebaseFieldName.favoriteTracks)

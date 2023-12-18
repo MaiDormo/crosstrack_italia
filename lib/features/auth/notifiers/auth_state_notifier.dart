@@ -41,8 +41,6 @@ Future<Widget> userImage(UserImageRef ref) async {
   final _authstateNotifier = ref.watch(authStateNotifierProvider.notifier);
   final _isLogged = ref.watch(isLoggedInProvider);
 
-  print('DEBUG USER IMAGE: $_isLogged');
-
   return _authstateNotifier.userImage(
     _isLogged,
   );
@@ -114,9 +112,7 @@ class AuthStateNotifier extends _$AuthStateNotifier {
 
   Future<void> logOut() async {
     state = state.copyWith(isLoading: true);
-    print('DEBUG AUTH_STATE_NOTIFIER: LOGGING OUT');
     await _authRepository.logOut();
-    print('DEBUG AUTH_STATE_NOTIFIER: LOGGED OUT');
     state = const AuthState(
       result: null,
       isLoading: false,
@@ -127,10 +123,7 @@ class AuthStateNotifier extends _$AuthStateNotifier {
   Future<void> loginWithGoogle() async {
     try {
       state = state.copyWith(isLoading: true);
-      print('DEBUG AUTH_STATE_NOTIFIER: LOGGING IN WITH GOOGLE');
       final AuthState res = await _authRepository.loginWithGoogle();
-      print(
-          'DEBUG AUTH_STATE_NOTIFIER: LOGGED IN WITH GOOGLE' + res.toString());
 
       if (res.result != AuthResult.success && res.userInfoModel?.id == null) {
         state = res;
@@ -146,13 +139,11 @@ class AuthStateNotifier extends _$AuthStateNotifier {
           .valueOrNull;
 
       if (userInfo == null) {
-        print('DEBUG AUTH_STATE_NOTIFIER: SAVING USER INFO');
         await saveUserInfo(
           userInfoModel: res.userInfoModel,
         );
         state = res;
       } else {
-        print('DEBUG AUTH_STATE_NOTIFIER: USER INFO ALREADY SAVED');
         state = state.copyWith(userInfoModel: userInfo);
       }
     } catch (e) {
@@ -184,17 +175,14 @@ class AuthStateNotifier extends _$AuthStateNotifier {
           .valueOrNull;
 
       if (userInfo == null) {
-        print('DEBUG AUTH_STATE_NOTIFIER: SAVING USER INFO');
         await saveUserInfo(
           userInfoModel: res.userInfoModel,
         );
         state = res;
       } else {
-        print('DEBUG AUTH_STATE_NOTIFIER: USER INFO ALREADY SAVED');
         state = state.copyWith(userInfoModel: userInfo);
       }
     } catch (e) {
-      print('Error logging in with Facebook: $e');
       state = AuthState(
         result: null,
         isLoading: false,
@@ -222,7 +210,6 @@ class AuthStateNotifier extends _$AuthStateNotifier {
 
   Widget userImage(bool isLogged) {
     if (isLogged) {
-      print('DEBUG USER IMAGE: ${state.userInfoModel!.profileImageUrl}');
       return ClipRRect(
         borderRadius: BorderRadius.circular(25),
         child: Image.network(
@@ -240,7 +227,6 @@ class AuthStateNotifier extends _$AuthStateNotifier {
   Future<List<TrackId>> fetchFavoriteTracks() async {
     final id = state.userInfoModel?.id;
     if (id == null) {
-      print('DEBUG FAVORITE TRACKS: USER ID IS NULL');
       return [];
     }
     final AsyncValue<UserInfoModel> userInfoModel =

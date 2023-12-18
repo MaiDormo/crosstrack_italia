@@ -34,7 +34,6 @@ class UserInfoStorage extends _$UserInfoStorage {
           .get();
 
       if (userInfo.docs.isNotEmpty) {
-        print('DEBUG: user info already exists');
         state = true;
         return;
       }
@@ -48,7 +47,7 @@ class UserInfoStorage extends _$UserInfoStorage {
           .add(payload);
       state = true;
     } catch (e) {
-      print('DEBUG: $e');
+      print('Error saving user info: $e');
       state = false;
     }
   }
