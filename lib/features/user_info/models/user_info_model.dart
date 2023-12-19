@@ -20,7 +20,9 @@ class UserInfoModel with _$UserInfoModel {
     @Default([])
     List<TrackId>? favoriteTracks,
     @Default(false) bool isOwner,
-    @Default([]) List<TrackId>? ownedTracks,
+    @JsonKey(name: FirebaseFieldName.ownedTracks)
+    @Default([])
+    List<TrackId>? ownedTracks,
   }) = _UserInfoModel;
 
   const UserInfoModel._();

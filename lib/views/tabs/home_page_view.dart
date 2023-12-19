@@ -10,12 +10,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});
-  static List<Widget> widgetList = [
+
+  static const List<Widget> widgetList = [
     MapScreen(),
-    // NewsView(),
     TrackAction(),
     SettingsPageView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -30,23 +31,28 @@ class HomePageView extends StatelessWidget {
               const TopBar(),
               const SizedBox(height: 5),
               //middle of the screen
-              Consumer(
-                builder: (context, ref, child) {
-                  final navIndex = ref.watch(navNotifierProvider).index;
-                  return Expanded(
-                    child: IndexedStack(
-                      index: navIndex,
-                      children: widgetList,
-                    ),
-                  );
-                },
-              ),
+              const NavigationIndexedStack(),
               const SizedBox(height: 5),
               //bottom of the screen
               const BottomBar(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class NavigationIndexedStack extends ConsumerWidget {
+  const NavigationIndexedStack({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final navIndex = ref.watch(navNotifierProvider).index;
+    return Expanded(
+      child: IndexedStack(
+        index: navIndex,
+        children: HomePageView.widgetList,
       ),
     );
   }

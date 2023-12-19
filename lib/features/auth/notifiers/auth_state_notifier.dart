@@ -237,4 +237,18 @@ class AuthStateNotifier extends _$AuthStateNotifier {
       error: (error, stackTrace) => [],
     );
   }
+
+  Future<List<TrackId>> fetchOwnedTracks() async {
+    final id = state.userInfoModel?.id;
+    if (id == null) {
+      return [];
+    }
+    final AsyncValue<UserInfoModel> userInfoModel =
+        await ref.watch(fetchUserInfoProvider(id));
+    return userInfoModel.when(
+      data: (value) => value.ownedTracks ?? [],
+      loading: () => [],
+      error: (error, stackTrace) => [],
+    );
+  }
 }

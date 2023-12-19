@@ -37,10 +37,6 @@ class SettingsPageView extends ConsumerWidget {
               ),
               settingsTile(
                   context, 'Cancella account', Icons.delete, () => null),
-              settingsTile(context, 'Cambia password', Icons.lock, () => null),
-              settingsTile(context, 'Cambia email', Icons.email, () => null),
-              settingsTile(
-                  context, 'Cambia username', Icons.person, () => null),
             ],
             context,
           ),

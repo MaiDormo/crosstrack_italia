@@ -29,6 +29,7 @@ mixin _$UserInfoModel {
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String>? get favoriteTracks => throw _privateConstructorUsedError;
   bool get isOwner => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String>? get ownedTracks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -51,7 +52,7 @@ abstract class $UserInfoModelCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String>? favoriteTracks,
       bool isOwner,
-      List<String>? ownedTracks});
+      @JsonKey(name: FirebaseFieldName.ownedTracks) List<String>? ownedTracks});
 }
 
 /// @nodoc
@@ -124,7 +125,7 @@ abstract class _$$UserInfoModelImplCopyWith<$Res>
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String>? favoriteTracks,
       bool isOwner,
-      List<String>? ownedTracks});
+      @JsonKey(name: FirebaseFieldName.ownedTracks) List<String>? ownedTracks});
 }
 
 /// @nodoc
@@ -191,6 +192,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String>? favoriteTracks = const [],
       this.isOwner = false,
+      @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String>? ownedTracks = const []})
       : _favoriteTracks = favoriteTracks,
         _ownedTracks = ownedTracks,
@@ -226,7 +228,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
   final bool isOwner;
   final List<String>? _ownedTracks;
   @override
-  @JsonKey()
+  @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String>? get ownedTracks {
     final value = _ownedTracks;
     if (value == null) return null;
@@ -295,6 +297,7 @@ abstract class _UserInfoModel extends UserInfoModel {
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String>? favoriteTracks,
       final bool isOwner,
+      @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String>? ownedTracks}) = _$UserInfoModelImpl;
   const _UserInfoModel._() : super._();
 
@@ -317,6 +320,7 @@ abstract class _UserInfoModel extends UserInfoModel {
   @override
   bool get isOwner;
   @override
+  @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String>? get ownedTracks;
   @override
   @JsonKey(ignore: true)

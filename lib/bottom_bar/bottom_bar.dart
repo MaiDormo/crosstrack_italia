@@ -12,24 +12,29 @@ class BottomBar extends ConsumerStatefulWidget {
 }
 
 class _BottomBarState extends ConsumerState<BottomBar> {
+  List<BottomNavigationBarItem> bottomNavigationBarItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    bottomNavigationBarItems = [
+      _createBottomNavigationBarItem(Icons.map, 'Mappa'),
+      _createBottomNavigationBarItem(Icons.sports_score, 'Tracciati'),
+      _createBottomNavigationBarItem(Icons.settings, 'Impostazioni'),
+    ];
+  }
+
+  BottomNavigationBarItem _createBottomNavigationBarItem(
+      IconData icon, String label) {
+    return BottomNavigationBarItem(
+      icon: Icon(icon),
+      label: label,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var navIndex = ref.watch(navNotifierProvider).index;
-
-    List<BottomNavigationBarItem> bottomNavigationBarItems = [
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.map),
-        label: 'Mappa',
-      ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.newspaper),
-        label: 'News',
-      ),
-      const BottomNavigationBarItem(
-        icon: Icon(Icons.settings),
-        label: 'Impostazioni',
-      ),
-    ];
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -38,12 +43,7 @@ class _BottomBarState extends ConsumerState<BottomBar> {
         bottom: 8.0,
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(20.0),
-          topRight: Radius.circular(20.0),
-          bottomLeft: Radius.circular(20.0),
-          bottomRight: Radius.circular(20.0),
-        ),
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         child: Theme(
           data: Theme.of(context).copyWith(
             splashColor: Colors.transparent,

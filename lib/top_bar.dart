@@ -1,3 +1,5 @@
+import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
+import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/geolocation_button.dart';
 import 'package:flutter/material.dart';
@@ -13,78 +15,76 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 8.0,
-        top: 8.0,
-        right: 8.0,
-      ),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
-        // padding: const EdgeInsets.all(1.0),
-        //add round edges for the bottom corners
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 8.0,
-            top: 8.0,
-            right: 8.0,
-          ),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Posizione Attuale:',
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.03,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      GeolocationButton(),
-                      LocationText(),
-                    ],
-                  )
-                ],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.2,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPageView()),
-                    );
-                  },
-                  icon: Consumer(
-                    builder: (context, ref, child) {
-                      final UserImage = ref.watch(userImageProvider);
-                      return UserImage.when(
-                        data: (data) => data,
-                        loading: () => const CircularProgressIndicator(),
-                        error: (error, stack) {
-                          return const Icon(Icons.error);
-                        },
-                      );
-                    },
-                  ),
-                  iconSize: MediaQuery.of(context).size.width * 0.07,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-              ),
+              LocationColumn(),
+              AuthIconButton(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LocationColumn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Posizione Attuale:',
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.03,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        Row(
+          children: [
+            GeolocationButton(),
+            LocationText(),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+class AuthIconButton extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AuthState authState = ref.watch(authStateNotifierProvider);
+    final UserImage = ref.watch(userImageProvider);
+
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: IconButton(
+        onPressed: () {
+          if (authState.result != AuthResult.success) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPageView()),
+            );
+          }
+        },
+        icon: UserImage.when(
+          data: (data) => data,
+          loading: () => const CircularProgressIndicator(),
+          error: (error, stack) {
+            return const Icon(Icons.error);
+          },
+        ),
+        iconSize: MediaQuery.of(context).size.width * 0.07,
+        color: Theme.of(context).colorScheme.tertiary,
       ),
     );
   }

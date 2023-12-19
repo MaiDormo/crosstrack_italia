@@ -5,6 +5,43 @@ import 'package:flutter/material.dart';
 class TrackAction extends StatelessWidget {
   const TrackAction({Key? key}) : super(key: key);
 
+  Widget _buildElevatedButton({
+    required IconData icon,
+    required String label,
+    required Color iconColor,
+    required Color backgroundColor,
+    required String heroTag,
+    required VoidCallback onPressed,
+  }) {
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton.icon(
+          icon: Hero(
+            tag: heroTag,
+            child: Icon(
+              icon,
+              size: 50,
+              color: iconColor,
+            ),
+          ),
+          label: Text(
+            label,
+            style: TextStyle(fontSize: 18),
+          ),
+          style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.white,
+            backgroundColor: backgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          onPressed: onPressed,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,71 +63,33 @@ class TrackAction extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton.icon(
-                  icon: Hero(
-                    tag: "track_selection_screen",
-                    child: Icon(
-                      Icons.compare_arrows,
-                      size: 50,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
-                  label: Text(
-                    'Confronto tracciati',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TrackSelectionScreen()),
-                    );
-                  },
-                ),
-              ),
+            _buildElevatedButton(
+              icon: Icons.compare_arrows,
+              label: 'Confronto tracciati',
+              iconColor: Theme.of(context).colorScheme.onPrimary,
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              heroTag: "track_selection_screen",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TrackSelectionScreen()),
+                );
+              },
             ),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton.icon(
-                  icon: Hero(
-                    tag: "favorite_tracks_screen",
-                    child: Icon(
-                      Icons.favorite,
-                      size: 50,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                  label: Text(
-                    'Tracciati Favoriti',
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FavoriteTracksScreen()),
-                    );
-                  },
-                ),
-              ),
+            _buildElevatedButton(
+              icon: Icons.favorite,
+              label: 'Tracciati Favoriti',
+              iconColor: Theme.of(context).colorScheme.primary,
+              backgroundColor: Colors.white,
+              heroTag: "favorite_tracks_screen",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const FavoriteTracksScreen()),
+                );
+              },
             ),
           ],
         ),

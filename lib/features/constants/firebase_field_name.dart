@@ -11,6 +11,7 @@ class FirebaseFieldName {
   static const email = 'email';
   static const profileImageUrl = 'profile_image_url';
   static const favoriteTracks = 'tracciati_favoriti';
+  static const ownedTracks = 'tracciati_posseduti';
 
   //track info
   static const trackName = 'nome';

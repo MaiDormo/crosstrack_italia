@@ -19,6 +19,7 @@ FavoriteTracksService favoriteTracksService(FavoriteTracksServiceRef ref) {
 class FavoriteTracksNotifier extends _$FavoriteTracksNotifier {
   late final FavoriteTracksService _service;
 
+  @override
   Future<List<TrackId>> build() async {
     _service = ref.watch(favoriteTracksServiceProvider);
     return await _service.getFavoriteTracks();

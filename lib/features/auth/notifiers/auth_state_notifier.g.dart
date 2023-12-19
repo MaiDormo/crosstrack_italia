@@ -229,7 +229,7 @@ final fetchFavoriteTracksProvider =
 );
 
 typedef FetchFavoriteTracksRef = AutoDisposeFutureProviderRef<List<TrackId>>;
-String _$authStateNotifierHash() => r'683578e191e3e943263993665f07eff3cc33e2e8';
+String _$authStateNotifierHash() => r'022ee938a36a4506c118d76d4f0d6c973cc80fc5';
 
 /// See also [AuthStateNotifier].
 @ProviderFor(AuthStateNotifier)

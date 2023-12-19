@@ -25,7 +25,7 @@ final favoriteTracksServiceProvider =
 typedef FavoriteTracksServiceRef
     = AutoDisposeProviderRef<FavoriteTracksService>;
 String _$favoriteTracksNotifierHash() =>
-    r'1af66c0fe29435ffcdb074685ce1ec2077fc5947';
+    r'de7c4a0851b4f56400a5a8106a63c373d829ca48';
 
 /// See also [FavoriteTracksNotifier].
 @ProviderFor(FavoriteTracksNotifier)
