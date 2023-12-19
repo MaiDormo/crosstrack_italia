@@ -8,7 +8,7 @@ class TrackAction extends StatelessWidget {
   Widget _buildElevatedButton({
     required IconData icon,
     required String label,
-    required Color iconColor,
+    required Color foregroudColor,
     required Color backgroundColor,
     required String heroTag,
     required VoidCallback onPressed,
@@ -22,12 +22,15 @@ class TrackAction extends StatelessWidget {
             child: Icon(
               icon,
               size: 50,
-              color: iconColor,
+              color: foregroudColor,
             ),
           ),
           label: Text(
             label,
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(
+              fontSize: 18,
+              color: foregroudColor,
+            ),
           ),
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
@@ -53,7 +56,7 @@ class TrackAction extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
+              color: Colors.white.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 7,
               offset: Offset(0, 3),
@@ -66,7 +69,7 @@ class TrackAction extends StatelessWidget {
             _buildElevatedButton(
               icon: Icons.compare_arrows,
               label: 'Confronto tracciati',
-              iconColor: Theme.of(context).colorScheme.onPrimary,
+              foregroudColor: Theme.of(context).colorScheme.onPrimary,
               backgroundColor: Theme.of(context).colorScheme.primary,
               heroTag: "track_selection_screen",
               onPressed: () {
@@ -80,7 +83,7 @@ class TrackAction extends StatelessWidget {
             _buildElevatedButton(
               icon: Icons.favorite,
               label: 'Tracciati Favoriti',
-              iconColor: Theme.of(context).colorScheme.primary,
+              foregroudColor: Theme.of(context).colorScheme.primary,
               backgroundColor: Colors.white,
               heroTag: "favorite_tracks_screen",
               onPressed: () {
