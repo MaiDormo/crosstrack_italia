@@ -11,6 +11,10 @@ class Forecast with _$Forecast {
   }) = _Forecast;
 
   factory Forecast.fromAPI(List<Weather> weatherList) {
+    if (weatherList.isEmpty) {
+      return Forecast(list: []);
+    }
+
     int days = 5;
     int intervalsPerDay = 8; // 24 hours / 3 hours per interval
 

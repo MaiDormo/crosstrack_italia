@@ -28,6 +28,8 @@ mixin _$UserInfoModel {
   String? get profileImageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String>? get favoriteTracks => throw _privateConstructorUsedError;
+  bool get isOwner => throw _privateConstructorUsedError;
+  List<String>? get ownedTracks => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +49,9 @@ abstract class $UserInfoModelCopyWith<$Res> {
       String? email,
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
-      List<String>? favoriteTracks});
+      List<String>? favoriteTracks,
+      bool isOwner,
+      List<String>? ownedTracks});
 }
 
 /// @nodoc
@@ -68,6 +72,8 @@ class _$UserInfoModelCopyWithImpl<$Res, $Val extends UserInfoModel>
     Object? email = freezed,
     Object? profileImageUrl = freezed,
     Object? favoriteTracks = freezed,
+    Object? isOwner = null,
+    Object? ownedTracks = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -90,6 +96,14 @@ class _$UserInfoModelCopyWithImpl<$Res, $Val extends UserInfoModel>
           ? _value.favoriteTracks
           : favoriteTracks // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      isOwner: null == isOwner
+          ? _value.isOwner
+          : isOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownedTracks: freezed == ownedTracks
+          ? _value.ownedTracks
+          : ownedTracks // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -108,7 +122,9 @@ abstract class _$$UserInfoModelImplCopyWith<$Res>
       String? email,
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
-      List<String>? favoriteTracks});
+      List<String>? favoriteTracks,
+      bool isOwner,
+      List<String>? ownedTracks});
 }
 
 /// @nodoc
@@ -127,6 +143,8 @@ class __$$UserInfoModelImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? profileImageUrl = freezed,
     Object? favoriteTracks = freezed,
+    Object? isOwner = null,
+    Object? ownedTracks = freezed,
   }) {
     return _then(_$UserInfoModelImpl(
       id: null == id
@@ -149,6 +167,14 @@ class __$$UserInfoModelImplCopyWithImpl<$Res>
           ? _value._favoriteTracks
           : favoriteTracks // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      isOwner: null == isOwner
+          ? _value.isOwner
+          : isOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownedTracks: freezed == ownedTracks
+          ? _value._ownedTracks
+          : ownedTracks // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -163,8 +189,11 @@ class _$UserInfoModelImpl extends _UserInfoModel {
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
       this.profileImageUrl = '',
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
-      final List<String>? favoriteTracks = const []})
+      final List<String>? favoriteTracks = const [],
+      this.isOwner = false,
+      final List<String>? ownedTracks = const []})
       : _favoriteTracks = favoriteTracks,
+        _ownedTracks = ownedTracks,
         super._();
 
   factory _$UserInfoModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -193,8 +222,22 @@ class _$UserInfoModelImpl extends _UserInfoModel {
   }
 
   @override
+  @JsonKey()
+  final bool isOwner;
+  final List<String>? _ownedTracks;
+  @override
+  @JsonKey()
+  List<String>? get ownedTracks {
+    final value = _ownedTracks;
+    if (value == null) return null;
+    if (_ownedTracks is EqualUnmodifiableListView) return _ownedTracks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   String toString() {
-    return 'UserInfoModel(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl, favoriteTracks: $favoriteTracks)';
+    return 'UserInfoModel(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl, favoriteTracks: $favoriteTracks, isOwner: $isOwner, ownedTracks: $ownedTracks)';
   }
 
   @override
@@ -209,13 +252,23 @@ class _$UserInfoModelImpl extends _UserInfoModel {
             (identical(other.profileImageUrl, profileImageUrl) ||
                 other.profileImageUrl == profileImageUrl) &&
             const DeepCollectionEquality()
-                .equals(other._favoriteTracks, _favoriteTracks));
+                .equals(other._favoriteTracks, _favoriteTracks) &&
+            (identical(other.isOwner, isOwner) || other.isOwner == isOwner) &&
+            const DeepCollectionEquality()
+                .equals(other._ownedTracks, _ownedTracks));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, displayName, email,
-      profileImageUrl, const DeepCollectionEquality().hash(_favoriteTracks));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      displayName,
+      email,
+      profileImageUrl,
+      const DeepCollectionEquality().hash(_favoriteTracks),
+      isOwner,
+      const DeepCollectionEquality().hash(_ownedTracks));
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +293,9 @@ abstract class _UserInfoModel extends UserInfoModel {
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
       final String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
-      final List<String>? favoriteTracks}) = _$UserInfoModelImpl;
+      final List<String>? favoriteTracks,
+      final bool isOwner,
+      final List<String>? ownedTracks}) = _$UserInfoModelImpl;
   const _UserInfoModel._() : super._();
 
   factory _UserInfoModel.fromJson(Map<String, dynamic> json) =
@@ -259,6 +314,10 @@ abstract class _UserInfoModel extends UserInfoModel {
   @override
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String>? get favoriteTracks;
+  @override
+  bool get isOwner;
+  @override
+  List<String>? get ownedTracks;
   @override
   @JsonKey(ignore: true)
   _$$UserInfoModelImplCopyWith<_$UserInfoModelImpl> get copyWith =>

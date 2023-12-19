@@ -16,6 +16,11 @@ _$UserInfoModelImpl _$$UserInfoModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      isOwner: json['isOwner'] as bool? ?? false,
+      ownedTracks: (json['ownedTracks'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
@@ -25,4 +30,6 @@ Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
       'email': instance.email,
       'profile_image_url': instance.profileImageUrl,
       'tracciati_favoriti': instance.favoriteTracks,
+      'isOwner': instance.isOwner,
+      'ownedTracks': instance.ownedTracks,
     };
