@@ -7,19 +7,17 @@ part 'weather_info.freezed.dart';
 class WeatherInfo with _$WeatherInfo {
   factory WeatherInfo({
     required String date,
-    required String hour,
     required String iconUrl,
     required String temperature,
+    required String weatherCondition,
   }) = _WeatherInfo;
 
   factory WeatherInfo.fromAPI(Weather weather) => WeatherInfo(
         date:
             weather.date!.day.toString() + '/' + weather.date!.month.toString(),
-        hour: weather.date!.hour.toString() +
-            ':' +
-            weather.date!.minute.toString(),
         iconUrl: weather.weatherIcon!,
         temperature: weather.temperature!.celsius!.floor().toString() + '°C',
+        weatherCondition: weather.weatherMain!,
       );
 }
 

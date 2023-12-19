@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$WeatherInfo {
   String get date => throw _privateConstructorUsedError;
-  String get hour => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
   String get temperature => throw _privateConstructorUsedError;
+  String get weatherCondition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WeatherInfoCopyWith<WeatherInfo> get copyWith =>
@@ -32,7 +32,11 @@ abstract class $WeatherInfoCopyWith<$Res> {
           WeatherInfo value, $Res Function(WeatherInfo) then) =
       _$WeatherInfoCopyWithImpl<$Res, WeatherInfo>;
   @useResult
-  $Res call({String date, String hour, String iconUrl, String temperature});
+  $Res call(
+      {String date,
+      String iconUrl,
+      String temperature,
+      String weatherCondition});
 }
 
 /// @nodoc
@@ -49,18 +53,14 @@ class _$WeatherInfoCopyWithImpl<$Res, $Val extends WeatherInfo>
   @override
   $Res call({
     Object? date = null,
-    Object? hour = null,
     Object? iconUrl = null,
     Object? temperature = null,
+    Object? weatherCondition = null,
   }) {
     return _then(_value.copyWith(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
               as String,
       iconUrl: null == iconUrl
           ? _value.iconUrl
@@ -69,6 +69,10 @@ class _$WeatherInfoCopyWithImpl<$Res, $Val extends WeatherInfo>
       temperature: null == temperature
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
+              as String,
+      weatherCondition: null == weatherCondition
+          ? _value.weatherCondition
+          : weatherCondition // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -82,7 +86,11 @@ abstract class _$$WeatherInfoImplCopyWith<$Res>
       __$$WeatherInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String date, String hour, String iconUrl, String temperature});
+  $Res call(
+      {String date,
+      String iconUrl,
+      String temperature,
+      String weatherCondition});
 }
 
 /// @nodoc
@@ -97,18 +105,14 @@ class __$$WeatherInfoImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? date = null,
-    Object? hour = null,
     Object? iconUrl = null,
     Object? temperature = null,
+    Object? weatherCondition = null,
   }) {
     return _then(_$WeatherInfoImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
               as String,
       iconUrl: null == iconUrl
           ? _value.iconUrl
@@ -117,6 +121,10 @@ class __$$WeatherInfoImplCopyWithImpl<$Res>
       temperature: null == temperature
           ? _value.temperature
           : temperature // ignore: cast_nullable_to_non_nullable
+              as String,
+      weatherCondition: null == weatherCondition
+          ? _value.weatherCondition
+          : weatherCondition // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -127,22 +135,22 @@ class __$$WeatherInfoImplCopyWithImpl<$Res>
 class _$WeatherInfoImpl implements _WeatherInfo {
   _$WeatherInfoImpl(
       {required this.date,
-      required this.hour,
       required this.iconUrl,
-      required this.temperature});
+      required this.temperature,
+      required this.weatherCondition});
 
   @override
   final String date;
   @override
-  final String hour;
-  @override
   final String iconUrl;
   @override
   final String temperature;
+  @override
+  final String weatherCondition;
 
   @override
   String toString() {
-    return 'WeatherInfo(date: $date, hour: $hour, iconUrl: $iconUrl, temperature: $temperature)';
+    return 'WeatherInfo(date: $date, iconUrl: $iconUrl, temperature: $temperature, weatherCondition: $weatherCondition)';
   }
 
   @override
@@ -151,15 +159,16 @@ class _$WeatherInfoImpl implements _WeatherInfo {
         (other.runtimeType == runtimeType &&
             other is _$WeatherInfoImpl &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.hour, hour) || other.hour == hour) &&
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.temperature, temperature) ||
-                other.temperature == temperature));
+                other.temperature == temperature) &&
+            (identical(other.weatherCondition, weatherCondition) ||
+                other.weatherCondition == weatherCondition));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, date, hour, iconUrl, temperature);
+      Object.hash(runtimeType, date, iconUrl, temperature, weatherCondition);
 
   @JsonKey(ignore: true)
   @override
@@ -171,18 +180,18 @@ class _$WeatherInfoImpl implements _WeatherInfo {
 abstract class _WeatherInfo implements WeatherInfo {
   factory _WeatherInfo(
       {required final String date,
-      required final String hour,
       required final String iconUrl,
-      required final String temperature}) = _$WeatherInfoImpl;
+      required final String temperature,
+      required final String weatherCondition}) = _$WeatherInfoImpl;
 
   @override
   String get date;
   @override
-  String get hour;
-  @override
   String get iconUrl;
   @override
   String get temperature;
+  @override
+  String get weatherCondition;
   @override
   @JsonKey(ignore: true)
   _$$WeatherInfoImplCopyWith<_$WeatherInfoImpl> get copyWith =>

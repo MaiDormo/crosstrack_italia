@@ -11,8 +11,13 @@ class Forecast with _$Forecast {
   }) = _Forecast;
 
   factory Forecast.fromAPI(List<Weather> weatherList) {
+    int days = 5;
+    int intervalsPerDay = 8; // 24 hours / 3 hours per interval
+
     return Forecast(
-      list: weatherList.map((weather) => WeatherInfo.fromAPI(weather)).toList(),
+      list: List.generate(days, (i) => i * intervalsPerDay)
+          .map((index) => WeatherInfo.fromAPI(weatherList[index]))
+          .toList(),
     );
   }
 }

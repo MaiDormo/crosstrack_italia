@@ -58,8 +58,8 @@ class WeatherWidget extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
       children: [
-        for (var i = 0; i < forecast.list.length; i += 8)
-          Expanded(
+        ...forecast.list.map(
+          (weather) => Expanded(
             child: Card(
               color: Colors.lightBlue[100],
               child: Column(
@@ -67,27 +67,20 @@ class WeatherWidget extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    forecast.list[i].date,
+                    weather.date,
                     style: TextStyle(
                       fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   //hour
-                  Text(
-                    forecast.list[i].hour,
-                    style: TextStyle(
-                      fontSize: 16 * heightFactor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   Image.network(
-                    'https://openweathermap.org/img/wn/${forecast.list[i].iconUrl}.png',
+                    'https://openweathermap.org/img/wn/${weather.iconUrl}.png',
                     height: 50 * heightFactor,
                     width: 50 * heightFactor,
                   ),
                   Text(
-                    forecast.list[i].temperature,
+                    weather.temperature,
                     style: TextStyle(
                       fontSize: 16 * heightFactor,
                       fontWeight: FontWeight.bold,
@@ -97,6 +90,7 @@ class WeatherWidget extends ConsumerWidget {
               ),
             ),
           ),
+        ),
       ],
     );
   }
