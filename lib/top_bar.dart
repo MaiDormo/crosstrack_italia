@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/geolocation_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

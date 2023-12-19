@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:crosstrack_italia/common/utils.dart';
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
 import 'package:crosstrack_italia/features/track/backend/track_repository.dart';

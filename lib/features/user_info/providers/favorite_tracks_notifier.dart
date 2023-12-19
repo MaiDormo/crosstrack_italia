@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/favorite_tracks_service.dart';
 import 'package:crosstrack_italia/providers/firebase_providers.dart';

@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/common/shared_preferences.dart';
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/splash_screen.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';

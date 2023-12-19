@@ -1,6 +1,8 @@
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/favorite_tracks_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TrackAction extends StatelessWidget {
   const TrackAction({Key? key}) : super(key: key);
@@ -94,6 +96,23 @@ class TrackAction extends StatelessWidget {
                 );
               },
             ),
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                final isOwner = ref.watch(isOwnerProvider);
+                return Visibility(
+                  ///TODO: add correct condition
+                  visible: isOwner,
+                  child: _buildElevatedButton(
+                    icon: Icons.info,
+                    label: 'Gestione Tracciati',
+                    foregroudColor: Theme.of(context).colorScheme.onPrimary,
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    heroTag: "track_management_screen",
+                    onPressed: () => null,
+                  ),
+                );
+              },
+            )
           ],
         ),
       ),

@@ -56,7 +56,7 @@ class SettingsPageView extends ConsumerWidget {
               settingsTile(
                 context,
                 'Gestisci i tuoi tracciati',
-                Icons.track_changes,
+                Icons.edit,
                 () => Navigator.push(
                   context,
                   MaterialPageRoute(
