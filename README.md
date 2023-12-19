@@ -1,16 +1,22 @@
-# crosstrack_italia
+# Crosstrack Italia
 
-A new Flutter project.
+This is a Flutter application for tracking cross-country races in Italy.
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+1. Clone the repository: `git clone https://github.com/yourusername/crosstrack_italia.git`
+2. Navigate into the project directory: `cd crosstrack_italia`
+3. Install dependencies: `flutter pub get`
+4. Run the app: `flutter run`
 
-A few resources to get you started if this is your first Flutter project:
+## Usage
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Explain how to use your app here. Include screenshots or gifs for clarity.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Testing
+
+To run tests, use the following command: `flutter test`
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
