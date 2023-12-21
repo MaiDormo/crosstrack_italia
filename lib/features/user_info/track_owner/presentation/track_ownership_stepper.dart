@@ -61,11 +61,11 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
               },
               steps: [
                 Step(
-                  title: const Text('Do you own a track?'),
-                  content: Text('Please confirm if you own a track.'),
+                  title: const Text('Possiedi un tracciato?'),
+                  content: Text('Conferma che possiedi un tracciato.'),
                 ),
                 Step(
-                  title: const Text('Select your tracks'),
+                  title: const Text('Seleziona i tracciati che possiedi'),
                   content: allTracks.when(
                     data: (value) => Container(
                       height: MediaQuery.of(context).size.height * 0.5,
@@ -101,9 +101,36 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
                   ),
                 ),
                 Step(
-                  title: const Text('Modify your tracks'),
-                  content: Text('Here is how you can modify your tracks.'),
-                ),
+                  title: const Text('Modifica i tuoi tracciati'),
+                  content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text:
+                                'Puoi modificare i tuoi tracciati premendo:\n',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          TextSpan(
+                            text:
+                                'Tracciati > Gestione Tracciati > Tracciato che vuole modificare',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.blue),
+                          ),
+                          TextSpan(
+                            text: '.',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                  ),
+                )
               ],
             ),
           AsyncError(:final error) => Center(
