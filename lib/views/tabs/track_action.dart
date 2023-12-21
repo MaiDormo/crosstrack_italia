@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/favorite_tracks_screen.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/owned_tracks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -108,7 +109,12 @@ class TrackAction extends StatelessWidget {
                     foregroudColor: Theme.of(context).colorScheme.onPrimary,
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     heroTag: "track_management_screen",
-                    onPressed: () => null,
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OwnedTracksScreen(),
+                      ),
+                    ),
                   ),
                 );
               },

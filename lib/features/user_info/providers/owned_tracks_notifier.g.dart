@@ -7,7 +7,7 @@ part of 'owned_tracks_notifier.dart';
 // **************************************************************************
 
 String _$ownedTracksServiceHash() =>
-    r'71077ed29169801dc6fa6a4df341d86939f45d48';
+    r'aea68b70ca86e333f4ce53aaa5ff00985cb1d3b1';
 
 /// See also [ownedTracksService].
 @ProviderFor(ownedTracksService)
@@ -24,7 +24,7 @@ final ownedTracksServiceProvider =
 
 typedef OwnedTracksServiceRef = AutoDisposeProviderRef<OwnedTracksService>;
 String _$ownedTracksNotifierHash() =>
-    r'2aa65c503b3833f2a984d3ebdb8fb87bffa809be';
+    r'eed543b760856382b41a92abdbe2a73e161f9ed9';
 
 /// See also [OwnedTracksNotifier].
 @ProviderFor(OwnedTracksNotifier)

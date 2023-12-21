@@ -9,7 +9,7 @@ part 'owned_tracks_notifier.g.dart';
 @riverpod
 OwnedTracksService ownedTracksService(OwnedTracksServiceRef ref) {
   final _firestore = ref.watch(firestoreProvider);
-  final _userId = ref.watch(userIdProvider)!;
+  final _userId = ref.watch(userIdProvider);
   return OwnedTracksService(firestore: _firestore, userId: _userId);
 }
 
@@ -23,8 +23,8 @@ class OwnedTracksNotifier extends _$OwnedTracksNotifier {
     return await _service.getOwnedTracks();
   }
 
-  Future<void> addTrack(TrackId trackId) async {
-    await _service.addTrack(trackId);
+  Future<void> addTracks(List<TrackId> trackIds) async {
+    await _service.addTracks(trackIds);
     state = AsyncData(await _service.getOwnedTracks());
   }
 

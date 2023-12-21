@@ -8,16 +8,17 @@ part 'favorite_tracks_notifier.g.dart';
 
 @riverpod
 FavoriteTracksService favoriteTracksService(FavoriteTracksServiceRef ref) {
-  final _userId = ref.watch(userIdProvider);
   final _firestore = ref.watch(firestoreProvider);
-  return _userId != null
+  final _userId = ref.watch(userIdProvider);
+  final _isLogged = ref.watch(isLoggedInProvider);
+  return _isLogged
       ? FirebaseFavoriteTracksService(firestore: _firestore, userId: _userId)
       : SharedPrefsFavoriteTracksService();
 }
 
 @riverpod
 class FavoriteTracksNotifier extends _$FavoriteTracksNotifier {
-  late final FavoriteTracksService _service;
+  late FavoriteTracksService _service;
 
   @override
   Future<List<TrackId>> build() async {

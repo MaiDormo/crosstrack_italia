@@ -12,7 +12,7 @@ class OwnedTracksService {
       : _firestore = firestore,
         _userId = userId;
 
-  Future<void> addTrack(TrackId trackId) {
+  Future<void> addTracks(List<TrackId> trackIds) {
     return _firestore.runTransaction((transaction) async {
       final userQuery = _firestore
           .collection(FirebaseCollectionName.users)
@@ -29,7 +29,7 @@ class OwnedTracksService {
 
       List<dynamic> ownedTracks =
           userDocSnapshot.get(FirebaseFieldName.ownedTracks) ?? [];
-      ownedTracks.add(trackId);
+      ownedTracks.addAll(trackIds);
       transaction
           .update(userDocRef, {FirebaseFieldName.ownedTracks: ownedTracks});
     });

@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/user_info/track_owner/presentation/track_ownership_stepper.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
 import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
@@ -50,22 +51,28 @@ class SettingsPageView extends ConsumerWidget {
             ],
             context,
           ),
-          settingsSection(
-            'Gestione Tracciato',
-            [
-              settingsTile(
-                context,
-                'Gestisci i tuoi tracciati',
-                Icons.edit,
-                () => Navigator.push(
+          Visibility(
+            //user has to be logged in to see this section
+            visible: ref.watch(
+              isLoggedInProvider,
+            ),
+            child: settingsSection(
+              'Gestione Tracciato',
+              [
+                settingsTile(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => TrackOwnershipStepper(),
+                  'Gestisci i tuoi tracciati',
+                  Icons.edit,
+                  () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TrackOwnershipStepper(),
+                    ),
                   ),
                 ),
-              ),
-            ],
-            context,
+              ],
+              context,
+            ),
           ),
         ],
       ),

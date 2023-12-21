@@ -1,12 +1,23 @@
+import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TrackOwnershipStepper extends StatefulWidget {
+class TrackOwnershipStepper extends ConsumerStatefulWidget {
   @override
   _TrackOwnershipStepperState createState() => _TrackOwnershipStepperState();
 }
 
-class _TrackOwnershipStepperState extends State<TrackOwnershipStepper> {
+class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
   int _currentStep = 0;
+  final Set<Track> _selectedTracks = {};
+  late final AsyncValue<Iterable<Track>> allTracks =
+      ref.watch(fetchAllTracksProvider);
+  late AsyncValue<UserInfoModel> _userState =
+      ref.watch(userStateNotifierProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -15,35 +26,96 @@ class _TrackOwnershipStepperState extends State<TrackOwnershipStepper> {
         appBar: AppBar(
           title: const Text('Gestione Tracciato'),
         ),
-        body: Stepper(
-          currentStep: _currentStep,
-          onStepContinue: () {
-            if (_currentStep >= 2) return;
-            setState(() {
-              _currentStep += 1;
-            });
-          },
-          onStepCancel: () {
-            if (_currentStep <= 0) return;
-            setState(() {
-              _currentStep -= 1;
-            });
-          },
-          steps: [
-            Step(
-              title: const Text('Do you own a track?'),
-              content: Text('Please confirm if you own a track.'),
+        body: switch (_userState) {
+          AsyncData(:final value) => Stepper(
+              currentStep: _currentStep,
+              onStepContinue: () {
+                if (_currentStep == 2) {
+                  if (value.isOwner != true) {
+                    ref.read(userStateNotifierProvider.notifier).makeOwner(
+                          _selectedTracks.map((track) => track.id).toList(),
+                        );
+                  } else {
+                    ref.read(ownedTracksNotifierProvider.notifier).addTracks(
+                          _selectedTracks.map((track) => track.id).toList(),
+                        );
+                  }
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          '${_selectedTracks.length} tracciati aggiunti ai tuoi posseduti'),
+                    ),
+                  );
+                }
+
+                if (_currentStep >= 2) return;
+                setState(() {
+                  _currentStep += 1;
+                });
+              },
+              onStepCancel: () {
+                if (_currentStep <= 0) return;
+                setState(() {
+                  _currentStep -= 1;
+                });
+              },
+              steps: [
+                Step(
+                  title: const Text('Do you own a track?'),
+                  content: Text('Please confirm if you own a track.'),
+                ),
+                Step(
+                  title: const Text('Select your tracks'),
+                  content: allTracks.when(
+                    data: (value) => Container(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: ListView.builder(
+                        itemCount: value.length,
+                        itemBuilder: (context, index) {
+                          final track = value.elementAt(index);
+                          return CheckboxListTile(
+                            title: Text(track.trackName),
+                            value: _selectedTracks.contains(track),
+                            onChanged: (bool? value) {
+                              setState(() {
+                                if (value == true) {
+                                  _selectedTracks.add(track);
+                                } else {
+                                  _selectedTracks.remove(track);
+                                }
+                              });
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    error: (error, _) => Center(
+                      child: Text(
+                        error.toString(),
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ),
+                ),
+                Step(
+                  title: const Text('Modify your tracks'),
+                  content: Text('Here is how you can modify your tracks.'),
+                ),
+              ],
             ),
-            Step(
-              title: const Text('Select your tracks'),
-              content: Text('Please select the tracks you own.'),
+          AsyncError(:final error) => Center(
+              child: Text(
+                'Error' + error.toString(),
+                style: const TextStyle(color: Colors.red),
+              ),
             ),
-            Step(
-              title: const Text('Modify your tracks'),
-              content: Text('Here is how you can modify your tracks.'),
+          _ => const Center(
+              child: CircularProgressIndicator(),
             ),
-          ],
-        ),
+        },
       ),
     );
   }

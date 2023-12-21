@@ -193,7 +193,7 @@ class TrackNotifier extends _$TrackNotifier {
     double rating,
   ) async {
     final String commentId = Uuid().v1();
-    final userId = ref.read(userIdProvider)!;
+    final userId = ref.read(userIdProvider);
     final Comment comment = Comment(
       commentId: commentId,
       id: id,

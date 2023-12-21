@@ -1,6 +1,3 @@
-import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
-import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/geolocation_button.dart';
 import 'package:flutter/material.dart';
@@ -63,27 +60,21 @@ class LocationColumn extends StatelessWidget {
 class AuthIconButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AuthState authState = ref.watch(authStateNotifierProvider);
-    final UserImage = ref.watch(userImageProvider);
+    final _isLogged = ref.watch(isLoggedInProvider);
+    final userImage = ref.watch(userImageProvider);
 
     return Container(
       width: MediaQuery.of(context).size.width * 0.2,
       child: IconButton(
         onPressed: () {
-          if (authState.result != AuthResult.success) {
+          if (!_isLogged) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const LoginPageView()),
             );
           }
         },
-        icon: UserImage.when(
-          data: (data) => data,
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stack) {
-            return const Icon(Icons.error);
-          },
-        ),
+        icon: userImage,
         iconSize: MediaQuery.of(context).size.width * 0.07,
         color: Theme.of(context).colorScheme.tertiary,
       ),
