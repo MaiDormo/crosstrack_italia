@@ -1,7 +1,6 @@
 import 'package:crosstrack_italia/features/auth/constants/constants.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -41,10 +40,10 @@ class FacebookAuthRepository {
     );
 
     try {
-      final user = await _firebaseAuth.signInWithCredential(
+      final _userCredentials = await _firebaseAuth.signInWithCredential(
         oauthCredentials,
       );
-      return _createAuthState(AuthResult.success, user);
+      return _createAuthState(AuthResult.success, _userCredentials.user);
     } on FirebaseAuthException catch (e) {
       return _handleFirebaseAuthException(e);
     } catch (e) {
@@ -56,14 +55,11 @@ class FacebookAuthRepository {
     await FacebookAuth.instance.logOut();
   }
 
-  AuthState _createAuthState(AuthResult result,
-      [UserCredential? userCredential]) {
+  AuthState _createAuthState(AuthResult result, [User? user]) {
     return AuthState(
       result: result,
       isLoading: false,
-      userInfoModel: userCredential != null
-          ? UserInfoModel.fromUserCredential(userCredential)
-          : null,
+      user: user,
     );
   }
 

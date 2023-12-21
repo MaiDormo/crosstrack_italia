@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_state_notifier.dart';
+part of 'user_state_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authStateNotifierHash() => r'a96301787f63baedc830979475cc1b1ed39679a2';
+String _$userStateNotifierHash() => r'055f66188d80eceba35f427e6d5d2f1263febe6d';
 
-/// See also [AuthStateNotifier].
-@ProviderFor(AuthStateNotifier)
-final authStateNotifierProvider =
-    AutoDisposeStreamNotifierProvider<AuthStateNotifier, AuthState>.internal(
-  AuthStateNotifier.new,
-  name: r'authStateNotifierProvider',
+/// See also [UserStateNotifier].
+@ProviderFor(UserStateNotifier)
+final userStateNotifierProvider = AutoDisposeStreamNotifierProvider<
+    UserStateNotifier, UserInfoModel>.internal(
+  UserStateNotifier.new,
+  name: r'userStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$authStateNotifierHash,
+      : _$userStateNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$AuthStateNotifier = AutoDisposeStreamNotifier<AuthState>;
+typedef _$UserStateNotifier = AutoDisposeStreamNotifier<UserInfoModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

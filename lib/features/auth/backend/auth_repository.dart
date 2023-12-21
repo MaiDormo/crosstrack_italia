@@ -29,7 +29,9 @@ class AuthRepository {
         _googleAuthRepository = googleAuthRepository,
         _facebookAuthRepository = facebookAuthRepository;
 
-  User? get user => _auth.currentUser;
+  User? get currentUser => _auth.currentUser;
+
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
 
   bool isLogged() {
     return _auth.currentUser != null;
@@ -42,7 +44,7 @@ class AuthRepository {
     return AuthState(
       result: null,
       isLoading: false,
-      userInfoModel: null,
+      user: null,
     );
   }
 

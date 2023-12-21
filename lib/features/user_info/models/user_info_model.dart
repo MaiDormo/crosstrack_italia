@@ -30,18 +30,20 @@ class UserInfoModel with _$UserInfoModel {
   factory UserInfoModel.fromJson(Map<String, dynamic> json) =>
       _$UserInfoModelFromJson(json);
 
-  factory UserInfoModel.fromUserCredential(UserCredential userCredential) =>
-      UserInfoModel(
-        id: userCredential.user!.uid,
-        displayName: userCredential.user!.displayName,
-        email: userCredential.user!.email,
-        profileImageUrl: userCredential.user!.photoURL,
-      );
-
   factory UserInfoModel.fromUser(User user) => UserInfoModel(
         id: user.uid,
         displayName: user.displayName,
         email: user.email,
         profileImageUrl: user.photoURL,
+      );
+
+  factory UserInfoModel.empty() => UserInfoModel(
+        id: '',
+        displayName: 'Guest',
+        email: '',
+        profileImageUrl: '',
+        favoriteTracks: [],
+        isOwner: false,
+        ownedTracks: [],
       );
 }

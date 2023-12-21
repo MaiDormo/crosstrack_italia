@@ -3,7 +3,6 @@ import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'google_auth_repository.g.dart';
@@ -33,10 +32,10 @@ class GoogleAuthRepository {
     );
 
     try {
-      final user = await _firebaseAuth.signInWithCredential(
+      final _userCredential = await _firebaseAuth.signInWithCredential(
         oauthCredentials,
       );
-      return _createAuthState(AuthResult.success, user);
+      return _createAuthState(AuthResult.success, _userCredential.user);
     } on FirebaseAuthException catch (e) {
       return _handleFirebaseAuthException(e);
     } catch (e) {
@@ -48,14 +47,11 @@ class GoogleAuthRepository {
     await GoogleSignIn().signOut();
   }
 
-  AuthState _createAuthState(AuthResult result,
-      [UserCredential? userCredential]) {
+  AuthState _createAuthState(AuthResult result, [User? user]) {
     return AuthState(
       result: result,
       isLoading: false,
-      userInfoModel: userCredential != null
-          ? UserInfoModel.fromUserCredential(userCredential)
-          : null,
+      user: user,
     );
   }
 
