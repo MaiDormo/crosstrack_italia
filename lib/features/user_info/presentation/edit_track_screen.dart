@@ -91,49 +91,6 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
       );
     }
 
-    Widget buildNumberField(List<String> numbers,
-        TextEditingController controller, String labelText) {
-      return ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: numbers.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  initialValue: numbers[index],
-                  decoration: InputDecoration(
-                    labelText: labelText,
-                  ),
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a $labelText';
-                    }
-                    // Add additional validation for numbers here
-                    return null;
-                  },
-                  onSaved: (newValue) {
-                    numbers[index] = newValue!;
-                  },
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () {
-                  setState(() {
-                    numbers.removeAt(index);
-                    controller.text = numbers.join(', ');
-                  });
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     Widget buildAddButton(List<String> numbers,
         TextEditingController controller, String buttonText) {
       return ElevatedButton(
