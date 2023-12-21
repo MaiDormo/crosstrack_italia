@@ -42,7 +42,7 @@ Widget buildPilotInfoCard(
                                   heightFactor),
                               'asi' => buildLicenseCard(
                                   'asi',
-                                  'assets/images/license_img/logo_motoasi.jpg',
+                                  'assets/images/license_img/logo-asi.jpg',
                                   heightFactor),
                               'csen' => buildLicenseCard(
                                   'csen',
