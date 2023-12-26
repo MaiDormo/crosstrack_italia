@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -19,15 +18,14 @@ class SplashScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FlutterLogo(
-                size: 100.0.w,
+                size: 100.0,
               ),
-              20.verticalSpace,
+              const SizedBox(height: 20.0),
               Text(
                 'My Awesome App',
-                style:
-                    TextStyle(fontSize: 20.0.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-              20.verticalSpace,
+              const SizedBox(height: 20.0),
               CircularProgressIndicator(),
             ],
           ),
