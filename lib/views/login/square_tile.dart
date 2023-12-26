@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SquareTile extends StatelessWidget {
@@ -31,10 +32,10 @@ class SquareTile extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const SizedBox(width: 5),
+            SizedBox(width: 5.w),
             SvgPicture.asset(
               imagePath,
-              height: 30,
+              height: 30.h,
               colorFilter: ColorFilter.mode(
                 Theme.of(context).colorScheme.primary,
                 BlendMode.srcIn,

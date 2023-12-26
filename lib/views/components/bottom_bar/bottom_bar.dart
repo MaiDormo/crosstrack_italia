@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/bottom_bar/nav_states/nav_notifier.dart';
+import 'package:crosstrack_italia/views/components/bottom_bar/nav_states/nav_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -4,6 +4,7 @@ import 'package:crosstrack_italia/features/user_info/presentation/favorite_track
 import 'package:crosstrack_italia/features/user_info/presentation/owned_tracks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrackAction extends StatelessWidget {
   const TrackAction({Key? key}) : super(key: key);
@@ -18,20 +19,20 @@ class TrackAction extends StatelessWidget {
   }) {
     return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0).w,
         child: ElevatedButton.icon(
           icon: Hero(
             tag: heroTag,
             child: Icon(
               icon,
-              size: 50,
+              size: 50.h,
               color: foregroudColor,
             ),
           ),
           label: Text(
             label,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 18.sp,
               color: foregroudColor,
             ),
           ),
@@ -60,8 +61,8 @@ class TrackAction extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.white.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
+              spreadRadius: 5.r,
+              blurRadius: 7.r,
               offset: Offset(0, 3),
             ),
           ],

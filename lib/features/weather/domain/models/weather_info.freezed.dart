@@ -154,7 +154,7 @@ class _$WeatherInfoImpl implements _WeatherInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$WeatherInfoImpl &&

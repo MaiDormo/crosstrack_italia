@@ -1,9 +1,11 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/track_owner/presentation/track_ownership_stepper.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
 import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingsPageView extends ConsumerWidget {
@@ -25,7 +27,7 @@ class SettingsPageView extends ConsumerWidget {
         title: Text('Impostazioni'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0).w,
         children: [
           settingsSection(
             'Account',
@@ -37,7 +39,12 @@ class SettingsPageView extends ConsumerWidget {
                 () => shouldLogOut(context),
               ),
               settingsTile(
-                  context, 'Cancella account', Icons.delete, () => null),
+                  context,
+                  'Cancella account',
+                  Icons.delete,
+                  () => ref
+                      .read(userStateNotifierProvider.notifier)
+                      .deleteUserInfo()),
             ],
             context,
           ),
@@ -82,16 +89,16 @@ class SettingsPageView extends ConsumerWidget {
   Widget settingsSection(
       String title, List<Widget> children, BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 10.0).h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 8.0.h),
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context)
                     .primaryColor, // Use the primary color of the theme

@@ -24,7 +24,7 @@ final ownedTracksServiceProvider =
 
 typedef OwnedTracksServiceRef = AutoDisposeProviderRef<OwnedTracksService>;
 String _$ownedTracksNotifierHash() =>
-    r'eed543b760856382b41a92abdbe2a73e161f9ed9';
+    r'285dc5134964e45e87250f90d5798628e0923b3b';
 
 /// See also [OwnedTracksNotifier].
 @ProviderFor(OwnedTracksNotifier)

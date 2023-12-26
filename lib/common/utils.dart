@@ -20,7 +20,7 @@ Future<Image> getCompressedImage(String imageUrl) async {
     uint8list,
     minWidth: 300,
     minHeight: 300,
-    quality: 75,
+    quality: 80,
   );
   return Image.memory(compressedData);
 }

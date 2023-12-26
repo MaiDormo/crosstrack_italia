@@ -5,17 +5,6 @@ import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-///TODO: remove if not used
-// Card(
-//   color: Colors.amber[200],
-//   child: Padding(
-//     padding: const EdgeInsets.all(16.0),
-//     child: Column(
-//       children: [],
-//     ),
-//   ),
-// ),
-
 class TrackComparison extends StatelessWidget {
   final Track track1;
   final Track track2;

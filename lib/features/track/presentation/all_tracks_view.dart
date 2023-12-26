@@ -1,9 +1,5 @@
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/views/components/animations/empty_contents_with_text_animation_view.dart';
-import 'package:crosstrack_italia/views/components/animations/error_animation_view.dart';
-import 'package:crosstrack_italia/views/components/animations/loading_animation_view.dart';
-import 'package:crosstrack_italia/views/components/constants/strings.dart';
-import 'package:crosstrack_italia/views/components/tracks/tracks_list_view.dart';
+import 'package:crosstrack_italia/features/track/presentation/tracks_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -25,17 +21,17 @@ class AllTracksView extends ConsumerWidget {
       child: tracks.when(
         data: (tracks) {
           if (tracks.isEmpty) {
-            return const EmptyContentsWithTextAnimationView(
-              text: Strings.noTracksAvaiable,
-            );
+            return const Icon(Icons.question_mark);
           } else {
             return TracksListView(
               tracks: tracks,
             );
           }
         },
-        error: (error, stackTrace) => const ErrorAnimationView(),
-        loading: () => const LoadingAnimationView(),
+        error: (error, stackTrace) => const Icon(Icons.error),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
     );
   }

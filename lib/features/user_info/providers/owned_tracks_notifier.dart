@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/owned_tracks_service.dart';
 import 'package:crosstrack_italia/providers/firebase_providers.dart';
@@ -34,6 +35,11 @@ class OwnedTracksNotifier extends _$OwnedTracksNotifier {
   }
 
   Future<void> fetchOwnedTracks() async {
+    state = AsyncData(await _service.getOwnedTracks());
+  }
+
+  Future<void> updateTrackInfo(Track track) async {
+    await _service.updateTrackInfo(track);
     state = AsyncData(await _service.getOwnedTracks());
   }
 }

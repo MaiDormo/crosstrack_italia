@@ -119,4 +119,13 @@ class UserStateNotifier extends _$UserStateNotifier {
       return UserInfoModel.empty();
     }
   }
+
+  Future<void> deleteUserInfo() async {
+    await _userInfoStorage.deleteUserInfo();
+
+    ///TODO: find a actual fix for  this error
+    Future.delayed(const Duration(seconds: 1), () {
+      ref.read(authStateNotifierProvider.notifier).logOut();
+    });
+  }
 }

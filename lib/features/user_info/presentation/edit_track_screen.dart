@@ -1,5 +1,12 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/build_length_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/build_dropdown_button_form_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/build_list_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/build_text_field.dart';
+import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EditTrackScreen extends StatefulWidget {
   final Track track;
@@ -19,8 +26,10 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
   late TextEditingController _lengthController;
   late TextEditingController _hasMinicrossController;
   late TextEditingController _servicesController;
-  late TextEditingController _phonesController;
-  late TextEditingController _faxController;
+  late List<TextEditingController> _phoneControllers;
+  late List<TextEditingController> _faxControllers;
+  late List<String> _phoneNumbers;
+  late List<String> _faxNumbers;
   late TextEditingController _emailController;
   late TextEditingController _websiteController;
   late TextEditingController _infoController;
@@ -34,7 +43,8 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     _categoryController = TextEditingController(text: widget.track.category);
     _terrainTypeController =
         TextEditingController(text: widget.track.terrainType);
-    _lengthController = TextEditingController(text: widget.track.trackLength);
+    _lengthController = TextEditingController(
+        text: widget.track.trackLength.replaceFirst(' m', ''));
     _hasMinicrossController =
         TextEditingController(text: widget.track.hasMinicross);
     _servicesController = TextEditingController(
@@ -43,12 +53,14 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
               .join(', ') ??
           '',
     );
-    _phonesController = TextEditingController(
-      text: widget.track.phones.join(', '),
-    );
-    _faxController = TextEditingController(
-      text: widget.track.fax.join(', '),
-    );
+    _phoneNumbers = List<String>.from(widget.track.phones);
+    _phoneControllers = _phoneNumbers
+        .map((phoneNumber) => TextEditingController(text: phoneNumber))
+        .toList();
+    _faxNumbers = List<String>.from(widget.track.fax);
+    _faxControllers = _faxNumbers
+        .map((faxNumber) => TextEditingController(text: faxNumber))
+        .toList();
     _emailController = TextEditingController(text: widget.track.email);
     _websiteController = TextEditingController(text: widget.track.website);
     _infoController = TextEditingController(text: widget.track.info);
@@ -56,67 +68,129 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
   }
 
   @override
+  void dispose() {
+    _nameController.dispose();
+    _motoclubController.dispose();
+    _categoryController.dispose();
+    _terrainTypeController.dispose();
+    _lengthController.dispose();
+    _hasMinicrossController.dispose();
+    _servicesController.dispose();
+    _phoneControllers.forEach((controller) => controller.dispose());
+    _faxControllers.forEach((controller) => controller.dispose());
+    _emailController.dispose();
+    _websiteController.dispose();
+    _infoController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> _phoneNumbers = _phonesController.text.split(', ');
-    List<String> _faxNumbers = _faxController.text.split(', ');
+    bool _isUpdating = false;
     final List<String> categories = ['1', '2', '3', '4', '5'];
     final List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
 
-    Widget _buildAcceptedLicensesField() {
-      return ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: licenses.length,
-        itemBuilder: (context, index) {
-          String license = licenses[index];
-          return CheckboxListTile(
-            title: Text(license.toUpperCase()),
-            subtitle: Image.asset(
-              'assets/images/license_img/logo-$license.jpg',
-              height: 50,
-              width: 50,
-            ),
-            value: _selectedLicenses.contains(license),
-            onChanged: (bool? newValue) {
-              setState(() {
-                if (newValue == true) {
-                  _selectedLicenses.add(license);
-                } else {
-                  _selectedLicenses.remove(license);
-                }
-              });
-            },
-          );
-        },
-      );
-    }
-
-    Widget buildAddButton(List<String> numbers,
-        TextEditingController controller, String buttonText) {
+    Widget buildAddButton({
+      required List<String> numbers,
+      required String buttonText,
+      required List<TextEditingController> controllers,
+    }) {
       return ElevatedButton(
         child: Text(buttonText),
         onPressed: () {
           setState(() {
             numbers.add('');
-            controller.text = numbers.join(', ');
+            controllers.add(TextEditingController());
           });
         },
+      );
+    }
+
+    Widget _buildSaveButton(GlobalKey<FormState> formKey) {
+      return Consumer(
+        builder: (context, ref, child) => ElevatedButton(
+          onPressed: _isUpdating
+              ? null
+              : () async {
+                  if (formKey.currentState!.validate()) {
+                    setState(() {
+                      _isUpdating = true;
+                    });
+                    // Save the form fields in a Track object
+                    Track updatedTrack = widget.track.copyWith(
+                      trackName: _nameController.text,
+                      motoclub: _motoclubController.text,
+                      category: _categoryController.text,
+                      acceptedLicenses: _selectedLicenses.toList(),
+                      terrainType: _terrainTypeController.text,
+                      trackLength: _lengthController.text,
+                      hasMinicross: _hasMinicrossController.text,
+                      services:
+                          _servicesController.text.split(', ').asMap().map(
+                                (key, value) => MapEntry(
+                                  value.split(': ')[0].replaceAll(' ', '_'),
+                                  value.split(': ')[1],
+                                ),
+                              ),
+                      phones: _phoneControllers
+                          .map((controller) => controller.text)
+                          .toList(),
+                      fax: _faxControllers
+                          .map((controller) => controller.text)
+                          .toList(),
+                      email: _emailController.text,
+                      website: _websiteController.text,
+                      info: _infoController.text,
+                    );
+
+                    // Update the track in the data source
+                    await ref
+                        .read(ownedTracksNotifierProvider.notifier)
+                        .updateTrackInfo(updatedTrack);
+
+                    // Show a success message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                          content: Text('Tracciato modificato correttamente')),
+                    );
+
+                    setState(() {
+                      _isUpdating = false;
+                    });
+
+                    Navigator.pop(context);
+                  }
+                },
+          child:
+              _isUpdating ? CircularProgressIndicator() : Text('Save Changes'),
+        ),
       );
     }
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Edit Track'),
+          title: Text('Modifica Tracciato'),
         ),
         body: Form(
           key: _formKey,
           child: ListView(
             padding: EdgeInsets.all(16.0),
             children: <Widget>[
-              _buildTrackNameField(nameController: _nameController),
-              // Add the remaining TextFormField widgets here
-              _buildMotoclubField(motoclubController: _motoclubController),
+              buildTextField(
+                controller: _nameController,
+                labelText: 'Track Name',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a track name';
+                  }
+                  return null;
+                },
+              ),
+              buildTextField(
+                controller: _motoclubController,
+                labelText: 'Motoclub',
+              ),
               buildDropdownButtonFormField(
                 _categoryController.text.isEmpty
                     ? categories.first
@@ -129,10 +203,36 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                   });
                 },
               ),
-              _buildAcceptedLicensesField(),
-              _buildTerrainTypeField(
-                  terrainTypeController: _terrainTypeController),
-              _buildLengthField(lengthController: _lengthController),
+              buildListField(
+                items: licenses,
+                labelText: 'Accepted Licenses',
+                itemBuilder: (context, index) {
+                  String license = licenses[index];
+                  return CheckboxListTile(
+                    title: Text(license.toUpperCase()),
+                    subtitle: Image.asset(
+                      'assets/images/license_img/logo-$license.jpg',
+                      height: 50.r,
+                      width: 50.r,
+                    ),
+                    value: _selectedLicenses.contains(license),
+                    onChanged: (bool? newValue) {
+                      setState(() {
+                        if (newValue == true) {
+                          _selectedLicenses.add(license);
+                        } else {
+                          _selectedLicenses.remove(license);
+                        }
+                      });
+                    },
+                  );
+                },
+              ),
+              buildTextField(
+                controller: _terrainTypeController,
+                labelText: 'Terrain Type',
+              ),
+              buildLengthField(lengthController: _lengthController),
               buildDropdownButtonFormField(
                 _hasMinicrossController.text.isEmpty ||
                         _hasMinicrossController.text == '-'
@@ -191,18 +291,18 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
               ),
               buildListField(
                 items: _phoneNumbers,
-                controller: _phonesController,
                 labelText: 'Phone Number',
                 itemBuilder: (context, index) {
                   return Row(
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: _phoneNumbers[index],
+                          // initialValue: _phoneNumbers[index],
                           decoration: InputDecoration(
                             labelText: 'Phone Number',
                           ),
                           keyboardType: TextInputType.phone,
+                          controller: _phoneControllers[index],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a Phone Number';
@@ -211,7 +311,10 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                             return null;
                           },
                           onSaved: (newValue) {
-                            _phoneNumbers[index] = newValue!;
+                            setState(() {
+                              _phoneNumbers[index] = newValue!;
+                              _phoneControllers[index].text = newValue;
+                            });
                           },
                         ),
                       ),
@@ -220,7 +323,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                         onPressed: () {
                           setState(() {
                             _phoneNumbers.removeAt(index);
-                            _phonesController.text = _phoneNumbers.join(', ');
+                            _phoneControllers.removeAt(index).dispose();
                           });
                         },
                       ),
@@ -228,27 +331,25 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                   );
                 },
               ),
-
               buildAddButton(
-                _phoneNumbers,
-                _phonesController,
-                'Add Phone Number',
+                numbers: _phoneNumbers,
+                buttonText: 'Add Phone Number',
+                controllers: _phoneControllers,
               ),
-
               buildListField(
                 items: _faxNumbers,
-                controller: _faxController,
                 labelText: 'Fax Number',
                 itemBuilder: (context, index) {
                   return Row(
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: _faxNumbers[index],
+                          // initialValue: _faxNumbers[index],
                           decoration: InputDecoration(
                             labelText: 'Fax Number',
                           ),
                           keyboardType: TextInputType.phone,
+                          controller: _faxControllers[index],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a Fax Number';
@@ -257,7 +358,10 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                             return null;
                           },
                           onSaved: (newValue) {
-                            _faxNumbers[index] = newValue!;
+                            setState(() {
+                              _faxNumbers[index] = newValue!;
+                              _faxControllers[index].text = newValue;
+                            });
                           },
                         ),
                       ),
@@ -266,7 +370,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                         onPressed: () {
                           setState(() {
                             _faxNumbers.removeAt(index);
-                            _faxController.text = _faxNumbers.join(', ');
+                            _faxControllers.removeAt(index).dispose();
                           });
                         },
                       ),
@@ -274,15 +378,49 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                   );
                 },
               ),
-
               buildAddButton(
-                _faxNumbers,
-                _faxController,
-                'Add Fax Number',
+                numbers: _faxNumbers,
+                buttonText: 'Add Fax Number',
+                controllers: _faxControllers,
               ),
-              _buildEmailField(emailController: _emailController),
-              _buildWebsiteField(websiteController: _websiteController),
-              _buildInfoField(infoController: _infoController),
+              buildTextField(
+                controller: _emailController,
+                labelText: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an email';
+                  } else if (!RegExp(
+                          r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
+                      .hasMatch(value)) {
+                    return 'Please enter a valid email';
+                  }
+                  return null;
+                },
+              ),
+              buildTextField(
+                controller: _websiteController,
+                labelText: 'Website',
+                keyboardType: TextInputType.url,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a website';
+                  }
+                  return null;
+                },
+              ),
+              buildTextField(
+                controller: _infoController,
+                labelText: 'Info',
+                keyboardType: TextInputType.multiline,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a description';
+                  }
+                  return null;
+                },
+                maxLines: null,
+              ),
               _buildSaveButton(_formKey),
             ],
           ),
@@ -290,177 +428,4 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
       ),
     );
   }
-}
-
-Widget _buildSaveButton(GlobalKey<FormState> formKey) {
-  return ElevatedButton(
-    onPressed: () {
-      if (formKey.currentState!.validate()) {
-        // Save the changes
-      }
-    },
-    child: Text('Save Changes'),
-  );
-}
-
-Widget _buildInfoField({
-  required TextEditingController infoController,
-}) {
-  return buildTextField(
-    controller: infoController,
-    labelText: 'Info',
-    keyboardType: TextInputType.multiline,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter a description';
-      }
-      return null;
-    },
-    maxLines: null,
-  );
-}
-
-Widget _buildWebsiteField({
-  required TextEditingController websiteController,
-}) {
-  return buildTextField(
-    controller: websiteController,
-    labelText: 'Website',
-    keyboardType: TextInputType.url,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter a website';
-      }
-      return null;
-    },
-  );
-}
-
-Widget _buildEmailField({
-  required TextEditingController emailController,
-}) {
-  return buildTextField(
-    controller: emailController,
-    labelText: 'Email',
-    keyboardType: TextInputType.emailAddress,
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter an email';
-      } else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
-          .hasMatch(value)) {
-        return 'Please enter a valid email';
-      }
-      return null;
-    },
-  );
-}
-
-Widget _buildLengthField({
-  required TextEditingController lengthController,
-}) {
-  return Row(
-    children: <Widget>[
-      Expanded(
-        child: buildTextField(
-          controller: lengthController,
-          labelText: 'Length',
-          keyboardType: TextInputType.number,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a length';
-            }
-            return null;
-          },
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 8.0),
-        child: Text('m'),
-      ),
-    ],
-  );
-}
-
-Widget _buildTerrainTypeField({
-  required TextEditingController terrainTypeController,
-}) {
-  return buildTextField(
-    controller: terrainTypeController,
-    labelText: 'Terrain Type',
-  );
-}
-
-Widget _buildMotoclubField({
-  required TextEditingController motoclubController,
-}) {
-  return buildTextField(
-    controller: motoclubController,
-    labelText: 'Motoclub',
-  );
-}
-
-Widget _buildTrackNameField({
-  required TextEditingController nameController,
-}) {
-  return buildTextField(
-    controller: nameController,
-    labelText: 'Track Name',
-    validator: (value) {
-      if (value == null || value.isEmpty) {
-        return 'Please enter a track name';
-      }
-      return null;
-    },
-  );
-}
-
-Widget buildDropdownButtonFormField(String value, String labelText,
-    List<String> items, Function(String) onChanged) {
-  return DropdownButtonFormField<String>(
-    value: value,
-    decoration: InputDecoration(
-      labelText: labelText,
-    ),
-    items: items.map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
-    }).toList(),
-    onChanged: (String? newValue) {
-      onChanged(newValue!);
-    },
-  );
-}
-
-Widget buildTextField({
-  required TextEditingController controller,
-  required String labelText,
-  TextInputType keyboardType = TextInputType.text,
-  String? Function(String?)? validator,
-  int? maxLines = 1,
-}) {
-  return TextFormField(
-    controller: controller,
-    decoration: InputDecoration(
-      labelText: labelText,
-    ),
-    keyboardType: keyboardType,
-    validator: validator,
-    maxLines: maxLines,
-  );
-}
-
-Widget buildListField({
-  required List<String> items,
-  required TextEditingController controller,
-  required String labelText,
-  required Widget Function(BuildContext, int) itemBuilder,
-}) {
-  return ListView.builder(
-    physics: NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    itemCount: items.length,
-    itemBuilder: itemBuilder,
-  );
 }

@@ -160,8 +160,6 @@ class TrackNotifier extends _$TrackNotifier {
       state = false;
       return Image.asset(
         MapConstans.placeholder,
-        width: 300,
-        height: 150,
         fit: BoxFit.cover,
         scale: MapConstans.scaleImage,
       );

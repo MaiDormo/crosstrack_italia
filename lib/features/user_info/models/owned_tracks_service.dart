@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
+import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 
 class OwnedTracksService {
@@ -69,5 +70,22 @@ class OwnedTracksService {
     return (doc.data()[FirebaseFieldName.ownedTracks] as List?)
             ?.cast<TrackId>() ??
         [];
+  }
+
+  Future<void> updateTrackInfo(Track updatedTrack) {
+    return _firestore.runTransaction((transaction) async {
+      final trackQuery = _firestore
+          .collection(FirebaseCollectionName.tracks)
+          .where(FirebaseFieldName.id, isEqualTo: updatedTrack.id);
+
+      final trackQuerySnapshot = await trackQuery.get();
+      if (trackQuerySnapshot.docs.isEmpty) {
+        return;
+      }
+
+      final trackDocRef = trackQuerySnapshot.docs.first.reference;
+
+      transaction.update(trackDocRef, updatedTrack.toJson());
+    });
   }
 }

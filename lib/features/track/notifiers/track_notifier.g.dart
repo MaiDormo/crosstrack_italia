@@ -898,7 +898,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'ea446207da7ed0ba062209eabac9628da90b9a03';
+String _$trackNotifierHash() => r'20e82fa92ac9650ed1b259a9a1270f3a56dbe160';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

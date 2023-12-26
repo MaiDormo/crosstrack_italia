@@ -1,7 +1,6 @@
 import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/weather/domain/models/forecast.dart';
 import 'package:crosstrack_italia/features/weather/domain/providers/forecast_info_provider.dart';
-import 'package:crosstrack_italia/views/components/animations/error_animation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,7 +30,7 @@ class WeatherView extends ConsumerWidget {
                 child: Center(
                   child: switch (forecastInfo) {
                     AsyncData(:final value) => WeatherWidget(forecast: value),
-                    AsyncError() => const ErrorAnimationView(),
+                    AsyncError() => const Icon(Icons.error),
                     _ => const CircularProgressIndicator(),
                   },
                 ),

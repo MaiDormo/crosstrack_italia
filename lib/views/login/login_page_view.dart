@@ -1,9 +1,10 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:crosstrack_italia/square_tile.dart';
-import 'package:crosstrack_italia/helper_line_gestore.dart';
+import 'package:crosstrack_italia/views/login/square_tile.dart';
+import 'package:crosstrack_italia/views/login/helper_line_gestore.dart';
 
 class LoginPageView extends StatefulHookConsumerWidget {
   const LoginPageView({super.key});
@@ -47,7 +48,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                 Text(
                   'Accedi, Per ottenere più funzionalità',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 30.sp,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -55,8 +56,8 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
 
                 SvgPicture.asset(
                   'assets/svgs/moto_icon.svg',
-                  height: 300,
-                  width: 300,
+                  height: 300.h,
+                  width: 300.w,
                   colorFilter: ColorFilter.mode(
                     Theme.of(context).colorScheme.primary,
                     BlendMode.srcATop,
@@ -78,7 +79,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                       },
                     ),
 
-                    const SizedBox(width: 25),
+                    25.horizontalSpace,
 
                     // facebook button
                     SquareTile(
@@ -93,7 +94,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                   ],
                 ),
 
-                const SizedBox(height: 50),
+                50.verticalSpace,
 
                 const HelperLineGestore(),
               ],

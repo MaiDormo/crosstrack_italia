@@ -2,6 +2,7 @@ import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TrackCard extends ConsumerWidget {
@@ -28,12 +29,12 @@ class TrackCard extends ConsumerWidget {
       },
       child: Card(
         elevation: 4,
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16).w,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,15 +43,15 @@ class TrackCard extends ConsumerWidget {
                 track.trackName,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              const SizedBox(height: 8),
+              8.verticalSpace,
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.pin_drop,
-                    size: 16,
+                    size: 16.r,
                     color: Colors.grey,
                   ),
-                  const SizedBox(width: 4),
+                  4.horizontalSpace,
                   Flexible(
                     // Wrap in Flexible to handle long text
                     child: Text(
