@@ -1,8 +1,8 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/build_length_field.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/build_dropdown_button_form_field.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/build_list_field.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/build_text_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_dropdown_button_form_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_length_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_list_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_text_field.dart';
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

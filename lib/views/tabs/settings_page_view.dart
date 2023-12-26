@@ -1,7 +1,7 @@
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/track_owner/presentation/track_ownership_stepper.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
 import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
 import 'package:flutter/material.dart';
