@@ -1,5 +1,6 @@
 import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LocationText extends ConsumerWidget {
@@ -17,7 +18,7 @@ class LocationText extends ConsumerWidget {
         },
       ),
       style: TextStyle(
-        fontSize: MediaQuery.of(context).size.width * 0.03,
+        fontSize: 12.3.sp,
         color: Theme.of(context).colorScheme.tertiary,
       ),
     );

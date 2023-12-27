@@ -62,7 +62,7 @@ final isLoadingProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsLoadingRef = AutoDisposeProviderRef<bool>;
-String _$userImageHash() => r'd332b55d90ee3feafd7566eaa1da8135e6f1f5c0';
+String _$userImageHash() => r'c86770d203041df3d87ba1960ae8e078dd44f255';
 
 /// See also [userImage].
 @ProviderFor(userImage)

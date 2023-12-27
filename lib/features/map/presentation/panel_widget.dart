@@ -3,10 +3,10 @@ import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_track_name_and_location.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/build_track_rating_and_map_button.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/track_cards/build_track_cards.dart';
-import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -24,23 +24,21 @@ class PanelWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final trackSelected = ref.watch(trackSelectedProvider);
     final allTrackImages = ref.watch(allTrackImagesProvider);
-    final heightFactor = ref.watch(heightFactorProvider(context));
 
     return ListView(
       padding: EdgeInsets.zero,
       controller: scrollController,
       children: <Widget>[
-        SizedBox(height: heightFactor * 12),
+        9.verticalSpace,
         buildDragHandle(),
         Consumer(
           builder: (ctx, ref, child) => buildTrackInfo(
             trackSelected,
             allTrackImages,
             context,
-            heightFactor,
           ),
         ),
-        SizedBox(height: heightFactor * 12),
+        9.verticalSpace,
       ],
     );
   }
@@ -49,19 +47,18 @@ class PanelWidget extends ConsumerWidget {
     Track trackSelected,
     AsyncValue<Iterable<Image>> allTrackImages,
     BuildContext context,
-    double heightFactor,
   ) =>
       Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0).r,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildFavoriteButton(trackSelected, context, heightFactor),
-            buildTrackImagesSwiper(allTrackImages, context, heightFactor),
-            buildTrackName(trackSelected, context, heightFactor),
-            buildTrackLocation(trackSelected, heightFactor),
-            buildTrackRatingAndMapButton(trackSelected, context, heightFactor),
-            buildTrackCards(trackSelected, context, heightFactor),
+            buildFavoriteButton(trackSelected, context),
+            buildTrackImagesSwiper(allTrackImages, context),
+            buildTrackName(trackSelected, context),
+            buildTrackLocation(trackSelected),
+            buildTrackRatingAndMapButton(trackSelected, context),
+            buildTrackCards(trackSelected, context),
           ],
         ),
       );
@@ -69,8 +66,8 @@ class PanelWidget extends ConsumerWidget {
   Widget buildDragHandle() => GestureDetector(
         child: Center(
           child: Container(
-            width: 40,
-            height: 5,
+            width: 40.w,
+            height: 5.h,
             decoration: BoxDecoration(
               color: Colors.grey[300],
               borderRadius: BorderRadius.circular(12),

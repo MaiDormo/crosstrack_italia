@@ -9,7 +9,10 @@ class HeartIcon extends ConsumerWidget {
   HeartIcon({required this.trackId});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     final favoriteTracksNotifier = ref.watch(favoriteTracksNotifierProvider);
     final isFavorite = switch (favoriteTracksNotifier) {
       AsyncData(:final value) => value.contains(trackId),
@@ -37,7 +40,6 @@ class HeartIcon extends ConsumerWidget {
 Widget buildFavoriteButton(
   Track trackSelected,
   BuildContext context,
-  double heightFactor,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.end,

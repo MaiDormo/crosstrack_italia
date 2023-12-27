@@ -4,39 +4,44 @@ import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildTrackRatingAndMapButton(
-        Track trackSelected, BuildContext context, double heightFactor) =>
+  Track trackSelected,
+  BuildContext context,
+) =>
     Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) => Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              buildRatingRow(trackSelected, context, heightFactor),
-              buildMapButton(trackSelected, context, heightFactor, ref),
+              buildRatingRow(trackSelected, context),
+              buildMapButton(trackSelected, context, ref),
             ],
           ),
-          buildReviewCountText(trackSelected, context, heightFactor),
+          buildReviewCountText(trackSelected, context),
         ],
       ),
     );
 
 Widget buildRatingRow(
-        Track trackSelected, BuildContext context, double heightFactor) =>
+  Track trackSelected,
+  BuildContext context,
+) =>
     Row(
       children: [
         Text(
           'Valutazione: ' + trackSelected.rating.toStringAsFixed(1),
           style: TextStyle(
-            fontSize: 16 * heightFactor,
+            fontSize: 12.sp,
             fontWeight: FontWeight.bold,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
         RatingBarIndicator(
           physics: NeverScrollableScrollPhysics(),
-          itemSize: 20 * heightFactor,
+          itemSize: 15.h,
           rating: trackSelected.rating,
           direction: Axis.horizontal,
           itemCount: 5,
@@ -44,13 +49,16 @@ Widget buildRatingRow(
             Icons.star,
             color: Theme.of(context).colorScheme.primary,
           ),
-          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
         ),
       ],
     );
 
-Widget buildMapButton(Track trackSelected, BuildContext context,
-        double heightFactor, WidgetRef ref) =>
+Widget buildMapButton(
+  Track trackSelected,
+  BuildContext context,
+  WidgetRef ref,
+) =>
     Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         return ElevatedButton(
@@ -83,7 +91,7 @@ Widget buildMapButton(Track trackSelected, BuildContext context,
           child: Row(
             children: [
               Text('Indicazioni'),
-              SizedBox(width: 4 * heightFactor),
+              3.verticalSpace,
               Icon(Icons.directions),
             ],
           ),
@@ -92,16 +100,18 @@ Widget buildMapButton(Track trackSelected, BuildContext context,
     );
 
 Widget buildReviewCountText(
-        Track trackSelected, BuildContext context, double heightFactor) =>
+  Track trackSelected,
+  BuildContext context,
+) =>
     Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             'Recensioni: ' + trackSelected.commentCount.toString(),
             style: TextStyle(
-              fontSize: 16 * heightFactor,
+              fontSize: 12.sp,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
             ),

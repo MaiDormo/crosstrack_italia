@@ -1,5 +1,6 @@
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildLengthField({
   required TextEditingController lengthController,
@@ -20,7 +21,7 @@ Widget buildLengthField({
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(left: 8.0),
+        padding: const EdgeInsets.only(left: 8.0).r,
         child: Text('m'),
       ),
     ],

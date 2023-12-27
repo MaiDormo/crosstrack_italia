@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/views/login/login_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AuthIconButton extends ConsumerWidget {
@@ -10,7 +11,7 @@ class AuthIconButton extends ConsumerWidget {
     final userImage = ref.watch(userImageProvider);
 
     return Container(
-      width: MediaQuery.of(context).size.width * 0.2,
+      width: 82.28.w,
       child: IconButton(
         onPressed: () {
           if (!_isLogged) {
@@ -21,7 +22,7 @@ class AuthIconButton extends ConsumerWidget {
           }
         },
         icon: userImage,
-        iconSize: MediaQuery.of(context).size.width * 0.07,
+        iconSize: 28.8.w,
         color: Theme.of(context).colorScheme.tertiary,
       ),
     );

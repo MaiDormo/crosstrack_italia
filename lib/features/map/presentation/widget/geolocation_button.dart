@@ -1,5 +1,6 @@
 import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GeolocationButton extends ConsumerWidget {
@@ -19,7 +20,7 @@ class GeolocationButton extends ConsumerWidget {
           ? const Icon(Icons.gps_fixed)
           : const Icon(Icons.gps_not_fixed),
       color: Colors.red,
-      iconSize: MediaQuery.of(context).size.width * 0.05,
+      iconSize: 20.6.w,
     );
   }
 }

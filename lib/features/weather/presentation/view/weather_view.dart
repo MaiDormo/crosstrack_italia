@@ -1,15 +1,14 @@
-import 'package:crosstrack_italia/features/map/providers/panel_style.dart';
 import 'package:crosstrack_italia/features/weather/domain/models/forecast.dart';
 import 'package:crosstrack_italia/features/weather/domain/providers/forecast_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final heightFactor = ref.read(heightFactorProvider(context));
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Column(
@@ -17,7 +16,7 @@ class WeatherView extends ConsumerWidget {
           Text(
             'Meteo:',
             style: TextStyle(
-              fontSize: 16 * heightFactor,
+              fontSize: 12.sp,
               color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
@@ -52,7 +51,6 @@ class WeatherWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final heightFactor = ref.read(heightFactorProvider(context));
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       mainAxisSize: MainAxisSize.max,
@@ -68,20 +66,20 @@ class WeatherWidget extends ConsumerWidget {
                   Text(
                     weather.date,
                     style: TextStyle(
-                      fontSize: 16 * heightFactor,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   //hour
                   Image.network(
                     'https://openweathermap.org/img/wn/${weather.iconUrl}.png',
-                    height: 50 * heightFactor,
-                    width: 50 * heightFactor,
+                    height: 37.5.h,
+                    width: 37.5.w,
                   ),
                   Text(
                     weather.temperature,
                     style: TextStyle(
-                      fontSize: 16 * heightFactor,
+                      fontSize: 12.sp,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

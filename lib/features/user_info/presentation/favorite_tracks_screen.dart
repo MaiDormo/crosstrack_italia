@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/providers/favorite_tracks_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FavoriteTracksScreen extends ConsumerWidget {
@@ -20,13 +21,13 @@ class FavoriteTracksScreen extends ConsumerWidget {
               .watch(fetchTracksByIdsProvider(tracks, context))
               .when(
                 data: (tracksList) => Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0).r,
                   child: ListView.builder(
                     itemCount: tracksList.length,
                     itemBuilder: (context, index) {
                       final track = tracksList.elementAt(index);
                       return Card(
-                        margin: const EdgeInsets.symmetric(vertical: 4.0),
+                        margin: const EdgeInsets.symmetric(vertical: 4.0).h,
                         child: ListTile(
                           title: Material(
                             type: MaterialType

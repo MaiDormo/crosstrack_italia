@@ -5,6 +5,7 @@ import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifi
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrackOwnershipStepper extends ConsumerStatefulWidget {
   @override
@@ -68,7 +69,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
                   title: const Text('Seleziona i tracciati che possiedi'),
                   content: allTracks.when(
                     data: (value) => Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: 438.3.h,
                       child: ListView.builder(
                         itemCount: value.length,
                         itemBuilder: (context, index) {
@@ -111,19 +112,19 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
                           TextSpan(
                             text:
                                 'Puoi modificare i tuoi tracciati premendo:\n',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16.sp),
                           ),
                           TextSpan(
                             text:
                                 'Tracciati > Gestione Tracciati > Tracciato che vuole modificare',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 16.sp,
                                 color: Colors.blue),
                           ),
                           TextSpan(
                             text: '.',
-                            style: TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16.sp),
                           ),
                         ],
                       ),

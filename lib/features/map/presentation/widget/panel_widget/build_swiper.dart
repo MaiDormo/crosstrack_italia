@@ -1,29 +1,34 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildTrackImagesSwiper(AsyncValue<Iterable<Image>> allTrackImages,
-        BuildContext context, double heightFactor) =>
+Widget buildTrackImagesSwiper(
+  AsyncValue<Iterable<Image>> allTrackImages,
+  BuildContext context,
+) =>
     Consumer(
       builder: (context, ref, widget) => allTrackImages.when(
         data: (images) {
-          return buildSwiper(images, context, heightFactor);
+          return buildSwiper(images, context);
         },
         loading: () {
           return Center(child: const CircularProgressIndicator());
         },
         error: (error, stackTrace) {
-          return buildPlaceholderImage(heightFactor);
+          return buildPlaceholderImage();
         },
       ),
     );
 
 Widget buildSwiper(
-        Iterable<Image> images, BuildContext context, double heightFactor) =>
+  Iterable<Image> images,
+  BuildContext context,
+) =>
     Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        height: 350 * heightFactor,
+        height: 262.5.h,
         width: MediaQuery.of(context).size.width,
         child: Swiper(
           layout: SwiperLayout.DEFAULT,
@@ -33,7 +38,7 @@ Widget buildSwiper(
             return images.elementAt(index);
           },
           pagination: SwiperPagination(
-            margin: const EdgeInsets.only(bottom: 10.0),
+            margin: const EdgeInsets.only(bottom: 10.0).h,
             builder: SwiperPagination.dots,
           ),
           autoplay: true,
@@ -42,11 +47,11 @@ Widget buildSwiper(
       ),
     );
 
-Widget buildPlaceholderImage(double heightFactor) {
+Widget buildPlaceholderImage() {
   return Image.asset(
     'assets/images/placeholder.jpg',
-    width: 200 * heightFactor,
-    height: 100,
+    width: 150.w,
+    height: 100.h,
     fit: BoxFit.cover,
   );
 }

@@ -5,6 +5,7 @@ import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -57,8 +58,8 @@ Widget userImage(UserImageRef ref) {
       child: switch (_userState) {
         AsyncData(:final value) => Image.network(
             value.profileImageUrl!,
-            height: 35,
-            width: 35,
+            height: 35.h,
+            width: 35.w,
             fit: BoxFit.cover,
           ),
         AsyncError() => Icon(Icons.error),

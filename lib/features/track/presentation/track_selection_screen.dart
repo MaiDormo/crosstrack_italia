@@ -4,6 +4,7 @@ import 'package:crosstrack_italia/features/track/presentation/track_comparison.d
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -47,20 +48,20 @@ class TrackSelectionScreen extends ConsumerWidget {
         ),
         data: (userLocation) {
           return Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0).r,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 16),
+                16.verticalSpace,
                 Text(
                   "Condividi la tua posizione:",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                SizedBox(height: 8),
+                8.verticalSpace,
                 ListTile(
                   title: Text("Posizione: "),
                   subtitle: userLocation != null && showCurrentLocation
@@ -215,27 +216,27 @@ class TrackSelectionScreen extends ConsumerWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 16),
+          SizedBox(height: 16.sp),
           Text(
             "Scegli il primo tracciato:",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          SizedBox(height: 8),
+          8.verticalSpace,
           _buildTrackDropdown(tracks, selectedTracks, 0),
-          SizedBox(height: 16),
+          16.verticalSpace,
           Text(
             "Scegli il secondo tracciato:",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          SizedBox(height: 8),
+          8.verticalSpace,
           _buildTrackDropdown(tracks, selectedTracks, 1),
         ],
       );
@@ -247,14 +248,14 @@ class TrackSelectionScreen extends ConsumerWidget {
     ) {
       return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0).r,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _buildTrackSelector(tracks),
               _buildLocationSelector(),
-              SizedBox(height: 16),
+              SizedBox(height: 16.sp),
               _buildComparisonButton(context),
             ],
           ),

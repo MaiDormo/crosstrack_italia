@@ -7,26 +7,25 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/presentation/comment_section.dart';
 import 'package:crosstrack_italia/features/weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildTrackCards(
-        Track trackSelected, BuildContext context, double heightFactor) =>
-    SafeArea(
+Widget buildTrackCards(Track trackSelected, BuildContext context) => SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: [
           buildRow([
-            buildMotoclubCard(trackSelected, context, heightFactor),
-            buildTrackInfoCard(trackSelected, context, heightFactor),
+            buildMotoclubCard(trackSelected, context),
+            buildTrackInfoCard(trackSelected, context),
           ]),
-          SizedBox(height: 12 * heightFactor),
+          9.verticalSpace,
           buildRow([
-            buildPilotInfoCard(trackSelected, context, heightFactor),
-            buildServicesCard(trackSelected, context, heightFactor),
+            buildPilotInfoCard(trackSelected, context),
+            buildServicesCard(trackSelected, context),
           ]),
-          SizedBox(height: 12 * heightFactor),
+          9.verticalSpace,
           buildCard(WeatherView()),
-          SizedBox(height: 12 * heightFactor),
+          9.verticalSpace,
           buildCard(CommentsSection(trackId: trackSelected.id)),
         ],
       ),

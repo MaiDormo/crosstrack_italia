@@ -256,8 +256,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                   return ListTile(
                     title: Text(service[0].replaceFirst('_', ' ')),
                     trailing: Container(
-                      width: MediaQuery.of(context).size.width *
-                          0.3, // adjust the width as needed
+                      width: 123.4.w, // adjust the width as needed
                       child: DropdownButtonFormField<String>(
                         value: service[1].trim() == 'si' ? 'si' : 'no',
                         decoration: InputDecoration(
@@ -272,7 +271,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                               style: TextStyle(
                                 color:
                                     value == 'si' ? Colors.green : Colors.red,
-                                fontSize: 12,
+                                fontSize: 12.sp,
                               ),
                             ),
                           );

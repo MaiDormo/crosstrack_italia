@@ -5,6 +5,7 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrackPopupMarkerLayer extends StatelessWidget {
   const TrackPopupMarkerLayer({
@@ -42,21 +43,21 @@ class TrackPopupMarkerLayer extends StatelessWidget {
         ),
         markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
         selectedMarkerBuilder: (context, marker) => Container(
-          height: MapConstans.markerSize,
-          width: MapConstans.markerSize,
+          height: MapConstans.markerSize.h,
+          width: MapConstans.markerSize.h,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(
               color: Colors.orange, // Set border color
-              width: 3.0, // Set border width
+              width: 3.0.w, // Set border width
             ),
-            borderRadius: BorderRadius.circular(MapConstans.markerSize),
+            borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(MapConstans.markerSize),
+            borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
             child: Icon(
               Icons.exit_to_app_rounded,
-              size: 60.0 * MapConstans.scaleImage,
+              size: 30.0.h,
               color: Colors.orange,
             ),
           ),

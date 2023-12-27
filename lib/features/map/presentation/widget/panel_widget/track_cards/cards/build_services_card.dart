@@ -2,21 +2,23 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildServicesCard(
-        Track trackSelected, BuildContext context, double heightFactor) =>
+  Track trackSelected,
+  BuildContext context,
+) =>
     Expanded(
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0).r,
           child: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return Column(
                 children: [
-                  buildServicesHeader(heightFactor, context, ref),
+                  buildServicesHeader(context, ref),
                   ...trackSelected.services!.entries
-                      .map((entry) =>
-                          buildServiceRow(context, ref, entry, heightFactor))
+                      .map((entry) => buildServiceRow(context, ref, entry))
                       .toList(),
                 ],
               );
@@ -27,7 +29,9 @@ Widget buildServicesCard(
     );
 
 Widget buildServicesHeader(
-        double heightFactor, BuildContext context, WidgetRef ref) =>
+  BuildContext context,
+  WidgetRef ref,
+) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -35,7 +39,7 @@ Widget buildServicesHeader(
           'Servizi: ',
           style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
-            fontSize: 16 * heightFactor,
+            fontSize: 12.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -47,7 +51,10 @@ Widget buildServicesHeader(
       ],
     );
 
-Widget buildServiceSwitch(BuildContext context, WidgetRef ref) {
+Widget buildServiceSwitch(
+  BuildContext context,
+  WidgetRef ref,
+) {
   final _value = ref.watch(toggleIconsServicesViewProvider);
   return Tooltip(
     message: 'Switch between text and icons',
@@ -67,8 +74,11 @@ Widget buildServiceSwitch(BuildContext context, WidgetRef ref) {
   );
 }
 
-Widget buildServiceRow(BuildContext context, WidgetRef ref,
-    MapEntry<String, String> entry, double heightFactor) {
+Widget buildServiceRow(
+  BuildContext context,
+  WidgetRef ref,
+  MapEntry<String, String> entry,
+) {
   final value = ref.watch(toggleIconsServicesViewProvider);
   final entryKeyCleaned = entry.key.replaceAll('_', ' ');
   final icon = switch (entryKeyCleaned) {
@@ -88,23 +98,23 @@ Widget buildServiceRow(BuildContext context, WidgetRef ref,
               entryKeyCleaned + ':',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 13 * heightFactor,
+                fontSize: 9.75.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
       Card(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 4.0.h),
           child: switch (entry.value) {
             'si' => Icon(
                 Icons.check,
                 color: Colors.greenAccent,
-                size: 18 * heightFactor,
+                size: 13.5.h,
               ),
             'no' => Icon(
                 Icons.close,
                 color: Colors.redAccent,
-                size: 18 * heightFactor,
+                size: 13.5.h,
               ),
             _ => Container(),
           },

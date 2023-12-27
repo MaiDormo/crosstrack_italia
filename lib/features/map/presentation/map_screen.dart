@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -51,13 +52,13 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
   @override
   Widget build(BuildContext context) {
-    final _panelHeightOpen = MediaQuery.of(context).size.height * 0.6;
+    final _panelHeightOpen = 526.h;
     final panelController = ref.watch(panelControllerProvider);
 
     //setting provider with animatedMap
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0).h,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
@@ -195,7 +196,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
               top: 90,
               right: 8,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).r,
                 child: FloatingActionButton(
                   backgroundColor: showCurrentLocation
                       ? Colors.orange[200]
@@ -251,18 +252,18 @@ class FloatingSearchMapBar extends ConsumerWidget {
     final searchController = ref.watch(searchTrackProvider);
     final _animatedMapController = ref.watch(animatedMapControllerProvider);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0).r,
       child: FloatingSearchBar(
         controller: ref.watch(floatingSearchBarControllerProvider),
         hint: 'Cerca...',
-        scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
+        scrollPadding: EdgeInsets.only(top: 16.h, bottom: 56.h),
         transitionDuration: const Duration(milliseconds: 800),
         transitionCurve: Curves.easeInOut,
         physics: const BouncingScrollPhysics(),
         //progress: true, //TODO: da aggiungere quando avviene una ricerca
         axisAlignment: 0.0,
         openAxisAlignment: 0.0,
-        width: 600,
+        width: 600.w,
         debounceDelay: const Duration(milliseconds: 500),
         onQueryChanged: (query) {
           // Call your model, bloc, controller here.
@@ -347,7 +348,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.primary,
                   elevation: 4.0,
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0).r,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

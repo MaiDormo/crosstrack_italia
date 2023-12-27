@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/views/components/bottom_bar/nav_states/nav_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BottomBar extends ConsumerStatefulWidget {
   const BottomBar({
@@ -37,10 +38,10 @@ class _BottomBarState extends ConsumerState<BottomBar> {
     var navIndex = ref.watch(navNotifierProvider).index;
 
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 8.0,
-        right: 8.0,
-        bottom: 8.0,
+      padding: EdgeInsets.only(
+        left: 8.0.w,
+        right: 8.0.w,
+        bottom: 8.0.h,
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
@@ -59,8 +60,8 @@ class _BottomBarState extends ConsumerState<BottomBar> {
             },
             backgroundColor: Theme.of(context).colorScheme.secondary,
             type: BottomNavigationBarType.fixed,
-            selectedFontSize: 14.0,
-            unselectedFontSize: 12.0,
+            selectedFontSize: 14.0.sp,
+            unselectedFontSize: 12.0.sp,
           ),
         ),
       ),

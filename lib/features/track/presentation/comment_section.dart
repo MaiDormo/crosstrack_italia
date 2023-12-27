@@ -6,6 +6,7 @@ import 'package:crosstrack_italia/features/track/presentation/widget/comment_car
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommentsSection extends ConsumerStatefulWidget {
   final TrackId trackId;
@@ -65,7 +66,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0).w,
                 ratingWidget: RatingWidget(
                   full: Icon(Icons.star, color: Colors.amber),
                   half: Icon(Icons.star_half, color: Colors.amber),
@@ -77,14 +78,14 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                   });
                 },
               ),
-              const SizedBox(height: 16),
+              16.verticalSpace,
               TextFormField(
                 controller: commentController,
                 maxLines: 5, // Imposta il numero massimo di righe
                 decoration: InputDecoration(
                   hintText: 'Commenta qui...',
                   border: OutlineInputBorder(), // Bordo del campo di testo
-                  contentPadding: const EdgeInsets.all(12), // Padding interno
+                  contentPadding: const EdgeInsets.all(12).r, // Padding interno
                 ),
               ),
             ],
@@ -115,12 +116,12 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: 16),
+        16.verticalSpace,
         ElevatedButton(
           onPressed: isLoggedIn ? _showCommentDialog : null,
           child: const Text('Commenta'),
         ),
-        const SizedBox(height: 16),
+        16.verticalSpace,
         ref.watch(fetchCommentsByTrackIdProvider(id)).when(
               data: (comments) => ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),

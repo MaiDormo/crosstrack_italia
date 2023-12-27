@@ -3,6 +3,7 @@ import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommentCard extends ConsumerWidget {
   final Comment comment;
@@ -19,9 +20,9 @@ class CommentCard extends ConsumerWidget {
     final user = ref.read(authProvider).currentUser;
 
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 4,
+      padding: EdgeInsets.symmetric(
+        vertical: 10.h,
+        horizontal: 4.w,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +31,7 @@ class CommentCard extends ConsumerWidget {
             children: [
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
+                  padding: const EdgeInsets.only(left: 16.0).r,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,10 +49,10 @@ class CommentCard extends ConsumerWidget {
                         ),
                         unratedColor: Colors.amber.withAlpha(50),
                         itemCount: 5,
-                        itemSize: 20.0,
+                        itemSize: 20.0.r,
                         direction: Axis.horizontal,
                       ),
-                      const SizedBox(height: 8),
+                      8.verticalSpace,
                       Text(comment.text),
 
                       // Display the rating as stars

@@ -2,6 +2,7 @@ import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TrackMarkerPopup extends ConsumerWidget {
@@ -15,7 +16,7 @@ class TrackMarkerPopup extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final panelController = ref.watch(panelControllerProvider);
     return SizedBox(
-      width: 200,
+      width: 200.w,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -35,8 +36,8 @@ class TrackMarkerPopup extends ConsumerWidget {
                       },
                       loading: () {
                         return Container(
-                          width: 300,
-                          height: 150,
+                          width: 300.w,
+                          height: 150.h,
                           color: Colors.grey[300],
                           child: Center(
                             child: CircularProgressIndicator(),
@@ -46,8 +47,8 @@ class TrackMarkerPopup extends ConsumerWidget {
                       error: (error, stackTrace) {
                         return Image.asset(
                           'assets/images/placeholder.jpg',
-                          width: 300,
-                          height: 150,
+                          width: 300.w,
+                          height: 150.h,
                           fit: BoxFit.cover,
                         );
                       },
@@ -62,13 +63,13 @@ class TrackMarkerPopup extends ConsumerWidget {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0).r,
                 child: Text(
                   track.trackName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    fontSize: 11,
+                    fontSize: 11.sp,
                   ),
                 ),
               ),

@@ -3,6 +3,7 @@ import 'package:crosstrack_italia/features/user_info/presentation/edit_track_scr
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OwnedTracksScreen extends ConsumerWidget {
   const OwnedTracksScreen({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class OwnedTracksScreen extends ConsumerWidget {
               .watch(fetchTracksByIdsProvider(tracks, context))
               .when(
                 data: (tracksList) => Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0).r,
                   child: ListView.builder(
                     itemCount: tracksList.length,
                     itemBuilder: (context, index) {
@@ -37,7 +38,7 @@ class OwnedTracksScreen extends ConsumerWidget {
                           );
                         },
                         child: Card(
-                          margin: const EdgeInsets.symmetric(vertical: 4.0),
+                          margin: const EdgeInsets.symmetric(vertical: 4.0).h,
                           child: ListTile(
                             title: Material(
                               type: MaterialType

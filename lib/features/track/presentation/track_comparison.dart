@@ -4,6 +4,7 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrackComparison extends StatelessWidget {
   final Track track1;
@@ -22,7 +23,7 @@ class TrackComparison extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final columnWidth = MediaQuery.of(context).size.width / 2 - 24.0;
+    final columnWidth = 181.7.w;
 
     return SafeArea(
       child: Scaffold(
@@ -43,19 +44,11 @@ class TrackComparison extends StatelessWidget {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0).r,
             child: Column(
               children: [
                 _buildTextRow(track1.trackName, track2.trackName, columnWidth,
                     isTitle: true),
-
-                // _buildComparisonImageRow(columnWidth),
-
-                // Consumer(
-                //   builder: (context, ref, child) {
-                //     return _buildComparisonImageRow(columnWidth);
-                //   },
-                // ),
 
                 _buildTitleSeparator("Motoclub", context),
                 _buildTextRow(track1.motoclub, track2.motoclub, columnWidth),
@@ -394,13 +387,13 @@ class TrackComparison extends StatelessWidget {
               text,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 14.0,
+                fontSize: 14.0.sp,
                 color: Colors.black,
               ),
             ),
-            const SizedBox(height: 2.0),
+            2.verticalSpace,
             child,
-            const SizedBox(height: 8.0),
+            8.verticalSpace,
           ],
         ),
       );
@@ -412,20 +405,20 @@ class TrackComparison extends StatelessWidget {
             text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 19.0,
+              fontSize: 19.0.sp,
               color: Theme.of(context)
                   .colorScheme
                   .primary, // Use primary color from theme
             ),
           ),
-          const SizedBox(height: 4.0),
+          4.verticalSpace,
           Divider(
             color: Theme.of(context)
                 .colorScheme
                 .primaryContainer, // Use primary variant color from theme
             thickness: 1.0,
           ),
-          const SizedBox(height: 8.0),
+          8.verticalSpace,
         ],
       );
 
