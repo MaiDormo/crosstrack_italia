@@ -33,7 +33,6 @@ class UserStateNotifier extends _$UserStateNotifier {
     final _fetchedUser = await fetchUserInfo(user.uid);
 
     if (_fetchedUser == UserInfoModel.empty()) {
-      print('DEBUG new user:  creating a new user info');
       final _newUser = UserInfoModel.fromUser(user).copyWith(
         role: UserRole.user,
       );

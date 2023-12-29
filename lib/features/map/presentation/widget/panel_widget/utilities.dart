@@ -5,15 +5,24 @@ Widget buildRow(List<Widget> children) => Row(
       children: children,
     );
 
-Widget buildCard(Widget child) => Card(
+Widget buildCard(
+  Widget child,
+  BuildContext context,
+) =>
+    Card(
+      color: Theme.of(context).colorScheme.secondary,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: child,
       ),
     );
 
-Widget buildStyledText(
-        String text, double fontSize, FontWeight fontWeight, Color color) =>
+Widget buildStyledText({
+  required String text,
+  required double fontSize,
+  required FontWeight fontWeight,
+  Color? color,
+}) =>
     Text(
       text,
       style: TextStyle(

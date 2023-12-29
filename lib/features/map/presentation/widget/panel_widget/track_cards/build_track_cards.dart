@@ -24,9 +24,9 @@ Widget buildTrackCards(Track trackSelected, BuildContext context) => SafeArea(
             buildServicesCard(trackSelected, context),
           ]),
           9.verticalSpace,
-          buildCard(WeatherView()),
+          buildCard(WeatherView(), context),
           9.verticalSpace,
-          buildCard(CommentsSection(trackId: trackSelected.id)),
+          buildCard(CommentsSection(trackId: trackSelected.id), context),
         ],
       ),
     );

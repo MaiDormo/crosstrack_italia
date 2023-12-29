@@ -9,35 +9,32 @@ class WeatherView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Column(
-        children: [
-          Text(
-            'Meteo:',
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: Theme.of(context).colorScheme.primary,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      children: [
+        Text(
+          'Meteo:',
+          style: TextStyle(
+            fontSize: 12.sp,
+            color: Theme.of(context).colorScheme.tertiary,
+            fontWeight: FontWeight.bold,
           ),
-          Consumer(
-            builder: (context, ref, child) {
-              final AsyncValue<Forecast> forecastInfo =
-                  ref.watch(forecastInfoProvider);
-              return SafeArea(
-                child: Center(
-                  child: switch (forecastInfo) {
-                    AsyncData(:final value) => WeatherWidget(forecast: value),
-                    AsyncError() => const Icon(Icons.error),
-                    _ => const CircularProgressIndicator(),
-                  },
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+        ),
+        Consumer(
+          builder: (context, ref, child) {
+            final AsyncValue<Forecast> forecastInfo =
+                ref.watch(forecastInfoProvider);
+            return SafeArea(
+              child: Center(
+                child: switch (forecastInfo) {
+                  AsyncData(:final value) => WeatherWidget(forecast: value),
+                  AsyncError() => const Icon(Icons.error),
+                  _ => const CircularProgressIndicator(),
+                },
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }
@@ -57,34 +54,31 @@ class WeatherWidget extends ConsumerWidget {
       children: [
         ...forecast.list.map(
           (weather) => Expanded(
-            child: Card(
-              color: Colors.lightBlue[100],
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    weather.date,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  weather.date,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  //hour
-                  Image.network(
-                    'https://openweathermap.org/img/wn/${weather.iconUrl}.png',
-                    height: 37.5.h,
-                    width: 37.5.w,
+                ),
+                //hour
+                Image.network(
+                  'https://openweathermap.org/img/wn/${weather.iconUrl}.png',
+                  height: 37.5.h,
+                  width: 37.5.w,
+                ),
+                Text(
+                  weather.temperature,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.bold,
                   ),
-                  Text(
-                    weather.temperature,
-                    style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

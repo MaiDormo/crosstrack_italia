@@ -33,16 +33,9 @@ class MapScreen extends ConsumerStatefulWidget {
 
 class _MapScreenState extends ConsumerState<MapScreen>
     with TickerProviderStateMixin {
-  // late AnimatedMapController _animatedMapController;
-
   @override
   void initState() {
     super.initState();
-    // _animatedMapController = AnimatedMapController(
-    //   vsync: this,
-    //   duration: const Duration(milliseconds: 500),
-    //   curve: Curves.easeInOut,
-    // ); // Initialize AnimatedMapController
   }
 
   @override
@@ -54,8 +47,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
   Widget build(BuildContext context) {
     final _panelHeightOpen = 526.h;
     final panelController = ref.watch(panelControllerProvider);
-
-    //setting provider with animatedMap
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0).h,
@@ -81,12 +72,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Map(
-                        // animatedMapController: _animatedMapController,
-                        ), // Pass the AnimatedMapController
-                    FloatingSearchMapBar(
-                        // animatedMapController: _animatedMapController,
-                        ),
+                    Map(),
+                    FloatingSearchMapBar(),
                   ],
                 ),
               ),
@@ -256,6 +243,12 @@ class FloatingSearchMapBar extends ConsumerWidget {
       child: FloatingSearchBar(
         controller: ref.watch(floatingSearchBarControllerProvider),
         hint: 'Cerca...',
+        hintStyle: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
+        queryStyle: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
+        ),
         scrollPadding: EdgeInsets.only(top: 16.h, bottom: 56.h),
         transitionDuration: const Duration(milliseconds: 800),
         transitionCurve: Curves.easeInOut,
@@ -266,12 +259,11 @@ class FloatingSearchMapBar extends ConsumerWidget {
         width: 600.w,
         debounceDelay: const Duration(milliseconds: 500),
         onQueryChanged: (query) {
-          // Call your model, bloc, controller here.
           ref
               .read(searchTrackStringProvider.notifier)
-              .setSearchTrackString(query);
+              .setSearchTrackString(query.trim());
           ref.read(searchTrackProvider.notifier).onSearchTrack(
-              query,
+              query.trim(),
               ref.read(fetchAllTracksProvider).when(
                         data: (tracks) => tracks,
                         loading: () => [],

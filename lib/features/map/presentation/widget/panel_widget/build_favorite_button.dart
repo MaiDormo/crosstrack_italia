@@ -22,7 +22,7 @@ class HeartIcon extends ConsumerWidget {
     return IconButton(
       icon: Icon(
         isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite ? Colors.red : null,
+        color: isFavorite ? Colors.red : Colors.white,
       ),
       onPressed: () {
         if (isFavorite) {

@@ -70,20 +70,28 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Cross Track Italia',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.blue[50],
+          scaffoldBackgroundColor:
+              Color.fromRGBO(211, 211, 211, 0.9), // light gray
           colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.blue,
+            seedColor:
+                Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated blue
             brightness: Brightness.light,
-            primary: Colors.blue[800],
-            secondary: Colors.blue[200],
-            tertiary: Colors.white,
+            primary: Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated green
+            secondary:
+                Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated orange
+            tertiary: Color.fromRGBO(211, 211, 211, 0.9), // light gray
           ),
           useMaterial3: true,
-          hintColor: Colors.amber,
+          hintColor:
+              Color.fromRGBO(85, 65, 50, 0.9), // dark, desaturated orange
           textTheme: GoogleFonts.poppinsTextTheme(
             Theme.of(context).textTheme.apply(
-                  bodyColor: Colors.grey[900],
-                  displayColor: Colors.grey[900],
+                  //   bodyColor: Color.fromRGBO(50, 105, 85, 0.9), // brighter green
+                  //   displayColor:
+                  //       Color.fromRGBO(50, 105, 85, 0.9), // brighter green
+                  // ),
+                  bodyColor: Colors.white,
+                  displayColor: Colors.white,
                 ),
           ),
         ),
@@ -115,8 +123,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//Difference between watch and listen in providers:
-// watch: is asynchronous that means that it is mostly used to rebuild the
-//        closest widget in the hierarchy when something happens
-// listen:

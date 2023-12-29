@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Widget buildTextField({
+  required BuildContext context,
   required TextEditingController controller,
   required String labelText,
   TextInputType keyboardType = TextInputType.text,
@@ -10,7 +11,8 @@ Widget buildTextField({
 }) {
   return Card(
     margin: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 5.0.h),
-    color: Color.fromRGBO(50, 65, 85, 0.9), // same color as the ListTile
+    color:
+        Theme.of(context).colorScheme.secondary, // same color as the ListTile
     elevation: 2.0, // same elevation as the Card
     child: Padding(
       padding: const EdgeInsets.all(8.0).r,

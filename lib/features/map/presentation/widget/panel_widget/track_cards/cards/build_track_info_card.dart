@@ -8,6 +8,7 @@ Widget buildTrackInfoCard(
 ) =>
     Expanded(
       child: Card(
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: EdgeInsets.all(8.0).r,
           child: Column(
@@ -18,15 +19,15 @@ Widget buildTrackInfoCard(
                 style: TextStyle(
                   fontSize: 11.25.sp,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
+              buildAttributeRow(Icons.military_tech, 'Categoria',
+                  trackSelected.category, context),
+              buildAttributeRow(Icons.gesture, 'Lunghezza',
+                  trackSelected.trackLength, context),
               buildAttributeRow(
-                  Icons.military_tech, 'Categoria', trackSelected.category),
-              buildAttributeRow(
-                  Icons.gesture, 'Lunghezza', trackSelected.trackLength),
-              buildAttributeRow(
-                  Icons.terrain, 'Terreno', trackSelected.terrainType),
+                  Icons.terrain, 'Terreno', trackSelected.terrainType, context),
             ],
           ),
         ),
@@ -37,18 +38,22 @@ Widget buildAttributeRow(
   IconData icon,
   String label,
   String value,
+  BuildContext context,
 ) =>
     Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Icon(icon),
+        Icon(
+          icon,
+          color: Theme.of(context).colorScheme.onSecondary,
+        ),
         SizedBox(
           width: 3.75.w,
         ),
         Text(
           '$label: ',
           style: TextStyle(
-            color: Colors.black,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 11.25.sp,
             fontWeight: FontWeight.bold,
           ),

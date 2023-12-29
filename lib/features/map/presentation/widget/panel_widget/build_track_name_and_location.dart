@@ -8,18 +8,17 @@ Widget buildTrackName(
   BuildContext context,
 ) =>
     buildStyledText(
-      trackSelected.trackName,
-      15.sp,
-      FontWeight.bold,
-      Theme.of(context).colorScheme.primary,
+      text: trackSelected.trackName,
+      fontSize: 15.sp,
+      fontWeight: FontWeight.bold,
     );
 
 Widget buildTrackLocation(
   Track trackSelected,
 ) =>
     buildStyledText(
-      trackSelected.location,
-      10.5.sp,
-      FontWeight.bold,
-      Colors.grey,
+      text: trackSelected.location,
+      fontSize: 10.5.sp,
+      fontWeight: FontWeight.bold,
+      color: Colors.grey,
     );

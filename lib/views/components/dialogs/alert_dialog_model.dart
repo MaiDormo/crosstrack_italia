@@ -21,11 +21,20 @@ extension Present<T> on AlertDialogModel<T> {
         builder: (context) => AlertDialog(
           title: Text(title),
           content: Text(message),
+          backgroundColor: Colors.blueGrey,
           actions: buttons.entries
               .map(
                 (entry) => TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                  ),
                   onPressed: () => Navigator.of(context).pop(entry.value),
-                  child: Text(entry.key),
+                  child: Text(
+                    entry.key,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                  ),
                 ),
               )
               .toList(),

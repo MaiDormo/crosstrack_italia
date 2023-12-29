@@ -28,7 +28,6 @@ class UserInfoStorage {
         _auth = auth;
 
   Future<UserInfoModel> fetchUserInfo(UserId id) async {
-    print('DEBUG fetchUserInfo called');
     final userDocSnapshot =
         await _firestore.collection(FirebaseCollectionName.users).doc(id).get();
 
@@ -42,7 +41,6 @@ class UserInfoStorage {
   Future<void> saveUserInfo({
     required UserInfoModel userInfoModel,
   }) async {
-    print('DEBUG saveUserInfo called');
     try {
       // first check if we have this user's info from before
       final userInfo = await _firestore
@@ -55,10 +53,8 @@ class UserInfoStorage {
       final payload = userInfoModel.toJson();
 
       if (userInfo.exists) {
-        print('DEBUG user info exists');
         await _updateUserInfo(userInfo.reference, payload);
       } else {
-        print('DEBUG user info does not exist');
         await _createUserInfo(userInfoModel.id, payload);
       }
     } catch (e) {

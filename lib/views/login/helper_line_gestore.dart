@@ -15,13 +15,13 @@ class HelperLineGestore extends StatelessWidget {
             children: <TextSpan>[
               const TextSpan(
                 text:
-                    'Nel caso sei un gestore di un tracciato, dopo l\'accesso puoi cominciare la procedura All\'interno del tuo ',
+                    'Nel caso sei un gestore di un tracciato, dopo l\'accesso puoi cominciare la procedura all\'interno delle ',
                 style: TextStyle(
                   color: Colors.black54,
                 ),
               ),
               TextSpan(
-                text: 'Profilo',
+                text: 'Impostazioni',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                 ),

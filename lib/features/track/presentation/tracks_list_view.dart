@@ -11,13 +11,11 @@ class TracksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //create a map function that returns every track as a TrackCard
-      children: tracks
-          .map(
-            (track) => TrackCard(track: track),
-          )
-          .toList(),
+    return ListView.builder(
+      itemCount: tracks.length,
+      itemBuilder: (context, index) {
+        return TrackCard(track: tracks.elementAt(index));
+      },
     );
   }
 }

@@ -208,6 +208,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
             padding: EdgeInsets.all(16.0),
             children: <Widget>[
               buildTextField(
+                context: context,
                 controller: _nameController,
                 labelText: 'Nome Tracciato',
                 validator: (value) {
@@ -218,6 +219,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildTextField(
+                context: context,
                 controller: _motoclubController,
                 labelText: 'Motoclub',
               ),
@@ -234,6 +236,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildListField(
+                context: context,
                 items: licenses,
                 labelText: 'Licenze accettate',
                 itemBuilder: (context, index) {
@@ -275,10 +278,12 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildTextField(
+                context: context,
                 controller: _terrainTypeController,
                 labelText: 'Tipo terreno',
               ),
               buildTextField(
+                context: context,
                 controller: _lengthController,
                 labelText: 'Lunghezza (in metri)',
                 keyboardType: TextInputType.number,
@@ -320,6 +325,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 ),
               ),
               buildListField(
+                context: context,
                 items: _servicesController.text.split(', '),
                 controller: _servicesController,
                 labelText: 'Servizi',
@@ -355,6 +361,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildListField(
+                context: context,
                 items: _phoneNumbers,
                 labelText: 'Phone Number',
                 itemBuilder: (context, index) {
@@ -400,6 +407,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 controllers: _phoneControllers,
               ),
               buildListField(
+                context: context,
                 items: _faxNumbers,
                 labelText: 'Fax Number',
                 itemBuilder: (context, index) {
@@ -445,6 +453,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 controllers: _faxControllers,
               ),
               buildTextField(
+                context: context,
                 controller: _emailController,
                 labelText: 'Email',
                 keyboardType: TextInputType.emailAddress,
@@ -460,6 +469,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildTextField(
+                context: context,
                 controller: _websiteController,
                 labelText: 'Website',
                 keyboardType: TextInputType.url,
@@ -471,6 +481,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
               ),
               buildTextField(
+                context: context,
                 controller: _infoController,
                 labelText: 'Info',
                 keyboardType: TextInputType.multiline,

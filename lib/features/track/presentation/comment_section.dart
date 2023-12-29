@@ -56,6 +56,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.blueGrey,
           title: const Text('Aggiungi un commento'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -83,7 +84,13 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                 controller: commentController,
                 maxLines: 5, // Imposta il numero massimo di righe
                 decoration: InputDecoration(
-                  hintText: 'Commenta qui...',
+                  hintText: 'Inserisci un commento',
+                  hintStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  labelStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
                   border: OutlineInputBorder(), // Bordo del campo di testo
                   contentPadding: const EdgeInsets.all(12).r, // Padding interno
                 ),
@@ -92,14 +99,34 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
           ),
           actions: [
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Colors.red,
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop(); // Chiudi il pop-up
               },
-              child: const Text('Cancella'),
+              child: Text(
+                'Cancella',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.onSecondary),
+              ),
             ),
+            15.horizontalSpace,
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Colors.green,
+                ),
+              ),
               onPressed: () => addComment(widget.trackId),
-              child: const Text('Invia'),
+              child: Text(
+                'Invia',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
             ),
           ],
         );
@@ -118,6 +145,14 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
       children: [
         16.verticalSpace,
         ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(
+              Colors.blueGrey,
+            ),
+            foregroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.onSecondary,
+            ),
+          ),
           onPressed: isLoggedIn ? _showCommentDialog : null,
           child: const Text('Commenta'),
         ),

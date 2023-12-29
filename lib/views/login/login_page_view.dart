@@ -19,7 +19,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false, //to avoid overflow
-        backgroundColor: Colors.amber[100],
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25.0),

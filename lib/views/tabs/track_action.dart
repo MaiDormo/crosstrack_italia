@@ -19,7 +19,7 @@ class TrackAction extends StatelessWidget {
   }) {
     return Flexible(
       child: Padding(
-        padding: const EdgeInsets.all(16.0).w,
+        padding: const EdgeInsets.all(16.0).r,
         child: ElevatedButton.icon(
           icon: Hero(
             tag: heroTag,
@@ -40,7 +40,7 @@ class TrackAction extends StatelessWidget {
             foregroundColor: Colors.white,
             backgroundColor: backgroundColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
           onPressed: onPressed,
@@ -52,12 +52,12 @@ class TrackAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0).h,
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(16.0),
+          borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
             BoxShadow(
               color: Colors.white.withOpacity(0.5),
@@ -72,9 +72,9 @@ class TrackAction extends StatelessWidget {
           children: [
             _buildElevatedButton(
               icon: Icons.compare_arrows,
-              label: 'Confronto tracciati',
-              foregroudColor: Theme.of(context).colorScheme.onPrimary,
-              backgroundColor: Theme.of(context).colorScheme.primary,
+              label: 'Confronto Tracciati',
+              foregroudColor: Theme.of(context).colorScheme.onSecondary,
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               heroTag: "track_selection_screen",
               onPressed: () {
                 Navigator.push(
@@ -86,8 +86,8 @@ class TrackAction extends StatelessWidget {
             ),
             _buildElevatedButton(
               icon: Icons.favorite,
-              label: 'Tracciati Favoriti',
-              foregroudColor: Theme.of(context).colorScheme.primary,
+              label: 'Tracciati Preferiti',
+              foregroudColor: Theme.of(context).colorScheme.secondary,
               backgroundColor: Colors.white,
               heroTag: "favorite_tracks_screen",
               onPressed: () {
@@ -107,8 +107,8 @@ class TrackAction extends StatelessWidget {
                   child: _buildElevatedButton(
                     icon: Icons.info,
                     label: 'Gestione Tracciati',
-                    foregroudColor: Theme.of(context).colorScheme.onPrimary,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    foregroudColor: Theme.of(context).colorScheme.onSecondary,
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
                     heroTag: "track_management_screen",
                     onPressed: () => Navigator.push(
                       context,

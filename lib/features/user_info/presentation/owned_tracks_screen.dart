@@ -38,8 +38,9 @@ class OwnedTracksScreen extends ConsumerWidget {
                           );
                         },
                         child: Card(
-                          color: Color.fromRGBO(
-                              50, 65, 85, 0.9), // same color as the ListTile
+                          color: Theme.of(context)
+                              .colorScheme
+                              .secondary, // same color as the ListTile
                           margin: const EdgeInsets.symmetric(vertical: 4.0).h,
                           child: ListTile(
                             title: Material(

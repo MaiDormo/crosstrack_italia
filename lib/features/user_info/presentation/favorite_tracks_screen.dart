@@ -14,7 +14,7 @@ class FavoriteTracksScreen extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Tracciati Favoriti'),
+          title: const Text('Tracciati Preferiti'),
         ),
         body: favoriteTrackState.when(
           data: (tracks) => ref
@@ -27,6 +27,9 @@ class FavoriteTracksScreen extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final track = tracksList.elementAt(index);
                       return Card(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .secondary, // same color as the ListTile
                         margin: const EdgeInsets.symmetric(vertical: 4.0).h,
                         child: ListTile(
                           title: Material(
@@ -34,15 +37,19 @@ class FavoriteTracksScreen extends ConsumerWidget {
                                 .transparency, // makes the child widget transparent
                             child: Text(
                               track.trackName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                           subtitle: Text(
                             track.region,
-                            style: TextStyle(color: Colors.grey[700]),
+                            style: TextStyle(color: Colors.grey[400]),
                           ),
                           trailing: IconButton(
                             icon: const Icon(Icons.delete),
+                            color: Colors.red,
                             onPressed: () {
                               ref
                                   .read(favoriteTracksNotifierProvider.notifier)

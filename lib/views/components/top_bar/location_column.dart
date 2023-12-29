@@ -12,7 +12,6 @@ class LocationColumn extends StatelessWidget {
           'Posizione Attuale:',
           style: TextStyle(
             fontSize: 12.3.sp,
-            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         Row(

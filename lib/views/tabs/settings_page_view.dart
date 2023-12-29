@@ -22,56 +22,60 @@ class SettingsPageView extends ConsumerWidget {
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Impostazioni'),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(8.0).w,
-        children: [
-          settingsSection(
-            'Account',
-            [
-              settingsTile(
-                context,
-                'Esci dall\'account',
-                Icons.logout,
-                () => shouldLogOut(context),
-              ),
-              settingsTile(
-                  context,
-                  'Cancella account',
-                  Icons.delete,
-                  () => ref
-                      .read(userStateNotifierProvider.notifier)
-                      .deleteUserInfo()),
-            ],
-            context,
-          ),
-          Visibility(
-            //user has to be logged in to see this section
-            visible: ref.watch(
-              isLoggedInProvider,
-            ),
-            child: settingsSection(
-              'Gestione Tracciato',
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0).h,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.secondary,
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+        ),
+        child: ListView(
+          padding: EdgeInsets.all(8.0).w,
+          children: [
+            settingsSection(
+              'Account',
               [
                 settingsTile(
                   context,
-                  'Gestisci i tuoi tracciati',
-                  Icons.edit,
-                  () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TrackOwnershipStepper(),
-                    ),
-                  ),
+                  'Esci dall\'account',
+                  Icons.logout,
+                  () => shouldLogOut(context),
                 ),
+                settingsTile(
+                    context,
+                    'Cancella account',
+                    Icons.delete,
+                    () => ref
+                        .read(userStateNotifierProvider.notifier)
+                        .deleteUserInfo()),
               ],
               context,
             ),
-          ),
-        ],
+            Visibility(
+              //user has to be logged in to see this section
+              visible: ref.watch(
+                isLoggedInProvider,
+              ),
+              child: settingsSection(
+                'Gestione Tracciato',
+                [
+                  settingsTile(
+                    context,
+                    'Gestisci i tuoi tracciati',
+                    Icons.edit,
+                    () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TrackOwnershipStepper(),
+                      ),
+                    ),
+                  ),
+                ],
+                context,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -91,7 +95,8 @@ class SettingsPageView extends ConsumerWidget {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context)
-                    .primaryColor, // Use the primary color of the theme
+                    .colorScheme
+                    .tertiary, // Use the primary color of the theme
               ),
             ),
           ),
@@ -106,9 +111,8 @@ class SettingsPageView extends ConsumerWidget {
     return ListTile(
       leading: Icon(
         icon,
-        color: Theme.of(context)
-            .iconTheme
-            .color, // Use the color of the theme's icons
+        color:
+            Theme.of(context).canvasColor, // Use the color of the theme's icons
       ),
       title: Text(
         title,

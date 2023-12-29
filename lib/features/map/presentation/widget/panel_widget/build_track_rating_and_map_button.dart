@@ -36,7 +36,6 @@ Widget buildRatingRow(
           style: TextStyle(
             fontSize: 12.sp,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         RatingBarIndicator(
@@ -47,7 +46,7 @@ Widget buildRatingRow(
           itemCount: 5,
           itemBuilder: (context, _) => Icon(
             Icons.star,
-            color: Theme.of(context).colorScheme.primary,
+            color: Colors.amber,
           ),
           itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
         ),
@@ -85,6 +84,9 @@ Widget buildMapButton(
               ),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(
+              Colors.white,
+            ),
+            foregroundColor: MaterialStateProperty.all(
               Theme.of(context).colorScheme.secondary,
             ),
           ),
@@ -113,7 +115,7 @@ Widget buildReviewCountText(
             style: TextStyle(
               fontSize: 12.sp,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.onSecondary,
             ),
           ),
         ],

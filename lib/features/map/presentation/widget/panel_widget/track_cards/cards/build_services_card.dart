@@ -10,6 +10,7 @@ Widget buildServicesCard(
 ) =>
     Expanded(
       child: Card(
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: const EdgeInsets.all(8.0).r,
           child: Consumer(
@@ -38,7 +39,7 @@ Widget buildServicesHeader(
         Text(
           'Servizi: ',
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 12.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -60,14 +61,18 @@ Widget buildServiceSwitch(
     message: 'Cambia vista',
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      color: Colors.orange,
+      color: Theme.of(context).colorScheme.onSecondary,
     ),
     textStyle: TextStyle(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.secondary,
       fontWeight: FontWeight.bold,
     ),
     child: Switch(
       value: _value,
+      activeColor: Theme.of(context).colorScheme.secondary,
+      activeTrackColor: Theme.of(context).colorScheme.onSecondary,
+      inactiveThumbColor: Theme.of(context).colorScheme.secondary,
+      inactiveTrackColor: Theme.of(context).colorScheme.onSecondary,
       onChanged: (value) =>
           ref.read(toggleIconsServicesViewProvider.notifier).toggle(),
     ),
@@ -93,32 +98,30 @@ Widget buildServiceRow(
   return Row(
     children: [
       value
-          ? Icon(icon)
+          ? Icon(icon, color: Theme.of(context).colorScheme.onSecondary)
           : Text(
               entryKeyCleaned + ':',
               style: TextStyle(
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSecondary,
                 fontSize: 9.75.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-      Card(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 4.0.h),
-          child: switch (entry.value) {
-            'si' => Icon(
-                Icons.check,
-                color: Colors.greenAccent,
-                size: 13.5.h,
-              ),
-            'no' => Icon(
-                Icons.close,
-                color: Colors.redAccent,
-                size: 13.5.h,
-              ),
-            _ => Container(),
-          },
-        ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 4.0.h),
+        child: switch (entry.value) {
+          'si' => Icon(
+              Icons.check,
+              color: Colors.greenAccent,
+              size: 13.5.h,
+            ),
+          'no' => Icon(
+              Icons.close,
+              color: Colors.redAccent,
+              size: 13.5.h,
+            ),
+          _ => Container(),
+        },
       ),
     ],
   );

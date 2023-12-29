@@ -9,6 +9,7 @@ Widget buildMotoclubCard(
 ) =>
     Expanded(
       child: Card(
+        color: Theme.of(context).colorScheme.secondary,
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(
@@ -18,7 +19,7 @@ Widget buildMotoclubCard(
                 style: TextStyle(
                   fontSize: 11.25.sp,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
               ),
               3.verticalSpace,
@@ -26,7 +27,7 @@ Widget buildMotoclubCard(
                 'assets/svgs/f_logo.svg',
                 height: 37.5.h,
                 colorFilter: ColorFilter.mode(
-                  Colors.blueAccent,
+                  Colors.white,
                   BlendMode.srcIn,
                 ),
               ),

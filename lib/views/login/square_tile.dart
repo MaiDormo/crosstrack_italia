@@ -18,9 +18,9 @@ class SquareTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20).w,
         decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).colorScheme.primary),
+          border: Border.all(color: Theme.of(context).colorScheme.tertiary),
           borderRadius: BorderRadius.circular(16),
-          color: Theme.of(context).colorScheme.tertiary,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         child: Wrap(
           alignment: WrapAlignment.center,
@@ -29,7 +29,7 @@ class SquareTile extends StatelessWidget {
               imagePath.contains('f') ? 'Facebook' : 'Google',
               style: TextStyle(
                 fontSize: 15,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
             SizedBox(width: 5.w),
@@ -37,7 +37,7 @@ class SquareTile extends StatelessWidget {
               imagePath,
               height: 30.h,
               colorFilter: ColorFilter.mode(
-                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.onSecondary,
                 BlendMode.srcIn,
               ),
             ),

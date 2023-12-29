@@ -28,6 +28,7 @@ class TrackCard extends ConsumerWidget {
         floatingSearchBarController.close();
       },
       child: Card(
+        color: Theme.of(context).colorScheme.secondary,
         elevation: 4,
         margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
         shape: RoundedRectangleBorder(
@@ -35,41 +36,57 @@ class TrackCard extends ConsumerWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(16).w,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                track.trackName,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              8.verticalSpace,
-              Row(
-                children: [
-                  Icon(
-                    Icons.pin_drop,
-                    size: 16.r,
-                    color: Colors.grey,
-                  ),
-                  4.horizontalSpace,
-                  Flexible(
-                    // Wrap in Flexible to handle long text
-                    child: Text(
-                      track.region,
-                      overflow: TextOverflow.ellipsis, // Truncate with ellipsis
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      track.trackName,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-                  const Spacer(),
-                  Flexible(
-                    // Wrap in Flexible to handle long text
-                    child: Text(
-                      track.location,
-                      overflow: TextOverflow.ellipsis, // Truncate with ellipsis
-                      style: Theme.of(context).textTheme.titleMedium,
+                    8.verticalSpace,
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.flag,
+                          size: 16.r,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        4.horizontalSpace,
+                        Flexible(
+                          // Wrap in Flexible to handle long text
+                          child: Text(
+                            track.region,
+                            overflow:
+                                TextOverflow.ellipsis, // Truncate with ellipsis
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.pin_drop,
+                          size: 16.r,
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                        Flexible(
+                          // Wrap in Flexible to handle long text
+                          child: Text(
+                            track.location,
+                            overflow:
+                                TextOverflow.ellipsis, // Truncate with ellipsis
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

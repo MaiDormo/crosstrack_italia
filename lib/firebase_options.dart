@@ -45,12 +45,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyC9uOd9fef2Ef-QE1IUzXNdZJVrzWXX_DE',
-    appId: '1:737346394316:web:943a1581131294e26a0a69',
+    appId: '1:737346394316:web:a68ed92492e414056a0a69',
     messagingSenderId: '737346394316',
     projectId: 'crosstrack-italia',
     authDomain: 'crosstrack-italia.firebaseapp.com',
+    databaseURL: 'https://crosstrack-italia-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'crosstrack-italia.appspot.com',
-    measurementId: 'G-BQ9FP0W8F9',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -58,28 +58,31 @@ class DefaultFirebaseOptions {
     appId: '1:737346394316:android:68e36959d81943396a0a69',
     messagingSenderId: '737346394316',
     projectId: 'crosstrack-italia',
+    databaseURL: 'https://crosstrack-italia-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'crosstrack-italia.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA8V5-jGWVfV-aWT6V735T64XQy4pH-sJs',
-    appId: '1:737346394316:ios:12ccfd37dabe8e4a6a0a69',
+    appId: '1:737346394316:ios:f536ad4ff2c3a30a6a0a69',
     messagingSenderId: '737346394316',
     projectId: 'crosstrack-italia',
+    databaseURL: 'https://crosstrack-italia-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'crosstrack-italia.appspot.com',
-    iosClientId:
-        '737346394316-ot6m6stbisilj5q9k883osiduih5kjnf.apps.googleusercontent.com',
+    androidClientId: '737346394316-sl518256stlcl8n4k6jc66sejr54mnk4.apps.googleusercontent.com',
+    iosClientId: '737346394316-ot6m6stbisilj5q9k883osiduih5kjnf.apps.googleusercontent.com',
     iosBundleId: 'com.example.crosstrackItalia',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyA8V5-jGWVfV-aWT6V735T64XQy4pH-sJs',
-    appId: '1:737346394316:ios:154a8bb5ba479e0e6a0a69',
+    appId: '1:737346394316:ios:46b6bafe0fbdb6b06a0a69',
     messagingSenderId: '737346394316',
     projectId: 'crosstrack-italia',
+    databaseURL: 'https://crosstrack-italia-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'crosstrack-italia.appspot.com',
-    iosClientId:
-        '737346394316-sp6pre43rl0tg71r9njc3hk8ce327kjv.apps.googleusercontent.com',
+    androidClientId: '737346394316-sl518256stlcl8n4k6jc66sejr54mnk4.apps.googleusercontent.com',
+    iosClientId: '737346394316-sp6pre43rl0tg71r9njc3hk8ce327kjv.apps.googleusercontent.com',
     iosBundleId: 'com.example.crosstrackItalia.RunnerTests',
   );
 }

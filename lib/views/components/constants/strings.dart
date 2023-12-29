@@ -29,7 +29,7 @@ class Strings {
   //Log out
   static const logOut = 'Esci';
   static const areYouSureThatYouWantToLogOutOfTheApp =
-      'Sei sicuro di voler uscire dall\'applicazione';
+      'Sei sicuro di voler uscire dall\'applicazione?';
 
   //cancel
   static const cancel = 'Cancella';
