@@ -1,6 +1,5 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_dropdown_button_form_field.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_length_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_list_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_text_field.dart';
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
@@ -90,79 +89,110 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     final List<String> categories = ['1', '2', '3', '4', '5'];
     final List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
 
-    Widget buildAddButton({
+    buildAddButton({
       required List<String> numbers,
       required String buttonText,
       required List<TextEditingController> controllers,
     }) {
       return ElevatedButton(
-        child: Text(buttonText),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+            Colors.blueGrey, // choose a color that matches your app's design
+          ),
+          overlayColor: MaterialStateProperty.all<Color>(
+            Colors.blueGrey
+                .shade700, // choose a color that matches your app's design
+          ),
+          elevation: MaterialStateProperty.all<double>(2.0),
+        ),
         onPressed: () {
           setState(() {
             numbers.add('');
             controllers.add(TextEditingController());
           });
         },
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
+    }
+
+    Future<void> _saveTrack(
+      GlobalKey<FormState> formKey,
+      WidgetRef ref,
+    ) async {
+      if (formKey.currentState!.validate()) {
+        setState(() {
+          _isUpdating = true;
+        });
+        // Save the form fields in a Track object
+        Track updatedTrack = widget.track.copyWith(
+          trackName: _nameController.text,
+          motoclub: _motoclubController.text,
+          category: _categoryController.text,
+          acceptedLicenses: _selectedLicenses.toList(),
+          terrainType: _terrainTypeController.text,
+          trackLength: _lengthController.text,
+          hasMinicross: _hasMinicrossController.text,
+          services: _servicesController.text.split(', ').asMap().map(
+                (key, value) => MapEntry(
+                  value.split(': ')[0].replaceAll(' ', '_'),
+                  value.split(': ')[1],
+                ),
+              ),
+          phones:
+              _phoneControllers.map((controller) => controller.text).toList(),
+          fax: _faxControllers.map((controller) => controller.text).toList(),
+          email: _emailController.text,
+          website: _websiteController.text,
+          info: _infoController.text,
+        );
+
+        // Update the track in the data source
+        await ref
+            .read(ownedTracksNotifierProvider.notifier)
+            .updateTrackInfo(updatedTrack);
+
+        // Show a success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Tracciato modificato correttamente')),
+        );
+
+        setState(() {
+          _isUpdating = false;
+        });
+
+        Navigator.pop(context);
+      }
     }
 
     Widget _buildSaveButton(GlobalKey<FormState> formKey) {
       return Consumer(
         builder: (context, ref, child) => ElevatedButton(
-          onPressed: _isUpdating
-              ? null
-              : () async {
-                  if (formKey.currentState!.validate()) {
-                    setState(() {
-                      _isUpdating = true;
-                    });
-                    // Save the form fields in a Track object
-                    Track updatedTrack = widget.track.copyWith(
-                      trackName: _nameController.text,
-                      motoclub: _motoclubController.text,
-                      category: _categoryController.text,
-                      acceptedLicenses: _selectedLicenses.toList(),
-                      terrainType: _terrainTypeController.text,
-                      trackLength: _lengthController.text,
-                      hasMinicross: _hasMinicrossController.text,
-                      services:
-                          _servicesController.text.split(', ').asMap().map(
-                                (key, value) => MapEntry(
-                                  value.split(': ')[0].replaceAll(' ', '_'),
-                                  value.split(': ')[1],
-                                ),
-                              ),
-                      phones: _phoneControllers
-                          .map((controller) => controller.text)
-                          .toList(),
-                      fax: _faxControllers
-                          .map((controller) => controller.text)
-                          .toList(),
-                      email: _emailController.text,
-                      website: _websiteController.text,
-                      info: _infoController.text,
-                    );
-
-                    // Update the track in the data source
-                    await ref
-                        .read(ownedTracksNotifierProvider.notifier)
-                        .updateTrackInfo(updatedTrack);
-
-                    // Show a success message
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                          content: Text('Tracciato modificato correttamente')),
-                    );
-
-                    setState(() {
-                      _isUpdating = false;
-                    });
-
-                    Navigator.pop(context);
-                  }
-                },
-          child:
-              _isUpdating ? CircularProgressIndicator() : Text('Save Changes'),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(
+              Colors.blueGrey, // choose a color that matches your app's design
+            ),
+            overlayColor: MaterialStateProperty.all<Color>(
+              Colors.blueGrey
+                  .shade700, // choose a color that matches your app's design
+            ),
+            elevation: MaterialStateProperty.all<double>(2.0),
+          ),
+          onPressed: _isUpdating ? null : () => _saveTrack(formKey, ref),
+          child: _isUpdating
+              ? CircularProgressIndicator()
+              : Text(
+                  'Salva i cambiamenti',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
         ),
       );
     }
@@ -179,10 +209,10 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
             children: <Widget>[
               buildTextField(
                 controller: _nameController,
-                labelText: 'Track Name',
+                labelText: 'Nome Tracciato',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a track name';
+                    return 'Aggiungi un nome al tracciato';
                   }
                   return null;
                 },
@@ -195,7 +225,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 _categoryController.text.isEmpty
                     ? categories.first
                     : _categoryController.text,
-                'Category',
+                'Categoria',
                 categories,
                 (newValue) {
                   setState(() {
@@ -205,81 +235,117 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
               ),
               buildListField(
                 items: licenses,
-                labelText: 'Accepted Licenses',
+                labelText: 'Licenze accettate',
                 itemBuilder: (context, index) {
                   String license = licenses[index];
-                  return CheckboxListTile(
-                    title: Text(license.toUpperCase()),
+                  return ListTile(
+                    title: Text(
+                      license.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white, // same color as the ListTile text
+                        fontWeight: FontWeight
+                            .bold, // same font weight as the ListTile text
+                      ),
+                    ),
                     subtitle: Image.asset(
                       'assets/images/license_img/logo-$license.jpg',
                       height: 50.r,
                       width: 50.r,
                     ),
-                    value: _selectedLicenses.contains(license),
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        if (newValue == true) {
-                          _selectedLicenses.add(license);
-                        } else {
-                          _selectedLicenses.remove(license);
-                        }
-                      });
-                    },
+                    trailing: Tooltip(
+                      message: _selectedLicenses.contains(license)
+                          ? 'Attualmente aggiunta'
+                          : 'Attualmente rimossa',
+                      child: Switch(
+                        value: _selectedLicenses.contains(license),
+                        activeTrackColor: Colors.green,
+                        inactiveThumbColor: Colors.red,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            if (newValue) {
+                              _selectedLicenses.add(license);
+                            } else {
+                              _selectedLicenses.remove(license);
+                            }
+                          });
+                        },
+                      ),
+                    ),
                   );
                 },
               ),
               buildTextField(
                 controller: _terrainTypeController,
-                labelText: 'Terrain Type',
+                labelText: 'Tipo terreno',
               ),
-              buildLengthField(lengthController: _lengthController),
-              buildDropdownButtonFormField(
-                _hasMinicrossController.text.isEmpty ||
-                        _hasMinicrossController.text == '-'
-                    ? 'no'
-                    : _hasMinicrossController.text,
-                'Minicross',
-                ['si', 'no'],
-                (newValue) {
-                  setState(() {
-                    _hasMinicrossController.text = newValue;
-                  });
+              buildTextField(
+                controller: _lengthController,
+                labelText: 'Lunghezza (in metri)',
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Anggiungi la lunghezza del tracciato';
+                  }
+                  return null;
                 },
+              ),
+              Card(
+                elevation: 2.0,
+                margin:
+                    EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 5.0.h),
+                color: Color.fromRGBO(50, 65, 85, 0.9),
+                child: ListTile(
+                  title: Text(
+                    'Minicross',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: Tooltip(
+                    message: _hasMinicrossController.text == 'si'
+                        ? 'Attualmente si'
+                        : 'Attualmente no',
+                    child: Switch(
+                      value: _hasMinicrossController.text == 'si',
+                      activeTrackColor: Colors.green,
+                      inactiveThumbColor: Colors.red,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          _hasMinicrossController.text = newValue ? 'si' : 'no';
+                        });
+                      },
+                    ),
+                  ),
+                ),
               ),
               buildListField(
                 items: _servicesController.text.split(', '),
                 controller: _servicesController,
-                labelText: 'Services',
+                labelText: 'Servizi',
                 itemBuilder: (context, index) {
                   var service =
                       _servicesController.text.split(', ')[index].split(': ');
                   return ListTile(
-                    title: Text(service[0].replaceFirst('_', ' ')),
-                    trailing: Container(
-                      width: 123.4.w, // adjust the width as needed
-                      child: DropdownButtonFormField<String>(
-                        value: service[1].trim() == 'si' ? 'si' : 'no',
-                        decoration: InputDecoration(
-                          labelText: 'Value',
-                        ),
-                        items: <String>['si', 'no']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color:
-                                    value == 'si' ? Colors.green : Colors.red,
-                                fontSize: 12.sp,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                    title: Text(
+                      service[0].replaceFirst('_', ' '),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Tooltip(
+                      message: service[1].trim() == 'si'
+                          ? 'Attualmente si'
+                          : 'Attualmente no',
+                      child: Switch(
+                        value: service[1].trim() == 'si',
+                        activeTrackColor: Colors.green,
+                        inactiveThumbColor: Colors.red,
+                        onChanged: (bool newValue) {
                           setState(() {
                             var services = _servicesController.text.split(', ');
-                            services[index] = '${service[0]}: ${newValue!}';
+                            services[index] =
+                                '${service[0]}: ${newValue ? 'si' : 'no'}';
                             _servicesController.text = services.join(', ');
                           });
                         },
@@ -292,41 +358,39 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 items: _phoneNumbers,
                 labelText: 'Phone Number',
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          // initialValue: _phoneNumbers[index],
-                          decoration: InputDecoration(
-                            labelText: 'Phone Number',
-                          ),
-                          keyboardType: TextInputType.phone,
-                          controller: _phoneControllers[index],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Phone Number';
-                            }
-                            // Add additional validation for numbers here
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            setState(() {
-                              _phoneNumbers[index] = newValue!;
-                              _phoneControllers[index].text = newValue;
-                            });
-                          },
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                    leading: Container(
+                      padding: EdgeInsets.only(right: 12.0),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          right: BorderSide(width: 1.0, color: Colors.white24),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            _phoneNumbers.removeAt(index);
-                            _phoneControllers.removeAt(index).dispose();
-                          });
-                        },
+                      child: Icon(Icons.phone, color: Colors.white),
+                    ),
+                    title: TextFormField(
+                      controller: _phoneControllers[index],
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'Enter phone number',
+                        hintStyle: TextStyle(color: Colors.white),
                       ),
-                    ],
+                      keyboardType: TextInputType.phone,
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _phoneNumbers.removeAt(index);
+                          _phoneControllers.removeAt(index).dispose();
+                        });
+                      },
+                    ),
                   );
                 },
               ),
@@ -339,41 +403,39 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 items: _faxNumbers,
                 labelText: 'Fax Number',
                 itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          // initialValue: _faxNumbers[index],
-                          decoration: InputDecoration(
-                            labelText: 'Fax Number',
-                          ),
-                          keyboardType: TextInputType.phone,
-                          controller: _faxControllers[index],
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a Fax Number';
-                            }
-                            // Add additional validation for numbers here
-                            return null;
-                          },
-                          onSaved: (newValue) {
-                            setState(() {
-                              _faxNumbers[index] = newValue!;
-                              _faxControllers[index].text = newValue;
-                            });
-                          },
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+                    leading: Container(
+                      padding: EdgeInsets.only(right: 12.0),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          right: BorderSide(width: 1.0, color: Colors.white24),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.delete),
-                        onPressed: () {
-                          setState(() {
-                            _faxNumbers.removeAt(index);
-                            _faxControllers.removeAt(index).dispose();
-                          });
-                        },
+                      child: Icon(Icons.fax, color: Colors.white),
+                    ),
+                    title: TextFormField(
+                      controller: _faxControllers[index],
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                      decoration: InputDecoration(
+                        hintText: 'Inserisci Fax',
+                        hintStyle: TextStyle(color: Colors.white),
                       ),
-                    ],
+                      keyboardType: TextInputType.phone,
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _faxNumbers.removeAt(index);
+                          _faxControllers.removeAt(index).dispose();
+                        });
+                      },
+                    ),
                   );
                 },
               ),

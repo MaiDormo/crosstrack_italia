@@ -57,7 +57,7 @@ Widget buildServiceSwitch(
 ) {
   final _value = ref.watch(toggleIconsServicesViewProvider);
   return Tooltip(
-    message: 'Switch between text and icons',
+    message: 'Cambia vista',
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
       color: Colors.orange,

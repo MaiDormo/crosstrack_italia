@@ -38,6 +38,8 @@ class OwnedTracksScreen extends ConsumerWidget {
                           );
                         },
                         child: Card(
+                          color: Color.fromRGBO(
+                              50, 65, 85, 0.9), // same color as the ListTile
                           margin: const EdgeInsets.symmetric(vertical: 4.0).h,
                           child: ListTile(
                             title: Material(
@@ -45,15 +47,23 @@ class OwnedTracksScreen extends ConsumerWidget {
                                   .transparency, // makes the child widget transparent
                               child: Text(
                                 track.trackName,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors
+                                      .white, // same color as the ListTile text
+                                ),
                               ),
                             ),
                             subtitle: Text(
                               track.region,
-                              style: TextStyle(color: Colors.grey[700]),
+                              style: TextStyle(
+                                color: Colors.grey[
+                                    400], // adjust the color to match your app's theme
+                              ),
                             ),
                             trailing: IconButton(
                               icon: const Icon(Icons.delete),
+                              color: Colors.red, // specify a color
                               onPressed: () {
                                 ref
                                     .read(ownedTracksNotifierProvider.notifier)
