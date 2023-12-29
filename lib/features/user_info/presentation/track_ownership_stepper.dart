@@ -1,6 +1,7 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
+import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
               currentStep: _currentStep,
               onStepContinue: () {
                 if (_currentStep == 2) {
-                  if (value.isOwner != true) {
+                  if (value.role == UserRole.user) {
                     ref.read(userStateNotifierProvider.notifier).makeOwner(
                           _selectedTracks.map((track) => track.id).toList(),
                         );

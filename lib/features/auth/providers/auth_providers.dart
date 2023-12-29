@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +33,7 @@ UserId userId(UserIdRef ref) {
 bool isOwner(IsOwnerRef ref) {
   final _userState = ref.watch(userStateNotifierProvider);
   return switch (_userState) {
-    AsyncData(:final value) => value.isOwner,
+    AsyncData(:final value) => value.role == UserRole.owner,
     _ => false,
   };
 }

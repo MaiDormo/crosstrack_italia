@@ -34,7 +34,7 @@ final userIdProvider = AutoDisposeProvider<UserId>.internal(
 );
 
 typedef UserIdRef = AutoDisposeProviderRef<UserId>;
-String _$isOwnerHash() => r'f91677b2c489c301cd87b3dd31fa5dbb5d7858b1';
+String _$isOwnerHash() => r'a428beb61180721d62123c5a5627af50daf8200a';
 
 /// See also [isOwner].
 @ProviderFor(isOwner)

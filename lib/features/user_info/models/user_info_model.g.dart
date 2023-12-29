@@ -16,7 +16,8 @@ _$UserInfoModelImpl _$$UserInfoModelImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      isOwner: json['isOwner'] as bool? ?? false,
+      role: $enumDecodeNullable(_$UserRoleEnumMap, json['ruolo']) ??
+          UserRole.guest,
       ownedTracks: (json['tracciati_posseduti'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
@@ -30,6 +31,12 @@ Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
       'email': instance.email,
       'profile_image_url': instance.profileImageUrl,
       'tracciati_favoriti': instance.favoriteTracks,
-      'isOwner': instance.isOwner,
+      'ruolo': _$UserRoleEnumMap[instance.role],
       'tracciati_posseduti': instance.ownedTracks,
     };
+
+const _$UserRoleEnumMap = {
+  UserRole.owner: 'owner',
+  UserRole.user: 'user',
+  UserRole.guest: 'guest',
+};

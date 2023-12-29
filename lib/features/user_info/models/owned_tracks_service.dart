@@ -15,18 +15,14 @@ class OwnedTracksService {
 
   Future<void> addTracks(List<TrackId> trackIds) {
     return _firestore.runTransaction((transaction) async {
-      final userQuery = _firestore
-          .collection(FirebaseCollectionName.users)
-          .where(FirebaseFieldName.id, isEqualTo: _userId);
-
-      final userQuerySnapshot = await userQuery.get();
-      if (userQuerySnapshot.docs.isEmpty) {
-        throw Exception('User not found');
-      }
-
-      final userDocRef = userQuerySnapshot.docs.first.reference;
+      final userDocRef =
+          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
 
       final userDocSnapshot = await transaction.get(userDocRef);
+
+      if (!userDocSnapshot.exists) {
+        throw Exception('User not found');
+      }
 
       List<dynamic> ownedTracks =
           userDocSnapshot.get(FirebaseFieldName.ownedTracks) ?? [];
@@ -38,16 +34,14 @@ class OwnedTracksService {
 
   Future<void> removeTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userQuery = _firestore
-          .collection(FirebaseCollectionName.users)
-          .where(FirebaseFieldName.id, isEqualTo: _userId);
+      final userDocRef =
+          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
 
-      final userQuerySnapshot = await userQuery.get();
-      if (userQuerySnapshot.docs.isEmpty) {
+      final userDocSnapshot = await transaction.get(userDocRef);
+
+      if (!userDocSnapshot.exists) {
         throw Exception('User not found');
       }
-
-      final userDocRef = userQuerySnapshot.docs.first.reference;
 
       transaction.update(userDocRef, {
         FirebaseFieldName.ownedTracks: FieldValue.arrayRemove([trackId])
@@ -56,20 +50,22 @@ class OwnedTracksService {
   }
 
   Future<List<TrackId>> getOwnedTracks() async {
-    final querySnapshot = await _firestore
-        .collection(FirebaseCollectionName.users)
-        .where(FirebaseFieldName.id, isEqualTo: _userId)
-        .limit(1)
-        .get();
+    return _firestore.runTransaction<List<TrackId>>((
+      Transaction transaction,
+    ) async {
+      final userDocRef =
+          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
 
-    if (querySnapshot.docs.isEmpty) {
-      return [];
-    }
+      final userDocSnapshot = await transaction.get(userDocRef);
 
-    final doc = querySnapshot.docs.first;
-    return (doc.data()[FirebaseFieldName.ownedTracks] as List?)
-            ?.cast<TrackId>() ??
-        [];
+      if (!userDocSnapshot.exists && userDocSnapshot.data() == null) {
+        return [];
+      }
+
+      return (userDocSnapshot.data()?[FirebaseFieldName.ownedTracks] as List?)
+              ?.cast<TrackId>() ??
+          [];
+    });
   }
 
   Future<void> updateTrackInfo(Track updatedTrack) {

@@ -28,7 +28,8 @@ mixin _$UserInfoModel {
   String? get profileImageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String>? get favoriteTracks => throw _privateConstructorUsedError;
-  bool get isOwner => throw _privateConstructorUsedError;
+  @JsonKey(name: FirebaseFieldName.role)
+  UserRole? get role => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String>? get ownedTracks => throw _privateConstructorUsedError;
 
@@ -51,7 +52,7 @@ abstract class $UserInfoModelCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String>? favoriteTracks,
-      bool isOwner,
+      @JsonKey(name: FirebaseFieldName.role) UserRole? role,
       @JsonKey(name: FirebaseFieldName.ownedTracks) List<String>? ownedTracks});
 }
 
@@ -73,7 +74,7 @@ class _$UserInfoModelCopyWithImpl<$Res, $Val extends UserInfoModel>
     Object? email = freezed,
     Object? profileImageUrl = freezed,
     Object? favoriteTracks = freezed,
-    Object? isOwner = null,
+    Object? role = freezed,
     Object? ownedTracks = freezed,
   }) {
     return _then(_value.copyWith(
@@ -97,10 +98,10 @@ class _$UserInfoModelCopyWithImpl<$Res, $Val extends UserInfoModel>
           ? _value.favoriteTracks
           : favoriteTracks // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      isOwner: null == isOwner
-          ? _value.isOwner
-          : isOwner // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole?,
       ownedTracks: freezed == ownedTracks
           ? _value.ownedTracks
           : ownedTracks // ignore: cast_nullable_to_non_nullable
@@ -124,7 +125,7 @@ abstract class _$$UserInfoModelImplCopyWith<$Res>
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String>? favoriteTracks,
-      bool isOwner,
+      @JsonKey(name: FirebaseFieldName.role) UserRole? role,
       @JsonKey(name: FirebaseFieldName.ownedTracks) List<String>? ownedTracks});
 }
 
@@ -144,7 +145,7 @@ class __$$UserInfoModelImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? profileImageUrl = freezed,
     Object? favoriteTracks = freezed,
-    Object? isOwner = null,
+    Object? role = freezed,
     Object? ownedTracks = freezed,
   }) {
     return _then(_$UserInfoModelImpl(
@@ -168,10 +169,10 @@ class __$$UserInfoModelImplCopyWithImpl<$Res>
           ? _value._favoriteTracks
           : favoriteTracks // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      isOwner: null == isOwner
-          ? _value.isOwner
-          : isOwner // ignore: cast_nullable_to_non_nullable
-              as bool,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as UserRole?,
       ownedTracks: freezed == ownedTracks
           ? _value._ownedTracks
           : ownedTracks // ignore: cast_nullable_to_non_nullable
@@ -191,7 +192,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
       this.profileImageUrl = '',
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String>? favoriteTracks = const [],
-      this.isOwner = false,
+      @JsonKey(name: FirebaseFieldName.role) this.role = UserRole.guest,
       @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String>? ownedTracks = const []})
       : _favoriteTracks = favoriteTracks,
@@ -224,8 +225,8 @@ class _$UserInfoModelImpl extends _UserInfoModel {
   }
 
   @override
-  @JsonKey()
-  final bool isOwner;
+  @JsonKey(name: FirebaseFieldName.role)
+  final UserRole? role;
   final List<String>? _ownedTracks;
   @override
   @JsonKey(name: FirebaseFieldName.ownedTracks)
@@ -239,7 +240,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
 
   @override
   String toString() {
-    return 'UserInfoModel(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl, favoriteTracks: $favoriteTracks, isOwner: $isOwner, ownedTracks: $ownedTracks)';
+    return 'UserInfoModel(id: $id, displayName: $displayName, email: $email, profileImageUrl: $profileImageUrl, favoriteTracks: $favoriteTracks, role: $role, ownedTracks: $ownedTracks)';
   }
 
   @override
@@ -255,7 +256,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
                 other.profileImageUrl == profileImageUrl) &&
             const DeepCollectionEquality()
                 .equals(other._favoriteTracks, _favoriteTracks) &&
-            (identical(other.isOwner, isOwner) || other.isOwner == isOwner) &&
+            (identical(other.role, role) || other.role == role) &&
             const DeepCollectionEquality()
                 .equals(other._ownedTracks, _ownedTracks));
   }
@@ -269,7 +270,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
       email,
       profileImageUrl,
       const DeepCollectionEquality().hash(_favoriteTracks),
-      isOwner,
+      role,
       const DeepCollectionEquality().hash(_ownedTracks));
 
   @JsonKey(ignore: true)
@@ -296,7 +297,7 @@ abstract class _UserInfoModel extends UserInfoModel {
       final String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String>? favoriteTracks,
-      final bool isOwner,
+      @JsonKey(name: FirebaseFieldName.role) final UserRole? role,
       @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String>? ownedTracks}) = _$UserInfoModelImpl;
   const _UserInfoModel._() : super._();
@@ -318,7 +319,8 @@ abstract class _UserInfoModel extends UserInfoModel {
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String>? get favoriteTracks;
   @override
-  bool get isOwner;
+  @JsonKey(name: FirebaseFieldName.role)
+  UserRole? get role;
   @override
   @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String>? get ownedTracks;

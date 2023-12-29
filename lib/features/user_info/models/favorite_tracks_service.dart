@@ -22,16 +22,15 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
   @override
   Future<void> addTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userQuery = _firestore
-          .collection(FirebaseCollectionName.users)
-          .where(FirebaseFieldName.id, isEqualTo: _userId);
+      final userQuery =
+          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
 
-      final userQuerySnapshot = await userQuery.get();
-      if (userQuerySnapshot.docs.isEmpty) {
+      final userDocument = await userQuery.get();
+      if (!userDocument.exists) {
         throw Exception('User not found');
       }
 
-      final userDocRef = userQuerySnapshot.docs.first.reference;
+      final userDocRef = userDocument.reference;
 
       final userDocSnapshot = await transaction.get(userDocRef);
 
@@ -46,16 +45,14 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
   @override
   Future<void> removeTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userQuery = _firestore
+      final userDocRef = _firestore
           .collection(FirebaseCollectionName.users)
-          .where(FirebaseFieldName.id, isEqualTo: _userId);
+          .doc(_userId); // Use _userId as the document ID
 
-      final userQuerySnapshot = await userQuery.get();
-      if (userQuerySnapshot.docs.isEmpty) {
+      final userDocSnapshot = await userDocRef.get();
+      if (!userDocSnapshot.exists) {
         throw Exception('User not found');
       }
-
-      final userDocRef = userQuerySnapshot.docs.first.reference;
 
       transaction.update(userDocRef, {
         FirebaseFieldName.favoriteTracks: FieldValue.arrayRemove([trackId])
@@ -65,18 +62,16 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
 
   @override
   Future<List<TrackId>> getFavoriteTracks() async {
-    final querySnapshot = await _firestore
+    final docSnapshot = await _firestore
         .collection(FirebaseCollectionName.users)
-        .where(FirebaseFieldName.id, isEqualTo: _userId)
-        .limit(1)
+        .doc(_userId) // Use _userId as the document ID
         .get();
 
-    if (querySnapshot.docs.isEmpty) {
+    if (!docSnapshot.exists && docSnapshot.data() == null) {
       return [];
     }
 
-    final doc = querySnapshot.docs.first;
-    return (doc.data()[FirebaseFieldName.favoriteTracks] as List?)
+    return (docSnapshot.data()![FirebaseFieldName.favoriteTracks] as List?)
             ?.cast<TrackId>() ??
         [];
   }

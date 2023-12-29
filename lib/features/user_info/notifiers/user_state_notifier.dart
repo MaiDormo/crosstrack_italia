@@ -1,12 +1,10 @@
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
 import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
-import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
+import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,7 +17,7 @@ class UserStateNotifier extends _$UserStateNotifier {
 
   @override
   Stream<UserInfoModel> build() async* {
-    _userInfoStorage = ref.watch(userInfoStorageProvider.notifier);
+    _userInfoStorage = ref.watch(userInfoStorageProvider);
     _authState = ref.watch(authStateNotifierProvider);
     yield switch (_authState) {
       AsyncData(:final value) => await init(value.user),
@@ -35,7 +33,10 @@ class UserStateNotifier extends _$UserStateNotifier {
     final _fetchedUser = await fetchUserInfo(user.uid);
 
     if (_fetchedUser == UserInfoModel.empty()) {
-      final _newUser = UserInfoModel.fromUser(user);
+      print('DEBUG new user:  creating a new user info');
+      final _newUser = UserInfoModel.fromUser(user).copyWith(
+        role: UserRole.user,
+      );
       await saveUserInfo(userInfoModel: _newUser);
       return _newUser;
     }
@@ -95,7 +96,7 @@ class UserStateNotifier extends _$UserStateNotifier {
 
   Future<void> makeOwner(List<TrackId> ownedTracks) async {
     final user = state.value!.copyWith(
-      isOwner: true,
+      role: UserRole.owner,
       ownedTracks: ownedTracks,
     );
     await saveUserInfo(userInfoModel: user);
@@ -103,21 +104,7 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<UserInfoModel> fetchUserInfo(UserId userId) async {
-    final snapshot = await ref
-        .read(firestoreProvider)
-        .collection(FirebaseCollectionName.users)
-        .where(FirebaseFieldName.id, isEqualTo: userId)
-        .limit(1)
-        .get();
-
-    if (snapshot.docs.isNotEmpty) {
-      final doc = snapshot.docs.first;
-      final json = doc.data();
-      final userInfo = UserInfoModel.fromJson(json);
-      return userInfo;
-    } else {
-      return UserInfoModel.empty();
-    }
+    return await _userInfoStorage.fetchUserInfo(userId);
   }
 
   Future<void> deleteUserInfo() async {

@@ -54,11 +54,14 @@ Widget buildAttributeRow(
           ),
         ),
         3.verticalSpace,
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 11.25.sp,
-            fontWeight: FontWeight.bold,
+        Flexible(
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 11.25.sp,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],

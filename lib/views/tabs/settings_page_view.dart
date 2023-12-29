@@ -48,16 +48,6 @@ class SettingsPageView extends ConsumerWidget {
             ],
             context,
           ),
-          settingsSection(
-            'Profilo',
-            [
-              settingsTile(context, 'Cambia immagine del profilo', Icons.image,
-                  () => null),
-              settingsTile(
-                  context, 'Cambia Linguaggio', Icons.language, () => null),
-            ],
-            context,
-          ),
           Visibility(
             //user has to be logged in to see this section
             visible: ref.watch(
