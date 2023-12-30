@@ -27,19 +27,13 @@ class TrackComparison extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
           title: Text(
             "Confronto tracciati",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           forceMaterialTransparency: true,
-          iconTheme: IconThemeData(
-            color: Theme.of(context).colorScheme.tertiary,
-          ),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -47,11 +41,17 @@ class TrackComparison extends StatelessWidget {
             padding: const EdgeInsets.all(16.0).r,
             child: Column(
               children: [
-                _buildTextRow(track1.trackName, track2.trackName, columnWidth,
+                _buildTextRow(
+                    context, track1.trackName, track2.trackName, columnWidth,
                     isTitle: true),
 
+                30.verticalSpace,
+
                 _buildTitleSeparator("Motoclub", context),
-                _buildTextRow(track1.motoclub, track2.motoclub, columnWidth),
+                _buildTextRow(
+                    context, track1.motoclub, track2.motoclub, columnWidth),
+
+                10.verticalSpace,
 
                 _buildTitleSeparator("Posizione", context),
                 _buildComparisonRow(
@@ -62,6 +62,7 @@ class TrackComparison extends StatelessWidget {
                   columnWidth,
                   context,
                 ),
+
                 _buildComparisonRow(
                   "Città",
                   track1.location,
@@ -78,6 +79,8 @@ class TrackComparison extends StatelessWidget {
                   columnWidth,
                   context,
                 ),
+
+                10.verticalSpace,
 
                 _buildTitleSeparator("Caratteristiche", context),
                 _buildComparisonRow(
@@ -105,12 +108,16 @@ class TrackComparison extends StatelessWidget {
                   context,
                 ),
 
+                10.verticalSpace,
+
                 _buildTitleSeparator("Info Pilota", context),
                 _buildAcceptedLicensesRow(
                   track1.acceptedLicenses,
                   track2.acceptedLicenses,
                   columnWidth,
                 ),
+
+                10.verticalSpace,
 
                 //add track characteristics here
                 _buildTitleSeparator("Servizi", context),
@@ -234,8 +241,13 @@ class TrackComparison extends StatelessWidget {
     );
   }
 
-  Widget _buildTextRow(String value1, String value2, double columnWidth,
-      {bool isTitle = false}) {
+  Widget _buildTextRow(
+    BuildContext context,
+    String value1,
+    String value2,
+    double columnWidth, {
+    bool isTitle = false,
+  }) {
     final textSize = isTitle ? 16.0 : 14.0;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,6 +260,9 @@ class TrackComparison extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: textSize,
+              color: isTitle
+                  ? Theme.of(context).colorScheme.secondary
+                  : Colors.black, // Use primary color from theme
             ),
           ),
         ),
@@ -258,6 +273,9 @@ class TrackComparison extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: textSize,
+              color: isTitle
+                  ? Theme.of(context).colorScheme.secondary
+                  : Colors.black, // Use primary color from theme
             ),
           ),
         ),
@@ -408,7 +426,7 @@ class TrackComparison extends StatelessWidget {
               fontSize: 19.0.sp,
               color: Theme.of(context)
                   .colorScheme
-                  .primary, // Use primary color from theme
+                  .error, // Use primary color from theme
             ),
           ),
           4.verticalSpace,

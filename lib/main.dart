@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             primary: Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated green
             secondary:
-                Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated orange
+                Color.fromRGBO(50, 65, 85, 0.96), // dark, desaturated orange
             tertiary: Color.fromRGBO(211, 211, 211, 0.9), // light gray
           ),
           useMaterial3: true,

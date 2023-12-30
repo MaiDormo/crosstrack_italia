@@ -32,24 +32,33 @@ class SettingsPageView extends ConsumerWidget {
         child: ListView(
           padding: EdgeInsets.all(8.0).w,
           children: [
-            settingsSection(
-              'Account',
-              [
-                settingsTile(
-                  context,
-                  'Esci dall\'account',
-                  Icons.logout,
-                  () => shouldLogOut(context),
-                ),
-                settingsTile(
+            Visibility(
+              visible: ref.watch(isLoggedInProvider),
+              child: settingsSection(
+                'Account',
+                [
+                  settingsTile(
                     context,
-                    'Cancella account',
-                    Icons.delete,
-                    () => ref
-                        .read(userStateNotifierProvider.notifier)
-                        .deleteUserInfo()),
-              ],
-              context,
+                    'Esci dall\'account',
+                    Icons.logout,
+                    () => shouldLogOut(context),
+                  ),
+                  settingsTile(
+                      context,
+                      'Cancella account',
+                      Icons.delete,
+                      () => ref
+                          .read(userStateNotifierProvider.notifier)
+                          .deleteUserInfo()),
+                  settingsTile(
+                    context,
+                    'Privacy Settings',
+                    Icons.lock,
+                    () => null,
+                  ),
+                ],
+                context,
+              ),
             ),
             Visibility(
               //user has to be logged in to see this section
@@ -57,7 +66,7 @@ class SettingsPageView extends ConsumerWidget {
                 isLoggedInProvider,
               ),
               child: settingsSection(
-                'Gestione Tracciato',
+                'Gestore Tracciato',
                 [
                   settingsTile(
                     context,
@@ -73,6 +82,48 @@ class SettingsPageView extends ConsumerWidget {
                 ],
                 context,
               ),
+            ),
+            settingsSection(
+              'Preferenze',
+              [
+                settingsTile(
+                  context,
+                  'Impostazioni ricerca tracciato',
+                  Icons.track_changes,
+                  () => null,
+                ),
+                settingsTile(
+                  context,
+                  'Impostazioni notifiche',
+                  Icons.notifications,
+                  () => null,
+                ),
+                settingsTile(
+                  context,
+                  'Unità di misura',
+                  Icons.straighten,
+                  () => null,
+                ),
+                settingsTile(
+                  context,
+                  'Impostazioni Meteo',
+                  Icons.wb_sunny,
+                  () => null,
+                ),
+                settingsTile(
+                  context,
+                  'Tema applicazione',
+                  Icons.brightness_6,
+                  () => null,
+                ),
+                settingsTile(
+                  context,
+                  'Impostazioni lingua',
+                  Icons.language,
+                  () => null,
+                ),
+              ],
+              context,
             ),
           ],
         ),

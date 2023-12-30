@@ -58,12 +58,17 @@ class TrackSelectionScreen extends ConsumerWidget {
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 8.verticalSpace,
                 ListTile(
-                  title: Text("Posizione: "),
+                  title: Text(
+                    "Posizione: ",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   subtitle: userLocation != null && showCurrentLocation
                       ? ref.watch(getClosestLocationProvider).when(
                           data: (value) => Text(
@@ -141,6 +146,13 @@ class TrackSelectionScreen extends ConsumerWidget {
 
     Widget _buildComparisonButton(BuildContext context) {
       return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          foregroundColor: Colors.blueGrey,
+          backgroundColor: Theme.of(context).colorScheme.onSecondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+        ),
         onPressed: () {
           if (selectedTracks[0] != null && selectedTracks[1] != null) {
             Navigator.push(
@@ -185,6 +197,12 @@ class TrackSelectionScreen extends ConsumerWidget {
     ) {
       return DropdownButton<Track>(
         value: selectedTracks[trackNumber],
+        dropdownColor: Theme.of(context).colorScheme.secondary,
+        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSecondary,
+          fontFamily: Theme.of(context).textTheme.bodyMedium?.fontFamily,
+        ),
         onChanged: (selectedTrack) {
           if (selectedTrack != null) {
             ref
@@ -200,7 +218,12 @@ class TrackSelectionScreen extends ConsumerWidget {
         items: [
           DropdownMenuItem<Track>(
             value: null,
-            child: Text("Nessuna scelta"),
+            child: Text(
+              "Nessuna scelta",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
           ),
           ...tracks.map<DropdownMenuItem<Track>>((Track track) {
             return DropdownMenuItem<Track>(
@@ -213,32 +236,39 @@ class TrackSelectionScreen extends ConsumerWidget {
     }
 
     Widget _buildTrackSelector(Iterable<Track> tracks) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 16.sp),
-          Text(
-            "Scegli il primo tracciato:",
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+      return Card(
+        margin: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 8.0.h),
+        color: Theme.of(context).colorScheme.secondary,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(height: 16.sp),
+              Text(
+                "Scegli il primo tracciato:",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
+              8.verticalSpace,
+              _buildTrackDropdown(tracks, selectedTracks, 0),
+              16.verticalSpace,
+              Text(
+                "Scegli il secondo tracciato:",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                ),
+              ),
+              8.verticalSpace,
+              _buildTrackDropdown(tracks, selectedTracks, 1),
+            ],
           ),
-          8.verticalSpace,
-          _buildTrackDropdown(tracks, selectedTracks, 0),
-          16.verticalSpace,
-          Text(
-            "Scegli il secondo tracciato:",
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          8.verticalSpace,
-          _buildTrackDropdown(tracks, selectedTracks, 1),
-        ],
+        ),
       );
     }
 
@@ -247,38 +277,32 @@ class TrackSelectionScreen extends ConsumerWidget {
       Iterable<Track> tracks,
     ) {
       return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0).r,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildTrackSelector(tracks),
-              _buildLocationSelector(),
-              SizedBox(height: 16.sp),
-              _buildComparisonButton(context),
-            ],
-          ),
+        padding: const EdgeInsets.all(16.0).r,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildTrackSelector(tracks),
+            _buildLocationSelector(),
+            SizedBox(height: 16.sp),
+            _buildComparisonButton(context),
+          ],
         ),
       );
     }
 
     return SafeArea(
-      child: Hero(
-        tag: "track_selection_screen",
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Confronto Tracciati'),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.secondary,
-          body: allTracks.when(
-            loading: () => Center(child: CircularProgressIndicator()),
-            error: (error, stackTrace) =>
-                Center(child: Text("Errore nel caricamento dei tracciati")),
-            data: (tracks) {
-              return _buildSelectionForm(context, tracks);
-            },
-          ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Confronto Tracciati'),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: allTracks.when(
+          loading: () => Center(child: CircularProgressIndicator()),
+          error: (error, stackTrace) =>
+              Center(child: Text("Errore nel caricamento dei tracciati")),
+          data: (tracks) {
+            return _buildSelectionForm(context, tracks);
+          },
         ),
       ),
     );

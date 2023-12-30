@@ -224,6 +224,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 labelText: 'Motoclub',
               ),
               buildDropdownButtonFormField(
+                context,
                 _categoryController.text.isEmpty
                     ? categories.first
                     : _categoryController.text,

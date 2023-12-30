@@ -14,20 +14,16 @@ class TrackAction extends StatelessWidget {
     required String label,
     required Color foregroudColor,
     required Color backgroundColor,
-    required String heroTag,
     required VoidCallback onPressed,
   }) {
     return Flexible(
       child: Padding(
         padding: const EdgeInsets.all(16.0).r,
         child: ElevatedButton.icon(
-          icon: Hero(
-            tag: heroTag,
-            child: Icon(
-              icon,
-              size: 50.h,
-              color: foregroudColor,
-            ),
+          icon: Icon(
+            icon,
+            size: 50.h,
+            color: foregroudColor,
           ),
           label: Text(
             label,
@@ -75,7 +71,6 @@ class TrackAction extends StatelessWidget {
               label: 'Confronto Tracciati',
               foregroudColor: Theme.of(context).colorScheme.onSecondary,
               backgroundColor: Theme.of(context).colorScheme.secondary,
-              heroTag: "track_selection_screen",
               onPressed: () {
                 Navigator.push(
                   context,
@@ -89,7 +84,6 @@ class TrackAction extends StatelessWidget {
               label: 'Tracciati Preferiti',
               foregroudColor: Theme.of(context).colorScheme.secondary,
               backgroundColor: Colors.white,
-              heroTag: "favorite_tracks_screen",
               onPressed: () {
                 Navigator.push(
                   context,
@@ -102,14 +96,12 @@ class TrackAction extends StatelessWidget {
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                 final isOwner = ref.watch(isOwnerProvider);
                 return Visibility(
-                  ///TODO: add correct condition
                   visible: isOwner,
                   child: _buildElevatedButton(
                     icon: Icons.info,
                     label: 'Gestione Tracciati',
                     foregroudColor: Theme.of(context).colorScheme.onSecondary,
                     backgroundColor: Theme.of(context).colorScheme.secondary,
-                    heroTag: "track_management_screen",
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
