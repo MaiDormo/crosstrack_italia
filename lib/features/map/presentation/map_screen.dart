@@ -56,7 +56,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         ),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.grey[300],
+          backgroundColor: Theme.of(context).colorScheme.background,
           body: SafeArea(
             child: SlidingUpPanel(
               controller: ref.watch(panelControllerProvider),
@@ -65,15 +65,15 @@ class _MapScreenState extends ConsumerState<MapScreen>
               parallaxEnabled: true,
               parallaxOffset: 0.5,
               color: Theme.of(context).colorScheme.secondary,
-              body: ClipRRect(
+              body: const ClipRRect(
                 borderRadius: const BorderRadius.all(
                   Radius.circular(20),
                 ),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Map(),
-                    FloatingSearchMapBar(),
+                    const Map(),
+                    const FloatingSearchMapBar(),
                   ],
                 ),
               ),
@@ -147,6 +147,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
 
         Consumer(
           builder: (context, ref, child) {
+            print('DEBUG build current location layer');
             final locationServices = ref.watch<bool>(locationServicesProvider);
             final showCurrentLocation =
                 ref.watch<bool>(showCurrentLocationProvider);
@@ -156,22 +157,20 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
                 followOnLocationUpdate: centerUserLocation,
                 turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
                 style: LocationMarkerStyle(
-                  marker: const DefaultLocationMarker(
-                    color: Colors.red,
+                  marker: DefaultLocationMarker(
+                    color: Theme.of(context).colorScheme.secondary,
                     child: Icon(
                       Icons.person,
                       color: Colors.white,
                     ),
                   ),
                   markerSize: const Size.square(35),
-                  accuracyCircleColor: Colors.red.withOpacity(0.1),
-                  headingSectorColor: Colors.red.withOpacity(0.8),
-                  headingSectorRadius: 120,
+                  showHeadingSector: false,
                 ),
                 // moveAnimationDuration: Duration.zero,
               );
             } else {
-              return Container();
+              return const SizedBox.shrink();
             }
           },
         ),
@@ -186,7 +185,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
                 padding: const EdgeInsets.all(8.0).r,
                 child: FloatingActionButton(
                   backgroundColor: showCurrentLocation
-                      ? Colors.orange[200]
+                      ? Theme.of(context).colorScheme.secondary
                       : Colors.grey[300],
                   onPressed: showCurrentLocation && locationServices
                       ? () {

@@ -513,7 +513,9 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                   print(_imagePath);
                 },
               ),
-              RemoveImageField(track: widget.track),
+              RemoveImageField(
+                track: widget.track,
+              ),
               _buildSaveButton(_formKey),
             ],
           ),

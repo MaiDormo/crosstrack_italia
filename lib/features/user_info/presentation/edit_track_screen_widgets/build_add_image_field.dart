@@ -58,12 +58,15 @@ class ImageField extends StatefulWidget {
   _ImageFieldState createState() => _ImageFieldState();
 }
 
-class _ImageFieldState extends State<ImageField> {
-  // File? _imageFile;
-  // ImageProvider? _imageProvider;
+class _ImageFieldState extends State<ImageField>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Card(
       color: Theme.of(context).colorScheme.secondary,
       margin: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 5.0.h),

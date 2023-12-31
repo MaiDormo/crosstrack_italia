@@ -74,22 +74,19 @@ class MyApp extends StatelessWidget {
               Color.fromRGBO(211, 211, 211, 0.9), // light gray
           colorScheme: ColorScheme.fromSeed(
             seedColor:
-                Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated blue
+                const Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated blue
             brightness: Brightness.light,
-            primary: Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated green
-            secondary:
-                Color.fromRGBO(50, 65, 85, 0.96), // dark, desaturated orange
-            tertiary: Color.fromRGBO(211, 211, 211, 0.9), // light gray
+            primary: const Color.fromRGBO(
+                50, 65, 85, 0.9), // dark, desaturated green
+            secondary: const Color.fromRGBO(
+                50, 65, 85, 0.96), // dark, desaturated orange
+            tertiary: const Color.fromRGBO(211, 211, 211, 0.9), // light gray
           ),
           useMaterial3: true,
           hintColor:
-              Color.fromRGBO(85, 65, 50, 0.9), // dark, desaturated orange
+              const Color.fromRGBO(85, 65, 50, 0.9), // dark, desaturated orange
           textTheme: GoogleFonts.poppinsTextTheme(
             Theme.of(context).textTheme.apply(
-                  //   bodyColor: Color.fromRGBO(50, 105, 85, 0.9), // brighter green
-                  //   displayColor:
-                  //       Color.fromRGBO(50, 105, 85, 0.9), // brighter green
-                  // ),
                   bodyColor: Colors.white,
                   displayColor: Colors.white,
                 ),

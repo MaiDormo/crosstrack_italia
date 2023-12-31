@@ -24,6 +24,7 @@ part 'track_notifier.g.dart';
 //------------------PROVIDERS------------------//
 @riverpod
 Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
+  print('DEBUG fetchAllTracks rebuild');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.fetchAllTracks();
 }
@@ -31,6 +32,7 @@ Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
 @riverpod
 Stream<Iterable<Track>> fetchTracksByRegion(
     FetchTracksByRegionRef ref, String region) async* {
+  print('DEBUG fetchTracksByRegion rebuild');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   yield* trackNotifier.fetchTracksByRegion(region);
 }
@@ -135,7 +137,6 @@ class TrackNotifier extends _$TrackNotifier {
 
   //get all tracks
   Stream<Iterable<Track>> fetchAllTracks() async* {
-    //counting on the fact that there are always tracks inside the db
     yield* _trackRepository.fetchAllTracks();
   }
 

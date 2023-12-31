@@ -6,12 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_location_notifier.g.dart';
 
-//------------------------ENUM------------------------//
-
 //------------------------PROVIDERS------------------------//
 
 @riverpod
 Future<String> getClosestLocation(GetClosestLocationRef ref) async {
+  print('DEBUG getClosestLocation rebuild');
   await ref.watch(locationServicesProvider.notifier).check();
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
@@ -22,6 +21,7 @@ Future<String> getClosestLocation(GetClosestLocationRef ref) async {
 
 @riverpod
 Future<Position?> getPosition(GetPositionRef ref) async {
+  print('DEBUG getPosition rebuild');
   final locationServices = ref.watch(locationServicesProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
   if (locationServices && showCurrentLocation) {

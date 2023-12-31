@@ -52,15 +52,21 @@ class ImagesPathToBeDeleted extends _$ImagesPathToBeDeleted {
 class RemoveImageField extends ConsumerStatefulWidget {
   final Track track;
 
-  RemoveImageField({required this.track});
+  const RemoveImageField({required this.track});
 
   @override
   _RemoveImageFieldState createState() => _RemoveImageFieldState();
 }
 
-class _RemoveImageFieldState extends ConsumerState<RemoveImageField> {
+class _RemoveImageFieldState extends ConsumerState<RemoveImageField>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final imagesMap = ref.watch(allTrackImagesWithPathsProvider(widget.track));
     final imagesPathToBeDeletedNotifier =
         ref.watch(imagesPathToBeDeletedProvider.notifier);

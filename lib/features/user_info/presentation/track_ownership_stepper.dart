@@ -17,7 +17,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
   int _currentStep = 0;
   final Set<Track> _selectedTracks = {};
   late final AsyncValue<Iterable<Track>> allTracks =
-      ref.watch(fetchAllTracksProvider);
+      ref.read(fetchAllTracksProvider);
   late AsyncValue<UserInfoModel> _userState =
       ref.watch(userStateNotifierProvider);
 

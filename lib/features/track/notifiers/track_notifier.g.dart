@@ -6,7 +6,7 @@ part of 'track_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllTracksHash() => r'e25ac7f58f05616545bf3c4735803dabc8143df6';
+String _$fetchAllTracksHash() => r'c25b8c6780270954f8bcb662ae2f3912642f7b47';
 
 /// See also [fetchAllTracks].
 @ProviderFor(fetchAllTracks)
@@ -23,7 +23,7 @@ final fetchAllTracksProvider =
 
 typedef FetchAllTracksRef = AutoDisposeStreamProviderRef<Iterable<Track>>;
 String _$fetchTracksByRegionHash() =>
-    r'cd04cbc1d2e0665b929403b8274c1b678835f802';
+    r'44ab05ced57019a5f8b7d39d5c19e5427312e3e7';
 
 /// Copied from Dart SDK
 class _SystemHash {
