@@ -2,7 +2,6 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 Widget buildMotoclubCard(
