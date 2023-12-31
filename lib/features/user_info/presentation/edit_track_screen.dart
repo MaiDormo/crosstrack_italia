@@ -1,5 +1,7 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_remove_image_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_dropdown_button_form_field.dart';
+import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_add_image_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_list_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_text_field.dart';
 import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
@@ -86,6 +88,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
   @override
   Widget build(BuildContext context) {
     bool _isUpdating = false;
+    String _imagePath = '';
     final List<String> categories = ['1', '2', '3', '4', '5'];
     final List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
 
@@ -156,6 +159,15 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
         await ref
             .read(ownedTracksNotifierProvider.notifier)
             .updateTrackInfo(updatedTrack);
+        if (_imagePath.isNotEmpty) {
+          await uploadImage(
+              _imagePath, widget.track.region, widget.track.id, ref);
+          ref.read(imageFieldProvider.notifier).clearImage();
+        }
+
+        ref.watch(imagesPathToBeDeletedProvider.notifier).deleteAll(
+              ref,
+            );
 
         // Show a success message
         ScaffoldMessenger.of(context).showSnackBar(
@@ -494,6 +506,14 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 },
                 maxLines: null,
               ),
+              ImageField(
+                track: widget.track,
+                onChanged: (value) {
+                  _imagePath = value;
+                  print(_imagePath);
+                },
+              ),
+              RemoveImageField(track: widget.track),
               _buildSaveButton(_formKey),
             ],
           ),

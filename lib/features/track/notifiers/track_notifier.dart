@@ -51,10 +51,17 @@ Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
 }
 
 @riverpod
-Stream<Iterable<Image>> allTrackImages(AllTrackImagesRef ref) async* {
+Future<Iterable<Image>> allTrackImages(AllTrackImagesRef ref) async {
   final track = ref.watch(trackSelectedProvider);
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  yield* trackNotifier.allTrackImages(track);
+  return trackNotifier.allTrackImages(track);
+}
+
+@riverpod
+Future<Map<Image, String>> allTrackImagesWithPaths(
+    AllTrackImagesWithPathsRef ref, Track track) async {
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  return trackNotifier.allTrackImagesWithPaths(track);
 }
 
 @riverpod
@@ -65,10 +72,9 @@ Stream<Iterable<Comment>> fetchCommentsByTrackId(
 }
 
 @riverpod
-Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track? track) async {
+Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track track) async {
   final _trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  //ill'use '!' because i know that the function is called only when track is not null
-  if (track != null)
+  if (track != Track.empty())
     return await _trackNotifier.openGoogleMap(track);
   else
     return false;
@@ -166,21 +172,31 @@ class TrackNotifier extends _$TrackNotifier {
     }
   }
 
-  Stream<Iterable<Image>> allTrackImages(Track? track) async* {
-    final controller = StreamController<Iterable<Image>>();
+  Future<Iterable<Image>> allTrackImages(Track track) async {
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
-    if (track != null) {
+    if (track != Track.empty()) {
       final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
       final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
       final imagesList = await Future.wait(urls.map(getCompressedImage));
-      controller.add(imagesList);
       state = true;
+      return imagesList;
     } else {
       state = false;
-      controller.add([]);
+      return [];
     }
-    yield* controller.stream;
+  }
+
+  Future<Iterable<String>> allPathsTrack(Track track) async {
+    final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
+    final directory = 'tracks/${storageRegion}/${track.id}/';
+    return await _storageRepository.listPaths(directory);
+  }
+
+  Future<Map<Image, String>> allTrackImagesWithPaths(Track track) async {
+    final images = await allTrackImages(track);
+    final paths = await allPathsTrack(track);
+    return Map<Image, String>.fromIterables(images, paths);
   }
 
   //add comment

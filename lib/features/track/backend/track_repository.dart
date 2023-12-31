@@ -20,8 +20,6 @@ TrackRepository trackRepository(TrackRepositoryRef ref) {
   );
 }
 
-///TODO: add / remove / comment
-
 class TrackRepository {
   final FirebaseFirestore _firestore;
   TrackRepository({required FirebaseFirestore firestore})

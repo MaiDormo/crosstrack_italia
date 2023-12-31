@@ -439,12 +439,12 @@ class _TrackThumbnailProviderElement
   Track get track => (origin as TrackThumbnailProvider).track;
 }
 
-String _$allTrackImagesHash() => r'3b46fb9fe845b0bebeb48f3b624e6c2ddb53360f';
+String _$allTrackImagesHash() => r'a201afb3bbfa92a3f28cd373ef03ec2ebd56aac4';
 
 /// See also [allTrackImages].
 @ProviderFor(allTrackImages)
 final allTrackImagesProvider =
-    AutoDisposeStreamProvider<Iterable<Image>>.internal(
+    AutoDisposeFutureProvider<Iterable<Image>>.internal(
   allTrackImages,
   name: r'allTrackImagesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -454,7 +454,141 @@ final allTrackImagesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef AllTrackImagesRef = AutoDisposeStreamProviderRef<Iterable<Image>>;
+typedef AllTrackImagesRef = AutoDisposeFutureProviderRef<Iterable<Image>>;
+String _$allTrackImagesWithPathsHash() =>
+    r'03fa7c2a3479ff0f4fd01ff578d0e3987d9157e3';
+
+/// See also [allTrackImagesWithPaths].
+@ProviderFor(allTrackImagesWithPaths)
+const allTrackImagesWithPathsProvider = AllTrackImagesWithPathsFamily();
+
+/// See also [allTrackImagesWithPaths].
+class AllTrackImagesWithPathsFamily
+    extends Family<AsyncValue<Map<Image, String>>> {
+  /// See also [allTrackImagesWithPaths].
+  const AllTrackImagesWithPathsFamily();
+
+  /// See also [allTrackImagesWithPaths].
+  AllTrackImagesWithPathsProvider call(
+    Track track,
+  ) {
+    return AllTrackImagesWithPathsProvider(
+      track,
+    );
+  }
+
+  @override
+  AllTrackImagesWithPathsProvider getProviderOverride(
+    covariant AllTrackImagesWithPathsProvider provider,
+  ) {
+    return call(
+      provider.track,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'allTrackImagesWithPathsProvider';
+}
+
+/// See also [allTrackImagesWithPaths].
+class AllTrackImagesWithPathsProvider
+    extends AutoDisposeFutureProvider<Map<Image, String>> {
+  /// See also [allTrackImagesWithPaths].
+  AllTrackImagesWithPathsProvider(
+    Track track,
+  ) : this._internal(
+          (ref) => allTrackImagesWithPaths(
+            ref as AllTrackImagesWithPathsRef,
+            track,
+          ),
+          from: allTrackImagesWithPathsProvider,
+          name: r'allTrackImagesWithPathsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allTrackImagesWithPathsHash,
+          dependencies: AllTrackImagesWithPathsFamily._dependencies,
+          allTransitiveDependencies:
+              AllTrackImagesWithPathsFamily._allTransitiveDependencies,
+          track: track,
+        );
+
+  AllTrackImagesWithPathsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.track,
+  }) : super.internal();
+
+  final Track track;
+
+  @override
+  Override overrideWith(
+    FutureOr<Map<Image, String>> Function(AllTrackImagesWithPathsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllTrackImagesWithPathsProvider._internal(
+        (ref) => create(ref as AllTrackImagesWithPathsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        track: track,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Map<Image, String>> createElement() {
+    return _AllTrackImagesWithPathsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllTrackImagesWithPathsProvider && other.track == track;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, track.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AllTrackImagesWithPathsRef
+    on AutoDisposeFutureProviderRef<Map<Image, String>> {
+  /// The parameter `track` of this provider.
+  Track get track;
+}
+
+class _AllTrackImagesWithPathsProviderElement
+    extends AutoDisposeFutureProviderElement<Map<Image, String>>
+    with AllTrackImagesWithPathsRef {
+  _AllTrackImagesWithPathsProviderElement(super.provider);
+
+  @override
+  Track get track => (origin as AllTrackImagesWithPathsProvider).track;
+}
+
 String _$fetchCommentsByTrackIdHash() =>
     r'caae1c8154d8e4d68921a7948ea616d908716239';
 
@@ -589,7 +723,7 @@ class _FetchCommentsByTrackIdProviderElement
   String get id => (origin as FetchCommentsByTrackIdProvider).id;
 }
 
-String _$openGoogleMapHash() => r'19a0ee01b503a7253ff4095b2db84cabb9908836';
+String _$openGoogleMapHash() => r'9aa75c3cf2173c20db8f42c53d19ff612a2ce948';
 
 /// See also [openGoogleMap].
 @ProviderFor(openGoogleMap)
@@ -602,7 +736,7 @@ class OpenGoogleMapFamily extends Family<AsyncValue<bool>> {
 
   /// See also [openGoogleMap].
   OpenGoogleMapProvider call(
-    Track? track,
+    Track track,
   ) {
     return OpenGoogleMapProvider(
       track,
@@ -637,7 +771,7 @@ class OpenGoogleMapFamily extends Family<AsyncValue<bool>> {
 class OpenGoogleMapProvider extends AutoDisposeFutureProvider<bool> {
   /// See also [openGoogleMap].
   OpenGoogleMapProvider(
-    Track? track,
+    Track track,
   ) : this._internal(
           (ref) => openGoogleMap(
             ref as OpenGoogleMapRef,
@@ -665,7 +799,7 @@ class OpenGoogleMapProvider extends AutoDisposeFutureProvider<bool> {
     required this.track,
   }) : super.internal();
 
-  final Track? track;
+  final Track track;
 
   @override
   Override overrideWith(
@@ -706,7 +840,7 @@ class OpenGoogleMapProvider extends AutoDisposeFutureProvider<bool> {
 
 mixin OpenGoogleMapRef on AutoDisposeFutureProviderRef<bool> {
   /// The parameter `track` of this provider.
-  Track? get track;
+  Track get track;
 }
 
 class _OpenGoogleMapProviderElement
@@ -714,7 +848,7 @@ class _OpenGoogleMapProviderElement
   _OpenGoogleMapProviderElement(super.provider);
 
   @override
-  Track? get track => (origin as OpenGoogleMapProvider).track;
+  Track get track => (origin as OpenGoogleMapProvider).track;
 }
 
 String _$fetchTracksByIdsHash() => r'220aecb9b9c6a5fce4feb477817b15af4232e9d0';
@@ -898,7 +1032,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'20e82fa92ac9650ed1b259a9a1270f3a56dbe160';
+String _$trackNotifierHash() => r'63abaab614dbe6939ce3d659ff5e7f44a95bcd6c';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

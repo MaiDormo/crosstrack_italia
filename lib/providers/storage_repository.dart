@@ -17,18 +17,19 @@ class StorageRepository {
       : _firebaseStorage = firebaseStorage;
 
   Future<String> getDownloadUrl(String path) async {
-    final ref = _firebaseStorage.ref(path);
-    final downloadUrl = await ref.getDownloadURL();
-    return downloadUrl;
+    return await _firebaseStorage.ref(path).getDownloadURL();
   }
 
   Future<Iterable<String>> listDownloadUrl(String path) async {
-    final ref = _firebaseStorage.ref(path);
-    final listResult = await ref.listAll();
-    final downloadUrls = await Future.wait(
+    final listResult = await _firebaseStorage.ref(path).listAll();
+    return await Future.wait(
       listResult.items.map((e) => e.getDownloadURL()),
     );
-    return downloadUrls;
+  }
+
+  Future<Iterable<String>> listPaths(String path) async {
+    final listResult = await _firebaseStorage.ref(path).listAll();
+    return listResult.items.map((e) => e.fullPath);
   }
 
   ///TODO: in case i want to save files in the storage
