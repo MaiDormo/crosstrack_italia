@@ -124,11 +124,14 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
         minZoom: 7.0,
         maxZoom: 18.0,
         interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
-        onTap: (tapPosition, position) => FocusScope.of(context).unfocus(),
+        onTap: (tapPosition, position) {
+          ref.read(panelControllerProvider).close();
+          ref.read(popupControllerProvider).hideAllPopups();
+        }, //close panel when tap on map
       ),
       nonRotatedChildren: [
         RichAttributionWidget(
-          permanentHeight: 15,
+          permanentHeight: 15.h,
           attributions: [
             TextSourceAttribution(
               'OpenStreetMap contributors',

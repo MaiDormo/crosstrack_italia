@@ -44,17 +44,6 @@ class TrackRepository {
             ));
   }
 
-  //Firebase call to get all tracks by region
-  Stream<Iterable<Track>> fetchTracksByRegion(String region) {
-    print('DEBUG fetching tracks by region');
-    return _tracks
-        .where(FirebaseFieldName.region, isEqualTo: region)
-        .orderBy(FirebaseFieldName.trackName, descending: false)
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Track.fromJson(doc.data() as Map<String, dynamic>)));
-  }
-
   // Firebase call to get all comment related to a track
   Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId id) {
     return _comments

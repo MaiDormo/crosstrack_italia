@@ -48,7 +48,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                 Text(
                   'Accedi, Per ottenere più funzionalità',
                   style: TextStyle(
-                    fontSize: 30.sp,
+                    fontSize: 30.h,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.primary,
                   ),

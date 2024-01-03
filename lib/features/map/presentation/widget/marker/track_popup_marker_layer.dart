@@ -1,13 +1,15 @@
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker_popup.dart';
+import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TrackPopupMarkerLayer extends StatelessWidget {
+class TrackPopupMarkerLayer extends ConsumerWidget {
   const TrackPopupMarkerLayer({
     super.key,
     required this.tracks,
@@ -16,7 +18,8 @@ class TrackPopupMarkerLayer extends StatelessWidget {
   final Iterable<Track> tracks;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final PopupController popupController = ref.watch(popupControllerProvider);
     return PopupMarkerLayer(
       options: PopupMarkerLayerOptions(
         markers: tracks
@@ -26,7 +29,7 @@ class TrackPopupMarkerLayer extends StatelessWidget {
               ),
             )
             .toList(),
-        popupController: PopupController(),
+        popupController: popupController,
         popupDisplayOptions: PopupDisplayOptions(
           builder: (_, Marker marker) {
             if (marker is TrackMarker) {

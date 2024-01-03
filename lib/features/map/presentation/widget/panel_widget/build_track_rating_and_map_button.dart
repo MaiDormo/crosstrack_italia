@@ -89,12 +89,23 @@ Widget buildMapButton(
             foregroundColor: MaterialStateProperty.all(
               Theme.of(context).colorScheme.secondary,
             ),
+            padding: MaterialStateProperty.all(
+              EdgeInsets.symmetric(
+                vertical: 4.h, // Use ScreenUtil to set height
+                horizontal: 5.w, // Use ScreenUtil to set width
+              ),
+            ),
           ),
           child: Row(
             children: [
-              Text('Indicazioni'),
-              3.verticalSpace,
-              Icon(Icons.directions),
+              Text(
+                'Indicazioni',
+                style: TextStyle(
+                    fontSize: 12.sp), // Use ScreenUtil to set font size
+              ),
+              SizedBox(width: 3.w), // Use ScreenUtil to set width
+              Icon(Icons.directions,
+                  size: 24.sp), // Use ScreenUtil to set icon size
             ],
           ),
         );

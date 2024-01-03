@@ -30,7 +30,7 @@ class SettingsPageView extends ConsumerWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
         ),
         child: ListView(
-          padding: EdgeInsets.all(8.0).w,
+          padding: EdgeInsets.all(8.0).h,
           children: [
             Visibility(
               visible: ref.watch(isLoggedInProvider),

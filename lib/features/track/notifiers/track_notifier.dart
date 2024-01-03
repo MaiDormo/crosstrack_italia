@@ -53,10 +53,11 @@ Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
 }
 
 @riverpod
-Future<Iterable<Image>> allTrackImages(AllTrackImagesRef ref) async {
+Future<Iterable<Image>> allTrackImages(
+    AllTrackImagesRef ref, bool highQuality) async {
   final track = ref.watch(trackSelectedProvider);
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  return trackNotifier.allTrackImages(track);
+  return trackNotifier.allTrackImages(track, highQuality);
 }
 
 @riverpod
@@ -142,7 +143,12 @@ class TrackNotifier extends _$TrackNotifier {
 
   //get tracks by region
   Stream<Iterable<Track>> fetchTracksByRegion(String region) async* {
-    yield* _trackRepository.fetchTracksByRegion(region);
+    final AsyncValue<Iterable<Track>> asyncTracks =
+        ref.watch(fetchAllTracksProvider);
+    yield switch (asyncTracks) {
+      AsyncData(:final value) => value.where((track) => track.region == region),
+      _ => []
+    };
   }
 
   Future<List<Image>> fetchSelectedTracksThumbnail(List<Track> tracks) async {
@@ -160,9 +166,12 @@ class TrackNotifier extends _$TrackNotifier {
     try {
       final imageUrl = await _storageRepository
           .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
-      final image = await getCompressedImage(imageUrl);
+      final bytes = await Utils.getCompressedThumbnail(imageUrl);
       state = true;
-      return image;
+      return Image.memory(
+        bytes,
+        fit: BoxFit.cover,
+      );
     } catch (e) {
       state = false;
       return Image.asset(
@@ -173,15 +182,19 @@ class TrackNotifier extends _$TrackNotifier {
     }
   }
 
-  Future<Iterable<Image>> allTrackImages(Track track) async {
+  Future<Iterable<Image>> allTrackImages(Track track, bool highQuality) async {
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
     if (track != Track.empty()) {
       final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
       final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
-      final imagesList = await Future.wait(urls.map(getCompressedImage));
+      final byteList = await Future.wait(urls.map(Utils.getCompressedImage));
       state = true;
-      return imagesList;
+      return byteList.map((bytes) => Image.memory(
+            bytes,
+            fit: BoxFit.cover,
+            filterQuality: highQuality ? FilterQuality.high : FilterQuality.low,
+          ));
     } else {
       state = false;
       return [];
@@ -195,7 +208,7 @@ class TrackNotifier extends _$TrackNotifier {
   }
 
   Future<Map<Image, String>> allTrackImagesWithPaths(Track track) async {
-    final images = await allTrackImages(track);
+    final images = await allTrackImages(track, false);
     final paths = await allPathsTrack(track);
     return Map<Image, String>.fromIterables(images, paths);
   }
@@ -229,8 +242,8 @@ class TrackNotifier extends _$TrackNotifier {
     );
     await updateTrack(updatedTrack);
     ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
-    res.fold((l) => showSnackBar(context, l.message),
-        (r) => showSnackBar(context, 'Commento aggiunto con successo'));
+    res.fold((l) => Utils.showSnackBar(context, l.message),
+        (r) => Utils.showSnackBar(context, 'Commento aggiunto con successo'));
   }
 
   //remove comment
@@ -248,7 +261,7 @@ class TrackNotifier extends _$TrackNotifier {
     await updateTrack(updatedTrack);
     ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
     res.fold((l) => null,
-        (r) => showSnackBar(context, 'Commento rimosso con successo'));
+        (r) => Utils.showSnackBar(context, 'Commento rimosso con successo'));
   }
 
   //get all comments related to a track
@@ -279,7 +292,7 @@ class TrackNotifier extends _$TrackNotifier {
     return res.fold(
       (l) {
         ///TODO: add a more specific error message
-        showSnackBar(context, l.message);
+        Utils.showSnackBar(context, l.message);
         return [];
       },
       (r) => r,

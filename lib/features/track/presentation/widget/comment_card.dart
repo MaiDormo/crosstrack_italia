@@ -49,11 +49,11 @@ class CommentCard extends ConsumerWidget {
                         ),
                         unratedColor: Colors.amber.withAlpha(50),
                         itemCount: 5,
-                        itemSize: 20.0.r,
+                        itemSize: 20.0.h,
                         direction: Axis.horizontal,
                       ),
                       8.verticalSpace,
-                      Text(comment.text),
+                      Text(comment.text, style: TextStyle(fontSize: 12.sp)),
 
                       // Display the rating as stars
                     ],

@@ -67,7 +67,8 @@ class MyApp extends StatelessWidget {
       designSize: const Size(411.4, 876.6),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
+      fontSizeResolver: (fontSize, instance) => fontSize * instance.scaleWidth,
+      builder: (_, child) => MaterialApp(
         title: 'Cross Track Italia',
         theme: ThemeData(
           scaffoldBackgroundColor:
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme.apply(
                   bodyColor: Colors.white,
                   displayColor: Colors.white,
+                  fontSizeFactor: 1.0.sp,
                 ),
           ),
         ),

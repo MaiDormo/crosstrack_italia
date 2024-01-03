@@ -103,7 +103,7 @@ Widget buildServiceRow(
               entryKeyCleaned + ':',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onSecondary,
-                fontSize: 9.75.sp,
+                fontSize: 9.75.h,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -16,7 +16,7 @@ class SquareTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(20).w,
+        padding: const EdgeInsets.all(20).h,
         decoration: BoxDecoration(
           border: Border.all(color: Theme.of(context).colorScheme.tertiary),
           borderRadius: BorderRadius.circular(16),
@@ -28,7 +28,7 @@ class SquareTile extends StatelessWidget {
             Text(
               imagePath.contains('f') ? 'Facebook' : 'Google',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: Theme.of(context).colorScheme.onSecondary,
               ),
             ),
