@@ -7,7 +7,7 @@ part of 'facebook_auth_repository.dart';
 // **************************************************************************
 
 String _$facebookAuthRepositoryHash() =>
-    r'a3b6044cfa1e04b78edb96afd5db314ace2bc415';
+    r'7270c20253e8af6968140175cf7bd1bda3d2f550';
 
 /// See also [facebookAuthRepository].
 @ProviderFor(facebookAuthRepository)

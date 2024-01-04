@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/features/auth/backend/google_auth_repository.dart';
 import 'package:crosstrack_italia/features/auth/constants/constants.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_result.dart';
 import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
@@ -12,13 +13,18 @@ part 'facebook_auth_repository.g.dart';
 FacebookAuthRepository facebookAuthRepository(FacebookAuthRepositoryRef ref) {
   return FacebookAuthRepository(
     firebaseAuth: ref.watch(authProvider),
+    googleAuthRepository: ref.watch(googleAuthRepositoryProvider),
   );
 }
 
 class FacebookAuthRepository {
   final FirebaseAuth _firebaseAuth;
-  FacebookAuthRepository({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  final GoogleAuthRepository _googleAuthRepository;
+  FacebookAuthRepository(
+      {required FirebaseAuth firebaseAuth,
+      required GoogleAuthRepository googleAuthRepository})
+      : _firebaseAuth = firebaseAuth,
+        _googleAuthRepository = googleAuthRepository;
 
   Future<AuthState> login() async {
     final loginResult = await FacebookAuth.instance.login();
@@ -29,23 +35,13 @@ class FacebookAuthRepository {
 
     final oauthCredentials = FacebookAuthProvider.credential(token);
 
-    final userData = await FacebookAuth.i.getUserData(
-      fields:
-          "${Constants.facebookName},${Constants.facebookEmailScope},${Constants.facebookImageRequest}",
-    );
-
-    //update the user display name and image
-    _firebaseAuth.currentUser?.updateDisplayName(
-      userData[Constants.facebookName],
-    );
-
     try {
       final _userCredentials = await _firebaseAuth.signInWithCredential(
         oauthCredentials,
       );
       return _createAuthState(AuthResult.success, _userCredentials.user);
     } on FirebaseAuthException catch (e) {
-      return _handleFirebaseAuthException(e);
+      return await _handleFirebaseAuthException(e);
     } catch (e) {
       return _createAuthState(AuthResult.aborted);
     }
@@ -63,9 +59,25 @@ class FacebookAuthRepository {
     );
   }
 
-  AuthState _handleFirebaseAuthException(FirebaseAuthException e) {
+  Future<AuthState> _handleFirebaseAuthException(
+    FirebaseAuthException e,
+  ) async {
+    final email = e.email;
+    final credential = e.credential;
+    if (e.code == Constants.accountExistsWithDifferentCredentialsError &&
+        email != null &&
+        credential != null) {
+      final providers = await _firebaseAuth.fetchSignInMethodsForEmail(email);
+      if (providers.contains(Constants.googleCom)) {
+        final res = await _googleAuthRepository.login();
+        _firebaseAuth.currentUser?.linkWithCredential(credential);
+        return res;
+      }
+      return _createAuthState(
+        AuthResult.success,
+      );
+    }
     const errorToResultMap = {
-      'account-exists-with-different-credential': AuthResult.failure,
       'invalid-credential': AuthResult.failure,
     };
 

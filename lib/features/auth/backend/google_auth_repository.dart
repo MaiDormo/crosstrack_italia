@@ -36,8 +36,6 @@ class GoogleAuthRepository {
         oauthCredentials,
       );
       return _createAuthState(AuthResult.success, _userCredential.user);
-    } on FirebaseAuthException catch (e) {
-      return _handleFirebaseAuthException(e);
     } catch (e) {
       return _createAuthState(AuthResult.aborted);
     }
@@ -53,15 +51,5 @@ class GoogleAuthRepository {
       isLoading: false,
       user: user,
     );
-  }
-
-  AuthState _handleFirebaseAuthException(FirebaseAuthException e) {
-    const errorToResultMap = {
-      'account-exists-with-different-credential': AuthResult.failure,
-      'invalid-credential': AuthResult.failure,
-    };
-
-    final result = errorToResultMap[e.code] ?? AuthResult.aborted;
-    return _createAuthState(result);
   }
 }

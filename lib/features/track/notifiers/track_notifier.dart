@@ -24,7 +24,6 @@ part 'track_notifier.g.dart';
 //------------------PROVIDERS------------------//
 @riverpod
 Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
-  print('DEBUG fetchAllTracks rebuild');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.fetchAllTracks();
 }
@@ -32,7 +31,6 @@ Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
 @riverpod
 Stream<Iterable<Track>> fetchTracksByRegion(
     FetchTracksByRegionRef ref, String region) async* {
-  print('DEBUG fetchTracksByRegion rebuild');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   yield* trackNotifier.fetchTracksByRegion(region);
 }
@@ -56,6 +54,13 @@ Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
 Future<Iterable<Image>> allTrackImages(
     AllTrackImagesRef ref, bool highQuality) async {
   final track = ref.watch(trackSelectedProvider);
+  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  return trackNotifier.allTrackImages(track, highQuality);
+}
+
+@riverpod
+Future<Iterable<Image>> allTrackImagesByTrack(
+    AllTrackImagesByTrackRef ref, Track track, bool highQuality) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.allTrackImages(track, highQuality);
 }

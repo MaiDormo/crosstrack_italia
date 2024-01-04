@@ -34,7 +34,6 @@ class TrackRepository {
 
   //Firebase call to get all tracks
   Stream<Iterable<Track>> fetchAllTracks() {
-    print('DEBUG fetching all tracks');
     return _tracks
         .orderBy(FirebaseFieldName.region, descending: false)
         .orderBy(FirebaseFieldName.trackName, descending: false)

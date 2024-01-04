@@ -51,6 +51,15 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         );
   }
 
+  void _showNeedToLoginSnackBar(
+    BuildContext context,
+  ) =>
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Accedi per poter completare questa operazione'),
+        ),
+      );
+
   void _showCommentDialog() {
     showDialog(
       context: context,
@@ -146,14 +155,20 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         16.verticalSpace,
         ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
-              Colors.blueGrey,
-            ),
+            backgroundColor: isLoggedIn
+                ? MaterialStateProperty.all(
+                    Colors.blueGrey,
+                  )
+                : MaterialStateProperty.all(
+                    Colors.grey,
+                  ),
             foregroundColor: MaterialStateProperty.all(
               Theme.of(context).colorScheme.onSecondary,
             ),
           ),
-          onPressed: isLoggedIn ? _showCommentDialog : null,
+          onPressed: isLoggedIn
+              ? _showCommentDialog
+              : () => _showNeedToLoginSnackBar(context),
           child: const Text('Commenta'),
         ),
         16.verticalSpace,

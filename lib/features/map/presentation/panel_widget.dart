@@ -12,27 +12,32 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 class PanelWidget extends ConsumerWidget {
   final ScrollController scrollController;
   final PanelController panelController;
+  final bool hideDragHandle;
+  final Track? track;
 
-  const PanelWidget({
+  const PanelWidget(
+    this.track, {
     super.key,
     required this.scrollController,
     required this.panelController,
+    required this.hideDragHandle,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trackSelected = ref.watch(trackSelectedProvider);
-    final allTrackImages = ref.watch(allTrackImagesProvider(true));
+    final allTrackImages =
+        ref.watch(allTrackImagesByTrackProvider(track ?? trackSelected, true));
 
     return ListView(
       padding: EdgeInsets.zero,
       controller: scrollController,
       children: <Widget>[
         9.verticalSpace,
-        buildDragHandle(),
+        hideDragHandle ? const SizedBox.shrink() : buildDragHandle(),
         Consumer(
           builder: (ctx, ref, child) => buildTrackInfo(
-            trackSelected,
+            track ?? trackSelected,
             allTrackImages,
             context,
           ),
@@ -79,38 +84,3 @@ class PanelWidget extends ConsumerWidget {
       ? panelController.close()
       : panelController.open();
 }
-
-
-
-
-  // Card(
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: GestureDetector(
-          //       onTap: () async {
-          //         final fallBackUrl = trackSelected?.website ?? '';
-          //         // final actualUrl = 'fb://profile/100067256400943';
-
-          //         // try {
-          //         //   bool launched = await launchUrlString(actualUrl,
-          //         //       mode: LaunchMode.externalNonBrowserApplication);
-
-          //         //   if (!launched) {
-          //         //     await launchUrlString(actualUrl,
-          //         //         mode: LaunchMode.externalNonBrowserApplication);
-          //         //   }
-          //         // } catch (e) {
-          //         //   await launchUrlString(fallBackUrl,
-          //         //       mode: LaunchMode.externalNonBrowserApplication);
-          //         // }
-
-          //         try {
-          //           await launchUrlString(fallBackUrl,
-          //               mode: LaunchMode.externalNonBrowserApplication);
-          //         } catch (e) {
-          //           final snackBar =
-          //               SnackBar(content: Text('Sito non raggiungibile'));
-          //           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          //         }
-          //       },
-          //

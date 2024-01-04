@@ -38,9 +38,15 @@ class UserStateNotifier extends _$UserStateNotifier {
       );
       await saveUserInfo(userInfoModel: _newUser);
       return _newUser;
+    } else {
+      final _updatedUser = UserInfoModel.fromUser(user).copyWith(
+        role: _fetchedUser.role,
+        favoriteTracks: _fetchedUser.favoriteTracks,
+        ownedTracks: _fetchedUser.ownedTracks,
+      );
+      await saveUserInfo(userInfoModel: _updatedUser);
+      return _updatedUser;
     }
-
-    return _fetchedUser;
   }
 
   Future<void> saveUserInfo({

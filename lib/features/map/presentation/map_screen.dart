@@ -78,7 +78,8 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 ),
               ),
               panelBuilder: (scrollController) => SafeArea(
-                child: PanelWidget(
+                child: PanelWidget(null,
+                    hideDragHandle: false,
                     scrollController: scrollController,
                     panelController: panelController),
               ),
@@ -150,7 +151,6 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
 
         Consumer(
           builder: (context, ref, child) {
-            print('DEBUG build current location layer');
             final locationServices = ref.watch<bool>(locationServicesProvider);
             final showCurrentLocation =
                 ref.watch<bool>(showCurrentLocationProvider);

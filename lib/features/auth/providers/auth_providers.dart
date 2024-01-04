@@ -5,8 +5,10 @@ import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
+import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_providers.g.dart';
@@ -52,17 +54,30 @@ bool isLoading(IsLoadingRef ref) {
 Widget userImage(UserImageRef ref) {
   final _userState = ref.watch(userStateNotifierProvider);
   final _isLogged = ref.watch(isLoggedInProvider);
+  final providerId =
+      ref.watch(authProvider).currentUser?.providerData[0].providerId;
 
   if (_isLogged) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(20),
       child: switch (_userState) {
-        AsyncData(:final value) => Image.network(
-            value.profileImageUrl!,
-            height: 35.h,
-            width: 35.w,
-            fit: BoxFit.cover,
-          ),
+        AsyncData(:final value) => providerId != 'facebook.com'
+            ? Image.network(
+                value.profileImageUrl!,
+                height: 35.h,
+                width: 35.w,
+                fit: BoxFit.cover,
+              )
+            : SvgPicture.asset(
+                'assets/svgs/f_logo.svg',
+                height: 35.h,
+                width: 35.w,
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
+              ),
         AsyncError() => Icon(Icons.error),
         _ => CircularProgressIndicator(),
       },

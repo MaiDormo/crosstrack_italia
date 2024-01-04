@@ -1,7 +1,6 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 Widget buildMotoclubCard(
@@ -26,8 +25,6 @@ Widget buildMotoclubCard(
               3.verticalSpace,
               GestureDetector(
                 onTap: () async {
-                  String fallbackUrl = 'https://www.facebook.com/page_name';
-
                   if (selectedTrack.website.isEmpty) {
                     //show snackbar
                     SnackBar(
@@ -40,19 +37,20 @@ Widget buildMotoclubCard(
                         await launchUrlString(selectedTrack.website);
 
                     if (!launched) {
-                      await launchUrlString(fallbackUrl);
+                      SnackBar(
+                        content: Text('Impossibile aprire il sito web'),
+                      );
                     }
                   } catch (e) {
-                    await launchUrlString(fallbackUrl);
+                    SnackBar(
+                      content: Text('Errore inaspettato'),
+                    );
                   }
                 },
-                child: SvgPicture.asset(
-                  'assets/svgs/f_logo.svg',
-                  height: 37.5.h,
-                  colorFilter: ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
+                child: Icon(
+                  Icons.travel_explore_rounded,
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  size: 37.5.h,
                 ),
               ),
             ],

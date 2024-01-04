@@ -7,7 +7,7 @@ part of 'user_location_notifier.dart';
 // **************************************************************************
 
 String _$getClosestLocationHash() =>
-    r'07c96e1dd59ee7d9c598507835748f6e6479de36';
+    r'd6e5a4d9de475896c4d0985c104dad7cd312d4b9';
 
 /// See also [getClosestLocation].
 @ProviderFor(getClosestLocation)
@@ -22,7 +22,7 @@ final getClosestLocationProvider = AutoDisposeFutureProvider<String>.internal(
 );
 
 typedef GetClosestLocationRef = AutoDisposeFutureProviderRef<String>;
-String _$getPositionHash() => r'8bf0a50952322fd2ad61e5e990e945d9a71ce28a';
+String _$getPositionHash() => r'bb31af68592b7bc95017b3e5b843dcca4b6589d8';
 
 /// See also [getPosition].
 @ProviderFor(getPosition)

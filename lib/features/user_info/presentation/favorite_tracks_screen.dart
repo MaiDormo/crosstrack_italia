@@ -1,8 +1,10 @@
+import 'package:crosstrack_italia/features/map/presentation/panel_widget.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/providers/favorite_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class FavoriteTracksScreen extends ConsumerWidget {
   const FavoriteTracksScreen({Key? key}) : super(key: key);
@@ -31,36 +33,61 @@ class FavoriteTracksScreen extends ConsumerWidget {
                             .colorScheme
                             .secondary, // same color as the ListTile
                         margin: const EdgeInsets.symmetric(vertical: 4.0).h,
-                        child: ListTile(
-                          title: Material(
-                            type: MaterialType
-                                .transparency, // makes the child widget transparent
-                            child: Text(
-                              track.trackName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SafeArea(
+                                        child: Scaffold(
+                                          backgroundColor:
+                                              Theme.of(context).primaryColor,
+                                          appBar: AppBar(
+                                            title: Text(track.trackName),
+                                          ),
+                                          body: PanelWidget(
+                                            track,
+                                            hideDragHandle: true,
+                                            scrollController:
+                                                ScrollController(),
+                                            panelController: PanelController(),
+                                          ),
+                                        ),
+                                      )),
+                            );
+                          },
+                          child: ListTile(
+                            title: Material(
+                              type: MaterialType
+                                  .transparency, // makes the child widget transparent
+                              child: Text(
+                                track.trackName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-                          ),
-                          subtitle: Text(
-                            track.region,
-                            style: TextStyle(color: Colors.grey[400]),
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(Icons.delete),
-                            color: Colors.red,
-                            onPressed: () {
-                              ref
-                                  .read(favoriteTracksNotifierProvider.notifier)
-                                  .removeTrack(track.id);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      '${track.trackName} rimosso dai tuoi preferiti'),
-                                ),
-                              );
-                            },
+                            subtitle: Text(
+                              track.region,
+                              style: TextStyle(color: Colors.grey[400]),
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.delete),
+                              color: Colors.red,
+                              onPressed: () {
+                                ref
+                                    .read(
+                                        favoriteTracksNotifierProvider.notifier)
+                                    .removeTrack(track.id);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        '${track.trackName} rimosso dai tuoi preferiti'),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       );

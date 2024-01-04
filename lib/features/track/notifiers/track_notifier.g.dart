@@ -6,7 +6,7 @@ part of 'track_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllTracksHash() => r'c25b8c6780270954f8bcb662ae2f3912642f7b47';
+String _$fetchAllTracksHash() => r'e25ac7f58f05616545bf3c4735803dabc8143df6';
 
 /// See also [fetchAllTracks].
 @ProviderFor(fetchAllTracks)
@@ -23,7 +23,7 @@ final fetchAllTracksProvider =
 
 typedef FetchAllTracksRef = AutoDisposeStreamProviderRef<Iterable<Track>>;
 String _$fetchTracksByRegionHash() =>
-    r'44ab05ced57019a5f8b7d39d5c19e5427312e3e7';
+    r'cd04cbc1d2e0665b929403b8274c1b678835f802';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -567,6 +567,156 @@ class _AllTrackImagesProviderElement
 
   @override
   bool get highQuality => (origin as AllTrackImagesProvider).highQuality;
+}
+
+String _$allTrackImagesByTrackHash() =>
+    r'279b9e879b611c0b75b8075467d38f2e55a914dc';
+
+/// See also [allTrackImagesByTrack].
+@ProviderFor(allTrackImagesByTrack)
+const allTrackImagesByTrackProvider = AllTrackImagesByTrackFamily();
+
+/// See also [allTrackImagesByTrack].
+class AllTrackImagesByTrackFamily extends Family<AsyncValue<Iterable<Image>>> {
+  /// See also [allTrackImagesByTrack].
+  const AllTrackImagesByTrackFamily();
+
+  /// See also [allTrackImagesByTrack].
+  AllTrackImagesByTrackProvider call(
+    Track track,
+    bool highQuality,
+  ) {
+    return AllTrackImagesByTrackProvider(
+      track,
+      highQuality,
+    );
+  }
+
+  @override
+  AllTrackImagesByTrackProvider getProviderOverride(
+    covariant AllTrackImagesByTrackProvider provider,
+  ) {
+    return call(
+      provider.track,
+      provider.highQuality,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'allTrackImagesByTrackProvider';
+}
+
+/// See also [allTrackImagesByTrack].
+class AllTrackImagesByTrackProvider
+    extends AutoDisposeFutureProvider<Iterable<Image>> {
+  /// See also [allTrackImagesByTrack].
+  AllTrackImagesByTrackProvider(
+    Track track,
+    bool highQuality,
+  ) : this._internal(
+          (ref) => allTrackImagesByTrack(
+            ref as AllTrackImagesByTrackRef,
+            track,
+            highQuality,
+          ),
+          from: allTrackImagesByTrackProvider,
+          name: r'allTrackImagesByTrackProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$allTrackImagesByTrackHash,
+          dependencies: AllTrackImagesByTrackFamily._dependencies,
+          allTransitiveDependencies:
+              AllTrackImagesByTrackFamily._allTransitiveDependencies,
+          track: track,
+          highQuality: highQuality,
+        );
+
+  AllTrackImagesByTrackProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.track,
+    required this.highQuality,
+  }) : super.internal();
+
+  final Track track;
+  final bool highQuality;
+
+  @override
+  Override overrideWith(
+    FutureOr<Iterable<Image>> Function(AllTrackImagesByTrackRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AllTrackImagesByTrackProvider._internal(
+        (ref) => create(ref as AllTrackImagesByTrackRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        track: track,
+        highQuality: highQuality,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<Iterable<Image>> createElement() {
+    return _AllTrackImagesByTrackProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllTrackImagesByTrackProvider &&
+        other.track == track &&
+        other.highQuality == highQuality;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, track.hashCode);
+    hash = _SystemHash.combine(hash, highQuality.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AllTrackImagesByTrackRef
+    on AutoDisposeFutureProviderRef<Iterable<Image>> {
+  /// The parameter `track` of this provider.
+  Track get track;
+
+  /// The parameter `highQuality` of this provider.
+  bool get highQuality;
+}
+
+class _AllTrackImagesByTrackProviderElement
+    extends AutoDisposeFutureProviderElement<Iterable<Image>>
+    with AllTrackImagesByTrackRef {
+  _AllTrackImagesByTrackProviderElement(super.provider);
+
+  @override
+  Track get track => (origin as AllTrackImagesByTrackProvider).track;
+  @override
+  bool get highQuality => (origin as AllTrackImagesByTrackProvider).highQuality;
 }
 
 String _$allTrackImagesWithPathsHash() =>

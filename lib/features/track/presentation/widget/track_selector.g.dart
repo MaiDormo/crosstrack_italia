@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'track_selection_screen.dart';
+part of 'track_selector.dart';
 
 // **************************************************************************
 // RiverpodGenerator

@@ -510,7 +510,6 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                 track: widget.track,
                 onChanged: (value) {
                   _imagePath = value;
-                  print(_imagePath);
                 },
               ),
               RemoveImageField(

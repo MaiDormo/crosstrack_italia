@@ -11,6 +11,4 @@ class AuthState with _$AuthState {
     required final bool isLoading,
     required final User? user,
   }) = _AuthState;
-
-  // const factory AuthState.unknown() = _Unknown;
 }
