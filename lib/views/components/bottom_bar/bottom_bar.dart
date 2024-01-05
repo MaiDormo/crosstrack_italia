@@ -54,7 +54,7 @@ class _BottomBarState extends ConsumerState<BottomBar> {
             items: bottomNavigationBarItems,
             currentIndex: navIndex,
             selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-            unselectedItemColor: Theme.of(context).colorScheme.onSurface,
+            unselectedItemColor: Colors.white54,
             onTap: (value) {
               ref.read(navNotifierProvider.notifier).onIndexChanged(value);
             },

@@ -3,6 +3,7 @@ import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
+import 'package:crosstrack_italia/views/components/dialogs/delete_account_dialog.dart';
 import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,15 @@ class SettingsPageView extends ConsumerWidget {
           .then((value) => value ?? false);
       if (shouldLogOut) {
         await ref.read(authStateNotifierProvider.notifier).logOut();
+      }
+    }
+
+    Future<void> shouldDeleteAccount(BuildContext context) async {
+      final shouldDeleteAccount = await const DeleteAccountDialog()
+          .present(context)
+          .then((value) => value ?? false);
+      if (shouldDeleteAccount) {
+        await ref.read(userStateNotifierProvider.notifier).deleteUserInfo();
       }
     }
 
@@ -44,15 +54,14 @@ class SettingsPageView extends ConsumerWidget {
                     () => shouldLogOut(context),
                   ),
                   settingsTile(
-                      context,
-                      'Cancella account',
-                      Icons.delete,
-                      () => ref
-                          .read(userStateNotifierProvider.notifier)
-                          .deleteUserInfo()),
+                    context,
+                    'Cancella account',
+                    Icons.delete,
+                    () => shouldDeleteAccount(context),
+                  ),
                   settingsTile(
                     context,
-                    'Privacy Settings',
+                    'Privacy Settings (non implementato)',
                     Icons.lock,
                     () => null,
                   ),
@@ -84,7 +93,7 @@ class SettingsPageView extends ConsumerWidget {
               ),
             ),
             settingsSection(
-              'Preferenze',
+              'Preferenze (non implementato)',
               [
                 settingsTile(
                   context,

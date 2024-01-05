@@ -1,8 +1,6 @@
 import 'package:crosstrack_italia/common/shared_preferences.dart';
-import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/splash_screen.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
-import 'package:crosstrack_italia/views/components/loading/loading_screen.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
@@ -94,30 +92,7 @@ class MyApp extends StatelessWidget {
                 ),
           ),
         ),
-        home: Consumer(
-          builder: (context, ref, child) {
-            //take care of displaying the loading screen
-            //in all possible instaces in all possible widgets
-            //it does only need to listen to the isLoadingProvider,
-            //which itself listen to the AuthStateProvider to get the
-            //'loading' state
-            ref.listen<bool>(
-              isLoadingProvider,
-              (_, isLoading) {
-                if (isLoading) {
-                  LoadingScreen.instance().show(
-                    context: context,
-                  );
-                } else {
-                  LoadingScreen.instance().hide();
-                }
-              },
-            );
-
-            //first screen
-            return const HomePageView();
-          },
-        ),
+        home: const HomePageView(),
       ),
     );
   }
