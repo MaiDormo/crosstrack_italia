@@ -186,26 +186,33 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
               right: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0).r,
-                child: FloatingActionButton(
-                  backgroundColor: showCurrentLocation
-                      ? Theme.of(context).colorScheme.secondary
-                      : Colors.grey[300],
-                  onPressed: showCurrentLocation && locationServices
-                      ? () {
-                          //wait for the map to center
-                          ref
-                              .read(centerUserLocationProvider.notifier)
-                              .follow();
-                          Future.delayed(const Duration(milliseconds: 500), () {
-                            ref
-                                .read(centerUserLocationProvider.notifier)
-                                .stopFollowing();
-                          });
-                        }
-                      : null,
-                  child: const Icon(
-                    Icons.my_location,
-                    color: Colors.red,
+                child: Visibility(
+                  visible: locationServices,
+                  child: Opacity(
+                    opacity: showCurrentLocation ? 1 : 0.5,
+                    child: FloatingActionButton(
+                      backgroundColor: showCurrentLocation
+                          ? Theme.of(context).colorScheme.secondary
+                          : Colors.grey[300],
+                      onPressed: showCurrentLocation && locationServices
+                          ? () {
+                              //wait for the map to center
+                              ref
+                                  .read(centerUserLocationProvider.notifier)
+                                  .follow();
+                              Future.delayed(const Duration(milliseconds: 500),
+                                  () {
+                                ref
+                                    .read(centerUserLocationProvider.notifier)
+                                    .stopFollowing();
+                              });
+                            }
+                          : null,
+                      child: const Icon(
+                        Icons.my_location,
+                        color: Colors.red,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -231,15 +238,14 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
 }
 
 class FloatingSearchMapBar extends ConsumerWidget {
-  // final animatedMapController;
   const FloatingSearchMapBar({
     super.key,
-    // required this.animatedMapController,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
     final _animatedMapController = ref.watch(animatedMapControllerProvider);
+    bool isLoading = false;
     return Padding(
       padding: const EdgeInsets.all(8.0).r,
       child: FloatingSearchBar(
@@ -252,36 +258,63 @@ class FloatingSearchMapBar extends ConsumerWidget {
           color: Theme.of(context).colorScheme.secondary,
         ),
         scrollPadding: EdgeInsets.only(top: 16.h, bottom: 56.h),
-        transitionDuration: const Duration(milliseconds: 800),
+        transitionDuration: const Duration(milliseconds: 500),
         transitionCurve: Curves.easeInOut,
         physics: const BouncingScrollPhysics(),
-        //progress: true, //TODO: da aggiungere quando avviene una ricerca
+        progress: isLoading,
         axisAlignment: 0.0,
         openAxisAlignment: 0.0,
         width: 600.w,
         debounceDelay: const Duration(milliseconds: 500),
+        onFocusChanged: (isFocused) => isFocused == true
+            ? ref.read(searchTrackProvider.notifier).onSearchTrack(
+                '',
+                ref.read(fetchAllTracksProvider).when(
+                      data: (tracks) {
+                        isLoading = false;
+                        return tracks;
+                      },
+                      loading: () {
+                        isLoading = true;
+                        return {};
+                      },
+                      error: (error, stackTrace) {
+                        isLoading = false;
+                        return [];
+                      },
+                    ) ??
+                    [])
+            : null,
         onQueryChanged: (query) {
-          ref
-              .read(searchTrackStringProvider.notifier)
-              .setSearchTrackString(query.trim());
           ref.read(searchTrackProvider.notifier).onSearchTrack(
               query.trim(),
               ref.read(fetchAllTracksProvider).when(
-                        data: (tracks) => tracks,
-                        loading: () => [],
-                        error: (error, stackTrace) => [],
-                      ) ??
+                    data: (tracks) {
+                      isLoading = false;
+                      return tracks;
+                    },
+                    loading: () {
+                      isLoading = true;
+                      return [];
+                    },
+                    error: (error, stackTrace) {
+                      isLoading = false;
+                      return [];
+                    },
+                  ) ??
                   []);
         },
         // Specify a custom transition to be used for
         // animating between opened and closed stated.
-        transition: CircularFloatingSearchBarTransition(),
+        transition: SlideFadeFloatingSearchBarTransition(),
         actions: [
           FloatingSearchBarAction(
             showIfOpened: false,
             child: CircularButton(
               icon: const Icon(Icons.search),
-              onPressed: () {},
+              onPressed: () {
+                ref.read(floatingSearchBarControllerProvider).open();
+              },
             ),
           ),
           FloatingSearchBarAction.searchToClear(

@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,9 +72,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     SquareTile(
                       imagePath: 'assets/svgs/g_logo.svg',
                       onTap: () async {
-                        await ref
-                            .watch(authStateNotifierProvider.notifier)
-                            .loginWithGoogle();
+                        await ref.watch(authRepositoryProvider).googleLogin();
                         Navigator.pop(context);
                       },
                     ),
@@ -85,9 +83,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     SquareTile(
                       imagePath: 'assets/svgs/f_logo.svg',
                       onTap: () async {
-                        await ref
-                            .watch(authStateNotifierProvider.notifier)
-                            .loginWithFacebook();
+                        await ref.watch(authRepositoryProvider).facebookLogin();
                         Navigator.pop(context);
                       },
                     ),

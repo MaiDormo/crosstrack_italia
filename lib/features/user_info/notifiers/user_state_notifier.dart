@@ -1,5 +1,4 @@
-import 'package:crosstrack_italia/features/auth/models/auth_state.dart';
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
@@ -13,24 +12,25 @@ part 'user_state_notifier.g.dart';
 @riverpod
 class UserStateNotifier extends _$UserStateNotifier {
   late var _userInfoStorage;
-  late AsyncValue<AuthState> _authState;
+  late var _authStateChanges;
 
   @override
-  Stream<UserInfoModel> build() async* {
+  Future<UserInfoModel> build() async {
     _userInfoStorage = ref.watch(userInfoStorageProvider);
-    _authState = ref.watch(authStateNotifierProvider);
-    yield switch (_authState) {
-      AsyncData(:final value) => await init(value.user),
+    _authStateChanges = ref.watch(authStateChangesProvider);
+    return switch (_authStateChanges) {
+      AsyncData(:final value) => await init(value),
       _ => UserInfoModel.empty(),
     };
   }
 
   Future<UserInfoModel> init(User? user) async {
+    print('DEBUG userStateNotifier init(): $user');
     if (user == null) {
       return UserInfoModel.empty();
     }
 
-    final _fetchedUser = await fetchUserInfo(user.uid);
+    final UserInfoModel _fetchedUser = await fetchUserInfo(user.uid);
 
     if (_fetchedUser == UserInfoModel.empty()) {
       final _newUser = UserInfoModel.fromUser(user).copyWith(
@@ -39,7 +39,7 @@ class UserStateNotifier extends _$UserStateNotifier {
       await saveUserInfo(userInfoModel: _newUser);
       return _newUser;
     } else {
-      final _updatedUser = UserInfoModel.fromUser(user).copyWith(
+      final UserInfoModel _updatedUser = UserInfoModel.fromUser(user).copyWith(
         role: _fetchedUser.role,
         favoriteTracks: _fetchedUser.favoriteTracks,
         ownedTracks: _fetchedUser.ownedTracks,
@@ -117,7 +117,7 @@ class UserStateNotifier extends _$UserStateNotifier {
 
     ///TODO: find a actual fix for  this error
     Future.delayed(const Duration(seconds: 1), () {
-      ref.read(authStateNotifierProvider.notifier).logOut();
+      ref.read(authRepositoryProvider).logOut();
     });
   }
 }

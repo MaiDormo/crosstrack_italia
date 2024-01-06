@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
+import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

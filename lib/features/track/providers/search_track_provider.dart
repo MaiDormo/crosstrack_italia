@@ -25,27 +25,3 @@ class SearchTrack extends _$SearchTrack {
     }
   }
 }
-
-// final searchTrackProvider = StateNotifierProvider<SearchTrack, Iterable>((ref) {
-//   return SearchTrack();
-// });
-
-// class SearchTrack extends StateNotifier<Iterable> {
-//   SearchTrack() : super([]);
-
-//   void onSearchUser(String query, Iterable<dynamic> data) {
-//     state = [];
-//     if (query.isNotEmpty) {
-//       final result = data
-//           .where((element) => element.trackName
-//               .toString()
-//               .toLowerCase()
-//               .contains(query.toString().toLowerCase()))
-//           .toSet()
-//           .toList();
-//       state = result;
-//     } else {
-//       state = data.toList();
-//     }
-//   }
-// }

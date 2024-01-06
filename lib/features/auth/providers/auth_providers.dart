@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
+import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +16,7 @@ part 'auth_providers.g.dart';
 bool isLoggedIn(IsLoggedInRef ref) {
   final _userState = ref.watch(userStateNotifierProvider);
   return switch (_userState) {
-    AsyncData(:final value) => value.id != '',
+    AsyncData(:final value) => value.id.isNotEmpty,
     _ => false,
   };
 }
@@ -28,7 +27,7 @@ UserId userId(UserIdRef ref) {
   return switch (_userState) {
     AsyncData(:final value) => value.id,
     _ => '',
-  }; //TODO: check if this is correct
+  };
 }
 
 @riverpod
@@ -36,16 +35,6 @@ bool isOwner(IsOwnerRef ref) {
   final _userState = ref.watch(userStateNotifierProvider);
   return switch (_userState) {
     AsyncData(:final value) => value.role == UserRole.owner,
-    _ => false,
-  };
-}
-
-//for the loading screeen
-@riverpod
-bool isLoading(IsLoadingRef ref) {
-  final _authState = ref.watch(authStateNotifierProvider);
-  return switch (_authState) {
-    AsyncData(:final value) => value.isLoading,
     _ => false,
   };
 }

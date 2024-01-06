@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/features/track/models/comment.dart';
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
+import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

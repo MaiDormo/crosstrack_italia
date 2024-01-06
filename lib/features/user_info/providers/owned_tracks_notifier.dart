@@ -2,7 +2,7 @@ import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/owned_tracks_service.dart';
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
+import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'owned_tracks_notifier.g.dart';

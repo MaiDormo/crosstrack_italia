@@ -6,7 +6,7 @@ part of 'auth_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isLoggedInHash() => r'273aaeed63a5c78b2a98f8d915075f31f6fb2ca3';
+String _$isLoggedInHash() => r'd3d07253f79d66db7d56727fbeadbb347a6dc13f';
 
 /// See also [isLoggedIn].
 @ProviderFor(isLoggedIn)
@@ -48,20 +48,6 @@ final isOwnerProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsOwnerRef = AutoDisposeProviderRef<bool>;
-String _$isLoadingHash() => r'19faabf3075060706ab95de72bda4642d073a224';
-
-/// See also [isLoading].
-@ProviderFor(isLoading)
-final isLoadingProvider = AutoDisposeProvider<bool>.internal(
-  isLoading,
-  name: r'isLoadingProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isLoadingHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef IsLoadingRef = AutoDisposeProviderRef<bool>;
 String _$userImageHash() => r'bdab0b2bfc9baa555af4e8af88c345b8ec9d94c1';
 
 /// See also [userImage].

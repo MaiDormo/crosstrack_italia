@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/notifiers/auth_state_notifier.dart';
+import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
 import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
@@ -19,7 +19,7 @@ class SettingsPageView extends ConsumerWidget {
           .present(context)
           .then((value) => value ?? false);
       if (shouldLogOut) {
-        await ref.read(authStateNotifierProvider.notifier).logOut();
+        await ref.read(authRepositoryProvider).logOut();
       }
     }
 
@@ -99,7 +99,7 @@ class SettingsPageView extends ConsumerWidget {
                   context,
                   'Impostazioni ricerca tracciato',
                   Icons.track_changes,
-                  () => null,
+                  () => ref.read(authRepositoryProvider).logOut(),
                 ),
                 settingsTile(
                   context,

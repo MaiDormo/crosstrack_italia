@@ -26,7 +26,9 @@ class _BottomBarState extends ConsumerState<BottomBar> {
   }
 
   BottomNavigationBarItem _createBottomNavigationBarItem(
-      IconData icon, String label) {
+    IconData icon,
+    String label,
+  ) {
     return BottomNavigationBarItem(
       icon: Icon(icon),
       label: label,
@@ -55,6 +57,10 @@ class _BottomBarState extends ConsumerState<BottomBar> {
             currentIndex: navIndex,
             selectedItemColor: Theme.of(context).colorScheme.onSecondary,
             unselectedItemColor: Colors.white54,
+            unselectedLabelStyle: TextStyle(
+              color: Colors.transparent,
+            ),
+            showUnselectedLabels: false,
             onTap: (value) {
               ref.read(navNotifierProvider.notifier).onIndexChanged(value);
             },

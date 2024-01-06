@@ -8,7 +8,6 @@ part 'auth_state.freezed.dart';
 class AuthState with _$AuthState {
   const factory AuthState({
     required final AuthResult? result,
-    required final bool isLoading,
     required final User? user,
   }) = _AuthState;
 }

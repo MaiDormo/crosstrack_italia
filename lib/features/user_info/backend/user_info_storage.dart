@@ -3,7 +3,6 @@ import 'package:crosstrack_italia/features/constants/firebase_collection_name.da
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
-import 'package:crosstrack_italia/providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,25 +10,17 @@ part 'user_info_storage.g.dart';
 
 @riverpod
 UserInfoStorage userInfoStorage(UserInfoStorageRef ref) {
-  return UserInfoStorage(
-    firestore: ref.watch(firestoreProvider),
-    auth: ref.watch(authProvider),
-  );
+  return UserInfoStorage();
 }
 
 class UserInfoStorage {
-  final FirebaseFirestore _firestore;
-  final FirebaseAuth _auth;
-
-  UserInfoStorage({
-    required FirebaseFirestore firestore,
-    required FirebaseAuth auth,
-  })  : _firestore = firestore,
-        _auth = auth;
+  const UserInfoStorage();
 
   Future<UserInfoModel> fetchUserInfo(UserId id) async {
-    final userDocSnapshot =
-        await _firestore.collection(FirebaseCollectionName.users).doc(id).get();
+    final userDocSnapshot = await FirebaseFirestore.instance
+        .collection(FirebaseCollectionName.users)
+        .doc(id)
+        .get();
 
     if (userDocSnapshot.exists) {
       return UserInfoModel.fromJson(userDocSnapshot.data()!);
@@ -43,7 +34,7 @@ class UserInfoStorage {
   }) async {
     try {
       // first check if we have this user's info from before
-      final userInfo = await _firestore
+      final userInfo = await FirebaseFirestore.instance
           .collection(
             FirebaseCollectionName.users,
           )
@@ -73,7 +64,7 @@ class UserInfoStorage {
   }
 
   Future<void> _createUserInfo(String id, Map<String, dynamic> payload) async {
-    await _firestore
+    await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.users)
         .doc(id)
         .set(payload);
@@ -81,7 +72,7 @@ class UserInfoStorage {
 
   Future<void> deleteUserInfo() async {
     try {
-      final user = _auth.currentUser!;
+      final user = FirebaseAuth.instance.currentUser!;
       await _deleteUserDocument(user.uid);
       await user.delete();
     } on FirebaseAuthException catch (e) {
@@ -96,7 +87,7 @@ class UserInfoStorage {
   }
 
   Future<void> _deleteUserDocument(String userId) async {
-    final documentSnapshot = await _firestore
+    final documentSnapshot = await FirebaseFirestore.instance
         .collection(FirebaseCollectionName.users)
         .doc(userId)
         .get();
@@ -108,7 +99,8 @@ class UserInfoStorage {
 
   Future<void> _reauthenticateAndDelete() async {
     try {
-      final providerData = _auth.currentUser?.providerData.first;
+      final providerData =
+          FirebaseAuth.instance.currentUser?.providerData.first;
 
       if (FacebookAuthProvider().providerId == providerData!.providerId) {
         await _reauthenticateWithProvider(AppleAuthProvider());
@@ -116,13 +108,14 @@ class UserInfoStorage {
         await _reauthenticateWithProvider(GoogleAuthProvider());
       }
 
-      await _auth.currentUser?.delete();
+      await FirebaseAuth.instance.currentUser?.delete();
     } catch (e) {
       // Handle exceptions
     }
   }
 
   Future<void> _reauthenticateWithProvider(AuthProvider provider) async {
-    await _auth.currentUser!.reauthenticateWithProvider(provider);
+    await FirebaseAuth.instance.currentUser!
+        .reauthenticateWithProvider(provider);
   }
 }

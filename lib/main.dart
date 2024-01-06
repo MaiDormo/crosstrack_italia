@@ -58,14 +58,12 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(411.4, 876.6),
       minTextAdapt: true,
       splitScreenMode: true,
-      fontSizeResolver: (fontSize, instance) => fontSize * instance.scaleWidth,
       builder: (_, child) => MaterialApp(
         title: 'Cross Track Italia',
         theme: ThemeData(
