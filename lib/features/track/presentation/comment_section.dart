@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
+import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
 import 'package:crosstrack_italia/features/track/models/comment.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';

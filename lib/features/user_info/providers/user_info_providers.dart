@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'auth_providers.g.dart';
+part 'user_info_providers.g.dart';
 
 @riverpod
 bool isLoggedIn(IsLoggedInRef ref) {

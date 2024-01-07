@@ -1,5 +1,5 @@
 import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
-import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
+import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
 import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';

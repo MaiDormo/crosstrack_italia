@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/auth/providers/auth_providers.dart';
+import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
 import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/favorite_tracks_screen.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/owned_tracks_screen.dart';
