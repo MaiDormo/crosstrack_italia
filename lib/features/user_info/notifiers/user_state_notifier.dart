@@ -25,7 +25,6 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<UserInfoModel> init(User? user) async {
-    print('DEBUG userStateNotifier init(): $user');
     if (user == null) {
       return UserInfoModel.empty();
     }
@@ -115,7 +114,6 @@ class UserStateNotifier extends _$UserStateNotifier {
   Future<void> deleteUserInfo() async {
     await _userInfoStorage.deleteUserInfo();
 
-    ///TODO: find a actual fix for  this error
     Future.delayed(const Duration(seconds: 1), () {
       ref.read(authRepositoryProvider).logOut();
     });

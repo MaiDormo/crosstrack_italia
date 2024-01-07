@@ -89,8 +89,8 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
   Widget build(BuildContext context) {
     bool _isUpdating = false;
     String _imagePath = '';
-    final List<String> categories = ['1', '2', '3', '4', '5'];
-    final List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
+    const List<String> categories = ['1', '2', '3', '4', '5'];
+    const List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
 
     buildAddButton({
       required List<String> numbers,

@@ -6,23 +6,24 @@ part of 'user_location_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getClosestLocationHash() =>
-    r'd6e5a4d9de475896c4d0985c104dad7cd312d4b9';
+String _$getLocationPlaceStringHash() =>
+    r'd6abadec94963255549d37e95e45321b2335915e';
 
-/// See also [getClosestLocation].
-@ProviderFor(getClosestLocation)
-final getClosestLocationProvider = AutoDisposeFutureProvider<String>.internal(
-  getClosestLocation,
-  name: r'getClosestLocationProvider',
+/// See also [getLocationPlaceString].
+@ProviderFor(getLocationPlaceString)
+final getLocationPlaceStringProvider =
+    AutoDisposeFutureProvider<String>.internal(
+  getLocationPlaceString,
+  name: r'getLocationPlaceStringProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$getClosestLocationHash,
+      : _$getLocationPlaceStringHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef GetClosestLocationRef = AutoDisposeFutureProviderRef<String>;
-String _$getPositionHash() => r'bb31af68592b7bc95017b3e5b843dcca4b6589d8';
+typedef GetLocationPlaceStringRef = AutoDisposeFutureProviderRef<String>;
+String _$getPositionHash() => r'ca5b161e2e3ae096efca3f5816c688a5c479bf24';
 
 /// See also [getPosition].
 @ProviderFor(getPosition)
@@ -53,22 +54,6 @@ final showCurrentLocationProvider =
 );
 
 typedef _$ShowCurrentLocation = AutoDisposeNotifier<bool>;
-String _$locationServicesHash() => r'1df801ed86cbc084190d7f8e8d82b73bcf895f9a';
-
-/// See also [LocationServices].
-@ProviderFor(LocationServices)
-final locationServicesProvider =
-    AutoDisposeNotifierProvider<LocationServices, bool>.internal(
-  LocationServices.new,
-  name: r'locationServicesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locationServicesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$LocationServices = AutoDisposeNotifier<bool>;
 String _$centerUserLocationHash() =>
     r'bd528824bd4550efb6c347abf9ae86152f9fbce7';
 
@@ -87,12 +72,12 @@ final centerUserLocationProvider = AutoDisposeNotifierProvider<
 
 typedef _$CenterUserLocation = AutoDisposeNotifier<FollowOnLocationUpdate>;
 String _$userLocationNotifierHash() =>
-    r'd49ec51dc585ef0e428d33337c0faf64c8f0127a';
+    r'5ffeac77f90d87d926c0b3e669ee1209ee5646b7';
 
 /// See also [UserLocationNotifier].
 @ProviderFor(UserLocationNotifier)
 final userLocationNotifierProvider =
-    AutoDisposeNotifierProvider<UserLocationNotifier, bool>.internal(
+    AutoDisposeNotifierProvider<UserLocationNotifier, void>.internal(
   UserLocationNotifier.new,
   name: r'userLocationNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -102,6 +87,6 @@ final userLocationNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UserLocationNotifier = AutoDisposeNotifier<bool>;
+typedef _$UserLocationNotifier = AutoDisposeNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

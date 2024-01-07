@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,24 +10,32 @@ part 'user_location_notifier.g.dart';
 //------------------------PROVIDERS------------------------//
 
 @riverpod
-Future<String> getClosestLocation(GetClosestLocationRef ref) async {
-  await ref.watch(locationServicesProvider.notifier).check();
+Future<String> getLocationPlaceString(GetLocationPlaceStringRef ref) async {
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
+  final locationPermission =
+      await switch (ref.watch(locationPermissionProvider)) {
+    AsyncData(:final value) => value,
+    AsyncError() => false,
+    _ => false,
+  };
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
-  final locationServices = ref.watch(locationServicesProvider);
-  return userLocationNotifier.getClosestLocation(
-      showCurrentLocation, locationServices);
+  return userLocationNotifier
+      .getLocationPlaceString(locationPermission && showCurrentLocation);
 }
 
 @riverpod
 Future<Position?> getPosition(GetPositionRef ref) async {
-  final locationServices = ref.watch(locationServicesProvider);
+  final locationPermission =
+      await switch (ref.watch(locationPermissionProvider)) {
+    AsyncData(:final value) => value,
+    AsyncError() => false,
+    _ => false,
+  };
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
-  if (locationServices && showCurrentLocation) {
-    return await ref.watch(locationServicesProvider.notifier).check();
-  } else {
-    return null;
-  }
+  final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
+  return locationPermission && showCurrentLocation
+      ? await userLocationNotifier.getPosition()
+      : null;
 }
 
 //------------------------NOTIFIER------------------------//
@@ -40,61 +49,6 @@ class ShowCurrentLocation extends _$ShowCurrentLocation {
 
   void toggle() {
     state = !state;
-  }
-}
-
-//This is the notifier that will be used to check if the user has location permission
-//and to get the user location
-@riverpod
-class LocationServices extends _$LocationServices {
-  @override
-  bool build() => false;
-
-  Future<Position?> check() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled.
-      state = false;
-    }
-
-    // Check location permissions.
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        // Permissions are denied, next step is to ask the permissions from the user.
-        state = false;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Permissions are denied forever, handle appropriately.
-      state = false;
-    }
-
-    // When we reach here, location services are enabled and we have permission to use location.
-
-    // Control the position stream
-    var position = null;
-    try {
-      position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-    } catch (e) {
-      state = false;
-      return null;
-    }
-
-    if (position != null) {
-      state = true;
-      return position;
-    } else {
-      state = false;
-    }
-    return null;
   }
 }
 
@@ -119,32 +73,40 @@ class CenterUserLocation extends _$CenterUserLocation {
 @riverpod
 class UserLocationNotifier extends _$UserLocationNotifier {
   @override
-  bool build() => false;
+  void build() {}
 
-  Future<String> getClosestLocation(
-      bool showCurrentLocation, bool locationServices) async {
-    if (showCurrentLocation && locationServices) {
-      final location = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high); // Get users location
-      final userLatitude = location.latitude;
-      final userLongitude = location.longitude;
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-          userLatitude, userLongitude,
-          localeIdentifier: 'it_IT');
-      if (placemarks.isNotEmpty) {
-        Placemark closestPlacemark = placemarks.first;
-        String? closestLocation = closestPlacemark.locality ??
-            closestPlacemark.subAdministrativeArea ??
-            closestPlacemark.administrativeArea;
-        state = true;
-        return closestLocation ?? MapConstans.noLocationFound;
-        // Use the `closestLocation` string to display the closest main location to the user
+  Future<String> getLocationPlaceString(bool canShow) async {
+    if (canShow) {
+      try {
+        final location = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
+        final userLatitude = location.latitude;
+        final userLongitude = location.longitude;
+
+        List<Placemark> placemarks = await placemarkFromCoordinates(
+            userLatitude, userLongitude,
+            localeIdentifier: 'it_IT');
+
+        if (placemarks.isNotEmpty) {
+          Placemark closestPlacemark = placemarks.first;
+          String? closestLocation = closestPlacemark.locality ??
+              closestPlacemark.subAdministrativeArea ??
+              closestPlacemark.administrativeArea;
+          return closestLocation ?? MapConstans.noLocationFound;
+        }
+
+        return MapConstans.noLocationFound;
+      } catch (e) {
+        return MapConstans.errorLocation;
       }
-      state = false;
-      return MapConstans.noLocationFound;
     } else {
-      state = false;
       return MapConstans.initialLocation;
     }
+  }
+
+  Future<Position> getPosition() async {
+    final location = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high); // Get users location
+    return location;
   }
 }

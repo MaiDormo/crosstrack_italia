@@ -296,7 +296,6 @@ class TrackNotifier extends _$TrackNotifier {
     final res = await _trackRepository.fetchTracksByIds(ids);
     return res.fold(
       (l) {
-        ///TODO: add a more specific error message
         Utils.showSnackBar(context, l.message);
         return [];
       },

@@ -2,8 +2,6 @@ import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/presentation/track_card.dart';
 import 'package:flutter/material.dart';
 
-///TODO: improve the design of this widget
-
 class TracksListView extends StatelessWidget {
   final Iterable<Track> tracks;
 

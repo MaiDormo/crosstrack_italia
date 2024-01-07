@@ -12,6 +12,7 @@ import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:crosstrack_italia/features/track/presentation/track_card.dart';
 import 'package:crosstrack_italia/features/track/providers/search_track_provider.dart';
 import 'package:crosstrack_italia/features/map/presentation/panel_widget.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -117,6 +118,11 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final _animatedMapController = ref.watch(animatedMapControllerProvider);
+    final locationPermission = ref.watch(locationPermissionProvider);
+    final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+    final centerUserLocation = ref.watch(centerUserLocationProvider);
+    final selectedRegion = ref.watch(selectedRegionProvider);
+
     return FlutterMap(
       mapController: _animatedMapController.mapController,
       options: MapOptions(
@@ -149,52 +155,44 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
         //contains layers
         //which themselves will contain all the makers
 
-        Consumer(
-          builder: (context, ref, child) {
-            final locationServices = ref.watch<bool>(locationServicesProvider);
-            final showCurrentLocation =
-                ref.watch<bool>(showCurrentLocationProvider);
-            final centerUserLocation = ref.watch(centerUserLocationProvider);
-            if (showCurrentLocation && locationServices) {
-              return CurrentLocationLayer(
-                followOnLocationUpdate: centerUserLocation,
-                turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
-                style: LocationMarkerStyle(
-                  marker: DefaultLocationMarker(
-                    color: Theme.of(context).colorScheme.secondary,
-                    child: Icon(
-                      Icons.person,
-                      color: Colors.white,
+        switch (locationPermission) {
+          AsyncData(:final value) => value && showCurrentLocation
+              ? CurrentLocationLayer(
+                  followOnLocationUpdate: centerUserLocation,
+                  turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                  style: LocationMarkerStyle(
+                    marker: DefaultLocationMarker(
+                      color: Theme.of(context).colorScheme.secondary,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
                     ),
+                    markerSize: const Size.square(35),
+                    showHeadingSector: false,
                   ),
-                  markerSize: const Size.square(35),
-                  showHeadingSector: false,
-                ),
-                // moveAnimationDuration: Duration.zero,
-              );
-            } else {
-              return const SizedBox.shrink();
-            }
-          },
-        ),
-        Consumer(
-          builder: (context, ref, child) {
-            final showCurrentLocation = ref.watch(showCurrentLocationProvider);
-            final locationServices = ref.watch(locationServicesProvider);
-            return Positioned(
+                  // moveAnimationDuration: Duration.zero,
+                )
+              : const SizedBox.shrink(),
+          AsyncError() => const Center(child: Icon(Icons.error)),
+          _ => const Center(child: CircularProgressIndicator()),
+        },
+
+        switch (locationPermission) {
+          AsyncData(:final value) => Positioned(
               top: 90,
               right: 8,
               child: Padding(
                 padding: const EdgeInsets.all(8.0).r,
                 child: Visibility(
-                  visible: locationServices,
+                  visible: value,
                   child: Opacity(
                     opacity: showCurrentLocation ? 1 : 0.5,
                     child: FloatingActionButton(
                       backgroundColor: showCurrentLocation
                           ? Theme.of(context).colorScheme.secondary
                           : Colors.grey[300],
-                      onPressed: showCurrentLocation && locationServices
+                      onPressed: showCurrentLocation && value
                           ? () {
                               //wait for the map to center
                               ref
@@ -216,22 +214,27 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
                   ),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          AsyncError() => const Positioned(
+              top: 90,
+              right: 8,
+              child: Icon(
+                Icons.error,
+              ),
+            ),
+          _ => const Positioned(
+              top: 90,
+              right: 8,
+              child: CircularProgressIndicator(),
+            ),
+        },
 
-        Consumer(
-          builder: (context, ref, child) {
-            final selectedRegion = ref.watch<Regions>(selectedRegionProvider);
-            return switch (selectedRegion) {
-              Regions.all => const AllTracksMarkers(),
-              Regions.veneto => const VenetoTracksMarkers(),
-              Regions.lombardia => const LombardiaTracksMarkers(),
-              Regions.trentinoAltoAdige =>
-                const TrentinoAltoAdigeTracksMarkers(),
-            };
-          },
-        ),
+        switch (selectedRegion) {
+          Regions.all => const AllTracksMarkers(),
+          Regions.veneto => const VenetoTracksMarkers(),
+          Regions.lombardia => const LombardiaTracksMarkers(),
+          Regions.trentinoAltoAdige => const TrentinoAltoAdigeTracksMarkers(),
+        }
       ],
     );
   }
@@ -249,6 +252,10 @@ class FloatingSearchMapBar extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0).r,
       child: FloatingSearchBar(
+        shadowColor: Colors.transparent,
+        showCursor: false,
+        borderRadius: BorderRadius.circular(20.0),
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
         controller: ref.watch(floatingSearchBarControllerProvider),
         hint: 'Cerca...',
         hintStyle: TextStyle(
@@ -256,6 +263,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
         ),
         queryStyle: TextStyle(
           color: Theme.of(context).colorScheme.secondary,
+          fontWeight: FontWeight.normal,
         ),
         scrollPadding: EdgeInsets.only(top: 16.h, bottom: 56.h),
         transitionDuration: const Duration(milliseconds: 500),
@@ -304,31 +312,26 @@ class FloatingSearchMapBar extends ConsumerWidget {
                   ) ??
                   []);
         },
-        // Specify a custom transition to be used for
-        // animating between opened and closed stated.
         transition: SlideFadeFloatingSearchBarTransition(),
         actions: [
-          FloatingSearchBarAction(
-            showIfOpened: false,
-            child: CircularButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                ref.read(floatingSearchBarControllerProvider).open();
-              },
-            ),
-          ),
           FloatingSearchBarAction.searchToClear(
             showIfClosed: false,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           PopupMenuButton<Regions>(
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            icon: const Icon(Icons.filter_alt),
+            color: Theme.of(context).colorScheme.onSecondary,
+            iconColor: Theme.of(context).colorScheme.secondary,
             onSelected: (Regions result) {
               ref.read(selectedRegionProvider.notifier).setRegion(result);
               LatLng center;
               switch (result) {
                 case Regions.veneto:
-                  //pop current marker Layer
-                  center =
-                      MapConstans.venice; // Replace with actual coordinates
+                  center = MapConstans.venice;
                   break;
                 case Regions.lombardia:
                   center = MapConstans.milan;
@@ -340,9 +343,9 @@ class FloatingSearchMapBar extends ConsumerWidget {
                   center = MapConstans.defaultLocation;
               }
               _animatedMapController.animateTo(
-                  dest: center,
-                  zoom: MapConstans
-                      .defaultZoom); // Center the map on the selected region
+                dest: center,
+                zoom: MapConstans.defaultZoom,
+              ); // Center the map on the selected region
               // Update markers here based on the selected region
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
@@ -367,27 +370,23 @@ class FloatingSearchMapBar extends ConsumerWidget {
           ),
         ],
         builder: (context, transition) {
-          return Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Material(
-                  color: Theme.of(context).colorScheme.primary,
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0).r,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ...searchController.map(
-                          (track) => TrackCard(track: track),
-                        )
-                      ],
-                    ),
-                  ),
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: Material(
+              color: Theme.of(context).colorScheme.primary,
+              elevation: 4.0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0).r,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ...searchController.map(
+                      (track) => TrackCard(track: track),
+                    )
+                  ],
                 ),
-              );
-            },
+              ),
+            ),
           );
         },
       ),

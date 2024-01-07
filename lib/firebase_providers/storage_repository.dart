@@ -31,6 +31,4 @@ class StorageRepository {
     final listResult = await _firebaseStorage.ref(path).listAll();
     return listResult.items.map((e) => e.fullPath);
   }
-
-  ///TODO: in case i want to save files in the storage
 }

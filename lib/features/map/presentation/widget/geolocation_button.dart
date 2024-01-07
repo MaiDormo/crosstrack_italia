@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,20 +8,30 @@ class GeolocationButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showCurrentLocation = ref.watch<bool>(showCurrentLocationProvider);
-    final locationServices = ref.watch<bool>(locationServicesProvider);
+    final locationPermission =
+        ref.watch<AsyncValue<bool>>(locationPermissionProvider);
 
-    return IconButton(
-      onPressed: () {
-        ref.read(showCurrentLocationProvider.notifier).toggle();
-        if (!locationServices) {
-          ref.read(showCurrentLocationProvider.notifier).toggle();
-        }
-      },
-      icon: showCurrentLocation && locationServices
-          ? const Icon(Icons.gps_fixed)
-          : const Icon(Icons.gps_not_fixed),
-      color: Colors.red,
-      iconSize: 20.6.w,
-    );
+    return switch (locationPermission) {
+      AsyncData(:final value) => Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          color: Theme.of(context).colorScheme.secondary,
+          child: IconButton(
+            onPressed: () {
+              if (value) {
+                ref.read(showCurrentLocationProvider.notifier).toggle();
+              }
+            },
+            icon: showCurrentLocation && value
+                ? const Icon(Icons.gps_fixed)
+                : const Icon(Icons.gps_not_fixed),
+            color: Colors.red,
+            iconSize: 20.6.w,
+          ),
+        ),
+      AsyncError() => const Center(child: Icon(Icons.error)),
+      _ => const Center(child: CircularProgressIndicator()),
+    };
   }
 }

@@ -27,24 +27,43 @@ Widget buildMotoclubCard(
                 onTap: () async {
                   if (selectedTrack.website.isEmpty) {
                     //show snackbar
-                    SnackBar(
-                      content: Text('Nessun sito web disponibile'),
-                    );
-                  }
-
-                  try {
-                    bool launched =
-                        await launchUrlString(selectedTrack.website);
-
-                    if (!launched) {
+                    ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Impossibile aprire il sito web'),
+                        content: Text('Nessun sito web disponibile'),
+                      ),
+                    );
+                  } else {
+                    try {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Apertura sito web...'),
+                        ),
+                      );
+
+                      bool launched =
+                          await launchUrlString(selectedTrack.website);
+
+                      Future.delayed(Duration(seconds: 1), () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      });
+
+                      if (!launched) {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Sito non apribile, riprova più tardi'),
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Errore nell\'apertura del sito web'),
+                        ),
                       );
                     }
-                  } catch (e) {
-                    SnackBar(
-                      content: Text('Errore inaspettato'),
-                    );
                   }
                 },
                 child: Icon(

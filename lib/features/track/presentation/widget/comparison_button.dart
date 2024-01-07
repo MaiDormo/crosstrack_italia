@@ -2,17 +2,25 @@ import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.
 import 'package:crosstrack_italia/features/track/presentation/track_comparison.dart';
 import 'package:crosstrack_italia/features/track/presentation/widget/track_selector.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ComparisonButton extends ConsumerWidget {
+class ComparisonButton extends ConsumerStatefulWidget {
   const ComparisonButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _ComparisonButtonState createState() => _ComparisonButtonState();
+}
+
+class _ComparisonButtonState extends ConsumerState<ComparisonButton> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
     final selectedTracks = ref.watch(selectedTracksProvider);
-    final bool showCurrentLocation = ref.watch(showCurrentLocationProvider);
+    final position = ref.watch(getPositionProvider);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.blueGrey,
@@ -21,40 +29,60 @@ class ComparisonButton extends ConsumerWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
-      onPressed: () {
-        if (selectedTracks[0] != null && selectedTracks[1] != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TrackComparison(
-                track1: selectedTracks[0]!,
-                track2: selectedTracks[1]!,
-                userLocationAvailable: showCurrentLocation,
-                userLatitude: ref.read(getPositionProvider).when(
-                          data: (value) => value?.latitude,
-                          loading: () => 0.0,
-                          error: (error, stackTrace) => 0.0,
-                        ) ??
-                    0.0,
-                userLongitude: ref.read(getPositionProvider).when(
-                          data: (value) => value?.longitude,
-                          loading: () => 0.0,
-                          error: (error, stackTrace) => 0.0,
-                        ) ??
-                    0.0,
-              ),
-            ),
-          );
-        } else {
-          // Inform the user to select two tracks
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Seleziona due tracciati tra i disponibliti."),
-            ),
-          );
-        }
-      },
-      child: Text("Confronta"),
+      onPressed: _isLoading
+          ? null
+          : () async {
+              if (selectedTracks[0] != null && selectedTracks[1] != null) {
+                setState(() {
+                  _isLoading = true;
+                });
+                await switch (position) {
+                  AsyncData(:final value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TrackComparison(
+                          track1: selectedTracks[0]!,
+                          track2: selectedTracks[1]!,
+                          userLocationAvailable: value != null,
+                          userLocation: value,
+                        ),
+                      ),
+                    ),
+                  AsyncError() => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TrackComparison(
+                          track1: selectedTracks[0]!,
+                          track2: selectedTracks[1]!,
+                          userLocationAvailable: false,
+                          userLocation: null,
+                        ),
+                      ),
+                    ),
+                  _ => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text("Caricando..."),
+                      ),
+                    ),
+                };
+                setState(() {
+                  _isLoading = false;
+                });
+              } else {
+                // Inform the user to select two tracks
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content:
+                        Text("Seleziona due tracciati tra i disponibliti."),
+                  ),
+                );
+              }
+            },
+      child: _isLoading
+          ? CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            )
+          : Text("Confronta"),
     );
   }
 }

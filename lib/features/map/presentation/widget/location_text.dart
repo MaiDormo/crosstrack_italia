@@ -8,7 +8,7 @@ class LocationText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final location = ref.watch(getClosestLocationProvider);
+    final location = ref.watch(getLocationPlaceStringProvider);
     return Text(
       location.when(
         data: (data) => data,

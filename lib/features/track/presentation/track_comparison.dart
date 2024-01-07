@@ -1,24 +1,21 @@
 import 'dart:math' as Math;
 
 import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 
 class TrackComparison extends StatelessWidget {
   final Track track1;
   final Track track2;
   final bool userLocationAvailable;
-  final double userLatitude;
-  final double userLongitude;
+  final Position? userLocation;
 
   TrackComparison({
     required this.track1,
     required this.track2,
     required this.userLocationAvailable,
-    required this.userLatitude,
-    required this.userLongitude,
+    required this.userLocation,
   });
 
   @override
@@ -71,6 +68,7 @@ class TrackComparison extends StatelessWidget {
                   columnWidth,
                   context,
                 ),
+
                 _buildLocationComparisonRow(
                   track1.latitude,
                   track1.longitude,
@@ -132,58 +130,6 @@ class TrackComparison extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  ///TODO prova a ricontrollare il funzionamento di questo metodo se hai tempo
-  //ignore: unused_element
-  Widget _buildComparisonImageRow(double columnWidth) {
-    return Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final tracksThumbnail =
-            ref.watch(FetchSelectedTracksThumbnailProvider([track1, track2]));
-
-        return tracksThumbnail.when(
-          data: (images) {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: columnWidth,
-                  child: images[0],
-                ),
-                Container(
-                  width: columnWidth,
-                  child: images[1],
-                ),
-              ],
-            );
-          },
-          loading: () => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: columnWidth,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-                Container(
-                  width: columnWidth,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          error: (error, stackTrace) => Icon(Icons.error),
-        );
-      },
     );
   }
 
@@ -375,11 +321,24 @@ class TrackComparison extends StatelessWidget {
       String longitude2,
       double columnWidth,
       BuildContext context) {
-    if (userLocationAvailable) {
-      final double distance1 = _calculateDistance(userLatitude, userLongitude,
-          double.parse(latitude1), double.parse(longitude1));
-      final double distance2 = _calculateDistance(userLatitude, userLongitude,
-          double.parse(latitude2), double.parse(longitude2));
+    print(
+        'DEBUG - userLocationAvailable: $userLocationAvailable, userLocation: $userLocation');
+    if (userLocationAvailable && userLocation != null) {
+      final double distance1 = _calculateDistance(
+        userLocation!.latitude,
+        userLocation!.longitude,
+        double.parse(latitude1),
+        double.parse(longitude1),
+      );
+
+      final double distance2 = _calculateDistance(
+        userLocation!.latitude,
+        userLocation!.longitude,
+        double.parse(latitude2),
+        double.parse(longitude2),
+      );
+
+      print('DEBUG - Distance 1: $distance1, Distance 2: $distance2');
 
       return _buildComparisonRow(
         "Distanza Aerea",
@@ -390,7 +349,7 @@ class TrackComparison extends StatelessWidget {
         context,
       );
     } else {
-      return Container(); // User location not available, skip distance comparison
+      return SizedBox.shrink();
     }
   }
 
