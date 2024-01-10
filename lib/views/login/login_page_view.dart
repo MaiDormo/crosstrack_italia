@@ -14,6 +14,47 @@ class LoginPageView extends StatefulHookConsumerWidget {
 }
 
 class _LoginPageViewState extends ConsumerState<LoginPageView> {
+  Future<void> performLogin(Future<void> Function() login) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.blueGrey,
+          child: Container(
+            height: 200.h,
+            width: 100.w,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0).r,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    Text(
+                      'Caricamento...',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    await login();
+
+    Navigator.of(context).pop(); // Close the dialog
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -72,7 +113,9 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     SquareTile(
                       imagePath: 'assets/svgs/g_logo.svg',
                       onTap: () async {
-                        await ref.watch(authRepositoryProvider).googleLogin();
+                        await performLogin(
+                          () => ref.watch(authRepositoryProvider).googleLogin(),
+                        );
                         Navigator.pop(context);
                       },
                     ),
@@ -83,7 +126,10 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     SquareTile(
                       imagePath: 'assets/svgs/f_logo.svg',
                       onTap: () async {
-                        await ref.watch(authRepositoryProvider).facebookLogin();
+                        await performLogin(
+                          () =>
+                              ref.watch(authRepositoryProvider).facebookLogin(),
+                        );
                         Navigator.pop(context);
                       },
                     ),

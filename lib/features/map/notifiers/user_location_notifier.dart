@@ -12,27 +12,28 @@ part 'user_location_notifier.g.dart';
 @riverpod
 Future<String> getLocationPlaceString(GetLocationPlaceStringRef ref) async {
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
-  final locationPermission =
-      await switch (ref.watch(locationPermissionProvider)) {
-    AsyncData(:final value) => value,
-    AsyncError() => false,
-    _ => false,
-  };
+  final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+
+  // if (!locationPermission) {
+  //   ref.read(locationPermissionProvider.notifier).evaluateLocationPermission();
+  // }
+
   return userLocationNotifier
       .getLocationPlaceString(locationPermission && showCurrentLocation);
 }
 
 @riverpod
 Future<Position?> getPosition(GetPositionRef ref) async {
-  final locationPermission =
-      await switch (ref.watch(locationPermissionProvider)) {
-    AsyncData(:final value) => value,
-    AsyncError() => false,
-    _ => false,
-  };
+  final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
+
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
+
+  // if (!locationPermission) {
+  //   ref.read(locationPermissionProvider.notifier).evaluateLocationPermission();
+  // }
+
   return locationPermission && showCurrentLocation
       ? await userLocationNotifier.getPosition()
       : null;

@@ -49,9 +49,9 @@ class TrackPopupMarkerLayer extends ConsumerWidget {
           height: MapConstans.markerSize.h,
           width: MapConstans.markerSize.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
             border: Border.all(
-              color: Colors.orange, // Set border color
+              color: Theme.of(context).primaryColor, // Set border color
               width: 3.0.w, // Set border width
             ),
             borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
@@ -59,9 +59,9 @@ class TrackPopupMarkerLayer extends ConsumerWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
             child: Icon(
-              Icons.exit_to_app_rounded,
+              Icons.close_rounded,
               size: 30.0.h,
-              color: Colors.orange,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         ),

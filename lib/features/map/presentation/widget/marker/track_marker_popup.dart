@@ -69,7 +69,7 @@ class TrackMarkerPopup extends ConsumerWidget {
               track.trackName,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSecondary,
                 fontSize: 11.sp,
               ),
             ),

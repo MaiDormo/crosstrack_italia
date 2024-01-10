@@ -10,7 +10,7 @@ class TrackMarkerIcon extends StatelessWidget {
       width: MapConstans.markerSize.h,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.orange, // Set border color
+          color: Theme.of(context).primaryColor, // Set border color
           width: 3.0.w, // Set border width
         ),
         borderRadius: BorderRadius.circular(MapConstans.markerSize.h),

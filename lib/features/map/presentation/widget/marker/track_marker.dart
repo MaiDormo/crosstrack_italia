@@ -14,9 +14,7 @@ class TrackMarker extends Marker {
           width: MapConstans.markerSize.h,
           point: LatLng(
               double.parse(track.latitude), double.parse(track.longitude)),
-          builder:
-              // (BuildContext ctx) => const Icon(Icons.sports_score),
-              (BuildContext ctx) => TrackMarkerIcon(),
+          builder: (BuildContext ctx) => TrackMarkerIcon(),
         );
 
   final Track track;

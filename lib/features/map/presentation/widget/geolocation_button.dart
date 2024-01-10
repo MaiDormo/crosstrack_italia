@@ -8,30 +8,31 @@ class GeolocationButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showCurrentLocation = ref.watch<bool>(showCurrentLocationProvider);
-    final locationPermission =
-        ref.watch<AsyncValue<bool>>(locationPermissionProvider);
+    final locationPermission = ref.watch(locationPermissionProvider);
 
-    return switch (locationPermission) {
-      AsyncData(:final value) => Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          color: Theme.of(context).colorScheme.secondary,
-          child: IconButton(
-            onPressed: () {
-              if (value) {
-                ref.read(showCurrentLocationProvider.notifier).toggle();
-              }
-            },
-            icon: showCurrentLocation && value
-                ? const Icon(Icons.gps_fixed)
-                : const Icon(Icons.gps_not_fixed),
-            color: Colors.red,
-            iconSize: 20.6.w,
-          ),
-        ),
-      AsyncError() => const Center(child: Icon(Icons.error)),
-      _ => const Center(child: CircularProgressIndicator()),
-    };
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      color: Theme.of(context).colorScheme.secondary,
+      child: IconButton(
+        onPressed: () {
+          if (!locationPermission) {
+            ref
+                .read(locationPermissionProvider.notifier)
+                .evaluateLocationPermission();
+          }
+
+          if (locationPermission) {
+            ref.read(showCurrentLocationProvider.notifier).toggle();
+          }
+        },
+        icon: showCurrentLocation && locationPermission
+            ? const Icon(Icons.gps_fixed)
+            : const Icon(Icons.gps_not_fixed),
+        color: Colors.red,
+        iconSize: 20.6.w,
+      ),
+    );
   }
 }

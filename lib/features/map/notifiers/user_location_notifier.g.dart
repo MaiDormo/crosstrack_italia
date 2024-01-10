@@ -7,7 +7,7 @@ part of 'user_location_notifier.dart';
 // **************************************************************************
 
 String _$getLocationPlaceStringHash() =>
-    r'd6abadec94963255549d37e95e45321b2335915e';
+    r'9c1f4e4859cc878bbead7f07c949d5d9f295d38d';
 
 /// See also [getLocationPlaceString].
 @ProviderFor(getLocationPlaceString)
@@ -23,7 +23,7 @@ final getLocationPlaceStringProvider =
 );
 
 typedef GetLocationPlaceStringRef = AutoDisposeFutureProviderRef<String>;
-String _$getPositionHash() => r'ca5b161e2e3ae096efca3f5816c688a5c479bf24';
+String _$getPositionHash() => r'0ad6cb4df7221036b06b8258a6568c403e4255ca';
 
 /// See also [getPosition].
 @ProviderFor(getPosition)

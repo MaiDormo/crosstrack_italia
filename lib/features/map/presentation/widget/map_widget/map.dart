@@ -75,80 +75,60 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
         ),
         //contains layers
         //which themselves will contain all the makers
-
-        switch (locationPermission) {
-          AsyncData(:final value) => value && showCurrentLocation
-              ? CurrentLocationLayer(
-                  followOnLocationUpdate: centerUserLocation,
-                  turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
-                  style: LocationMarkerStyle(
-                    marker: DefaultLocationMarker(
-                      color: Theme.of(context).colorScheme.secondary,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
+        locationPermission && showCurrentLocation
+            ? CurrentLocationLayer(
+                followOnLocationUpdate: centerUserLocation,
+                turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                style: LocationMarkerStyle(
+                  marker: DefaultLocationMarker(
+                    color: Theme.of(context).colorScheme.secondary,
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.white,
                     ),
-                    markerSize: const Size.square(35),
-                    showHeadingSector: false,
                   ),
-                  // moveAnimationDuration: Duration.zero,
-                )
-              : const SizedBox.shrink(),
-          AsyncError() => const Center(child: Icon(Icons.error)),
-          _ => const Center(child: CircularProgressIndicator()),
-        },
+                  markerSize: const Size.square(35),
+                  showHeadingSector: false,
+                ),
+                // moveAnimationDuration: Duration.zero,
+              )
+            : const SizedBox.shrink(),
 
-        switch (locationPermission) {
-          AsyncData(:final value) => Positioned(
-              top: 90,
-              right: 8,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0).r,
-                child: Visibility(
-                  visible: value,
-                  child: Opacity(
-                    opacity: showCurrentLocation ? 1 : 0.5,
-                    child: FloatingActionButton(
-                      backgroundColor: showCurrentLocation
-                          ? Theme.of(context).colorScheme.secondary
-                          : Colors.grey[300],
-                      onPressed: showCurrentLocation && value
-                          ? () {
-                              //wait for the map to center
-                              ref
-                                  .read(centerUserLocationProvider.notifier)
-                                  .follow();
-                              Future.delayed(const Duration(milliseconds: 500),
-                                  () {
-                                ref
-                                    .read(centerUserLocationProvider.notifier)
-                                    .stopFollowing();
-                              });
-                            }
-                          : null,
-                      child: const Icon(
-                        Icons.my_location,
-                        color: Colors.red,
-                      ),
-                    ),
+        Positioned(
+          top: 90,
+          right: 8,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0).r,
+            child: Visibility(
+              visible: locationPermission,
+              child: Opacity(
+                opacity: showCurrentLocation ? 1 : 0.5,
+                child: FloatingActionButton(
+                  backgroundColor: showCurrentLocation
+                      ? Theme.of(context).colorScheme.secondary
+                      : Colors.grey[300],
+                  onPressed: showCurrentLocation && locationPermission
+                      ? () {
+                          //wait for the map to center
+                          ref
+                              .read(centerUserLocationProvider.notifier)
+                              .follow();
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            ref
+                                .read(centerUserLocationProvider.notifier)
+                                .stopFollowing();
+                          });
+                        }
+                      : null,
+                  child: const Icon(
+                    Icons.my_location,
+                    color: Colors.red,
                   ),
                 ),
               ),
             ),
-          AsyncError() => const Positioned(
-              top: 90,
-              right: 8,
-              child: Icon(
-                Icons.error,
-              ),
-            ),
-          _ => const Positioned(
-              top: 90,
-              right: 8,
-              child: CircularProgressIndicator(),
-            ),
-        },
+          ),
+        ),
 
         switch (selectedRegion) {
           Regions.all => const AllTracksMarkers(),

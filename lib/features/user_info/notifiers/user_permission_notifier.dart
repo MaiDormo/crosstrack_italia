@@ -6,16 +6,16 @@ part 'user_permission_notifier.g.dart';
 @riverpod
 class LocationPermission extends _$LocationPermission {
   @override
-  Future<bool> build() async => await evaluateLocationPermission();
+  bool build() => false;
 
-  Future<bool> evaluateLocationPermission() async {
+  Future<void> evaluateLocationPermission() async {
     return await Permission.location.request().then((value) => switch (value) {
-          PermissionStatus.granted => true,
-          PermissionStatus.denied => false,
-          PermissionStatus.limited => true,
-          PermissionStatus.restricted => true,
-          PermissionStatus.permanentlyDenied => false,
-          _ => false,
+          PermissionStatus.granted => state = true,
+          PermissionStatus.denied => state = false,
+          PermissionStatus.limited => state = true,
+          PermissionStatus.restricted => state = true,
+          PermissionStatus.permanentlyDenied => state = false,
+          _ => state = false,
         });
   }
 }
