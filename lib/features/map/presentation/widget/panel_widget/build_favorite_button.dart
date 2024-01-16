@@ -24,46 +24,49 @@ class HeartIcon extends ConsumerWidget {
     final showMoreInfo =
         ref.watch(userSettingsProvider)[UserConstants.showMoreInfo]!;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
-      child: GestureDetector(
-        child: Card(
-          color: Theme.of(context).colorScheme.onSecondary,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Visibility(
-                visible: showMoreInfo,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0).h,
-                  child: Text(
-                    isFavorite
-                        ? 'Rimuovi dai preferiti'
-                        : 'Aggiungi ai preferiti',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 11.25.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? Colors.red : Theme.of(context).primaryColor,
-              ),
-            ],
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.pressed)) {
+            return Theme.of(context).colorScheme.onSecondary.withOpacity(0.5);
+          }
+          return Theme.of(context).colorScheme.onSecondary;
+        }),
+        padding: MaterialStateProperty.all(
+          EdgeInsets.symmetric(
+            vertical: 4.h, // Use ScreenUtil to set height
+            horizontal: 5.w, // Use ScreenUtil to set width
           ),
         ),
-        onTap: () {
-          if (isFavorite) {
-            ref
-                .read(favoriteTracksNotifierProvider.notifier)
-                .removeTrack(trackId);
-          } else {
-            ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
-          }
-        },
+      ),
+      onPressed: () {
+        if (isFavorite) {
+          ref
+              .read(favoriteTracksNotifierProvider.notifier)
+              .removeTrack(trackId);
+        } else {
+          ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
+        }
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Visibility(
+            visible: showMoreInfo,
+            child: Text(
+              isFavorite ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 11.25.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite ? Colors.red : Theme.of(context).primaryColor,
+          ),
+        ],
       ),
     );
   }
