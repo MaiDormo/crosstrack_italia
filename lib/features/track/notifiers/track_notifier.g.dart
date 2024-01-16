@@ -6,7 +6,7 @@ part of 'track_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllTracksHash() => r'e25ac7f58f05616545bf3c4735803dabc8143df6';
+String _$fetchAllTracksHash() => r'2c91cdcf7e22543d09571f4deb8dedbb7c8e0196';
 
 /// See also [fetchAllTracks].
 @ProviderFor(fetchAllTracks)
@@ -175,7 +175,7 @@ class _FetchTracksByRegionProviderElement
 }
 
 String _$fetchSelectedTracksThumbnailHash() =>
-    r'4679a4383a07d517a37269cee7bd0028ca1fc096';
+    r'13c6732a18d26afd3dbbb443498bb356550c480b';
 
 /// See also [fetchSelectedTracksThumbnail].
 @ProviderFor(fetchSelectedTracksThumbnail)
@@ -184,7 +184,7 @@ const fetchSelectedTracksThumbnailProvider =
 
 /// See also [fetchSelectedTracksThumbnail].
 class FetchSelectedTracksThumbnailFamily
-    extends Family<AsyncValue<List<Image>>> {
+    extends Family<AsyncValue<List<Widget>>> {
   /// See also [fetchSelectedTracksThumbnail].
   const FetchSelectedTracksThumbnailFamily();
 
@@ -223,7 +223,7 @@ class FetchSelectedTracksThumbnailFamily
 
 /// See also [fetchSelectedTracksThumbnail].
 class FetchSelectedTracksThumbnailProvider
-    extends AutoDisposeFutureProvider<List<Image>> {
+    extends AutoDisposeFutureProvider<List<Widget>> {
   /// See also [fetchSelectedTracksThumbnail].
   FetchSelectedTracksThumbnailProvider(
     List<Track> tracks,
@@ -258,7 +258,7 @@ class FetchSelectedTracksThumbnailProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<Image>> Function(FetchSelectedTracksThumbnailRef provider)
+    FutureOr<List<Widget>> Function(FetchSelectedTracksThumbnailRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -276,7 +276,7 @@ class FetchSelectedTracksThumbnailProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Image>> createElement() {
+  AutoDisposeFutureProviderElement<List<Widget>> createElement() {
     return _FetchSelectedTracksThumbnailProviderElement(this);
   }
 
@@ -296,13 +296,13 @@ class FetchSelectedTracksThumbnailProvider
 }
 
 mixin FetchSelectedTracksThumbnailRef
-    on AutoDisposeFutureProviderRef<List<Image>> {
+    on AutoDisposeFutureProviderRef<List<Widget>> {
   /// The parameter `tracks` of this provider.
   List<Track> get tracks;
 }
 
 class _FetchSelectedTracksThumbnailProviderElement
-    extends AutoDisposeFutureProviderElement<List<Image>>
+    extends AutoDisposeFutureProviderElement<List<Widget>>
     with FetchSelectedTracksThumbnailRef {
   _FetchSelectedTracksThumbnailProviderElement(super.provider);
 
@@ -311,14 +311,14 @@ class _FetchSelectedTracksThumbnailProviderElement
       (origin as FetchSelectedTracksThumbnailProvider).tracks;
 }
 
-String _$trackThumbnailHash() => r'b9adc03fcdc280e891219bf2c10e6474f0d9a37a';
+String _$trackThumbnailHash() => r'0d7bd294ef506e5b3bef39df3ddf5deb7796c052';
 
 /// See also [trackThumbnail].
 @ProviderFor(trackThumbnail)
 const trackThumbnailProvider = TrackThumbnailFamily();
 
 /// See also [trackThumbnail].
-class TrackThumbnailFamily extends Family<AsyncValue<Image>> {
+class TrackThumbnailFamily extends Family<AsyncValue<Widget>> {
   /// See also [trackThumbnail].
   const TrackThumbnailFamily();
 
@@ -356,7 +356,7 @@ class TrackThumbnailFamily extends Family<AsyncValue<Image>> {
 }
 
 /// See also [trackThumbnail].
-class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
+class TrackThumbnailProvider extends AutoDisposeFutureProvider<Widget> {
   /// See also [trackThumbnail].
   TrackThumbnailProvider(
     Track track,
@@ -391,7 +391,7 @@ class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
 
   @override
   Override overrideWith(
-    FutureOr<Image> Function(TrackThumbnailRef provider) create,
+    FutureOr<Widget> Function(TrackThumbnailRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -408,7 +408,7 @@ class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<Image> createElement() {
+  AutoDisposeFutureProviderElement<Widget> createElement() {
     return _TrackThumbnailProviderElement(this);
   }
 
@@ -426,158 +426,44 @@ class TrackThumbnailProvider extends AutoDisposeFutureProvider<Image> {
   }
 }
 
-mixin TrackThumbnailRef on AutoDisposeFutureProviderRef<Image> {
+mixin TrackThumbnailRef on AutoDisposeFutureProviderRef<Widget> {
   /// The parameter `track` of this provider.
   Track get track;
 }
 
 class _TrackThumbnailProviderElement
-    extends AutoDisposeFutureProviderElement<Image> with TrackThumbnailRef {
+    extends AutoDisposeFutureProviderElement<Widget> with TrackThumbnailRef {
   _TrackThumbnailProviderElement(super.provider);
 
   @override
   Track get track => (origin as TrackThumbnailProvider).track;
 }
 
-String _$allTrackImagesHash() => r'a26b0a8dd0b133aacb9740dc58bc33aa0d374801';
+String _$allTrackImagesHash() => r'8111aa7349399bd18798f0933e18abca1febdbb6';
 
 /// See also [allTrackImages].
 @ProviderFor(allTrackImages)
-const allTrackImagesProvider = AllTrackImagesFamily();
+final allTrackImagesProvider =
+    AutoDisposeFutureProvider<Iterable<Widget>>.internal(
+  allTrackImages,
+  name: r'allTrackImagesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$allTrackImagesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [allTrackImages].
-class AllTrackImagesFamily extends Family<AsyncValue<Iterable<Image>>> {
-  /// See also [allTrackImages].
-  const AllTrackImagesFamily();
-
-  /// See also [allTrackImages].
-  AllTrackImagesProvider call(
-    bool highQuality,
-  ) {
-    return AllTrackImagesProvider(
-      highQuality,
-    );
-  }
-
-  @override
-  AllTrackImagesProvider getProviderOverride(
-    covariant AllTrackImagesProvider provider,
-  ) {
-    return call(
-      provider.highQuality,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'allTrackImagesProvider';
-}
-
-/// See also [allTrackImages].
-class AllTrackImagesProvider
-    extends AutoDisposeFutureProvider<Iterable<Image>> {
-  /// See also [allTrackImages].
-  AllTrackImagesProvider(
-    bool highQuality,
-  ) : this._internal(
-          (ref) => allTrackImages(
-            ref as AllTrackImagesRef,
-            highQuality,
-          ),
-          from: allTrackImagesProvider,
-          name: r'allTrackImagesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$allTrackImagesHash,
-          dependencies: AllTrackImagesFamily._dependencies,
-          allTransitiveDependencies:
-              AllTrackImagesFamily._allTransitiveDependencies,
-          highQuality: highQuality,
-        );
-
-  AllTrackImagesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.highQuality,
-  }) : super.internal();
-
-  final bool highQuality;
-
-  @override
-  Override overrideWith(
-    FutureOr<Iterable<Image>> Function(AllTrackImagesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AllTrackImagesProvider._internal(
-        (ref) => create(ref as AllTrackImagesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        highQuality: highQuality,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Iterable<Image>> createElement() {
-    return _AllTrackImagesProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is AllTrackImagesProvider && other.highQuality == highQuality;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, highQuality.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin AllTrackImagesRef on AutoDisposeFutureProviderRef<Iterable<Image>> {
-  /// The parameter `highQuality` of this provider.
-  bool get highQuality;
-}
-
-class _AllTrackImagesProviderElement
-    extends AutoDisposeFutureProviderElement<Iterable<Image>>
-    with AllTrackImagesRef {
-  _AllTrackImagesProviderElement(super.provider);
-
-  @override
-  bool get highQuality => (origin as AllTrackImagesProvider).highQuality;
-}
-
+typedef AllTrackImagesRef = AutoDisposeFutureProviderRef<Iterable<Widget>>;
 String _$allTrackImagesByTrackHash() =>
-    r'279b9e879b611c0b75b8075467d38f2e55a914dc';
+    r'7d0103077448016a237fccc322b82effc8643e3c';
 
 /// See also [allTrackImagesByTrack].
 @ProviderFor(allTrackImagesByTrack)
 const allTrackImagesByTrackProvider = AllTrackImagesByTrackFamily();
 
 /// See also [allTrackImagesByTrack].
-class AllTrackImagesByTrackFamily extends Family<AsyncValue<Iterable<Image>>> {
+class AllTrackImagesByTrackFamily extends Family<AsyncValue<Iterable<Widget>>> {
   /// See also [allTrackImagesByTrack].
   const AllTrackImagesByTrackFamily();
 
@@ -619,7 +505,7 @@ class AllTrackImagesByTrackFamily extends Family<AsyncValue<Iterable<Image>>> {
 
 /// See also [allTrackImagesByTrack].
 class AllTrackImagesByTrackProvider
-    extends AutoDisposeFutureProvider<Iterable<Image>> {
+    extends AutoDisposeFutureProvider<Iterable<Widget>> {
   /// See also [allTrackImagesByTrack].
   AllTrackImagesByTrackProvider(
     Track track,
@@ -659,7 +545,7 @@ class AllTrackImagesByTrackProvider
 
   @override
   Override overrideWith(
-    FutureOr<Iterable<Image>> Function(AllTrackImagesByTrackRef provider)
+    FutureOr<Iterable<Widget>> Function(AllTrackImagesByTrackRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -678,7 +564,7 @@ class AllTrackImagesByTrackProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<Iterable<Image>> createElement() {
+  AutoDisposeFutureProviderElement<Iterable<Widget>> createElement() {
     return _AllTrackImagesByTrackProviderElement(this);
   }
 
@@ -700,7 +586,7 @@ class AllTrackImagesByTrackProvider
 }
 
 mixin AllTrackImagesByTrackRef
-    on AutoDisposeFutureProviderRef<Iterable<Image>> {
+    on AutoDisposeFutureProviderRef<Iterable<Widget>> {
   /// The parameter `track` of this provider.
   Track get track;
 
@@ -709,7 +595,7 @@ mixin AllTrackImagesByTrackRef
 }
 
 class _AllTrackImagesByTrackProviderElement
-    extends AutoDisposeFutureProviderElement<Iterable<Image>>
+    extends AutoDisposeFutureProviderElement<Iterable<Widget>>
     with AllTrackImagesByTrackRef {
   _AllTrackImagesByTrackProviderElement(super.provider);
 
@@ -720,7 +606,7 @@ class _AllTrackImagesByTrackProviderElement
 }
 
 String _$allTrackImagesWithPathsHash() =>
-    r'03fa7c2a3479ff0f4fd01ff578d0e3987d9157e3';
+    r'47891a3c928c35b988b2ac9fe16426c04053f2e3';
 
 /// See also [allTrackImagesWithPaths].
 @ProviderFor(allTrackImagesWithPaths)
@@ -728,7 +614,7 @@ const allTrackImagesWithPathsProvider = AllTrackImagesWithPathsFamily();
 
 /// See also [allTrackImagesWithPaths].
 class AllTrackImagesWithPathsFamily
-    extends Family<AsyncValue<Map<Image, String>>> {
+    extends Family<AsyncValue<Map<Widget, String>>> {
   /// See also [allTrackImagesWithPaths].
   const AllTrackImagesWithPathsFamily();
 
@@ -767,7 +653,7 @@ class AllTrackImagesWithPathsFamily
 
 /// See also [allTrackImagesWithPaths].
 class AllTrackImagesWithPathsProvider
-    extends AutoDisposeFutureProvider<Map<Image, String>> {
+    extends AutoDisposeFutureProvider<Map<Widget, String>> {
   /// See also [allTrackImagesWithPaths].
   AllTrackImagesWithPathsProvider(
     Track track,
@@ -802,7 +688,7 @@ class AllTrackImagesWithPathsProvider
 
   @override
   Override overrideWith(
-    FutureOr<Map<Image, String>> Function(AllTrackImagesWithPathsRef provider)
+    FutureOr<Map<Widget, String>> Function(AllTrackImagesWithPathsRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -820,7 +706,7 @@ class AllTrackImagesWithPathsProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<Map<Image, String>> createElement() {
+  AutoDisposeFutureProviderElement<Map<Widget, String>> createElement() {
     return _AllTrackImagesWithPathsProviderElement(this);
   }
 
@@ -839,13 +725,13 @@ class AllTrackImagesWithPathsProvider
 }
 
 mixin AllTrackImagesWithPathsRef
-    on AutoDisposeFutureProviderRef<Map<Image, String>> {
+    on AutoDisposeFutureProviderRef<Map<Widget, String>> {
   /// The parameter `track` of this provider.
   Track get track;
 }
 
 class _AllTrackImagesWithPathsProviderElement
-    extends AutoDisposeFutureProviderElement<Map<Image, String>>
+    extends AutoDisposeFutureProviderElement<Map<Widget, String>>
     with AllTrackImagesWithPathsRef {
   _AllTrackImagesWithPathsProviderElement(super.provider);
 
@@ -1296,7 +1182,7 @@ final trackSelectedProvider =
 );
 
 typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'b5237d9a3d47f4d08ce21b2212997e6ea7e14fe8';
+String _$trackNotifierHash() => r'cf5ac1e916dadd63643fd15665e6c25c62673342';
 
 /// See also [TrackNotifier].
 @ProviderFor(TrackNotifier)

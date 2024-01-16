@@ -4,26 +4,28 @@ import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 
-abstract class FavoriteTracksService {
+abstract class FavoriteTracksRepository {
   Future<void> addTrack(TrackId trackId);
   Future<void> removeTrack(TrackId trackId);
   Future<List<TrackId>> getFavoriteTracks();
 }
 
-class FirebaseFavoriteTracksService implements FavoriteTracksService {
+class FirebaseFavoriteTracksRepository implements FavoriteTracksRepository {
   final FirebaseFirestore _firestore;
   final String _userId;
 
-  FirebaseFavoriteTracksService(
+  FirebaseFavoriteTracksRepository(
       {required FirebaseFirestore firestore, required String userId})
       : _firestore = firestore,
         _userId = userId;
 
+  CollectionReference get _users =>
+      _firestore.collection(FirebaseCollectionName.users);
+
   @override
   Future<void> addTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userQuery =
-          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
+      final userQuery = _users.doc(_userId);
 
       final userDocument = await userQuery.get();
       if (!userDocument.exists) {
@@ -45,9 +47,7 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
   @override
   Future<void> removeTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userDocRef = _firestore
-          .collection(FirebaseCollectionName.users)
-          .doc(_userId); // Use _userId as the document ID
+      final userDocRef = _users.doc(_userId); // Use _userId as the document ID
 
       final userDocSnapshot = await userDocRef.get();
       if (!userDocSnapshot.exists) {
@@ -62,8 +62,7 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
 
   @override
   Future<List<TrackId>> getFavoriteTracks() async {
-    final docSnapshot = await _firestore
-        .collection(FirebaseCollectionName.users)
+    final docSnapshot = await _users
         .doc(_userId) // Use _userId as the document ID
         .get();
 
@@ -71,13 +70,15 @@ class FirebaseFavoriteTracksService implements FavoriteTracksService {
       return [];
     }
 
-    return (docSnapshot.data()![FirebaseFieldName.favoriteTracks] as List?)
-            ?.cast<TrackId>() ??
+    // needed because cannot infer type from Object? to Map<String, dynamic>
+    var data = docSnapshot.data() as Map<String, dynamic>;
+
+    return (data[FirebaseFieldName.favoriteTracks] as List?)?.cast<TrackId>() ??
         [];
   }
 }
 
-class SharedPrefsFavoriteTracksService implements FavoriteTracksService {
+class SharedPrefsFavoriteTracksRepository implements FavoriteTracksRepository {
   @override
   Future<void> addTrack(TrackId trackId) async {
     final prefs = await SharedPreferences.getInstance();

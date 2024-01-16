@@ -20,6 +20,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = ref.watch(searchTrackProvider);
     final _animatedMapController = ref.watch(animatedMapControllerProvider);
+    final selectedRegion = ref.watch(selectedRegionProvider);
     bool isLoading = false;
     return Padding(
       padding: const EdgeInsets.all(8.0).r,
@@ -95,7 +96,10 @@ class FloatingSearchMapBar extends ConsumerWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            icon: const Icon(Icons.filter_alt),
+            icon: Tooltip(
+              message: 'Filtra per regione',
+              child: const Icon(Icons.filter_alt),
+            ),
             color: Theme.of(context).colorScheme.onSecondary,
             iconColor: Theme.of(context).colorScheme.secondary,
             onSelected: (Regions result) {
@@ -121,21 +125,25 @@ class FloatingSearchMapBar extends ConsumerWidget {
               // Update markers here based on the selected region
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
-              const PopupMenuItem<Regions>(
+              CheckedPopupMenuItem<Regions>(
                 value: Regions.all,
+                checked: selectedRegion == Regions.all,
                 child: Text(MapConstans.all),
               ),
-              const PopupMenuItem<Regions>(
+              CheckedPopupMenuItem<Regions>(
                 value: Regions.veneto,
+                checked: selectedRegion == Regions.veneto,
                 child: Text(MapConstans.veneto),
               ),
               // Add more PopupMenuItem entries for other regions
-              const PopupMenuItem<Regions>(
+              CheckedPopupMenuItem<Regions>(
                 value: Regions.lombardia,
+                checked: selectedRegion == Regions.lombardia,
                 child: Text(MapConstans.lombardia),
               ),
-              const PopupMenuItem<Regions>(
+              CheckedPopupMenuItem<Regions>(
                 value: Regions.trentinoAltoAdige,
+                checked: selectedRegion == Regions.trentinoAltoAdige,
                 child: Text(MapConstans.trentinoAltoAdige),
               ),
             ],

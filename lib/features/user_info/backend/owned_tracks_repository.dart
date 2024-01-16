@@ -4,19 +4,24 @@ import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 
-class OwnedTracksService {
+class OwnedTracksRepository {
   final FirebaseFirestore _firestore;
   final String _userId;
 
-  OwnedTracksService(
+  OwnedTracksRepository(
       {required FirebaseFirestore firestore, required String userId})
       : _firestore = firestore,
         _userId = userId;
 
+  CollectionReference get _users =>
+      _firestore.collection(FirebaseCollectionName.users);
+
+  CollectionReference get _tracks =>
+      _firestore.collection(FirebaseCollectionName.tracks);
+
   Future<void> addTracks(List<TrackId> trackIds) {
     return _firestore.runTransaction((transaction) async {
-      final userDocRef =
-          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
+      final userDocRef = _users.doc(_userId);
 
       final userDocSnapshot = await transaction.get(userDocRef);
 
@@ -34,8 +39,7 @@ class OwnedTracksService {
 
   Future<void> removeTrack(TrackId trackId) {
     return _firestore.runTransaction((transaction) async {
-      final userDocRef =
-          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
+      final userDocRef = _users.doc(_userId);
 
       final userDocSnapshot = await transaction.get(userDocRef);
 
@@ -53,8 +57,7 @@ class OwnedTracksService {
     return _firestore.runTransaction<List<TrackId>>((
       Transaction transaction,
     ) async {
-      final userDocRef =
-          _firestore.collection(FirebaseCollectionName.users).doc(_userId);
+      final userDocRef = _users.doc(_userId);
 
       final userDocSnapshot = await transaction.get(userDocRef);
 
@@ -62,17 +65,18 @@ class OwnedTracksService {
         return [];
       }
 
-      return (userDocSnapshot.data()?[FirebaseFieldName.ownedTracks] as List?)
-              ?.cast<TrackId>() ??
+      //needed to cast because cannot infer type from Object? to Map<String, dynamic>
+      var data = userDocSnapshot.data() as Map<String, dynamic>;
+
+      return (data[FirebaseFieldName.ownedTracks] as List?)?.cast<TrackId>() ??
           [];
     });
   }
 
   Future<void> updateTrackInfo(Track updatedTrack) {
     return _firestore.runTransaction((transaction) async {
-      final trackQuery = _firestore
-          .collection(FirebaseCollectionName.tracks)
-          .where(FirebaseFieldName.id, isEqualTo: updatedTrack.id);
+      final trackQuery =
+          _tracks.where(FirebaseFieldName.id, isEqualTo: updatedTrack.id);
 
       final trackQuerySnapshot = await trackQuery.get();
       if (trackQuerySnapshot.docs.isEmpty) {

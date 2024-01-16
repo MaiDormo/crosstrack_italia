@@ -1,6 +1,9 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/user_info/providers/favorite_tracks_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/favorite_tracks_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HeartIcon extends ConsumerWidget {
@@ -18,21 +21,50 @@ class HeartIcon extends ConsumerWidget {
       AsyncData(:final value) => value.contains(trackId),
       _ => false,
     };
+    final showMoreInfo =
+        ref.watch(userSettingsProvider)[UserConstants.showMoreInfo]!;
 
-    return IconButton(
-      icon: Icon(
-        isFavorite ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite ? Colors.red : Colors.white,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
+      child: GestureDetector(
+        child: Card(
+          color: Theme.of(context).colorScheme.onSecondary,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Visibility(
+                visible: showMoreInfo,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0).h,
+                  child: Text(
+                    isFavorite
+                        ? 'Rimuovi dai preferiti'
+                        : 'Aggiungi ai preferiti',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 11.25.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? Colors.red : Theme.of(context).primaryColor,
+              ),
+            ],
+          ),
+        ),
+        onTap: () {
+          if (isFavorite) {
+            ref
+                .read(favoriteTracksNotifierProvider.notifier)
+                .removeTrack(trackId);
+          } else {
+            ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
+          }
+        },
       ),
-      onPressed: () {
-        if (isFavorite) {
-          ref
-              .read(favoriteTracksNotifierProvider.notifier)
-              .removeTrack(trackId);
-        } else {
-          ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
-        }
-      },
     );
   }
 }

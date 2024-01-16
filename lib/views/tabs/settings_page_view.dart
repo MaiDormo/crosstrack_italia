@@ -1,4 +1,6 @@
 import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
+import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
 import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
@@ -14,22 +16,61 @@ class SettingsPageView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Future<void> shouldLogOut(BuildContext context) async {
-      final shouldLogOut = await const LogoutDialog()
-          .present(context)
-          .then((value) => value ?? false);
-      if (shouldLogOut) {
-        await ref.read(authRepositoryProvider).logOut();
+    final settingsMap = ref.watch(userSettingsProvider);
+
+    Future<void> confirmAction(BuildContext context, AlertDialogModel dialog,
+        Future<void> Function() action) async {
+      final shouldConfirm =
+          await dialog.present(context).then((value) => value ?? false);
+      if (shouldConfirm) {
+        await action();
       }
     }
 
+    Future<void> shouldLogOut(BuildContext context) async {
+      await confirmAction(context, const LogoutDialog(),
+          () => ref.read(authRepositoryProvider).logOut());
+    }
+
     Future<void> shouldDeleteAccount(BuildContext context) async {
-      final shouldDeleteAccount = await const DeleteAccountDialog()
-          .present(context)
-          .then((value) => value ?? false);
-      if (shouldDeleteAccount) {
-        await ref.read(userStateNotifierProvider.notifier).deleteUserInfo();
-      }
+      await confirmAction(context, const DeleteAccountDialog(),
+          () => ref.read(userStateNotifierProvider.notifier).deleteUserInfo());
+    }
+
+    Widget settingsTile(
+        BuildContext context, String title, IconData icon, VoidCallback onTap,
+        {String? settingKey}) {
+      return ListTile(
+        leading: Icon(
+          icon,
+          color: Theme.of(context)
+              .canvasColor, // Use the color of the theme's icons
+        ),
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.color, // Use the color of the theme's body text
+          ),
+        ),
+        trailing: Visibility(
+          visible: settingKey != null,
+          child: Switch(
+            activeColor: Theme.of(context).colorScheme.onSecondary,
+            activeTrackColor: Colors.green,
+            value: settingsMap[settingKey ?? ''] ?? false,
+            onChanged: (value) {
+              ref.read(userSettingsProvider.notifier).updateSettings(
+                    settingKey ?? '',
+                    value,
+                  );
+            },
+          ),
+        ),
+        onTap: onTap,
+      );
     }
 
     return Padding(
@@ -93,46 +134,84 @@ class SettingsPageView extends ConsumerWidget {
               ),
             ),
             settingsSection(
-              'Preferenze (non implementato)',
+              'Accessibilità',
               [
                 settingsTile(
                   context,
-                  'Impostazioni ricerca tracciato',
-                  Icons.track_changes,
-                  () => ref.read(authRepositoryProvider).logOut(),
+                  'Testo permanente nella barra di navigazione',
+                  Icons.text_fields,
+                  () => null,
+                  settingKey: UserConstants.permanentTextBottomBar,
                 ),
                 settingsTile(
                   context,
-                  'Impostazioni notifiche',
-                  Icons.notifications,
+                  'Mostra più informazioni all\'interno dell\'applicazione',
+                  Icons.info,
                   () => null,
+                  settingKey: UserConstants.showMoreInfo,
                 ),
                 settingsTile(
                   context,
-                  'Unità di misura',
-                  Icons.straighten,
+                  'Mostra impostazioni in sviluppo',
+                  Icons.developer_mode,
                   () => null,
+                  settingKey: UserConstants.showSettingsInDevelopment,
                 ),
                 settingsTile(
                   context,
-                  'Impostazioni Meteo',
-                  Icons.wb_sunny,
+                  'Mostra posizione nella barra superiore',
+                  Icons.location_on,
                   () => null,
-                ),
-                settingsTile(
-                  context,
-                  'Tema applicazione',
-                  Icons.brightness_6,
-                  () => null,
-                ),
-                settingsTile(
-                  context,
-                  'Impostazioni lingua',
-                  Icons.language,
-                  () => null,
+                  settingKey: UserConstants.showLocationTopBar,
                 ),
               ],
               context,
+            ),
+            Visibility(
+              visible: settingsMap[UserConstants.showSettingsInDevelopment]!,
+              child: settingsSection(
+                '(non implementato)',
+                [
+                  settingsTile(
+                    context,
+                    'Impostazioni ricerca tracciato',
+                    Icons.track_changes,
+                    // () => null,
+                    () => null,
+                  ),
+                  settingsTile(
+                    context,
+                    'Impostazioni notifiche',
+                    Icons.notifications,
+                    () => null,
+                  ),
+                  settingsTile(
+                    context,
+                    'Unità di misura',
+                    Icons.straighten,
+                    () => null,
+                  ),
+                  settingsTile(
+                    context,
+                    'Impostazioni Meteo',
+                    Icons.wb_sunny,
+                    () => null,
+                  ),
+                  settingsTile(
+                    context,
+                    'Tema applicazione',
+                    Icons.brightness_6,
+                    () => null,
+                  ),
+                  settingsTile(
+                    context,
+                    'Impostazioni lingua',
+                    Icons.language,
+                    () => null,
+                  ),
+                ],
+                context,
+              ),
             ),
           ],
         ),
@@ -163,27 +242,6 @@ class SettingsPageView extends ConsumerWidget {
           ...children,
         ],
       ),
-    );
-  }
-
-  Widget settingsTile(
-      BuildContext context, String title, IconData icon, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        color:
-            Theme.of(context).canvasColor, // Use the color of the theme's icons
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          color: Theme.of(context)
-              .textTheme
-              .bodyLarge
-              ?.color, // Use the color of the theme's body text
-        ),
-      ),
-      onTap: onTap,
     );
   }
 }

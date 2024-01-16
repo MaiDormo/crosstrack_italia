@@ -1,5 +1,7 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,25 +34,28 @@ Widget buildServicesCard(
 Widget buildServicesHeader(
   BuildContext context,
   WidgetRef ref,
-) =>
-    Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Text(
-          'Servizi: ',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.tertiary,
-            fontSize: 12.sp,
-            fontWeight: FontWeight.bold,
-          ),
+) {
+  final showMoreInfo =
+      ref.watch(userSettingsProvider)[UserConstants.showMoreInfo]!;
+  return Row(
+    mainAxisAlignment:
+        showMoreInfo ? MainAxisAlignment.spaceAround : MainAxisAlignment.center,
+    children: [
+      Text(
+        'Servizi: ',
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
+          fontSize: 12.sp,
+          fontWeight: FontWeight.bold,
         ),
-        Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            return buildServiceSwitch(context, ref);
-          },
-        ),
-      ],
-    );
+      ),
+      Visibility(
+        visible: showMoreInfo,
+        child: buildServiceSwitch(context, ref),
+      ),
+    ],
+  );
+}
 
 Widget buildServiceSwitch(
   BuildContext context,

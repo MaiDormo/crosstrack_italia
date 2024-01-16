@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               Text(
-                'My Awesome App',
+                'Cross Track Italia',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20.0),

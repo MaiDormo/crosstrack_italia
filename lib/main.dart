@@ -68,7 +68,8 @@ class MyApp extends StatelessWidget {
         title: 'Cross Track Italia',
         theme: ThemeData(
           scaffoldBackgroundColor:
-              Color.fromRGBO(211, 211, 211, 0.9), // light gray
+              // Color.fromRGBO(211, 211, 211, 0.9), // light gray
+              const Color.fromRGBO(120, 135, 155, 0.9),
           colorScheme: ColorScheme.fromSeed(
             seedColor:
                 const Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated blue

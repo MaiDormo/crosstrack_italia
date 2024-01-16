@@ -7,12 +7,12 @@ part of 'user_permission_notifier.dart';
 // **************************************************************************
 
 String _$locationPermissionHash() =>
-    r'63aa10056974aa8015387e726685fac816db8f01';
+    r'27f3361f226b814d1ddc51bdc2b8433138278f9f';
 
 /// See also [LocationPermission].
 @ProviderFor(LocationPermission)
 final locationPermissionProvider =
-    AutoDisposeNotifierProvider<LocationPermission, bool>.internal(
+    NotifierProvider<LocationPermission, bool>.internal(
   LocationPermission.new,
   name: r'locationPermissionProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,7 +22,7 @@ final locationPermissionProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LocationPermission = AutoDisposeNotifier<bool>;
+typedef _$LocationPermission = Notifier<bool>;
 String _$storagePermissionHash() => r'a7cb18c8b72ddff57b0953536b69bc2c2f0f003f';
 
 /// See also [StoragePermission].

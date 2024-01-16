@@ -49,7 +49,7 @@ class PanelWidget extends ConsumerWidget {
 
   Widget buildTrackInfo(
     Track trackSelected,
-    AsyncValue<Iterable<Image>> allTrackImages,
+    AsyncValue<Iterable<Widget>> allTrackImages,
     BuildContext context,
   ) =>
       Padding(

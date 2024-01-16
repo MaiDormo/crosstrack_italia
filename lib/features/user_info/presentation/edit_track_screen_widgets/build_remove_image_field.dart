@@ -9,26 +9,26 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'build_remove_image_field.g.dart';
 
 @riverpod
-Map<Image, String> undoImageDelete(UndoImageDeleteRef ref) {
+Map<Widget, String> undoImageDelete(UndoImageDeleteRef ref) {
   return ref.watch(imagesPathToBeDeletedProvider.notifier).undo();
 }
 
 @riverpod
 class ImagesPathToBeDeleted extends _$ImagesPathToBeDeleted {
   @override
-  Map<Image, String> build() {
+  Map<Widget, String> build() {
     return {};
   }
 
-  void addEntry(Map<Image, String> entry) {
+  void addEntry(Map<Widget, String> entry) {
     state.addAll(entry);
   }
 
-  void removeEntry(Map<Image, String> entry) {
+  void removeEntry(Map<Widget, String> entry) {
     state.remove(entry);
   }
 
-  Map<Image, String> undo() {
+  Map<Widget, String> undo() {
     if (state.isNotEmpty) {
       final lastEntry = state.entries.last;
       state.remove(lastEntry.key);
@@ -125,7 +125,7 @@ class _RemoveImageFieldState extends ConsumerState<RemoveImageField>
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    Image key = value.keys.elementAt(index);
+                    Widget key = value.keys.elementAt(index);
                     return Stack(
                       alignment: Alignment.topRight,
                       children: [
@@ -163,7 +163,7 @@ class _RemoveImageFieldState extends ConsumerState<RemoveImageField>
 }
 
 Future<void> deleteImage(
-  Map<Image, String> imagesToBeDeleted,
+  Map<Widget, String> imagesToBeDeleted,
   WidgetRef ref,
 ) async {
   try {

@@ -2,12 +2,6 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class Strings {
-  //comments
-  static const allowCommentsTitle = 'Permetti commenti';
-  static const allowCommentsDescription =
-      'Permettendo i commenti, gli utenti potranno lasciare dei commenti sul tuo post';
-  static const allowCommentsStorageKey = 'allow_comments';
-
   //Log out
   static const logOut = 'Esci';
   static const areYouSureThatYouWantToLogOutOfTheApp =
@@ -25,6 +19,18 @@ class Strings {
 
   //tracks
   static const noTracksAvaiable = 'Nessun tracciato disponibile';
+
+  //remove owned tracks
+  static const removeOwnedTrack = 'Rimuovi tracciato possedutio';
+  static const areYouSureThatYouWantToRemoveThisTrack =
+      'Sei sicuro di voler rimuovere questo tracciato?';
+
+  //remove owner privilege
+  static const removeOwnerPrivilege =
+      'Rimuovi privilegio di gestore del tracciato';
+  static const areYouSureThatYouWantToRemoveOwnerPrivilege =
+      'Sei sicuro di voler rimuovere il privilegio di gestore del tracciato?';
+  static const giveUp = 'Rinuncia';
 
   //private const constructor
   const Strings._();

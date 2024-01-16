@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
 import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
@@ -43,10 +43,9 @@ bool isOwner(IsOwnerRef ref) {
 Widget userImage(UserImageRef ref) {
   final _userState = ref.watch(userStateNotifierProvider);
   final _isLogged = ref.watch(isLoggedInProvider);
-  final providerId =
-      ref.watch(authProvider).currentUser?.providerData[0].providerId;
-
   if (_isLogged) {
+    final providerId =
+        ref.watch(authProvider).currentUser?.providerData[0].providerId;
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: switch (_userState) {

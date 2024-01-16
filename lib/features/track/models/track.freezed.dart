@@ -32,7 +32,7 @@ mixin _$Track {
   @JsonKey(name: FirebaseFieldName.category)
   String get category => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String> get acceptedLicenses => throw _privateConstructorUsedError;
+  List<TrackLicense> get acceptedLicenses => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.terrainType)
   String get terrainType => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.trackLength)
@@ -82,7 +82,7 @@ abstract class $TrackCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.motoclub) String motoclub,
       @JsonKey(name: FirebaseFieldName.category) String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      List<String> acceptedLicenses,
+      List<TrackLicense> acceptedLicenses,
       @JsonKey(name: FirebaseFieldName.terrainType) String terrainType,
       @JsonKey(name: FirebaseFieldName.trackLength) String trackLength,
       @JsonKey(name: FirebaseFieldName.hasMinicross) String hasMinicross,
@@ -165,7 +165,7 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
       acceptedLicenses: null == acceptedLicenses
           ? _value.acceptedLicenses
           : acceptedLicenses // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<TrackLicense>,
       terrainType: null == terrainType
           ? _value.terrainType
           : terrainType // ignore: cast_nullable_to_non_nullable
@@ -245,7 +245,7 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.motoclub) String motoclub,
       @JsonKey(name: FirebaseFieldName.category) String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      List<String> acceptedLicenses,
+      List<TrackLicense> acceptedLicenses,
       @JsonKey(name: FirebaseFieldName.terrainType) String terrainType,
       @JsonKey(name: FirebaseFieldName.trackLength) String trackLength,
       @JsonKey(name: FirebaseFieldName.hasMinicross) String hasMinicross,
@@ -326,7 +326,7 @@ class __$$TrackImplCopyWithImpl<$Res>
       acceptedLicenses: null == acceptedLicenses
           ? _value._acceptedLicenses
           : acceptedLicenses // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<TrackLicense>,
       terrainType: null == terrainType
           ? _value.terrainType
           : terrainType // ignore: cast_nullable_to_non_nullable
@@ -402,7 +402,7 @@ class _$TrackImpl implements _Track {
       @JsonKey(name: FirebaseFieldName.motoclub) this.motoclub = '',
       @JsonKey(name: FirebaseFieldName.category) this.category = '',
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      final List<String> acceptedLicenses = const [],
+      final List<TrackLicense> acceptedLicenses = const [],
       @JsonKey(name: FirebaseFieldName.terrainType) this.terrainType = '',
       @JsonKey(name: FirebaseFieldName.trackLength) this.trackLength = '',
       @JsonKey(name: FirebaseFieldName.hasMinicross) this.hasMinicross = 'no',
@@ -448,10 +448,10 @@ class _$TrackImpl implements _Track {
   @override
   @JsonKey(name: FirebaseFieldName.category)
   final String category;
-  final List<String> _acceptedLicenses;
+  final List<TrackLicense> _acceptedLicenses;
   @override
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String> get acceptedLicenses {
+  List<TrackLicense> get acceptedLicenses {
     if (_acceptedLicenses is EqualUnmodifiableListView)
       return _acceptedLicenses;
     // ignore: implicit_dynamic_type
@@ -628,7 +628,7 @@ abstract class _Track implements Track {
       @JsonKey(name: FirebaseFieldName.motoclub) final String motoclub,
       @JsonKey(name: FirebaseFieldName.category) final String category,
       @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-      final List<String> acceptedLicenses,
+      final List<TrackLicense> acceptedLicenses,
       @JsonKey(name: FirebaseFieldName.terrainType) final String terrainType,
       @JsonKey(name: FirebaseFieldName.trackLength) final String trackLength,
       @JsonKey(name: FirebaseFieldName.hasMinicross) final String hasMinicross,
@@ -669,7 +669,7 @@ abstract class _Track implements Track {
   String get category;
   @override
   @JsonKey(name: FirebaseFieldName.acceptedLicenses)
-  List<String> get acceptedLicenses;
+  List<TrackLicense> get acceptedLicenses;
   @override
   @JsonKey(name: FirebaseFieldName.terrainType)
   String get terrainType;

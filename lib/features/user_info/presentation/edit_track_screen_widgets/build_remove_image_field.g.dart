@@ -6,12 +6,12 @@ part of 'build_remove_image_field.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$undoImageDeleteHash() => r'807a72f5431e64917fae0828f6e5611b58acb804';
+String _$undoImageDeleteHash() => r'0399049e5d88c651144cfc88256fe5ec99010e15';
 
 /// See also [undoImageDelete].
 @ProviderFor(undoImageDelete)
 final undoImageDeleteProvider =
-    AutoDisposeProvider<Map<Image, String>>.internal(
+    AutoDisposeProvider<Map<Widget, String>>.internal(
   undoImageDelete,
   name: r'undoImageDeleteProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,14 +21,14 @@ final undoImageDeleteProvider =
   allTransitiveDependencies: null,
 );
 
-typedef UndoImageDeleteRef = AutoDisposeProviderRef<Map<Image, String>>;
+typedef UndoImageDeleteRef = AutoDisposeProviderRef<Map<Widget, String>>;
 String _$imagesPathToBeDeletedHash() =>
-    r'c2032cfc39fdd459537b5514808a78759171e100';
+    r'228a42da19f4661a74209fc7bf9216e481843785';
 
 /// See also [ImagesPathToBeDeleted].
 @ProviderFor(ImagesPathToBeDeleted)
 final imagesPathToBeDeletedProvider = AutoDisposeNotifierProvider<
-    ImagesPathToBeDeleted, Map<Image, String>>.internal(
+    ImagesPathToBeDeleted, Map<Widget, String>>.internal(
   ImagesPathToBeDeleted.new,
   name: r'imagesPathToBeDeletedProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -38,6 +38,6 @@ final imagesPathToBeDeletedProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$ImagesPathToBeDeleted = AutoDisposeNotifier<Map<Image, String>>;
+typedef _$ImagesPathToBeDeleted = AutoDisposeNotifier<Map<Widget, String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -77,6 +77,15 @@ class TrackRepository {
     }
   }
 
+  double calculateNewRating(
+      double oldRating, int oldCommentCount, double rating, bool isAdd) {
+    return isAdd
+        ? (oldRating * oldCommentCount + rating) / (oldCommentCount + 1)
+        : oldCommentCount != 1
+            ? (oldRating * oldCommentCount - rating) / (oldCommentCount - 1)
+            : 0.0;
+  }
+
   //update track
   Future<Either<Failure, void>> updateTrack(Track newTrack) async {
     try {

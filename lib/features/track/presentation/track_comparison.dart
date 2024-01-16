@@ -1,6 +1,7 @@
 import 'dart:math' as Math;
 
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -261,8 +262,8 @@ class TrackComparison extends StatelessWidget {
     );
   }
 
-  Widget _buildAcceptedLicensesRow(
-      List<String> licenses1, List<String> licenses2, double columnWidth) {
+  Widget _buildAcceptedLicensesRow(List<TrackLicense> licenses1,
+      List<TrackLicense> licenses2, double columnWidth) {
     if (licenses1.isEmpty || licenses2.isEmpty) {
       return Container();
     }
@@ -281,7 +282,7 @@ class TrackComparison extends StatelessWidget {
                 children: [
                   ...licenses2.map(
                     (value) => Text(
-                      value,
+                      value.toString(),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -298,7 +299,7 @@ class TrackComparison extends StatelessWidget {
                 children: [
                   ...licenses1.map(
                     (value) => Text(
-                      value,
+                      value.toString(),
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,

@@ -75,7 +75,7 @@ class AuthRepository {
     } on FirebaseAuthException catch (e) {
       await _handleFirebaseAuthException(e);
     } catch (e) {
-      print(e);
+      print('DEBUG: facebook login: ' + e.toString());
     }
   }
 

@@ -14,7 +14,7 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
       motoclub: json['motoclub'] as String? ?? '',
       category: json['categoria'] as String? ?? '',
       acceptedLicenses: (json['omologazione'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => $enumDecode(_$TrackLicenseEnumMap, e))
               .toList() ??
           const [],
       terrainType: json['terreno'] as String? ?? '',
@@ -52,7 +52,9 @@ Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
       'posto': instance.location,
       'motoclub': instance.motoclub,
       'categoria': instance.category,
-      'omologazione': instance.acceptedLicenses,
+      'omologazione': instance.acceptedLicenses
+          .map((e) => _$TrackLicenseEnumMap[e]!)
+          .toList(),
       'terreno': instance.terrainType,
       'lunghezza': instance.trackLength,
       'minicross': instance.hasMinicross,
@@ -69,3 +71,12 @@ Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
       'numero_commenti': instance.commentCount,
       'valutazione': instance.rating,
     };
+
+const _$TrackLicenseEnumMap = {
+  TrackLicense.uisp: 'uisp',
+  TrackLicense.fmi: 'fmi',
+  TrackLicense.csen: 'csen',
+  TrackLicense.asc: 'asc',
+  TrackLicense.asi: 'asi',
+  TrackLicense.aics: 'aics',
+};

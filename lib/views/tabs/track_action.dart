@@ -54,14 +54,6 @@ class TrackAction extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.white.withOpacity(0.5),
-              spreadRadius: 5.r,
-              blurRadius: 7.r,
-              offset: Offset(0, 3),
-            ),
-          ],
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -98,7 +90,7 @@ class TrackAction extends StatelessWidget {
                 return Visibility(
                   visible: isOwner,
                   child: _buildElevatedButton(
-                    icon: Icons.info,
+                    icon: Icons.edit,
                     label: 'Gestione Tracciati',
                     foregroudColor: Theme.of(context).colorScheme.onSecondary,
                     backgroundColor: Theme.of(context).colorScheme.secondary,

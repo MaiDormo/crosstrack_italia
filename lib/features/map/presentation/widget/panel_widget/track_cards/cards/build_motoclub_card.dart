@@ -1,5 +1,8 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -11,9 +14,18 @@ Widget buildMotoclubCard(
       child: Card(
         color: Theme.of(context).colorScheme.secondary,
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0).r,
           child: Column(
             children: [
+              Text(
+                'Motoclub',
+                style: TextStyle(
+                  fontSize: 11.25.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+              ),
+              3.verticalSpace,
               Text(
                 '${selectedTrack.motoclub}',
                 style: TextStyle(
@@ -66,12 +78,40 @@ Widget buildMotoclubCard(
                     }
                   }
                 },
-                child: Icon(
-                  Icons.travel_explore_rounded,
+                child: Card(
                   color: Theme.of(context).colorScheme.onSecondary,
-                  size: 37.5.h,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.travel_explore_rounded,
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: 37.5.h,
+                    ),
+                  ),
                 ),
               ),
+              3.verticalSpace,
+              Consumer(
+                builder: (context, ref, child) {
+                  final showMoreInfo = ref
+                      .watch(userSettingsProvider)[UserConstants.showMoreInfo]!;
+
+                  return Visibility(
+                    visible: showMoreInfo,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Premere per maggiori informazioni',
+                        style: TextStyle(
+                          fontSize: 9.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),

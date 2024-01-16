@@ -1,17 +1,20 @@
 import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
 import 'package:crosstrack_italia/views/login/login_page_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class AuthIconButton extends ConsumerWidget {
+class loginIcon extends ConsumerWidget {
+  const loginIcon({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _isLogged = ref.watch(isLoggedInProvider);
     final userImage = ref.watch(userImageProvider);
-
-    return Container(
-      width: 82.28.w,
+    return Card(
+      color: Theme.of(context).colorScheme.secondary,
       child: IconButton(
         onPressed: () {
           if (!_isLogged) {

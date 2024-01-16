@@ -11,15 +11,7 @@ enum TrackLicense {
   uisp,
   fmi,
   csen,
-  aci,
-  acsi,
-  unknown,
-}
-
-enum TrackTerrainType {
-  softDirt,
-  hardDirt,
-  mud,
-  sand,
-  unknown,
+  asc,
+  asi,
+  aics,
 }

@@ -7,8 +7,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GeolocationButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showCurrentLocation = ref.watch<bool>(showCurrentLocationProvider);
-    final locationPermission = ref.watch(locationPermissionProvider);
+    final bool showCurrentLocation = ref.watch(showCurrentLocationProvider);
+    final bool locationPermission = ref.watch(locationPermissionProvider);
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -16,11 +16,12 @@ class GeolocationButton extends ConsumerWidget {
       ),
       color: Theme.of(context).colorScheme.secondary,
       child: IconButton(
-        onPressed: () {
+        onPressed: () async {
           if (!locationPermission) {
-            ref
+            await ref
                 .read(locationPermissionProvider.notifier)
                 .evaluateLocationPermission();
+            ref.read(showCurrentLocationProvider.notifier).toggle();
           }
 
           if (locationPermission) {
@@ -36,3 +37,10 @@ class GeolocationButton extends ConsumerWidget {
     );
   }
 }
+
+// onPressed: () async {
+//                         await ref
+//                             .read(locationPermissionProvider.notifier)
+//                             .evaluateLocationPermission();
+//                         ref.read(showCurrentLocationProvider.notifier).toggle();
+//                       }

@@ -1,10 +1,11 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/owned_tracks_notifier.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_remove_image_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_dropdown_button_form_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_add_image_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_list_field.dart';
 import 'package:crosstrack_italia/features/user_info/presentation/edit_track_screen_widgets/build_text_field.dart';
-import 'package:crosstrack_italia/features/user_info/providers/owned_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,7 +35,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
   late TextEditingController _emailController;
   late TextEditingController _websiteController;
   late TextEditingController _infoController;
-  late Set<String> _selectedLicenses;
+  late Set<TrackLicense> _selectedLicenses;
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     _emailController = TextEditingController(text: widget.track.email);
     _websiteController = TextEditingController(text: widget.track.website);
     _infoController = TextEditingController(text: widget.track.info);
-    _selectedLicenses = Set<String>.from(widget.track.acceptedLicenses);
+    _selectedLicenses = Set<TrackLicense>.from(widget.track.acceptedLicenses);
   }
 
   @override
@@ -90,7 +91,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     bool _isUpdating = false;
     String _imagePath = '';
     const List<String> categories = ['1', '2', '3', '4', '5'];
-    const List<String> licenses = ['fmi', 'uisp', 'asi', 'csen', 'asc'];
+    const List<TrackLicense> licenses = TrackLicense.values;
 
     buildAddButton({
       required List<String> numbers,
@@ -250,13 +251,14 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
               ),
               buildListField(
                 context: context,
-                items: licenses,
+                items: licenses.map((license) => license.toString()).toList(),
                 labelText: 'Licenze accettate',
                 itemBuilder: (context, index) {
-                  String license = licenses[index];
+                  TrackLicense license = licenses[index];
+                  String licenseString = license.toString().split('.').last;
                   return ListTile(
                     title: Text(
-                      license.toUpperCase(),
+                      licenseString.toUpperCase(),
                       style: TextStyle(
                         color: Colors.white, // same color as the ListTile text
                         fontWeight: FontWeight
@@ -264,7 +266,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                       ),
                     ),
                     subtitle: Image.asset(
-                      'assets/images/license_img/logo-$license.jpg',
+                      'assets/images/license_img/logo-$licenseString.jpg',
                       height: 50.r,
                       width: 50.r,
                     ),

@@ -1,6 +1,8 @@
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/utilities.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -98,10 +100,14 @@ Widget buildMapButton(
           ),
           child: Row(
             children: [
-              Text(
-                'Indicazioni',
-                style: TextStyle(
-                    fontSize: 12.sp), // Use ScreenUtil to set font size
+              Visibility(
+                visible: ref.watch(userSettingsProvider)[
+                    UserConstants.showMoreInfo]!, // Use ScreenUtil to set p),
+                child: Text(
+                  'Indicazioni',
+                  style: TextStyle(
+                      fontSize: 12.sp), // Use ScreenUtil to set font size
+                ),
               ),
               SizedBox(width: 3.w), // Use ScreenUtil to set width
               Icon(Icons.directions,

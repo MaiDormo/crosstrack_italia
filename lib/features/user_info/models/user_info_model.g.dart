@@ -31,7 +31,7 @@ Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
       'email': instance.email,
       'profile_image_url': instance.profileImageUrl,
       'tracciati_favoriti': instance.favoriteTracks,
-      'ruolo': _$UserRoleEnumMap[instance.role],
+      'ruolo': _$UserRoleEnumMap[instance.role]!,
       'tracciati_posseduti': instance.ownedTracks,
     };
 

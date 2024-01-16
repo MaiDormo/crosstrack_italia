@@ -13,7 +13,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 Widget buildTrackCards(
   Track trackSelected,
-  AsyncValue<Iterable<Image>> allTrackImages,
+  AsyncValue<Iterable<Widget>> allTrackImages,
   BuildContext context,
 ) =>
     SafeArea(

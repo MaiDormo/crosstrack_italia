@@ -10,9 +10,10 @@ class MapConstans {
   static const scaleImage = 0.5;
 
   //used in get closest location
-  static const initialLocation = 'Attivare la localizzazione';
-  static const errorLocation = 'Errore nella localizzazione';
-  static const noLocationFound = 'Nessuna Località Trovata';
+  static const initialLocation = 'Attiva posizione';
+  static const errorLocation = 'Errore';
+  static const noLocationFound = '';
+  static const loading = 'Caricamento...';
 
   //used in map screen
   static const milan = LatLng(45.464664, 9.188540);

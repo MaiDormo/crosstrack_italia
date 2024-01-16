@@ -17,7 +17,7 @@ class Track with _$Track {
     @JsonKey(name: FirebaseFieldName.category) @Default('') String category,
     @JsonKey(name: FirebaseFieldName.acceptedLicenses)
     @Default([])
-    List<String> acceptedLicenses,
+    List<TrackLicense> acceptedLicenses,
     @JsonKey(name: FirebaseFieldName.terrainType)
     @Default('')
     String terrainType,

@@ -1,4 +1,5 @@
 import 'package:crosstrack_italia/features/track/models/track.dart';
+import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -35,27 +36,30 @@ Widget buildPilotInfoCard(
                       ...trackSelected.acceptedLicenses
                           .map(
                             (license) => switch (license) {
-                              'fmi' => buildLicenseCard(
-                                  'fmi',
-                                  'assets/images/license_img/logo-fmi.jpg',
-                                  context),
-                              'uisp' => buildLicenseCard(
-                                  'uisp',
-                                  'assets/images/license_img/logo-uisp.jpg',
-                                  context),
-                              'asi' => buildLicenseCard(
-                                  'asi',
-                                  'assets/images/license_img/logo-asi.jpg',
-                                  context),
-                              'csen' => buildLicenseCard(
-                                  'csen',
-                                  'assets/images/license_img/logo-csen.jpg',
-                                  context),
-                              'asc' => buildLicenseCard(
-                                  'asc',
-                                  'assets/images/license_img/logo-asc.jpg',
-                                  context),
-                              _ => Container(),
+                              TrackLicense.fmi => buildLicenseCard(
+                                  TrackLicense.fmi,
+                                  context,
+                                ),
+                              TrackLicense.uisp => buildLicenseCard(
+                                  TrackLicense.uisp,
+                                  context,
+                                ),
+                              TrackLicense.asi => buildLicenseCard(
+                                  TrackLicense.asi,
+                                  context,
+                                ),
+                              TrackLicense.csen => buildLicenseCard(
+                                  TrackLicense.csen,
+                                  context,
+                                ),
+                              TrackLicense.asc => buildLicenseCard(
+                                  TrackLicense.csen,
+                                  context,
+                                ),
+                              TrackLicense.aics => buildLicenseCard(
+                                  TrackLicense.aics,
+                                  context,
+                                ),
                             },
                           )
                           .toList(),
@@ -75,8 +79,7 @@ Widget buildPilotInfoCard(
     );
 
 Widget buildLicenseCard(
-  String license,
-  String imagePath,
+  TrackLicense license,
   BuildContext context,
 ) =>
     Padding(
@@ -86,16 +89,13 @@ Widget buildLicenseCard(
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: Image.asset(
-              imagePath,
-              height: 35.7.h,
-              width: 35.7.w,
-            ),
+          Image.asset(
+            'assets/images/license_img/logo-${license.toString().split('.').last}.jpg',
+            height: 35.7.h,
+            width: 35.7.w,
           ),
           3.75.horizontalSpace,
-          Text(license),
+          Text(license.toString().split('.').last),
         ],
       ),
     );

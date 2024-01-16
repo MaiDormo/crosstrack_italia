@@ -62,10 +62,12 @@ class _MapScreenState extends ConsumerState<MapScreen>
                 ),
               ),
               panelBuilder: (scrollController) => SafeArea(
-                child: PanelWidget(null,
-                    hideDragHandle: false,
-                    scrollController: scrollController,
-                    panelController: panelController),
+                child: PanelWidget(
+                  null,
+                  hideDragHandle: false,
+                  scrollController: scrollController,
+                  panelController: panelController,
+                ),
               ),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),

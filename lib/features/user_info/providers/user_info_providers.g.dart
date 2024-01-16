@@ -48,7 +48,7 @@ final isOwnerProvider = AutoDisposeProvider<bool>.internal(
 );
 
 typedef IsOwnerRef = AutoDisposeProviderRef<bool>;
-String _$userImageHash() => r'bdab0b2bfc9baa555af4e8af88c345b8ec9d94c1';
+String _$userImageHash() => r'd109a1ab4421111ea4d72a1afa810674a886cdb6';
 
 /// See also [userImage].
 @ProviderFor(userImage)

@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
+import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -10,20 +11,34 @@ part 'user_info_storage.g.dart';
 
 @riverpod
 UserInfoStorage userInfoStorage(UserInfoStorageRef ref) {
-  return UserInfoStorage();
+  final auth = ref.watch(authProvider);
+  final firestore = ref.watch(firestoreProvider);
+
+  return UserInfoStorage(
+    auth: auth,
+    firestore: firestore,
+  );
 }
 
 class UserInfoStorage {
-  const UserInfoStorage();
+  final FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
+
+  const UserInfoStorage({
+    required FirebaseAuth auth,
+    required FirebaseFirestore firestore,
+  })  : _auth = auth,
+        _firestore = firestore;
+
+  CollectionReference get _users =>
+      _firestore.collection(FirebaseCollectionName.users);
 
   Future<UserInfoModel> fetchUserInfo(UserId id) async {
-    final userDocSnapshot = await FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.users)
-        .doc(id)
-        .get();
+    final userDocSnapshot = await _users.doc(id).get();
 
     if (userDocSnapshot.exists) {
-      return UserInfoModel.fromJson(userDocSnapshot.data()!);
+      return UserInfoModel.fromJson(
+          userDocSnapshot.data()! as Map<String, dynamic>);
     } else {
       return UserInfoModel.empty();
     }
@@ -34,10 +49,7 @@ class UserInfoStorage {
   }) async {
     try {
       // first check if we have this user's info from before
-      final userInfo = await FirebaseFirestore.instance
-          .collection(
-            FirebaseCollectionName.users,
-          )
+      final userInfo = await _users
           .doc(userInfoModel.id) // Use the user's ID as the document ID
           .get();
 
@@ -64,15 +76,12 @@ class UserInfoStorage {
   }
 
   Future<void> _createUserInfo(String id, Map<String, dynamic> payload) async {
-    await FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.users)
-        .doc(id)
-        .set(payload);
+    await _users.doc(id).set(payload);
   }
 
   Future<void> deleteUserInfo() async {
     try {
-      final user = FirebaseAuth.instance.currentUser!;
+      final user = _auth.currentUser!;
       await _deleteUserDocument(user.uid);
       await user.delete();
     } on FirebaseAuthException catch (e) {
@@ -87,10 +96,7 @@ class UserInfoStorage {
   }
 
   Future<void> _deleteUserDocument(String userId) async {
-    final documentSnapshot = await FirebaseFirestore.instance
-        .collection(FirebaseCollectionName.users)
-        .doc(userId)
-        .get();
+    final documentSnapshot = await _users.doc(userId).get();
 
     if (documentSnapshot.exists) {
       await documentSnapshot.reference.delete();
@@ -99,8 +105,7 @@ class UserInfoStorage {
 
   Future<void> _reauthenticateAndDelete() async {
     try {
-      final providerData =
-          FirebaseAuth.instance.currentUser?.providerData.first;
+      final providerData = _auth.currentUser?.providerData.first;
 
       if (FacebookAuthProvider().providerId == providerData!.providerId) {
         await _reauthenticateWithProvider(AppleAuthProvider());
@@ -108,14 +113,13 @@ class UserInfoStorage {
         await _reauthenticateWithProvider(GoogleAuthProvider());
       }
 
-      await FirebaseAuth.instance.currentUser?.delete();
+      await _auth.currentUser?.delete();
     } catch (e) {
       // Handle exceptions
     }
   }
 
   Future<void> _reauthenticateWithProvider(AuthProvider provider) async {
-    await FirebaseAuth.instance.currentUser!
-        .reauthenticateWithProvider(provider);
+    await _auth.currentUser!.reauthenticateWithProvider(provider);
   }
 }

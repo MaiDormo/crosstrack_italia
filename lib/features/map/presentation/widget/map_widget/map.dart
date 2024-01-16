@@ -15,6 +15,7 @@ import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Map extends ConsumerStatefulWidget {
   const Map({
@@ -59,10 +60,16 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
       ),
       nonRotatedChildren: [
         RichAttributionWidget(
-          permanentHeight: 15.h,
           attributions: [
             TextSourceAttribution(
               'OpenStreetMap contributors',
+              textStyle: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 10.sp,
+              ),
+              onTap: () => launchUrl(
+                Uri.parse('https://www.openstreetmap.org/copyright'),
+              ),
             ),
           ],
         ),
@@ -95,8 +102,8 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
             : const SizedBox.shrink(),
 
         Positioned(
-          top: 90,
-          right: 8,
+          top: 90.h,
+          right: 8.w,
           child: Padding(
             padding: const EdgeInsets.all(8.0).r,
             child: Visibility(
@@ -120,8 +127,10 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
                           });
                         }
                       : null,
-                  child: const Icon(
-                    Icons.my_location,
+                  child: Icon(
+                    showCurrentLocation && locationPermission
+                        ? Icons.my_location
+                        : Icons.location_disabled,
                     color: Colors.red,
                   ),
                 ),

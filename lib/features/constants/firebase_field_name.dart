@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show immutable;
 class FirebaseFieldName {
   //shared
   static const id = 'id';
-
+  static const userId = 'userId';
   //still need to a dd all of the field names
   static const displayName = 'display_name';
   static const createdAt = 'created_at';
@@ -12,6 +12,7 @@ class FirebaseFieldName {
   static const profileImageUrl = 'profile_image_url';
   static const favoriteTracks = 'tracciati_favoriti';
   static const ownedTracks = 'tracciati_posseduti';
+  static const commentsMade = 'commenti_fatti';
   static const role = 'ruolo';
 
   //track info

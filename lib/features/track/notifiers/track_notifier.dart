@@ -24,6 +24,7 @@ part 'track_notifier.g.dart';
 //------------------PROVIDERS------------------//
 @riverpod
 Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
+  print('DEBUG rebuild fetchAllTracks');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.fetchAllTracks();
 }
@@ -36,7 +37,7 @@ Stream<Iterable<Track>> fetchTracksByRegion(
 }
 
 @riverpod
-Future<List<Image>> fetchSelectedTracksThumbnail(
+Future<List<Widget>> fetchSelectedTracksThumbnail(
     FetchSelectedTracksThumbnailRef ref, List<Track> tracks) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   final images = await trackNotifier.fetchSelectedTracksThumbnail(tracks);
@@ -44,29 +45,28 @@ Future<List<Image>> fetchSelectedTracksThumbnail(
 }
 
 @riverpod
-Future<Image> trackThumbnail(TrackThumbnailRef ref, Track track) async {
+Future<Widget> trackThumbnail(TrackThumbnailRef ref, Track track) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   final image = await trackNotifier.trackThumbnail(track);
   return image;
 }
 
 @riverpod
-Future<Iterable<Image>> allTrackImages(
-    AllTrackImagesRef ref, bool highQuality) async {
+Future<Iterable<Widget>> allTrackImages(AllTrackImagesRef ref) async {
   final track = ref.watch(trackSelectedProvider);
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  return trackNotifier.allTrackImages(track, highQuality);
+  return trackNotifier.allTrackImages(track);
 }
 
 @riverpod
-Future<Iterable<Image>> allTrackImagesByTrack(
+Future<Iterable<Widget>> allTrackImagesByTrack(
     AllTrackImagesByTrackRef ref, Track track, bool highQuality) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
-  return trackNotifier.allTrackImages(track, highQuality);
+  return trackNotifier.allTrackImages(track);
 }
 
 @riverpod
-Future<Map<Image, String>> allTrackImagesWithPaths(
+Future<Map<Widget, String>> allTrackImagesWithPaths(
     AllTrackImagesWithPathsRef ref, Track track) async {
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.allTrackImagesWithPaths(track);
@@ -156,29 +156,24 @@ class TrackNotifier extends _$TrackNotifier {
     };
   }
 
-  Future<List<Image>> fetchSelectedTracksThumbnail(List<Track> tracks) async {
-    final List<Image> images = [];
+  Future<List<Widget>> fetchSelectedTracksThumbnail(List<Track> tracks) async {
+    final List<Widget> images = [];
     for (final track in tracks) {
       final image = await trackThumbnail(track);
       images.add(image);
     }
-    state = true;
     return images;
   }
 
   //collect track Thumbnail
-  Future<Image> trackThumbnail(Track track) async {
+  Future<Widget> trackThumbnail(Track track) async {
     try {
       final imageUrl = await _storageRepository
           .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
-      final bytes = await Utils.getCompressedThumbnail(imageUrl);
-      state = true;
-      return Image.memory(
-        bytes,
-        fit: BoxFit.cover,
-      );
+      final image = await Utils.getThumbnail(
+          imageUrl); // Ensure this returns Future<Uint8List>
+      return image;
     } catch (e) {
-      state = false;
       return Image.asset(
         MapConstans.placeholder,
         fit: BoxFit.cover,
@@ -187,21 +182,18 @@ class TrackNotifier extends _$TrackNotifier {
     }
   }
 
-  Future<Iterable<Image>> allTrackImages(Track track, bool highQuality) async {
+  Future<Iterable<Widget>> allTrackImages(Track track) async {
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
     if (track != Track.empty()) {
       final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
       final path = 'tracks/${storageRegion}/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
-      final byteList = await Future.wait(urls.map(Utils.getCompressedImage));
-      state = true;
-      return byteList.map((bytes) => Image.memory(
-            bytes,
-            fit: BoxFit.cover,
-            filterQuality: highQuality ? FilterQuality.high : FilterQuality.low,
-          ));
+
+      // Ensure Utils.getImage returns a Future<Widget>
+      final images = await Future.wait(
+          urls.map((url) => Future(() => Utils.getImage(url))));
+      return images;
     } else {
-      state = false;
       return [];
     }
   }
@@ -212,10 +204,10 @@ class TrackNotifier extends _$TrackNotifier {
     return await _storageRepository.listPaths(directory);
   }
 
-  Future<Map<Image, String>> allTrackImagesWithPaths(Track track) async {
-    final images = await allTrackImages(track, false);
+  Future<Map<Widget, String>> allTrackImagesWithPaths(Track track) async {
+    final images = await allTrackImages(track);
     final paths = await allPathsTrack(track);
-    return Map<Image, String>.fromIterables(images, paths);
+    return Map<Widget, String>.fromIterables(images, paths);
   }
 
   //add comment
@@ -238,15 +230,20 @@ class TrackNotifier extends _$TrackNotifier {
     );
     final res = await _trackRepository.addComment(comment);
     final trackSelected = ref.read(trackSelectedProvider);
-    final newRating =
-        (trackSelected.rating * trackSelected.commentCount + rating) /
-            (trackSelected.commentCount + 1);
     final updatedTrack = trackSelected.copyWith(
-      rating: newRating,
+      rating: _trackRepository.calculateNewRating(
+        trackSelected.rating,
+        trackSelected.commentCount,
+        rating,
+        true,
+      ),
       commentCount: trackSelected.commentCount + 1,
     );
     await updateTrack(updatedTrack);
-    ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
+    Future.delayed(Duration(seconds: 1), () {
+      ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
+    });
+
     res.fold((l) => Utils.showSnackBar(context, l.message),
         (r) => Utils.showSnackBar(context, 'Commento aggiunto con successo'));
   }
@@ -255,12 +252,13 @@ class TrackNotifier extends _$TrackNotifier {
   void removeComment(Comment comment, BuildContext context) async {
     final res = await _trackRepository.removeComment(comment);
     final trackSelected = ref.read(trackSelectedProvider);
-    final newRating =
-        (trackSelected.rating * trackSelected.commentCount - comment.rating) /
-            (trackSelected.commentCount - 1);
     final updatedTrack = trackSelected.copyWith(
-      //in order to calculate the new rating
-      rating: trackSelected.commentCount == 1 ? 0.0 : newRating,
+      rating: _trackRepository.calculateNewRating(
+        trackSelected.rating,
+        trackSelected.commentCount,
+        comment.rating,
+        false,
+      ),
       commentCount: trackSelected.commentCount - 1,
     );
     await updateTrack(updatedTrack);

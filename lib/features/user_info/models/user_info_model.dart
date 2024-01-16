@@ -1,6 +1,6 @@
 import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,13 +19,13 @@ class UserInfoModel with _$UserInfoModel {
     String? profileImageUrl,
     @JsonKey(name: FirebaseFieldName.favoriteTracks)
     @Default([])
-    List<TrackId>? favoriteTracks,
+    List<TrackId> favoriteTracks,
     @JsonKey(name: FirebaseFieldName.role)
     @Default(UserRole.guest)
-    UserRole? role,
+    UserRole role,
     @JsonKey(name: FirebaseFieldName.ownedTracks)
     @Default([])
-    List<TrackId>? ownedTracks,
+    List<TrackId> ownedTracks,
   }) = _UserInfoModel;
 
   const UserInfoModel._();

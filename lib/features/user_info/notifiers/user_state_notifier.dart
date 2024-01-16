@@ -1,7 +1,7 @@
 import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/user_id.dart';
+import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,11 +11,12 @@ part 'user_state_notifier.g.dart';
 
 @riverpod
 class UserStateNotifier extends _$UserStateNotifier {
-  late var _userInfoStorage;
-  late var _authStateChanges;
+  late UserInfoStorage _userInfoStorage;
+  late AsyncValue<User?> _authStateChanges;
 
   @override
   Future<UserInfoModel> build() async {
+    print('rebuild');
     _userInfoStorage = ref.watch(userInfoStorageProvider);
     _authStateChanges = ref.watch(authStateChangesProvider);
     return switch (_authStateChanges) {
@@ -44,6 +45,7 @@ class UserStateNotifier extends _$UserStateNotifier {
         ownedTracks: _fetchedUser.ownedTracks,
       );
       await saveUserInfo(userInfoModel: _updatedUser);
+      print('updated user: $_updatedUser');
       return _updatedUser;
     }
   }
@@ -76,7 +78,7 @@ class UserStateNotifier extends _$UserStateNotifier {
 
     state = AsyncData(fetchedUser);
 
-    return fetchedUser.favoriteTracks ?? [];
+    return fetchedUser.favoriteTracks;
   }
 
   Future<List<TrackId>> fetchOwnedTracks() async {
@@ -95,13 +97,22 @@ class UserStateNotifier extends _$UserStateNotifier {
 
     state = AsyncData(fetchedUser);
 
-    return fetchedUser.ownedTracks ?? [];
+    return fetchedUser.ownedTracks;
   }
 
   Future<void> makeOwner(List<TrackId> ownedTracks) async {
     final user = state.value!.copyWith(
       role: UserRole.owner,
       ownedTracks: ownedTracks,
+    );
+    await saveUserInfo(userInfoModel: user);
+    state = AsyncData(user);
+  }
+
+  Future<void> makeUser() async {
+    final user = state.value!.copyWith(
+      role: UserRole.user,
+      ownedTracks: [],
     );
     await saveUserInfo(userInfoModel: user);
     state = AsyncData(user);

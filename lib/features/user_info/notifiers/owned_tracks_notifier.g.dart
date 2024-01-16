@@ -6,25 +6,26 @@ part of 'owned_tracks_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$ownedTracksServiceHash() =>
-    r'aea68b70ca86e333f4ce53aaa5ff00985cb1d3b1';
+String _$ownedTracksRepositoryHash() =>
+    r'd427b15a13c16a366855136edcceb351c32195cb';
 
-/// See also [ownedTracksService].
-@ProviderFor(ownedTracksService)
-final ownedTracksServiceProvider =
-    AutoDisposeProvider<OwnedTracksService>.internal(
-  ownedTracksService,
-  name: r'ownedTracksServiceProvider',
+/// See also [ownedTracksRepository].
+@ProviderFor(ownedTracksRepository)
+final ownedTracksRepositoryProvider =
+    AutoDisposeProvider<OwnedTracksRepository>.internal(
+  ownedTracksRepository,
+  name: r'ownedTracksRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$ownedTracksServiceHash,
+      : _$ownedTracksRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef OwnedTracksServiceRef = AutoDisposeProviderRef<OwnedTracksService>;
+typedef OwnedTracksRepositoryRef
+    = AutoDisposeProviderRef<OwnedTracksRepository>;
 String _$ownedTracksNotifierHash() =>
-    r'285dc5134964e45e87250f90d5798628e0923b3b';
+    r'48b3a38a5d56f5e4a867f923b3907d255f54cac4';
 
 /// See also [OwnedTracksNotifier].
 @ProviderFor(OwnedTracksNotifier)
