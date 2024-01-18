@@ -282,7 +282,7 @@ class TrackComparison extends StatelessWidget {
                 children: [
                   ...licenses2.map(
                     (value) => Text(
-                      value.toString(),
+                      value.toString().split('.').last,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -299,7 +299,7 @@ class TrackComparison extends StatelessWidget {
                 children: [
                   ...licenses1.map(
                     (value) => Text(
-                      value.toString(),
+                      value.toString().split('.').last,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,

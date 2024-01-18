@@ -35,7 +35,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
               bottom: Radius.circular(20),
             ),
           ),
-          title: const Text('Gestione Tracciato'),
+          title: const Text('Inserisci i tuoi tracciati'),
         ),
         body: _buildBody(context),
       ),

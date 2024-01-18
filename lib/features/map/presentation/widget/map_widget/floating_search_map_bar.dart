@@ -26,7 +26,7 @@ class FloatingSearchMapBar extends ConsumerWidget {
       padding: const EdgeInsets.all(8.0).r,
       child: FloatingSearchBar(
         shadowColor: Colors.transparent,
-        showCursor: false,
+        showCursor: true,
         borderRadius: BorderRadius.circular(20.0),
         backgroundColor: Theme.of(context).colorScheme.onSecondary,
         controller: ref.watch(floatingSearchBarControllerProvider),
