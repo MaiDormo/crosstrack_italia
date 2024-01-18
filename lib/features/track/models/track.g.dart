@@ -33,10 +33,6 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
       email: json['email'] as String? ?? '',
       website: json['sito_web'] as String? ?? '',
       info: json['orari_e_info'] as String? ?? '',
-      openingHours: (json['apertura'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, e as String),
-          ) ??
-          const {},
       latitude: json['latitudine'] as String? ?? '0.0',
       longitude: json['longitudine'] as String? ?? '0.0',
       photosUrl: json['foto'] as String? ?? '',
@@ -64,7 +60,6 @@ Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
       'email': instance.email,
       'sito_web': instance.website,
       'orari_e_info': instance.info,
-      'apertura': instance.openingHours,
       'latitudine': instance.latitude,
       'longitudine': instance.longitude,
       'foto': instance.photosUrl,

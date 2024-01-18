@@ -8,10 +8,10 @@ part of 'comment.dart';
 
 _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
     _$CommentImpl(
-      commentId: json['commentId'] as String,
       id: json['id'] as String,
+      trackId: json['trackId'] as String,
       userId: json['userId'] as String,
-      userName: json['userName'] as String?,
+      userName: json['userName'] as String,
       text: json['text'] as String,
       date: DateTime.parse(json['date'] as String),
       rating: (json['rating'] as num).toDouble(),
@@ -19,8 +19,8 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
     <String, dynamic>{
-      'commentId': instance.commentId,
       'id': instance.id,
+      'trackId': instance.trackId,
       'userId': instance.userId,
       'userName': instance.userName,
       'text': instance.text,

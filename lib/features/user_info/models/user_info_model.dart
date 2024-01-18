@@ -12,7 +12,9 @@ part 'user_info_model.g.dart';
 class UserInfoModel with _$UserInfoModel {
   const factory UserInfoModel({
     required UserId id,
-    @JsonKey(name: FirebaseFieldName.displayName) required String? displayName,
+    @JsonKey(name: FirebaseFieldName.displayName)
+    @Default('')
+    String? displayName,
     @Default('') String? email,
     @JsonKey(name: FirebaseFieldName.profileImageUrl)
     @Default('')
@@ -20,9 +22,7 @@ class UserInfoModel with _$UserInfoModel {
     @JsonKey(name: FirebaseFieldName.favoriteTracks)
     @Default([])
     List<TrackId> favoriteTracks,
-    @JsonKey(name: FirebaseFieldName.role)
-    @Default(UserRole.guest)
-    UserRole role,
+    @Default(UserRole.guest) UserRole role,
     @JsonKey(name: FirebaseFieldName.ownedTracks)
     @Default([])
     List<TrackId> ownedTracks,
@@ -40,13 +40,5 @@ class UserInfoModel with _$UserInfoModel {
         profileImageUrl: user.photoURL,
       );
 
-  factory UserInfoModel.empty() => UserInfoModel(
-        id: '',
-        displayName: 'Guest',
-        email: '',
-        profileImageUrl: '',
-        favoriteTracks: [],
-        role: UserRole.guest,
-        ownedTracks: [],
-      );
+  factory UserInfoModel.empty() => UserInfoModel(id: '');
 }

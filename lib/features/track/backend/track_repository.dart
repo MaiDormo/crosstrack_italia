@@ -44,9 +44,9 @@ class TrackRepository {
   }
 
   // Firebase call to get all comment related to a track
-  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId id) {
+  Stream<Iterable<Comment>> fetchCommentsByTrackId(TrackId trackId) {
     return _comments
-        .where(FirebaseFieldName.id, isEqualTo: id)
+        .where(FirebaseFieldName.trackId, isEqualTo: trackId)
         .orderBy(FirebaseFieldName.date, descending: false)
         .snapshots()
         .map((snapshot) => snapshot.docs.map(
@@ -56,7 +56,7 @@ class TrackRepository {
   //add comment
   Future<Either<Failure, void>> addComment(Comment comment) async {
     try {
-      await _comments.doc(comment.commentId).set(comment.toJson());
+      await _comments.doc(comment.id).set(comment.toJson());
       return right(unit);
     } on FirebaseException catch (e) {
       throw e;
@@ -68,7 +68,7 @@ class TrackRepository {
   // remove comment
   Future<Either<Failure, void>> removeComment(Comment comment) async {
     try {
-      await _comments.doc(comment.commentId).delete();
+      await _comments.doc(comment.id).delete();
       return right(unit);
     } on FirebaseException catch (e) {
       throw e;

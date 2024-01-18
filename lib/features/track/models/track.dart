@@ -35,9 +35,6 @@ class Track with _$Track {
     @JsonKey(name: FirebaseFieldName.email) @Default('') String email,
     @JsonKey(name: FirebaseFieldName.website) @Default('') String website,
     @JsonKey(name: FirebaseFieldName.info) @Default('') String info,
-    @JsonKey(name: FirebaseFieldName.openingHours)
-    @Default({})
-    Map<String, String> openingHours,
     @JsonKey(name: FirebaseFieldName.latitude) @Default('0.0') String latitude,
     @JsonKey(name: FirebaseFieldName.longitude)
     @Default('0.0')

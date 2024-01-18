@@ -36,7 +36,7 @@ class CommentCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        comment.userName ?? 'Guest',
+                        comment.userName,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),

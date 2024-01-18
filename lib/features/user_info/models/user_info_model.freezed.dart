@@ -28,7 +28,6 @@ mixin _$UserInfoModel {
   String? get profileImageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String> get favoriteTracks => throw _privateConstructorUsedError;
-  @JsonKey(name: FirebaseFieldName.role)
   UserRole get role => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.ownedTracks)
   List<String> get ownedTracks => throw _privateConstructorUsedError;
@@ -52,7 +51,7 @@ abstract class $UserInfoModelCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String> favoriteTracks,
-      @JsonKey(name: FirebaseFieldName.role) UserRole role,
+      UserRole role,
       @JsonKey(name: FirebaseFieldName.ownedTracks) List<String> ownedTracks});
 }
 
@@ -125,7 +124,7 @@ abstract class _$$UserInfoModelImplCopyWith<$Res>
       @JsonKey(name: FirebaseFieldName.profileImageUrl) String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       List<String> favoriteTracks,
-      @JsonKey(name: FirebaseFieldName.role) UserRole role,
+      UserRole role,
       @JsonKey(name: FirebaseFieldName.ownedTracks) List<String> ownedTracks});
 }
 
@@ -186,13 +185,13 @@ class __$$UserInfoModelImplCopyWithImpl<$Res>
 class _$UserInfoModelImpl extends _UserInfoModel {
   const _$UserInfoModelImpl(
       {required this.id,
-      @JsonKey(name: FirebaseFieldName.displayName) required this.displayName,
+      @JsonKey(name: FirebaseFieldName.displayName) this.displayName = '',
       this.email = '',
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
       this.profileImageUrl = '',
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String> favoriteTracks = const [],
-      @JsonKey(name: FirebaseFieldName.role) this.role = UserRole.guest,
+      this.role = UserRole.guest,
       @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String> ownedTracks = const []})
       : _favoriteTracks = favoriteTracks,
@@ -223,7 +222,7 @@ class _$UserInfoModelImpl extends _UserInfoModel {
   }
 
   @override
-  @JsonKey(name: FirebaseFieldName.role)
+  @JsonKey()
   final UserRole role;
   final List<String> _ownedTracks;
   @override
@@ -286,14 +285,13 @@ class _$UserInfoModelImpl extends _UserInfoModel {
 abstract class _UserInfoModel extends UserInfoModel {
   const factory _UserInfoModel(
       {required final String id,
-      @JsonKey(name: FirebaseFieldName.displayName)
-      required final String? displayName,
+      @JsonKey(name: FirebaseFieldName.displayName) final String? displayName,
       final String? email,
       @JsonKey(name: FirebaseFieldName.profileImageUrl)
       final String? profileImageUrl,
       @JsonKey(name: FirebaseFieldName.favoriteTracks)
       final List<String> favoriteTracks,
-      @JsonKey(name: FirebaseFieldName.role) final UserRole role,
+      final UserRole role,
       @JsonKey(name: FirebaseFieldName.ownedTracks)
       final List<String> ownedTracks}) = _$UserInfoModelImpl;
   const _UserInfoModel._() : super._();
@@ -315,7 +313,6 @@ abstract class _UserInfoModel extends UserInfoModel {
   @JsonKey(name: FirebaseFieldName.favoriteTracks)
   List<String> get favoriteTracks;
   @override
-  @JsonKey(name: FirebaseFieldName.role)
   UserRole get role;
   @override
   @JsonKey(name: FirebaseFieldName.ownedTracks)

@@ -5,15 +5,14 @@ class FirebaseFieldName {
   //shared
   static const id = 'id';
   static const userId = 'userId';
+  static const trackId = 'trackId';
   //still need to a dd all of the field names
   static const displayName = 'display_name';
   static const createdAt = 'created_at';
   static const email = 'email';
   static const profileImageUrl = 'profile_image_url';
-  static const favoriteTracks = 'tracciati_favoriti';
-  static const ownedTracks = 'tracciati_posseduti';
-  static const commentsMade = 'commenti_fatti';
-  static const role = 'ruolo';
+  static const favoriteTracks = 'favorite_tracks';
+  static const ownedTracks = 'owned_tracks';
 
   //track info
   static const trackName = 'nome';
@@ -31,7 +30,6 @@ class FirebaseFieldName {
   static const trackEmail = 'email';
   static const website = 'sito_web';
   static const info = 'orari_e_info';
-  static const openingHours = 'apertura';
   static const latitude = 'latitudine';
   static const longitude = 'longitudine';
   static const images = 'immagini';
@@ -40,7 +38,6 @@ class FirebaseFieldName {
   static const rating = 'valutazione';
 
   //comment info
-  static const commentId = 'commentId';
   static const comment = 'comment';
   static const date = 'date';
 

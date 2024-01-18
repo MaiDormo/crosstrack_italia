@@ -51,8 +51,6 @@ mixin _$Track {
   String get website => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.info)
   String get info => throw _privateConstructorUsedError;
-  @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String> get openingHours => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.latitude)
   String get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: FirebaseFieldName.longitude)
@@ -92,8 +90,6 @@ abstract class $TrackCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.email) String email,
       @JsonKey(name: FirebaseFieldName.website) String website,
       @JsonKey(name: FirebaseFieldName.info) String info,
-      @JsonKey(name: FirebaseFieldName.openingHours)
-      Map<String, String> openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
       @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
@@ -130,7 +126,6 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
     Object? email = null,
     Object? website = null,
     Object? info = null,
-    Object? openingHours = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? photosUrl = null,
@@ -202,10 +197,6 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
               as String,
-      openingHours: null == openingHours
-          ? _value.openingHours
-          : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -255,8 +246,6 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
       @JsonKey(name: FirebaseFieldName.email) String email,
       @JsonKey(name: FirebaseFieldName.website) String website,
       @JsonKey(name: FirebaseFieldName.info) String info,
-      @JsonKey(name: FirebaseFieldName.openingHours)
-      Map<String, String> openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) String longitude,
       @JsonKey(name: FirebaseFieldName.photosUrl) String photosUrl,
@@ -291,7 +280,6 @@ class __$$TrackImplCopyWithImpl<$Res>
     Object? email = null,
     Object? website = null,
     Object? info = null,
-    Object? openingHours = null,
     Object? latitude = null,
     Object? longitude = null,
     Object? photosUrl = null,
@@ -363,10 +351,6 @@ class __$$TrackImplCopyWithImpl<$Res>
           ? _value.info
           : info // ignore: cast_nullable_to_non_nullable
               as String,
-      openingHours: null == openingHours
-          ? _value._openingHours
-          : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       latitude: null == latitude
           ? _value.latitude
           : latitude // ignore: cast_nullable_to_non_nullable
@@ -414,8 +398,6 @@ class _$TrackImpl implements _Track {
       @JsonKey(name: FirebaseFieldName.email) this.email = '',
       @JsonKey(name: FirebaseFieldName.website) this.website = '',
       @JsonKey(name: FirebaseFieldName.info) this.info = '',
-      @JsonKey(name: FirebaseFieldName.openingHours)
-      final Map<String, String> openingHours = const {},
       @JsonKey(name: FirebaseFieldName.latitude) this.latitude = '0.0',
       @JsonKey(name: FirebaseFieldName.longitude) this.longitude = '0.0',
       @JsonKey(name: FirebaseFieldName.photosUrl) this.photosUrl = '',
@@ -424,8 +406,7 @@ class _$TrackImpl implements _Track {
       : _acceptedLicenses = acceptedLicenses,
         _services = services,
         _phones = phones,
-        _fax = fax,
-        _openingHours = openingHours;
+        _fax = fax;
 
   factory _$TrackImpl.fromJson(Map<String, dynamic> json) =>
       _$$TrackImplFromJson(json);
@@ -505,15 +486,6 @@ class _$TrackImpl implements _Track {
   @override
   @JsonKey(name: FirebaseFieldName.info)
   final String info;
-  final Map<String, String> _openingHours;
-  @override
-  @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String> get openingHours {
-    if (_openingHours is EqualUnmodifiableMapView) return _openingHours;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_openingHours);
-  }
-
   @override
   @JsonKey(name: FirebaseFieldName.latitude)
   final String latitude;
@@ -532,7 +504,7 @@ class _$TrackImpl implements _Track {
 
   @override
   String toString() {
-    return 'Track(id: $id, trackName: $trackName, region: $region, location: $location, motoclub: $motoclub, category: $category, acceptedLicenses: $acceptedLicenses, terrainType: $terrainType, trackLength: $trackLength, hasMinicross: $hasMinicross, services: $services, phones: $phones, fax: $fax, email: $email, website: $website, info: $info, openingHours: $openingHours, latitude: $latitude, longitude: $longitude, photosUrl: $photosUrl, commentCount: $commentCount, rating: $rating)';
+    return 'Track(id: $id, trackName: $trackName, region: $region, location: $location, motoclub: $motoclub, category: $category, acceptedLicenses: $acceptedLicenses, terrainType: $terrainType, trackLength: $trackLength, hasMinicross: $hasMinicross, services: $services, phones: $phones, fax: $fax, email: $email, website: $website, info: $info, latitude: $latitude, longitude: $longitude, photosUrl: $photosUrl, commentCount: $commentCount, rating: $rating)';
   }
 
   @override
@@ -564,8 +536,6 @@ class _$TrackImpl implements _Track {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.website, website) || other.website == website) &&
             (identical(other.info, info) || other.info == info) &&
-            const DeepCollectionEquality()
-                .equals(other._openingHours, _openingHours) &&
             (identical(other.latitude, latitude) ||
                 other.latitude == latitude) &&
             (identical(other.longitude, longitude) ||
@@ -597,7 +567,6 @@ class _$TrackImpl implements _Track {
         email,
         website,
         info,
-        const DeepCollectionEquality().hash(_openingHours),
         latitude,
         longitude,
         photosUrl,
@@ -639,8 +608,6 @@ abstract class _Track implements Track {
       @JsonKey(name: FirebaseFieldName.email) final String email,
       @JsonKey(name: FirebaseFieldName.website) final String website,
       @JsonKey(name: FirebaseFieldName.info) final String info,
-      @JsonKey(name: FirebaseFieldName.openingHours)
-      final Map<String, String> openingHours,
       @JsonKey(name: FirebaseFieldName.latitude) final String latitude,
       @JsonKey(name: FirebaseFieldName.longitude) final String longitude,
       @JsonKey(name: FirebaseFieldName.photosUrl) final String photosUrl,
@@ -697,9 +664,6 @@ abstract class _Track implements Track {
   @override
   @JsonKey(name: FirebaseFieldName.info)
   String get info;
-  @override
-  @JsonKey(name: FirebaseFieldName.openingHours)
-  Map<String, String> get openingHours;
   @override
   @JsonKey(name: FirebaseFieldName.latitude)
   String get latitude;

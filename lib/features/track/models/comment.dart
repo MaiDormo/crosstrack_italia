@@ -7,10 +7,10 @@ part 'comment.g.dart';
 @freezed
 class Comment with _$Comment {
   const factory Comment({
-    required String commentId,
-    required TrackId id,
+    required String id,
+    required TrackId trackId,
     required String userId,
-    required String? userName,
+    required String userName,
     required String text,
     required DateTime date,
     required double rating,

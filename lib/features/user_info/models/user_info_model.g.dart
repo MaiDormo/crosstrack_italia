@@ -9,16 +9,16 @@ part of 'user_info_model.dart';
 _$UserInfoModelImpl _$$UserInfoModelImplFromJson(Map<String, dynamic> json) =>
     _$UserInfoModelImpl(
       id: json['id'] as String,
-      displayName: json['display_name'] as String?,
+      displayName: json['display_name'] as String? ?? '',
       email: json['email'] as String? ?? '',
       profileImageUrl: json['profile_image_url'] as String? ?? '',
-      favoriteTracks: (json['tracciati_favoriti'] as List<dynamic>?)
+      favoriteTracks: (json['favorite_tracks'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      role: $enumDecodeNullable(_$UserRoleEnumMap, json['ruolo']) ??
+      role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']) ??
           UserRole.guest,
-      ownedTracks: (json['tracciati_posseduti'] as List<dynamic>?)
+      ownedTracks: (json['owned_tracks'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
@@ -30,9 +30,9 @@ Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
       'display_name': instance.displayName,
       'email': instance.email,
       'profile_image_url': instance.profileImageUrl,
-      'tracciati_favoriti': instance.favoriteTracks,
-      'ruolo': _$UserRoleEnumMap[instance.role]!,
-      'tracciati_posseduti': instance.ownedTracks,
+      'favorite_tracks': instance.favoriteTracks,
+      'role': _$UserRoleEnumMap[instance.role]!,
+      'owned_tracks': instance.ownedTracks,
     };
 
 const _$UserRoleEnumMap = {

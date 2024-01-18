@@ -214,14 +214,14 @@ class TrackNotifier extends _$TrackNotifier {
   void addComment(
     BuildContext context,
     String text,
-    TrackId id,
+    TrackId trackId,
     double rating,
   ) async {
-    final String commentId = Uuid().v1();
+    final String id = Uuid().v1();
     final userId = ref.read(userIdProvider);
     final Comment comment = Comment(
-      commentId: commentId,
       id: id,
+      trackId: trackId,
       userId: userId,
       userName: FirebaseAuth.instance.currentUser!.displayName!,
       text: text,
