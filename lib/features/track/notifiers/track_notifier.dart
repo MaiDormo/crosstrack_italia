@@ -24,7 +24,6 @@ part 'track_notifier.g.dart';
 //------------------PROVIDERS------------------//
 @riverpod
 Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
-  print('DEBUG rebuild fetchAllTracks');
   final trackNotifier = ref.watch(trackNotifierProvider.notifier);
   return trackNotifier.fetchAllTracks();
 }

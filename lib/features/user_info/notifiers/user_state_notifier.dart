@@ -16,7 +16,6 @@ class UserStateNotifier extends _$UserStateNotifier {
 
   @override
   Future<UserInfoModel> build() async {
-    print('rebuild');
     _userInfoStorage = ref.watch(userInfoStorageProvider);
     _authStateChanges = ref.watch(authStateChangesProvider);
     return switch (_authStateChanges) {
@@ -45,7 +44,6 @@ class UserStateNotifier extends _$UserStateNotifier {
         ownedTracks: _fetchedUser.ownedTracks,
       );
       await saveUserInfo(userInfoModel: _updatedUser);
-      print('updated user: $_updatedUser');
       return _updatedUser;
     }
   }

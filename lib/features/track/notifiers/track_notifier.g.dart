@@ -6,7 +6,7 @@ part of 'track_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllTracksHash() => r'2c91cdcf7e22543d09571f4deb8dedbb7c8e0196';
+String _$fetchAllTracksHash() => r'e25ac7f58f05616545bf3c4735803dabc8143df6';
 
 /// See also [fetchAllTracks].
 @ProviderFor(fetchAllTracks)

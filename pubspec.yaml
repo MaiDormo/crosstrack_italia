@@ -72,6 +72,7 @@ dependencies:
   json_annotation: ^4.8.1
   cached_network_image: ^3.3.1
   sqflite: ^2.3.0
+  flutter_launcher_icons: ^0.13.1
 
   
   
@@ -101,6 +102,14 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+
+flutter_launcher_icons:
+  android: true
+  ios: false 
+  image_path: "assets/images/logo/logo_1:1.jpg"
+  min_sdk_android: 21
+
+
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -115,6 +124,7 @@ flutter:
     - assets/images/
     - assets/images/license_img/
     - assets/images/icons/
+    - assets/images/logo/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

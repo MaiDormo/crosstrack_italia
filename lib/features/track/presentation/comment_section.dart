@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CommentsSection extends ConsumerStatefulWidget {
   final TrackId trackId;
 
-  const CommentsSection({
+  CommentsSection({
     super.key,
     required this.trackId,
   });
@@ -110,7 +110,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
-                  Colors.red,
+                  Theme.of(context).colorScheme.secondary,
                 ),
               ),
               onPressed: () {
@@ -126,7 +126,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
             ElevatedButton(
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
-                  Colors.green,
+                  Theme.of(context).colorScheme.secondary,
                 ),
               ),
               onPressed: () => addComment(widget.trackId),
@@ -145,7 +145,6 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
 
   @override
   Widget build(BuildContext context) {
-    final id = ref.watch(trackSelectedProvider).id;
     final isLoggedIn = ref.watch(isLoggedInProvider);
 
     return Column(
@@ -172,7 +171,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
           child: const Text('Commenta'),
         ),
         16.verticalSpace,
-        ref.watch(fetchCommentsByTrackIdProvider(id)).when(
+        ref.watch(fetchCommentsByTrackIdProvider(widget.trackId)).when(
               data: (comments) => ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

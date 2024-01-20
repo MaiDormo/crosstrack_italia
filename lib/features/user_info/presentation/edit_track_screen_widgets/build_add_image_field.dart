@@ -39,10 +39,7 @@ Future<void> uploadImage(
     String firebasePath = 'tracks/$formattedTrackRegion/$trackId/$fileName';
 
     await ref.watch(storageProvider).ref(firebasePath).putFile(File(filePath));
-  } catch (e) {
-    // Handle any errors
-    print(e);
-  }
+  } catch (e) {}
 }
 
 class ImageField extends StatefulWidget {

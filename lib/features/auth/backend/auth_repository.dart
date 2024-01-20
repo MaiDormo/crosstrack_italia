@@ -54,9 +54,7 @@ class AuthRepository {
       await _firebaseAuth.signInWithCredential(
         oauthCredentials,
       );
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future<void> facebookLogin() async {
@@ -74,9 +72,7 @@ class AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       await _handleFirebaseAuthException(e);
-    } catch (e) {
-      print('DEBUG: facebook login: ' + e.toString());
-    }
+    } catch (e) {}
   }
 
   Future<void> _handleFirebaseAuthException(

@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="crosstrack_italia"
+        android:label="CrossTrack Italia"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

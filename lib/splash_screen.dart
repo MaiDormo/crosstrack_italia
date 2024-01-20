@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,16 +18,28 @@ class SplashScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FlutterLogo(
-                size: 100.0,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                width: 400,
+                height: 300,
+                child: Image.asset(
+                  'assets/images/logo/logo_4:3.jpg',
+                  fit: BoxFit.fill,
+                ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 20),
               Text(
                 'Cross Track Italia',
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: GoogleFonts.poppins(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-              const SizedBox(height: 20.0),
-              CircularProgressIndicator(),
+              const SizedBox(height: 20),
+              const CircularProgressIndicator(),
             ],
           ),
         ),

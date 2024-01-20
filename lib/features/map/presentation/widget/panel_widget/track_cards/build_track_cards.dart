@@ -33,9 +33,15 @@ Widget buildTrackCards(
           9.verticalSpace,
           buildTrackImagesSwiper(allTrackImages, context),
           9.verticalSpace,
-          buildCard(WeatherView(), context),
+          buildCard(
+            WeatherView(),
+            context,
+          ),
           9.verticalSpace,
-          buildCard(CommentsSection(trackId: trackSelected.id), context),
+          buildCard(
+            CommentsSection(trackId: trackSelected.id),
+            context,
+          ),
         ],
       ),
     );

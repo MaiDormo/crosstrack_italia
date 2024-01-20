@@ -322,8 +322,6 @@ class TrackComparison extends StatelessWidget {
       String longitude2,
       double columnWidth,
       BuildContext context) {
-    print(
-        'DEBUG - userLocationAvailable: $userLocationAvailable, userLocation: $userLocation');
     if (userLocationAvailable && userLocation != null) {
       final double distance1 = _calculateDistance(
         userLocation!.latitude,
@@ -338,8 +336,6 @@ class TrackComparison extends StatelessWidget {
         double.parse(latitude2),
         double.parse(longitude2),
       );
-
-      print('DEBUG - Distance 1: $distance1, Distance 2: $distance2');
 
       return _buildComparisonRow(
         "Distanza Aerea",

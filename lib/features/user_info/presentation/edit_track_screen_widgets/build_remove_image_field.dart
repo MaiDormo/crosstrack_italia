@@ -169,7 +169,5 @@ Future<void> deleteImage(
   try {
     imagesToBeDeleted.forEach((image, path) async =>
         await ref.watch(storageProvider).ref(path).delete());
-  } catch (e) {
-    print(e);
-  }
+  } catch (e) {}
 }

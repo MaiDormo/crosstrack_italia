@@ -21,14 +21,12 @@ Future<void> initializeFirebase() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Activate Firebase App Check
   await FirebaseAppCheck.instance.activate(
     androidProvider: AndroidProvider.debug,
   );
 }
 
 Future<void> main() async {
-  // Display splash screen
   runApp(const SplashScreen());
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,15 +35,11 @@ Future<void> main() async {
     await initializeFirebase();
     await initializeTileCache();
   } catch (e) {
-    // Handle initialization errors
-    print('Error initializing app: $e');
-    // You may want to show an error screen or retry the initialization
     return;
   }
 
   final prefs = await SharedPreferences.getInstance();
   runApp(
-    // Maintain state of the App
     ProviderScope(
       overrides: [
         sharedPreferencesProvider.overrideWithValue(prefs),

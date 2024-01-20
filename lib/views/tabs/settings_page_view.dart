@@ -100,12 +100,6 @@ class SettingsPageView extends ConsumerWidget {
                     Icons.delete,
                     () => shouldDeleteAccount(context),
                   ),
-                  settingsTile(
-                    context,
-                    'Privacy Settings (non implementato)',
-                    Icons.lock,
-                    () => null,
-                  ),
                 ],
                 context,
               ),

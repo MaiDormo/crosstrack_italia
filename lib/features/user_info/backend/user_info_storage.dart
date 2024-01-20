@@ -60,9 +60,7 @@ class UserInfoStorage {
       } else {
         await _createUserInfo(userInfoModel.id, payload);
       }
-    } catch (e) {
-      print('Error saving user info: $e');
-    }
+    } catch (e) {}
   }
 
   Future<void> _updateUserInfo(
