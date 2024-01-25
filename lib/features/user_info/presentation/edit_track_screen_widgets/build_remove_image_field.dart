@@ -8,6 +8,18 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'build_remove_image_field.g.dart';
 
+//------------------------EXPLANATION-------------------------
+//In this code i am saving the images to be deleted in a map
+//the key is the image widget and the value is the path of the image
+
+//when the user in the edit track screen deletes an image,
+//the image is saved in the map and the image is removed from the screen
+
+//when the user presses the undo button, the image is added back to the screen
+//and removed from the map
+
+//when the user presses the save button,
+//the images in the map are deleted from the storage and the map is cleared
 @riverpod
 Map<Widget, String> undoImageDelete(UndoImageDeleteRef ref) {
   return ref.watch(imagesPathToBeDeletedProvider.notifier).undo();

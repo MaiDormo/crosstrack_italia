@@ -90,12 +90,5 @@ class AuthRepository {
       }
       return;
     }
-
-    // Questo codice non è necessario, ma serve per dimonstrare
-    // come si può gestire un errore di autenticazione con maggiore dettaglio
-    // const errorToResultMap = {
-    //   'invalid-credential': AuthResult.failure,
-    // };
-    // final result = errorToResultMap[e.code] ?? AuthResult.aborted;
   }
 }

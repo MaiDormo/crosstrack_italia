@@ -10,7 +10,6 @@ class Constants {
   static const facebookProfileScope = 'public_profile';
   static const facebookName = 'name';
   static const facebookEmailScope = 'email';
-  static const facebookImageRequest = 'picture.width(50)';
 
   const Constants._();
 }
