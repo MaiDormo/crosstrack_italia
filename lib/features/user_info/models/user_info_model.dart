@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
+import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';

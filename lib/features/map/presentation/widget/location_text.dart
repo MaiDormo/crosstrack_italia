@@ -19,8 +19,8 @@ class LocationText extends ConsumerWidget {
       child: Text(
         switch (location) {
           AsyncData(:final value) => value,
-          AsyncError() => MapConstans.errorLocation,
-          _ => MapConstans.loading,
+          AsyncError() => MapConstants.errorLocation,
+          _ => MapConstants.loading,
         },
         style: TextStyle(
           fontSize: 12.3.sp,

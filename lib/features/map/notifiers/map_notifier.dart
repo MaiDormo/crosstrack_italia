@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
@@ -51,6 +52,6 @@ class VsyncContainer extends TickerProvider {
 
   @override
   Ticker createTicker(TickerCallback onTick) {
-    return Ticker(onTick, debugLabel: 'vsync');
+    return Ticker(onTick, debugLabel: MapConstants.vsyncLabel);
   }
 }

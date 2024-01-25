@@ -6,19 +6,19 @@ class TrackMarkerIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MapConstans.markerSize.h,
-      width: MapConstans.markerSize.h,
+      height: MapConstants.markerSize.h,
+      width: MapConstants.markerSize.h,
       decoration: BoxDecoration(
         border: Border.all(
           color: Theme.of(context).primaryColor, // Set border color
           width: 3.0.w, // Set border width
         ),
-        borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
+        borderRadius: BorderRadius.circular(MapConstants.markerSize.h),
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
+        borderRadius: BorderRadius.circular(MapConstants.markerSize.h),
         child: Image.asset(
-          MapConstans
+          MapConstants
               .placeholder, // Replace with the path to your Motocross track icon
           width: 20.w,
           height: 20.h,

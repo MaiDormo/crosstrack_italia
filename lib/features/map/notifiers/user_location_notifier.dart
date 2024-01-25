@@ -86,22 +86,22 @@ class UserLocationNotifier extends _$UserLocationNotifier {
 
         List<Placemark> placemarks = await placemarkFromCoordinates(
             userLatitude, userLongitude,
-            localeIdentifier: 'it_IT');
+            localeIdentifier: MapConstants.localeIdentifier);
 
         if (placemarks.isNotEmpty) {
           Placemark closestPlacemark = placemarks.first;
           String? closestLocation = closestPlacemark.locality ??
               closestPlacemark.subAdministrativeArea ??
               closestPlacemark.administrativeArea;
-          return closestLocation ?? MapConstans.noLocationFound;
+          return closestLocation ?? MapConstants.noLocationFound;
         }
 
-        return MapConstans.noLocationFound;
+        return MapConstants.noLocationFound;
       } catch (e) {
-        return MapConstans.errorLocation;
+        return MapConstants.errorLocation;
       }
     } else {
-      return MapConstans.initialLocation;
+      return MapConstants.initialLocation;
     }
   }
 

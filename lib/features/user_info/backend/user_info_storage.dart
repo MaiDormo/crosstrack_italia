@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crosstrack_italia/features/constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/features/constants/firebase_field_name.dart';
+import 'package:crosstrack_italia/features/firebase_constants/firebase_collection_name.dart';
+import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
 import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';

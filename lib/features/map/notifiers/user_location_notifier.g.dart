@@ -72,7 +72,7 @@ final centerUserLocationProvider = AutoDisposeNotifierProvider<
 
 typedef _$CenterUserLocation = AutoDisposeNotifier<FollowOnLocationUpdate>;
 String _$userLocationNotifierHash() =>
-    r'5ffeac77f90d87d926c0b3e669ee1209ee5646b7';
+    r'16cc640e50a2a738080ecbd91c266bddf59c36d0';
 
 /// See also [UserLocationNotifier].
 @ProviderFor(UserLocationNotifier)

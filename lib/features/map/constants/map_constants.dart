@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart' show immutable;
 import 'package:latlong2/latlong.dart';
 
 @immutable
-class MapConstans {
+class MapConstants {
   //used for the marker
   static const markerSize = 40.0;
   static const thumbnail = 'img1.jpg';
@@ -14,6 +14,7 @@ class MapConstans {
   static const errorLocation = 'Errore';
   static const noLocationFound = '';
   static const loading = 'Caricamento...';
+  static const localeIdentifier = 'it_IT';
 
   //used in map screen
   static const milan = LatLng(45.464664, 9.188540);
@@ -26,5 +27,8 @@ class MapConstans {
   static const trentinoAltoAdige = 'Trentino Alto Adige';
   static const all = 'Tutte';
 
-  const MapConstans._();
+  //vsync
+  static const vsyncLabel = 'vsync';
+
+  const MapConstants._();
 }

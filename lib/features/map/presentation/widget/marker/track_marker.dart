@@ -10,8 +10,8 @@ class TrackMarker extends Marker {
   TrackMarker({required this.track})
       : super(
           anchorPos: AnchorPos.align(AnchorAlign.top),
-          height: MapConstans.markerSize.h,
-          width: MapConstans.markerSize.h,
+          height: MapConstants.markerSize.h,
+          width: MapConstants.markerSize.h,
           point: LatLng(
               double.parse(track.latitude), double.parse(track.longitude)),
           builder: (BuildContext ctx) => TrackMarkerIcon(),

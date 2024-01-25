@@ -107,20 +107,20 @@ class FloatingSearchMapBar extends ConsumerWidget {
               LatLng center;
               switch (result) {
                 case Regions.veneto:
-                  center = MapConstans.venice;
+                  center = MapConstants.venice;
                   break;
                 case Regions.lombardia:
-                  center = MapConstans.milan;
+                  center = MapConstants.milan;
                   break;
                 case Regions.trentinoAltoAdige:
-                  center = MapConstans.trento;
+                  center = MapConstants.trento;
                   break;
                 default:
-                  center = MapConstans.defaultLocation;
+                  center = MapConstants.defaultLocation;
               }
               _animatedMapController.animateTo(
                 dest: center,
-                zoom: MapConstans.defaultZoom,
+                zoom: MapConstants.defaultZoom,
               ); // Center the map on the selected region
               // Update markers here based on the selected region
             },
@@ -128,23 +128,23 @@ class FloatingSearchMapBar extends ConsumerWidget {
               CheckedPopupMenuItem<Regions>(
                 value: Regions.all,
                 checked: selectedRegion == Regions.all,
-                child: Text(MapConstans.all),
+                child: Text(MapConstants.all),
               ),
               CheckedPopupMenuItem<Regions>(
                 value: Regions.veneto,
                 checked: selectedRegion == Regions.veneto,
-                child: Text(MapConstans.veneto),
+                child: Text(MapConstants.veneto),
               ),
               // Add more PopupMenuItem entries for other regions
               CheckedPopupMenuItem<Regions>(
                 value: Regions.lombardia,
                 checked: selectedRegion == Regions.lombardia,
-                child: Text(MapConstans.lombardia),
+                child: Text(MapConstants.lombardia),
               ),
               CheckedPopupMenuItem<Regions>(
                 value: Regions.trentinoAltoAdige,
                 checked: selectedRegion == Regions.trentinoAltoAdige,
-                child: Text(MapConstans.trentinoAltoAdige),
+                child: Text(MapConstants.trentinoAltoAdige),
               ),
             ],
           ),

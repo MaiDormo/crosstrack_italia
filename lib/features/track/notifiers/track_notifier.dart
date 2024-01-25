@@ -168,15 +168,15 @@ class TrackNotifier extends _$TrackNotifier {
   Future<Widget> trackThumbnail(Track track) async {
     try {
       final imageUrl = await _storageRepository
-          .getDownloadUrl(track.photosUrl + MapConstans.thumbnail);
+          .getDownloadUrl(track.photosUrl + MapConstants.thumbnail);
       final image = await Utils.getThumbnail(
           imageUrl); // Ensure this returns Future<Uint8List>
       return image;
     } catch (e) {
       return Image.asset(
-        MapConstans.placeholder,
+        MapConstants.placeholder,
         fit: BoxFit.cover,
-        scale: MapConstans.scaleImage,
+        scale: MapConstants.scaleImage,
       );
     }
   }

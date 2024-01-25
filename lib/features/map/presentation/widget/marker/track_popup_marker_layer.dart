@@ -46,18 +46,18 @@ class TrackPopupMarkerLayer extends ConsumerWidget {
         ),
         markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
         selectedMarkerBuilder: (context, marker) => Container(
-          height: MapConstans.markerSize.h,
-          width: MapConstans.markerSize.h,
+          height: MapConstants.markerSize.h,
+          width: MapConstants.markerSize.h,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             border: Border.all(
               color: Theme.of(context).primaryColor, // Set border color
               width: 3.0.w, // Set border width
             ),
-            borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
+            borderRadius: BorderRadius.circular(MapConstants.markerSize.h),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(MapConstans.markerSize.h),
+            borderRadius: BorderRadius.circular(MapConstants.markerSize.h),
             child: Icon(
               Icons.close_rounded,
               size: 30.0.h,
