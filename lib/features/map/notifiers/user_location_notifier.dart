@@ -15,10 +15,6 @@ Future<String> getLocationPlaceString(GetLocationPlaceStringRef ref) async {
   final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
-  // if (!locationPermission) {
-  //   ref.read(locationPermissionProvider.notifier).evaluateLocationPermission();
-  // }
-
   return userLocationNotifier
       .getLocationPlaceString(locationPermission && showCurrentLocation);
 }
@@ -29,10 +25,6 @@ Future<Position?> getPosition(GetPositionRef ref) async {
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
   final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
-
-  // if (!locationPermission) {
-  //   ref.read(locationPermissionProvider.notifier).evaluateLocationPermission();
-  // }
 
   return locationPermission && showCurrentLocation
       ? await userLocationNotifier.getPosition()
@@ -85,8 +77,10 @@ class UserLocationNotifier extends _$UserLocationNotifier {
         final userLongitude = location.longitude;
 
         List<Placemark> placemarks = await placemarkFromCoordinates(
-            userLatitude, userLongitude,
-            localeIdentifier: MapConstants.localeIdentifier);
+          userLatitude,
+          userLongitude,
+          localeIdentifier: MapConstants.localeIdentifier,
+        );
 
         if (placemarks.isNotEmpty) {
           Placemark closestPlacemark = placemarks.first;
