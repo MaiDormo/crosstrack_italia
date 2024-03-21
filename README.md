@@ -50,7 +50,7 @@ Crosstrack Italia is a comprehensive Flutter application designed for tracking c
 
 The project is organized into several directories (inside the `lib/` directory) that contain the source code for the application. The main directories are as follows:
 
-<div align="center">
+
 ```plaintext
 lib/
 ├── common
@@ -106,6 +106,7 @@ lib/
     │   └── top_bar
     ├── login
     └── tabs
+```
 </div>
 
 The project is divided into several features, each of which is contained in a separate directory. Each feature directory contains the following subdirectories:
