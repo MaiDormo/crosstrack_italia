@@ -6,21 +6,52 @@ part of 'storage_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$storageRepositoryHash() => r'3590a3a529658f11a86a03750a941dcfa43188b4';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [storageRepository].
 @ProviderFor(storageRepository)
-final storageRepositoryProvider =
-    AutoDisposeProvider<StorageRepository>.internal(
-  storageRepository,
-  name: r'storageRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$storageRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final storageRepositoryProvider = StorageRepositoryProvider._();
 
-typedef StorageRepositoryRef = AutoDisposeProviderRef<StorageRepository>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class StorageRepositoryProvider
+    extends
+        $FunctionalProvider<
+          StorageRepository,
+          StorageRepository,
+          StorageRepository
+        >
+    with $Provider<StorageRepository> {
+  StorageRepositoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'storageRepositoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$storageRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<StorageRepository> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  StorageRepository create(Ref ref) {
+    return storageRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StorageRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StorageRepository>(value),
+    );
+  }
+}
+
+String _$storageRepositoryHash() => r'07cbb2d42c005a1f945245b877f8dd401dc810a1';

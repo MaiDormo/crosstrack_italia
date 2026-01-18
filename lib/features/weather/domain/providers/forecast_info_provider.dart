@@ -6,16 +6,13 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'forecast_info_provider.g.dart';
 
 @riverpod
-Future<Forecast> forecastInfo(ForecastInfoRef ref) async {
+Future<Forecast> forecastInfo(Ref ref) async {
   late final forecast;
   final wf = await ref.watch(weatherFactoryProvider.future);
-  final coordinatesTrackSelected = ref.watch(
-    trackSelectedProvider.select(
-      (track) => (
-        double.parse(track.longitude),
-        double.parse(track.latitude),
-      ),
-    ),
+  final trackSelected = ref.watch(trackSelectedProvider);
+  final coordinatesTrackSelected = (
+    double.parse(trackSelected.longitude),
+    double.parse(trackSelected.latitude),
   );
   try {
     forecast = await wf.fiveDayForecastByLocation(

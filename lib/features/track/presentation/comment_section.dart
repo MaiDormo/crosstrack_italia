@@ -31,7 +31,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
   }
 
   void addComment(TrackId id) {
-    ref.read(trackNotifierProvider.notifier).addComment(
+    ref.read(trackProvider.notifier).addComment(
           context,
           commentController.text.trim(),
           id,
@@ -45,7 +45,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
   }
 
   void removeComment(Comment comment) {
-    ref.read(trackNotifierProvider.notifier).removeComment(
+    ref.read(trackProvider.notifier).removeComment(
           comment,
           context,
         );

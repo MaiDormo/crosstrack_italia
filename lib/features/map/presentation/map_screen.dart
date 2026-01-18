@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/common/responsive.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/map_widget/floating_search_map_bar.dart';
 import 'package:crosstrack_italia/features/map/presentation/widget/map_widget/map.dart';
 import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
@@ -29,11 +30,18 @@ class _MapScreenState extends ConsumerState<MapScreen>
 
   @override
   Widget build(BuildContext context) {
-    final _panelHeightOpen = 526.h;
+    // Responsive panel height - smaller on larger screens relative to content
+    final screenHeight = Responsive.screenHeight(context);
+    final panelHeightOpen = Responsive.value(
+      context,
+      mobile: 526.h,
+      tablet: (screenHeight * 0.5).clamp(400.0, 600.0),
+      desktop: (screenHeight * 0.5).clamp(400.0, 600.0),
+    );
     final panelController = ref.watch(panelControllerProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0).h,
+      padding: EdgeInsets.symmetric(vertical: Responsive.value(context, mobile: 8.0, tablet: 12.0, desktop: 16.0)).h,
       child: ClipRRect(
         borderRadius: const BorderRadius.all(
           Radius.circular(20),
@@ -45,19 +53,19 @@ class _MapScreenState extends ConsumerState<MapScreen>
             child: SlidingUpPanel(
               controller: ref.watch(panelControllerProvider),
               minHeight: 0.0,
-              maxHeight: _panelHeightOpen,
+              maxHeight: panelHeightOpen,
               parallaxEnabled: true,
               parallaxOffset: 0.5,
               color: Theme.of(context).colorScheme.secondary,
               body: const ClipRRect(
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                   Radius.circular(20),
                 ),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    const Map(),
-                    const FloatingSearchMapBar(),
+                    Map(),
+                    FloatingSearchMapBar(),
                   ],
                 ),
               ),

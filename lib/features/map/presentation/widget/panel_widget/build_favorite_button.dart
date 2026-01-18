@@ -16,7 +16,7 @@ class HeartIcon extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final favoriteTracksNotifier = ref.watch(favoriteTracksNotifierProvider);
+    final favoriteTracksNotifier = ref.watch(favoriteTracksProvider);
     final isFavorite = switch (favoriteTracksNotifier) {
       AsyncData(:final value) => value.contains(trackId),
       _ => false,
@@ -42,10 +42,10 @@ class HeartIcon extends ConsumerWidget {
       onPressed: () {
         if (isFavorite) {
           ref
-              .read(favoriteTracksNotifierProvider.notifier)
+              .read(favoriteTracksProvider.notifier)
               .removeTrack(trackId);
         } else {
-          ref.read(favoriteTracksNotifierProvider.notifier).addTrack(trackId);
+          ref.read(favoriteTracksProvider.notifier).addTrack(trackId);
         }
       },
       child: Row(

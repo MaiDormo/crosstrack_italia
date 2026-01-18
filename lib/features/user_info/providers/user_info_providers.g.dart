@@ -6,78 +6,206 @@ part of 'user_info_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isLoggedInHash() => r'd3d07253f79d66db7d56727fbeadbb347a6dc13f';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [isLoggedIn].
 @ProviderFor(isLoggedIn)
-final isLoggedInProvider = AutoDisposeProvider<bool>.internal(
-  isLoggedIn,
-  name: r'isLoggedInProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isLoggedInHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final isLoggedInProvider = IsLoggedInProvider._();
 
-typedef IsLoggedInRef = AutoDisposeProviderRef<bool>;
-String _$userIdHash() => r'1bee323cddbc02a2aea282dfa3fb680867dcc37e';
+final class IsLoggedInProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsLoggedInProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isLoggedInProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [userId].
+  @override
+  String debugGetCreateSourceHash() => _$isLoggedInHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isLoggedIn(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isLoggedInHash() => r'399a474f5905a8c6f124d9428e3a818e5d609142';
+
 @ProviderFor(userId)
-final userIdProvider = AutoDisposeProvider<UserId>.internal(
-  userId,
-  name: r'userIdProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userIdHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userIdProvider = UserIdProvider._();
 
-typedef UserIdRef = AutoDisposeProviderRef<UserId>;
-String _$isOwnerHash() => r'a428beb61180721d62123c5a5627af50daf8200a';
+final class UserIdProvider extends $FunctionalProvider<UserId, UserId, UserId>
+    with $Provider<UserId> {
+  UserIdProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userIdProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [isOwner].
+  @override
+  String debugGetCreateSourceHash() => _$userIdHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserId> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UserId create(Ref ref) {
+    return userId(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserId value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserId>(value),
+    );
+  }
+}
+
+String _$userIdHash() => r'935d599d583faf5de672ba645acde94f51734788';
+
 @ProviderFor(isOwner)
-final isOwnerProvider = AutoDisposeProvider<bool>.internal(
-  isOwner,
-  name: r'isOwnerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isOwnerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final isOwnerProvider = IsOwnerProvider._();
 
-typedef IsOwnerRef = AutoDisposeProviderRef<bool>;
-String _$userImageHash() => r'd109a1ab4421111ea4d72a1afa810674a886cdb6';
+final class IsOwnerProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  IsOwnerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'isOwnerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [userImage].
+  @override
+  String debugGetCreateSourceHash() => _$isOwnerHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isOwner(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isOwnerHash() => r'43e049a7967d58f62fb9423d3734758628432cda';
+
 @ProviderFor(userImage)
-final userImageProvider = AutoDisposeProvider<Widget>.internal(
-  userImage,
-  name: r'userImageProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userImageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userImageProvider = UserImageProvider._();
 
-typedef UserImageRef = AutoDisposeProviderRef<Widget>;
-String _$fetchFavoriteTracksHash() =>
-    r'9f7758be0e057b530bcd8e4aadf0f7f8539b903f';
+final class UserImageProvider
+    extends $FunctionalProvider<Widget, Widget, Widget>
+    with $Provider<Widget> {
+  UserImageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userImageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [fetchFavoriteTracks].
+  @override
+  String debugGetCreateSourceHash() => _$userImageHash();
+
+  @$internal
+  @override
+  $ProviderElement<Widget> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  Widget create(Ref ref) {
+    return userImage(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Widget value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Widget>(value),
+    );
+  }
+}
+
+String _$userImageHash() => r'7954fbc3d4a20dfa72c50dd8a68542c8cdfefab3';
+
 @ProviderFor(fetchFavoriteTracks)
-final fetchFavoriteTracksProvider =
-    AutoDisposeFutureProvider<List<TrackId>>.internal(
-  fetchFavoriteTracks,
-  name: r'fetchFavoriteTracksProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchFavoriteTracksHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final fetchFavoriteTracksProvider = FetchFavoriteTracksProvider._();
 
-typedef FetchFavoriteTracksRef = AutoDisposeFutureProviderRef<List<TrackId>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class FetchFavoriteTracksProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<TrackId>>,
+          List<TrackId>,
+          FutureOr<List<TrackId>>
+        >
+    with $FutureModifier<List<TrackId>>, $FutureProvider<List<TrackId>> {
+  FetchFavoriteTracksProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fetchFavoriteTracksProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$fetchFavoriteTracksHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<TrackId>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<TrackId>> create(Ref ref) {
+    return fetchFavoriteTracks(ref);
+  }
+}
+
+String _$fetchFavoriteTracksHash() =>
+    r'1d86bec80fe512a5d4d969ff2e623a3e5a780fa1';

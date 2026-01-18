@@ -9,12 +9,12 @@ import 'package:latlong2/latlong.dart';
 class TrackMarker extends Marker {
   TrackMarker({required this.track})
       : super(
-          anchorPos: AnchorPos.align(AnchorAlign.top),
+          alignment: Alignment.topCenter,
           height: MapConstants.markerSize.h,
           width: MapConstants.markerSize.h,
           point: LatLng(
               double.parse(track.latitude), double.parse(track.longitude)),
-          builder: (BuildContext ctx) => TrackMarkerIcon(),
+          child: TrackMarkerIcon(),
         );
 
   final Track track;

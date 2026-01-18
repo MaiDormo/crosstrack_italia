@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'weather_info.freezed.dart';
 
 @freezed
-class WeatherInfo with _$WeatherInfo {
+abstract class WeatherInfo with _$WeatherInfo {
   factory WeatherInfo({
     required String date,
     required String iconUrl,

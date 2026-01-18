@@ -6,21 +6,49 @@ part of 'user_state_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userStateNotifierHash() => r'7e2bee0fd21d6f89baf0c1941127e1cd5304636b';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [UserStateNotifier].
 @ProviderFor(UserStateNotifier)
-final userStateNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<UserStateNotifier, UserInfoModel>.internal(
-  UserStateNotifier.new,
-  name: r'userStateNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userStateNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userStateProvider = UserStateNotifierProvider._();
 
-typedef _$UserStateNotifier = AutoDisposeAsyncNotifier<UserInfoModel>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class UserStateNotifierProvider
+    extends $AsyncNotifierProvider<UserStateNotifier, UserInfoModel> {
+  UserStateNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userStateNotifierHash();
+
+  @$internal
+  @override
+  UserStateNotifier create() => UserStateNotifier();
+}
+
+String _$userStateNotifierHash() => r'9d0d4acbe486b6b158ecda6366e833224ef7cef8';
+
+abstract class _$UserStateNotifier extends $AsyncNotifier<UserInfoModel> {
+  FutureOr<UserInfoModel> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<UserInfoModel>, UserInfoModel>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<UserInfoModel>, UserInfoModel>,
+              AsyncValue<UserInfoModel>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

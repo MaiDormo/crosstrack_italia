@@ -15,14 +15,14 @@ class OwnedTracksScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ownedTrackState = ref.watch(ownedTracksNotifierProvider);
+    final ownedTrackState = ref.watch(ownedTracksProvider);
 
     Future<void> shouldRemoveOwnerPrivilege(BuildContext context) async {
       final shouldRemovePrivilege = await const RemoveOwnerPrivilegeDialog()
           .present(context)
           .then((value) => value ?? false);
       if (shouldRemovePrivilege) {
-        await ref.read(userStateNotifierProvider.notifier).makeUser();
+        await ref.read(userStateProvider.notifier).makeUser();
         Navigator.of(context).pop();
       }
     }
@@ -33,7 +33,7 @@ class OwnedTracksScreen extends ConsumerWidget {
           .then((value) => value ?? false);
       if (shouldRemovePrivilege) {
         await ref
-            .read(ownedTracksNotifierProvider.notifier)
+            .read(ownedTracksProvider.notifier)
             .removeTrack(track.id);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

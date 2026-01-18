@@ -6,87 +6,236 @@ part of 'user_location_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$getLocationPlaceStringHash() =>
-    r'9c1f4e4859cc878bbead7f07c949d5d9f295d38d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [getLocationPlaceString].
 @ProviderFor(getLocationPlaceString)
-final getLocationPlaceStringProvider =
-    AutoDisposeFutureProvider<String>.internal(
-  getLocationPlaceString,
-  name: r'getLocationPlaceStringProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getLocationPlaceStringHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final getLocationPlaceStringProvider = GetLocationPlaceStringProvider._();
 
-typedef GetLocationPlaceStringRef = AutoDisposeFutureProviderRef<String>;
-String _$getPositionHash() => r'0ad6cb4df7221036b06b8258a6568c403e4255ca';
+final class GetLocationPlaceStringProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
+    with $FutureModifier<String>, $FutureProvider<String> {
+  GetLocationPlaceStringProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getLocationPlaceStringProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [getPosition].
+  @override
+  String debugGetCreateSourceHash() => _$getLocationPlaceStringHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String> create(Ref ref) {
+    return getLocationPlaceString(ref);
+  }
+}
+
+String _$getLocationPlaceStringHash() =>
+    r'0ead10ce5fb83c116fb829f1ac85d8e37842567a';
+
 @ProviderFor(getPosition)
-final getPositionProvider = AutoDisposeFutureProvider<Position?>.internal(
-  getPosition,
-  name: r'getPositionProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$getPositionHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final getPositionProvider = GetPositionProvider._();
 
-typedef GetPositionRef = AutoDisposeFutureProviderRef<Position?>;
+final class GetPositionProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Position?>,
+          Position?,
+          FutureOr<Position?>
+        >
+    with $FutureModifier<Position?>, $FutureProvider<Position?> {
+  GetPositionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getPositionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getPositionHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Position?> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Position?> create(Ref ref) {
+    return getPosition(ref);
+  }
+}
+
+String _$getPositionHash() => r'a69943db8e81ee6ee513e1dbf1c43b57dac2fecf';
+
+@ProviderFor(ShowCurrentLocation)
+final showCurrentLocationProvider = ShowCurrentLocationProvider._();
+
+final class ShowCurrentLocationProvider
+    extends $NotifierProvider<ShowCurrentLocation, bool> {
+  ShowCurrentLocationProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'showCurrentLocationProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$showCurrentLocationHash();
+
+  @$internal
+  @override
+  ShowCurrentLocation create() => ShowCurrentLocation();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
 String _$showCurrentLocationHash() =>
     r'55be9755ecab2a7bbf0bdb32305ada517759f536';
 
-/// See also [ShowCurrentLocation].
-@ProviderFor(ShowCurrentLocation)
-final showCurrentLocationProvider =
-    AutoDisposeNotifierProvider<ShowCurrentLocation, bool>.internal(
-  ShowCurrentLocation.new,
-  name: r'showCurrentLocationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$showCurrentLocationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$ShowCurrentLocation extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$ShowCurrentLocation = AutoDisposeNotifier<bool>;
-String _$centerUserLocationHash() =>
-    r'bd528824bd4550efb6c347abf9ae86152f9fbce7';
-
-/// See also [CenterUserLocation].
 @ProviderFor(CenterUserLocation)
-final centerUserLocationProvider = AutoDisposeNotifierProvider<
-    CenterUserLocation, FollowOnLocationUpdate>.internal(
-  CenterUserLocation.new,
-  name: r'centerUserLocationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$centerUserLocationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final centerUserLocationProvider = CenterUserLocationProvider._();
 
-typedef _$CenterUserLocation = AutoDisposeNotifier<FollowOnLocationUpdate>;
-String _$userLocationNotifierHash() =>
-    r'16cc640e50a2a738080ecbd91c266bddf59c36d0';
+final class CenterUserLocationProvider
+    extends $NotifierProvider<CenterUserLocation, AlignOnUpdate> {
+  CenterUserLocationProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'centerUserLocationProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [UserLocationNotifier].
+  @override
+  String debugGetCreateSourceHash() => _$centerUserLocationHash();
+
+  @$internal
+  @override
+  CenterUserLocation create() => CenterUserLocation();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AlignOnUpdate value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AlignOnUpdate>(value),
+    );
+  }
+}
+
+String _$centerUserLocationHash() =>
+    r'e027a66edf9c79ff13e6b8ef1ac68ac2d6191db5';
+
+abstract class _$CenterUserLocation extends $Notifier<AlignOnUpdate> {
+  AlignOnUpdate build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AlignOnUpdate, AlignOnUpdate>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AlignOnUpdate, AlignOnUpdate>,
+              AlignOnUpdate,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(UserLocationNotifier)
-final userLocationNotifierProvider =
-    AutoDisposeNotifierProvider<UserLocationNotifier, void>.internal(
-  UserLocationNotifier.new,
-  name: r'userLocationNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userLocationNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userLocationProvider = UserLocationNotifierProvider._();
 
-typedef _$UserLocationNotifier = AutoDisposeNotifier<void>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class UserLocationNotifierProvider
+    extends $NotifierProvider<UserLocationNotifier, void> {
+  UserLocationNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userLocationProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userLocationNotifierHash();
+
+  @$internal
+  @override
+  UserLocationNotifier create() => UserLocationNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(void value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<void>(value),
+    );
+  }
+}
+
+String _$userLocationNotifierHash() =>
+    r'500c9e1a312a2c4eeb2b90aaf3e98c3fea6a6d60';
+
+abstract class _$UserLocationNotifier extends $Notifier<void> {
+  void build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<void, void>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<void, void>,
+              void,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

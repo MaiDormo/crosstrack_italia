@@ -19,18 +19,20 @@ import 'tile_cache_stub.dart'
 /// Initializes Firebase and App Check.
 ///
 /// Uses debug provider in debug mode for easier development,
-/// and Play Integrity in release builds for production security.
+/// and Play Integrity/reCAPTCHA in release builds for production security.
 Future<void> initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await FirebaseAppCheck.instance.activate(
-    // Use debug provider in debug mode, Play Integrity in release
-    androidProvider: kDebugMode 
-        ? AndroidProvider.debug 
-        : AndroidProvider.playIntegrity,
-  );
+  // Skip App Check on web in debug mode - it requires reCAPTCHA setup
+  if (!kIsWeb) {
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: kDebugMode 
+          ? AndroidProvider.debug 
+          : AndroidProvider.playIntegrity,
+    );
+  }
 }
 
 Future<void> main() async {
@@ -40,10 +42,19 @@ Future<void> main() async {
 
   try {
     await initializeFirebase();
+  } catch (e, stack) {
+    debugPrint('Firebase initialization error: $e');
+    debugPrint('Stack trace: $stack');
+    // Continue without Firebase if it fails in debug mode
+    if (!kDebugMode) return;
+  }
+
+  try {
     await tile_cache.initializeTileCache();
-  } catch (e) {
-    debugPrint('Initialization error: $e');
-    return;
+  } catch (e, stack) {
+    debugPrint('Tile cache initialization error: $e');
+    debugPrint('Stack trace: $stack');
+    // Continue without tile cache - it's optional
   }
 
   final prefs = await SharedPreferences.getInstance();
@@ -62,20 +73,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    // Allow all orientations on web/desktop, portrait only on mobile
+    if (!kIsWeb) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
 
     return ScreenUtilInit(
       designSize: const Size(411.4, 876.6),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) => MaterialApp(
+      // Use shorter dimension as width for landscape
+      useInheritedMediaQuery: true,
+      builder: (context, child) => MaterialApp(
         title: 'Cross Track Italia',
         theme: ThemeData(
           scaffoldBackgroundColor:
-              // Color.fromRGBO(211, 211, 211, 0.9), // light gray
               const Color.fromRGBO(120, 135, 155, 0.9),
           colorScheme: ColorScheme.fromSeed(
             seedColor:

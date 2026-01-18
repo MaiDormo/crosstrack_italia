@@ -5,11 +5,11 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 part 'controller_utils.g.dart';
 
 @riverpod
-PanelController panelController(PanelControllerRef ref) {
+PanelController panelController(Ref ref) {
   return PanelController();
 }
 
 @riverpod
-PopupController popupController(PopupControllerRef ref) {
+PopupController popupController(Ref ref) {
   return PopupController();
 }

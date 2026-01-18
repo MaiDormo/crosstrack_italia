@@ -21,7 +21,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
   late final AsyncValue<Iterable<Track>> allTracks =
       ref.read(fetchAllTracksProvider);
   late AsyncValue<UserInfoModel> _userState =
-      ref.watch(userStateNotifierProvider);
+      ref.watch(userStateProvider);
 
   @override
   Widget build(BuildContext context) {
@@ -196,9 +196,9 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
     }
 
     if (userRole == UserRole.user) {
-      ref.read(userStateNotifierProvider.notifier).makeOwner(trackIds);
+      ref.read(userStateProvider.notifier).makeOwner(trackIds);
     } else {
-      ref.read(ownedTracksNotifierProvider.notifier).addTracks(trackIds);
+      ref.read(ownedTracksProvider.notifier).addTracks(trackIds);
     }
 
     _showSnackBar(
@@ -220,7 +220,7 @@ class _TrackOwnershipStepperState extends ConsumerState<TrackOwnershipStepper> {
 
   void _navigateToOwnedTracksScreen(BuildContext context) {
     Navigator.of(context).pop();
-    ref.read(navNotifierProvider.notifier).onIndexChanged(1);
+    ref.read(navProvider.notifier).onIndexChanged(1);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const OwnedTracksScreen()),

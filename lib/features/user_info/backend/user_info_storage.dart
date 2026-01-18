@@ -4,7 +4,7 @@ import 'package:crosstrack_italia/features/firebase_constants/firebase_field_nam
 import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
 import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
 import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,7 +12,7 @@ part 'user_info_storage.g.dart';
 
 /// Provides a [UserInfoStorage] instance with dependencies injected.
 @riverpod
-UserInfoStorage userInfoStorage(UserInfoStorageRef ref) {
+UserInfoStorage userInfoStorage(Ref ref) {
   final auth = ref.watch(authProvider);
   final firestore = ref.watch(firestoreProvider);
 
@@ -35,12 +35,12 @@ UserInfoStorage userInfoStorage(UserInfoStorageRef ref) {
 /// final userInfo = await storage.fetchUserInfo(userId);
 /// ```
 class UserInfoStorage {
-  final FirebaseAuth _auth;
+  final firebase_auth.FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
 
   /// Creates a new [UserInfoStorage] with the given Firebase dependencies.
   const UserInfoStorage({
-    required FirebaseAuth auth,
+    required firebase_auth.FirebaseAuth auth,
     required FirebaseFirestore firestore,
   })  : _auth = auth,
         _firestore = firestore;
@@ -128,7 +128,7 @@ class UserInfoStorage {
       }
       await _deleteUserDocument(user.uid);
       await user.delete();
-    } on FirebaseAuthException catch (e) {
+    } on firebase_auth.FirebaseAuthException catch (e) {
       if (e.code == "requires-recent-login") {
         await _reauthenticateAndDelete();
       } else {
@@ -160,10 +160,10 @@ class UserInfoStorage {
         return;
       }
 
-      if (FacebookAuthProvider().providerId == providerData.providerId) {
-        await _reauthenticateWithProvider(AppleAuthProvider());
-      } else if (GoogleAuthProvider().providerId == providerData.providerId) {
-        await _reauthenticateWithProvider(GoogleAuthProvider());
+      if (firebase_auth.FacebookAuthProvider().providerId == providerData.providerId) {
+        await _reauthenticateWithProvider(firebase_auth.AppleAuthProvider());
+      } else if (firebase_auth.GoogleAuthProvider().providerId == providerData.providerId) {
+        await _reauthenticateWithProvider(firebase_auth.GoogleAuthProvider());
       }
 
       await _auth.currentUser?.delete();
@@ -173,7 +173,7 @@ class UserInfoStorage {
   }
 
   /// Reauthenticates the current user with the specified provider.
-  Future<void> _reauthenticateWithProvider(AuthProvider provider) async {
+  Future<void> _reauthenticateWithProvider(firebase_auth.AuthProvider provider) async {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
       debugPrint('Reauthenticate error: No current user');

@@ -6,25 +6,27 @@ part of 'user_info_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserInfoModelImpl _$$UserInfoModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserInfoModelImpl(
-      id: json['id'] as String,
-      displayName: json['display_name'] as String? ?? '',
-      email: json['email'] as String? ?? '',
-      profileImageUrl: json['profile_image_url'] as String? ?? '',
-      favoriteTracks: (json['favorite_tracks'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-      role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']) ??
-          UserRole.guest,
-      ownedTracks: (json['owned_tracks'] as List<dynamic>?)
-              ?.map((e) => e as String)
-              .toList() ??
-          const [],
-    );
+_UserInfoModel _$UserInfoModelFromJson(
+  Map<String, dynamic> json,
+) => _UserInfoModel(
+  id: json['id'] as String,
+  displayName: json['display_name'] as String? ?? '',
+  email: json['email'] as String? ?? '',
+  profileImageUrl: json['profile_image_url'] as String? ?? '',
+  favoriteTracks:
+      (json['favorite_tracks'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  role: $enumDecodeNullable(_$UserRoleEnumMap, json['role']) ?? UserRole.guest,
+  ownedTracks:
+      (json['owned_tracks'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+);
 
-Map<String, dynamic> _$$UserInfoModelImplToJson(_$UserInfoModelImpl instance) =>
+Map<String, dynamic> _$UserInfoModelToJson(_UserInfoModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'display_name': instance.displayName,

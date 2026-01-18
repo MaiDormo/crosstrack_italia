@@ -3,6 +3,6 @@
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 
 Future<void> initializeTileCache() async {
-  await FlutterMapTileCaching.initialise();
-  await FMTC.instance('mapStore').manage.createAsync();
+  await FMTCObjectBoxBackend().initialise();
+  await FMTCStore('mapStore').manage.create();
 }

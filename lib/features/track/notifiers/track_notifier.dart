@@ -23,64 +23,61 @@ part 'track_notifier.g.dart';
 
 //------------------PROVIDERS------------------//
 @riverpod
-Stream<Iterable<Track>> fetchAllTracks(FetchAllTracksRef ref) {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Stream<Iterable<Track>> fetchAllTracks(Ref ref) {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   return trackNotifier.fetchAllTracks();
 }
 
 @riverpod
-Stream<Iterable<Track>> fetchTracksByRegion(
-    FetchTracksByRegionRef ref, String region) async* {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Stream<Iterable<Track>> fetchTracksByRegion(Ref ref, String region) async* {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   yield* trackNotifier.fetchTracksByRegion(region);
 }
 
 @riverpod
 Future<List<Widget>> fetchSelectedTracksThumbnail(
-    FetchSelectedTracksThumbnailRef ref, List<Track> tracks) async {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+    Ref ref, List<Track> tracks) async {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   final images = await trackNotifier.fetchSelectedTracksThumbnail(tracks);
   return images;
 }
 
 @riverpod
-Future<Widget> trackThumbnail(TrackThumbnailRef ref, Track track) async {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Future<Widget> trackThumbnail(Ref ref, Track track) async {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   final image = await trackNotifier.trackThumbnail(track);
   return image;
 }
 
 @riverpod
-Future<Iterable<Widget>> allTrackImages(AllTrackImagesRef ref) async {
+Future<Iterable<Widget>> allTrackImages(Ref ref) async {
   final track = ref.watch(trackSelectedProvider);
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  final trackNotifier = ref.watch(trackProvider.notifier);
   return trackNotifier.allTrackImages(track);
 }
 
 @riverpod
 Future<Iterable<Widget>> allTrackImagesByTrack(
-    AllTrackImagesByTrackRef ref, Track track, bool highQuality) async {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+    Ref ref, Track track, bool highQuality) async {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   return trackNotifier.allTrackImages(track);
 }
 
 @riverpod
-Future<Map<Widget, String>> allTrackImagesWithPaths(
-    AllTrackImagesWithPathsRef ref, Track track) async {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Future<Map<Widget, String>> allTrackImagesWithPaths(Ref ref, Track track) async {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   return trackNotifier.allTrackImagesWithPaths(track);
 }
 
 @riverpod
-Stream<Iterable<Comment>> fetchCommentsByTrackId(
-    FetchCommentsByTrackIdRef ref, TrackId id) async* {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Stream<Iterable<Comment>> fetchCommentsByTrackId(Ref ref, TrackId id) async* {
+  final trackNotifier = ref.watch(trackProvider.notifier);
   yield* trackNotifier.fetchCommentsByTrackId(id);
 }
 
 @riverpod
-Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track track) async {
-  final _trackNotifier = ref.watch(trackNotifierProvider.notifier);
+Future<bool> openGoogleMap(Ref ref, Track track) async {
+  final _trackNotifier = ref.watch(trackProvider.notifier);
   if (track != Track.empty())
     return await _trackNotifier.openGoogleMap(track);
   else
@@ -88,9 +85,9 @@ Future<bool> openGoogleMap(OpenGoogleMapRef ref, Track track) async {
 }
 
 @riverpod
-Future<Iterable<Track>> fetchTracksByIds(FetchTracksByIdsRef ref,
+Future<Iterable<Track>> fetchTracksByIds(Ref ref,
     List<TrackId> favoriteTracks, BuildContext context) async {
-  final trackNotifier = ref.watch(trackNotifierProvider.notifier);
+  final trackNotifier = ref.watch(trackProvider.notifier);
   final tracks = await trackNotifier.fetchTracksByIds(favoriteTracks, context);
   return tracks;
 }
@@ -119,7 +116,7 @@ class TrackSelected extends _$TrackSelected {
 
   void setTrack(Track track) {
     state = track;
-    ref.read(mapNotifierProvider.notifier).animateTo(
+    ref.read(mapProvider.notifier).animateTo(
           LatLng(
             double.parse(track.latitude),
             double.parse(track.longitude),

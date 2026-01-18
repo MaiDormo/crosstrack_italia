@@ -16,7 +16,7 @@ class BottomBar extends ConsumerStatefulWidget {
 class _BottomBarState extends ConsumerState<BottomBar> {
   @override
   Widget build(BuildContext context) {
-    var navIndex = ref.watch(navNotifierProvider).index;
+    var navIndex = ref.watch(navProvider).index;
     final _permanentTextBottomBar =
         ref.watch(userSettingsProvider)[UserConstants.permanentTextBottomBar]!;
 
@@ -63,7 +63,7 @@ class _BottomBarState extends ConsumerState<BottomBar> {
             ),
             showUnselectedLabels: _permanentTextBottomBar,
             onTap: (value) {
-              ref.read(navNotifierProvider.notifier).onIndexChanged(value);
+              ref.read(navProvider.notifier).onIndexChanged(value);
             },
             backgroundColor: Theme.of(context).colorScheme.secondary,
             selectedFontSize: 14.0.sp,

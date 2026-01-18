@@ -6,20 +6,51 @@ part of 'user_info_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userInfoStorageHash() => r'7614f62768e07e7c2b9e8c07e89bb01cd08e86d3';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+/// Provides a [UserInfoStorage] instance with dependencies injected.
 
-/// See also [userInfoStorage].
 @ProviderFor(userInfoStorage)
-final userInfoStorageProvider = AutoDisposeProvider<UserInfoStorage>.internal(
-  userInfoStorage,
-  name: r'userInfoStorageProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$userInfoStorageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userInfoStorageProvider = UserInfoStorageProvider._();
 
-typedef UserInfoStorageRef = AutoDisposeProviderRef<UserInfoStorage>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+/// Provides a [UserInfoStorage] instance with dependencies injected.
+
+final class UserInfoStorageProvider
+    extends
+        $FunctionalProvider<UserInfoStorage, UserInfoStorage, UserInfoStorage>
+    with $Provider<UserInfoStorage> {
+  /// Provides a [UserInfoStorage] instance with dependencies injected.
+  UserInfoStorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userInfoStorageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$userInfoStorageHash();
+
+  @$internal
+  @override
+  $ProviderElement<UserInfoStorage> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  UserInfoStorage create(Ref ref) {
+    return userInfoStorage(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(UserInfoStorage value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<UserInfoStorage>(value),
+    );
+  }
+}
+
+String _$userInfoStorageHash() => r'079ae10e51790dc82f35c851b574b867e55690f7';

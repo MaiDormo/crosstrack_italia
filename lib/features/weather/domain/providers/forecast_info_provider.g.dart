@@ -6,19 +6,39 @@ part of 'forecast_info_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$forecastInfoHash() => r'8a9a7316897e54f9d97a6fb12fcc8145059b6c38';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [forecastInfo].
 @ProviderFor(forecastInfo)
-final forecastInfoProvider = AutoDisposeFutureProvider<Forecast>.internal(
-  forecastInfo,
-  name: r'forecastInfoProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$forecastInfoHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final forecastInfoProvider = ForecastInfoProvider._();
 
-typedef ForecastInfoRef = AutoDisposeFutureProviderRef<Forecast>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class ForecastInfoProvider
+    extends
+        $FunctionalProvider<AsyncValue<Forecast>, Forecast, FutureOr<Forecast>>
+    with $FutureModifier<Forecast>, $FutureProvider<Forecast> {
+  ForecastInfoProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'forecastInfoProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$forecastInfoHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Forecast> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Forecast> create(Ref ref) {
+    return forecastInfo(ref);
+  }
+}
+
+String _$forecastInfoHash() => r'c4063209b50f25f8bbd0cdd843cb0da8806ac7fc';

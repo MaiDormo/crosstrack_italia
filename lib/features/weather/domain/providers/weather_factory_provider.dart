@@ -5,7 +5,7 @@ import 'package:weather/weather.dart';
 part 'weather_factory_provider.g.dart';
 
 @riverpod
-Future<WeatherFactory> weatherFactory(WeatherFactoryRef ref) async {
+Future<WeatherFactory> weatherFactory(Ref ref) async {
   final wf = await WeatherFactory(
     APIKeys.openWeatherAPIKey,
     language: Language.ITALIAN,

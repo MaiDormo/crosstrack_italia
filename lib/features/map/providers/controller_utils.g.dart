@@ -6,35 +6,89 @@ part of 'controller_utils.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$panelControllerHash() => r'4bbb4c7380033273c4cf84f6d3a67a9da28fff2c';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [panelController].
 @ProviderFor(panelController)
-final panelControllerProvider = AutoDisposeProvider<PanelController>.internal(
-  panelController,
-  name: r'panelControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$panelControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final panelControllerProvider = PanelControllerProvider._();
 
-typedef PanelControllerRef = AutoDisposeProviderRef<PanelController>;
-String _$popupControllerHash() => r'6463303eb5accf6337dc31b2a3778f0506a1a43b';
+final class PanelControllerProvider
+    extends
+        $FunctionalProvider<PanelController, PanelController, PanelController>
+    with $Provider<PanelController> {
+  PanelControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'panelControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [popupController].
+  @override
+  String debugGetCreateSourceHash() => _$panelControllerHash();
+
+  @$internal
+  @override
+  $ProviderElement<PanelController> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  PanelController create(Ref ref) {
+    return panelController(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PanelController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PanelController>(value),
+    );
+  }
+}
+
+String _$panelControllerHash() => r'5c6dcee38e8b07d566646b9c07f5f7043c1e2d7b';
+
 @ProviderFor(popupController)
-final popupControllerProvider = AutoDisposeProvider<PopupController>.internal(
-  popupController,
-  name: r'popupControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$popupControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final popupControllerProvider = PopupControllerProvider._();
 
-typedef PopupControllerRef = AutoDisposeProviderRef<PopupController>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class PopupControllerProvider
+    extends
+        $FunctionalProvider<PopupController, PopupController, PopupController>
+    with $Provider<PopupController> {
+  PopupControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'popupControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$popupControllerHash();
+
+  @$internal
+  @override
+  $ProviderElement<PopupController> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  PopupController create(Ref ref) {
+    return popupController(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(PopupController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<PopupController>(value),
+    );
+  }
+}
+
+String _$popupControllerHash() => r'f3b48a2bcead4b8f0a4a2a5f076b64534c6eb8f6';

@@ -1,5 +1,6 @@
 import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,8 +11,8 @@ part 'user_location_notifier.g.dart';
 //------------------------PROVIDERS------------------------//
 
 @riverpod
-Future<String> getLocationPlaceString(GetLocationPlaceStringRef ref) async {
-  final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
+Future<String> getLocationPlaceString(Ref ref) async {
+  final userLocationNotifier = ref.watch(userLocationProvider.notifier);
   final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
@@ -20,15 +21,22 @@ Future<String> getLocationPlaceString(GetLocationPlaceStringRef ref) async {
 }
 
 @riverpod
-Future<Position?> getPosition(GetPositionRef ref) async {
+Future<Position?> getPosition(Ref ref) async {
   final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
-  final userLocationNotifier = ref.watch(userLocationNotifierProvider.notifier);
+  final userLocationNotifier = ref.watch(userLocationProvider.notifier);
 
-  return locationPermission && showCurrentLocation
-      ? await userLocationNotifier.getPosition()
-      : null;
+  if (!locationPermission || !showCurrentLocation) {
+    return null;
+  }
+  
+  try {
+    return await userLocationNotifier.getPosition();
+  } catch (e) {
+    // Return null on error (especially for web where geolocation might fail)
+    return null;
+  }
 }
 
 //------------------------NOTIFIER------------------------//
@@ -49,16 +57,16 @@ class ShowCurrentLocation extends _$ShowCurrentLocation {
 @riverpod
 class CenterUserLocation extends _$CenterUserLocation {
   @override
-  FollowOnLocationUpdate build() {
-    return FollowOnLocationUpdate.never;
+  AlignOnUpdate build() {
+    return AlignOnUpdate.never;
   }
 
   void follow() {
-    state = FollowOnLocationUpdate.always;
+    state = AlignOnUpdate.always;
   }
 
   void stopFollowing() {
-    state = FollowOnLocationUpdate.never;
+    state = AlignOnUpdate.never;
   }
 }
 
@@ -72,14 +80,20 @@ class UserLocationNotifier extends _$UserLocationNotifier {
     if (canShow) {
       try {
         final location = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high);
+            locationSettings: const LocationSettings(
+              accuracy: LocationAccuracy.high,
+            ));
         final userLatitude = location.latitude;
         final userLongitude = location.longitude;
+
+        // Geocoding doesn't work reliably on web
+        if (kIsWeb) {
+          return 'Lat: ${userLatitude.toStringAsFixed(4)}, Lon: ${userLongitude.toStringAsFixed(4)}';
+        }
 
         List<Placemark> placemarks = await placemarkFromCoordinates(
           userLatitude,
           userLongitude,
-          localeIdentifier: MapConstants.localeIdentifier,
         );
 
         if (placemarks.isNotEmpty) {
@@ -100,8 +114,15 @@ class UserLocationNotifier extends _$UserLocationNotifier {
   }
 
   Future<Position> getPosition() async {
-    final location = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high); // Get users location
-    return location;
+    try {
+      final location = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+            accuracy: LocationAccuracy.high,
+          )); // Get users location
+      return location;
+    } catch (e) {
+      // Re-throw with more context for debugging
+      throw Exception('Failed to get position: $e');
+    }
   }
 }

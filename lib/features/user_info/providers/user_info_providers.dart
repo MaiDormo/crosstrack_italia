@@ -13,8 +13,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_info_providers.g.dart';
 
 @riverpod
-bool isLoggedIn(IsLoggedInRef ref) {
-  final _userState = ref.watch(userStateNotifierProvider);
+bool isLoggedIn(Ref ref) {
+  final _userState = ref.watch(userStateProvider);
   return switch (_userState) {
     AsyncData(:final value) => value.id.isNotEmpty,
     _ => false,
@@ -22,8 +22,8 @@ bool isLoggedIn(IsLoggedInRef ref) {
 }
 
 @riverpod
-UserId userId(UserIdRef ref) {
-  final _userState = ref.watch(userStateNotifierProvider);
+UserId userId(Ref ref) {
+  final _userState = ref.watch(userStateProvider);
   return switch (_userState) {
     AsyncData(:final value) => value.id,
     _ => '',
@@ -31,8 +31,8 @@ UserId userId(UserIdRef ref) {
 }
 
 @riverpod
-bool isOwner(IsOwnerRef ref) {
-  final _userState = ref.watch(userStateNotifierProvider);
+bool isOwner(Ref ref) {
+  final _userState = ref.watch(userStateProvider);
   return switch (_userState) {
     AsyncData(:final value) => value.role == UserRole.owner,
     _ => false,
@@ -40,8 +40,8 @@ bool isOwner(IsOwnerRef ref) {
 }
 
 @riverpod
-Widget userImage(UserImageRef ref) {
-  final _userState = ref.watch(userStateNotifierProvider);
+Widget userImage(Ref ref) {
+  final _userState = ref.watch(userStateProvider);
   final _isLogged = ref.watch(isLoggedInProvider);
   if (_isLogged) {
     final providerId =
@@ -76,7 +76,7 @@ Widget userImage(UserImageRef ref) {
 }
 
 @riverpod
-Future<List<TrackId>> fetchFavoriteTracks(FetchFavoriteTracksRef ref) async {
-  final _userState = ref.watch(userStateNotifierProvider.notifier);
+Future<List<TrackId>> fetchFavoriteTracks(Ref ref) async {
+  final _userState = ref.watch(userStateProvider.notifier);
   return await _userState.fetchFavoriteTracks();
 }

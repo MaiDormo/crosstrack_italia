@@ -33,6 +33,9 @@ Widget buildMotoclubCard(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSecondary,
                 ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
               ),
               3.verticalSpace,
               GestureDetector(

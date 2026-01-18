@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'storage_repository.g.dart';
 
 @riverpod
-StorageRepository storageRepository(StorageRepositoryRef ref) {
+StorageRepository storageRepository(Ref ref) {
   return StorageRepository(
     firebaseStorage: ref.watch(storageProvider),
   );

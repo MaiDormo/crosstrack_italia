@@ -6,67 +6,186 @@ part of 'map_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$vsyncContainerHash() => r'd28d9d7eedea00a5aa648f1ab29907a730bc3063';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [vsyncContainer].
-@ProviderFor(vsyncContainer)
-final vsyncContainerProvider = AutoDisposeProvider<VsyncContainer>.internal(
-  vsyncContainer,
-  name: r'vsyncContainerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$vsyncContainerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef VsyncContainerRef = AutoDisposeProviderRef<VsyncContainer>;
-String _$vsyncHash() => r'd1ea249ef2605ee33556e95d2a2f8ea94da327cc';
-
-/// See also [vsync].
-@ProviderFor(vsync)
-final vsyncProvider = AutoDisposeProvider<TickerProvider>.internal(
-  vsync,
-  name: r'vsyncProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$vsyncHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef VsyncRef = AutoDisposeProviderRef<TickerProvider>;
-String _$animatedMapControllerHash() =>
-    r'4776bab931989d4c8104c7d08a3d92f68a25dae5';
-
-/// See also [animatedMapController].
-@ProviderFor(animatedMapController)
-final animatedMapControllerProvider =
-    AutoDisposeProvider<AnimatedMapController>.internal(
-  animatedMapController,
-  name: r'animatedMapControllerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$animatedMapControllerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef AnimatedMapControllerRef
-    = AutoDisposeProviderRef<AnimatedMapController>;
-String _$mapNotifierHash() => r'ee54c040f1c2820f95e6e7a9af5ac1399124c4fe';
-
-/// See also [MapNotifier].
 @ProviderFor(MapNotifier)
-final mapNotifierProvider =
-    AutoDisposeNotifierProvider<MapNotifier, bool>.internal(
-  MapNotifier.new,
-  name: r'mapNotifierProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$mapNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final mapProvider = MapNotifierProvider._();
 
-typedef _$MapNotifier = AutoDisposeNotifier<bool>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class MapNotifierProvider extends $NotifierProvider<MapNotifier, bool> {
+  MapNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'mapProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$mapNotifierHash();
+
+  @$internal
+  @override
+  MapNotifier create() => MapNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$mapNotifierHash() => r'c2ff884c912f3006df509052957bede3a0296029';
+
+abstract class _$MapNotifier extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
+@ProviderFor(vsyncContainer)
+final vsyncContainerProvider = VsyncContainerProvider._();
+
+final class VsyncContainerProvider
+    extends $FunctionalProvider<VsyncContainer, VsyncContainer, VsyncContainer>
+    with $Provider<VsyncContainer> {
+  VsyncContainerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'vsyncContainerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$vsyncContainerHash();
+
+  @$internal
+  @override
+  $ProviderElement<VsyncContainer> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  VsyncContainer create(Ref ref) {
+    return vsyncContainer(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(VsyncContainer value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<VsyncContainer>(value),
+    );
+  }
+}
+
+String _$vsyncContainerHash() => r'688009073f9854104115527d9adb8a1d9636acab';
+
+@ProviderFor(vsync)
+final vsyncProvider = VsyncProvider._();
+
+final class VsyncProvider
+    extends $FunctionalProvider<TickerProvider, TickerProvider, TickerProvider>
+    with $Provider<TickerProvider> {
+  VsyncProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'vsyncProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$vsyncHash();
+
+  @$internal
+  @override
+  $ProviderElement<TickerProvider> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  TickerProvider create(Ref ref) {
+    return vsync(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(TickerProvider value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<TickerProvider>(value),
+    );
+  }
+}
+
+String _$vsyncHash() => r'd611bb42860c5fc5a05bf73cbf549ce94fe3b936';
+
+@ProviderFor(animatedMapController)
+final animatedMapControllerProvider = AnimatedMapControllerProvider._();
+
+final class AnimatedMapControllerProvider
+    extends
+        $FunctionalProvider<
+          AnimatedMapController,
+          AnimatedMapController,
+          AnimatedMapController
+        >
+    with $Provider<AnimatedMapController> {
+  AnimatedMapControllerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'animatedMapControllerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$animatedMapControllerHash();
+
+  @$internal
+  @override
+  $ProviderElement<AnimatedMapController> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  AnimatedMapController create(Ref ref) {
+    return animatedMapController(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AnimatedMapController value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AnimatedMapController>(value),
+    );
+  }
+}
+
+String _$animatedMapControllerHash() =>
+    r'59ec4edf25735141b68931922c1133c228821fa8';

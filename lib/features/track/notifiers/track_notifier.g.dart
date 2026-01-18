@@ -6,1197 +6,853 @@ part of 'track_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllTracksHash() => r'e25ac7f58f05616545bf3c4735803dabc8143df6';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [fetchAllTracks].
 @ProviderFor(fetchAllTracks)
-final fetchAllTracksProvider =
-    AutoDisposeStreamProvider<Iterable<Track>>.internal(
-  fetchAllTracks,
-  name: r'fetchAllTracksProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$fetchAllTracksHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final fetchAllTracksProvider = FetchAllTracksProvider._();
 
-typedef FetchAllTracksRef = AutoDisposeStreamProviderRef<Iterable<Track>>;
-String _$fetchTracksByRegionHash() =>
-    r'cd04cbc1d2e0665b929403b8274c1b678835f802';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [fetchTracksByRegion].
-@ProviderFor(fetchTracksByRegion)
-const fetchTracksByRegionProvider = FetchTracksByRegionFamily();
-
-/// See also [fetchTracksByRegion].
-class FetchTracksByRegionFamily extends Family<AsyncValue<Iterable<Track>>> {
-  /// See also [fetchTracksByRegion].
-  const FetchTracksByRegionFamily();
-
-  /// See also [fetchTracksByRegion].
-  FetchTracksByRegionProvider call(
-    String region,
-  ) {
-    return FetchTracksByRegionProvider(
-      region,
-    );
-  }
-
-  @override
-  FetchTracksByRegionProvider getProviderOverride(
-    covariant FetchTracksByRegionProvider provider,
-  ) {
-    return call(
-      provider.region,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchTracksByRegionProvider';
-}
-
-/// See also [fetchTracksByRegion].
-class FetchTracksByRegionProvider
-    extends AutoDisposeStreamProvider<Iterable<Track>> {
-  /// See also [fetchTracksByRegion].
-  FetchTracksByRegionProvider(
-    String region,
-  ) : this._internal(
-          (ref) => fetchTracksByRegion(
-            ref as FetchTracksByRegionRef,
-            region,
-          ),
-          from: fetchTracksByRegionProvider,
-          name: r'fetchTracksByRegionProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchTracksByRegionHash,
-          dependencies: FetchTracksByRegionFamily._dependencies,
-          allTransitiveDependencies:
-              FetchTracksByRegionFamily._allTransitiveDependencies,
-          region: region,
-        );
-
-  FetchTracksByRegionProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.region,
-  }) : super.internal();
-
-  final String region;
-
-  @override
-  Override overrideWith(
-    Stream<Iterable<Track>> Function(FetchTracksByRegionRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FetchTracksByRegionProvider._internal(
-        (ref) => create(ref as FetchTracksByRegionRef),
-        from: from,
-        name: null,
+final class FetchAllTracksProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Track>>,
+          Iterable<Track>,
+          Stream<Iterable<Track>>
+        >
+    with $FutureModifier<Iterable<Track>>, $StreamProvider<Iterable<Track>> {
+  FetchAllTracksProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'fetchAllTracksProvider',
+        isAutoDispose: true,
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        region: region,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+      );
 
   @override
-  AutoDisposeStreamProviderElement<Iterable<Track>> createElement() {
-    return _FetchTracksByRegionProviderElement(this);
+  String debugGetCreateSourceHash() => _$fetchAllTracksHash();
+
+  @$internal
+  @override
+  $StreamProviderElement<Iterable<Track>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<Iterable<Track>> create(Ref ref) {
+    return fetchAllTracks(ref);
+  }
+}
+
+String _$fetchAllTracksHash() => r'ba2958852b71a6fa452cda2a63a48cd7b1f41806';
+
+@ProviderFor(fetchTracksByRegion)
+final fetchTracksByRegionProvider = FetchTracksByRegionFamily._();
+
+final class FetchTracksByRegionProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Track>>,
+          Iterable<Track>,
+          Stream<Iterable<Track>>
+        >
+    with $FutureModifier<Iterable<Track>>, $StreamProvider<Iterable<Track>> {
+  FetchTracksByRegionProvider._({
+    required FetchTracksByRegionFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'fetchTracksByRegionProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$fetchTracksByRegionHash();
+
+  @override
+  String toString() {
+    return r'fetchTracksByRegionProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $StreamProviderElement<Iterable<Track>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<Iterable<Track>> create(Ref ref) {
+    final argument = this.argument as String;
+    return fetchTracksByRegion(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FetchTracksByRegionProvider && other.region == region;
+    return other is FetchTracksByRegionProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, region.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin FetchTracksByRegionRef on AutoDisposeStreamProviderRef<Iterable<Track>> {
-  /// The parameter `region` of this provider.
-  String get region;
-}
+String _$fetchTracksByRegionHash() =>
+    r'80e4053801bdaecfad61d0a45d4f5774670a3ff7';
 
-class _FetchTracksByRegionProviderElement
-    extends AutoDisposeStreamProviderElement<Iterable<Track>>
-    with FetchTracksByRegionRef {
-  _FetchTracksByRegionProviderElement(super.provider);
-
-  @override
-  String get region => (origin as FetchTracksByRegionProvider).region;
-}
-
-String _$fetchSelectedTracksThumbnailHash() =>
-    r'13c6732a18d26afd3dbbb443498bb356550c480b';
-
-/// See also [fetchSelectedTracksThumbnail].
-@ProviderFor(fetchSelectedTracksThumbnail)
-const fetchSelectedTracksThumbnailProvider =
-    FetchSelectedTracksThumbnailFamily();
-
-/// See also [fetchSelectedTracksThumbnail].
-class FetchSelectedTracksThumbnailFamily
-    extends Family<AsyncValue<List<Widget>>> {
-  /// See also [fetchSelectedTracksThumbnail].
-  const FetchSelectedTracksThumbnailFamily();
-
-  /// See also [fetchSelectedTracksThumbnail].
-  FetchSelectedTracksThumbnailProvider call(
-    List<Track> tracks,
-  ) {
-    return FetchSelectedTracksThumbnailProvider(
-      tracks,
-    );
-  }
-
-  @override
-  FetchSelectedTracksThumbnailProvider getProviderOverride(
-    covariant FetchSelectedTracksThumbnailProvider provider,
-  ) {
-    return call(
-      provider.tracks,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchSelectedTracksThumbnailProvider';
-}
-
-/// See also [fetchSelectedTracksThumbnail].
-class FetchSelectedTracksThumbnailProvider
-    extends AutoDisposeFutureProvider<List<Widget>> {
-  /// See also [fetchSelectedTracksThumbnail].
-  FetchSelectedTracksThumbnailProvider(
-    List<Track> tracks,
-  ) : this._internal(
-          (ref) => fetchSelectedTracksThumbnail(
-            ref as FetchSelectedTracksThumbnailRef,
-            tracks,
-          ),
-          from: fetchSelectedTracksThumbnailProvider,
-          name: r'fetchSelectedTracksThumbnailProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchSelectedTracksThumbnailHash,
-          dependencies: FetchSelectedTracksThumbnailFamily._dependencies,
-          allTransitiveDependencies:
-              FetchSelectedTracksThumbnailFamily._allTransitiveDependencies,
-          tracks: tracks,
-        );
-
-  FetchSelectedTracksThumbnailProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.tracks,
-  }) : super.internal();
-
-  final List<Track> tracks;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<Widget>> Function(FetchSelectedTracksThumbnailRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FetchSelectedTracksThumbnailProvider._internal(
-        (ref) => create(ref as FetchSelectedTracksThumbnailRef),
-        from: from,
-        name: null,
+final class FetchTracksByRegionFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<Iterable<Track>>, String> {
+  FetchTracksByRegionFamily._()
+    : super(
+        retry: null,
+        name: r'fetchTracksByRegionProvider',
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        tracks: tracks,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FetchTracksByRegionProvider call(String region) =>
+      FetchTracksByRegionProvider._(argument: region, from: this);
 
   @override
-  AutoDisposeFutureProviderElement<List<Widget>> createElement() {
-    return _FetchSelectedTracksThumbnailProviderElement(this);
+  String toString() => r'fetchTracksByRegionProvider';
+}
+
+@ProviderFor(fetchSelectedTracksThumbnail)
+final fetchSelectedTracksThumbnailProvider =
+    FetchSelectedTracksThumbnailFamily._();
+
+final class FetchSelectedTracksThumbnailProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Widget>>,
+          List<Widget>,
+          FutureOr<List<Widget>>
+        >
+    with $FutureModifier<List<Widget>>, $FutureProvider<List<Widget>> {
+  FetchSelectedTracksThumbnailProvider._({
+    required FetchSelectedTracksThumbnailFamily super.from,
+    required List<Track> super.argument,
+  }) : super(
+         retry: null,
+         name: r'fetchSelectedTracksThumbnailProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$fetchSelectedTracksThumbnailHash();
+
+  @override
+  String toString() {
+    return r'fetchSelectedTracksThumbnailProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Widget>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Widget>> create(Ref ref) {
+    final argument = this.argument as List<Track>;
+    return fetchSelectedTracksThumbnail(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
     return other is FetchSelectedTracksThumbnailProvider &&
-        other.tracks == tracks;
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, tracks.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin FetchSelectedTracksThumbnailRef
-    on AutoDisposeFutureProviderRef<List<Widget>> {
-  /// The parameter `tracks` of this provider.
-  List<Track> get tracks;
-}
+String _$fetchSelectedTracksThumbnailHash() =>
+    r'165df0a73373364198bbcb859f0962991b7f96be';
 
-class _FetchSelectedTracksThumbnailProviderElement
-    extends AutoDisposeFutureProviderElement<List<Widget>>
-    with FetchSelectedTracksThumbnailRef {
-  _FetchSelectedTracksThumbnailProviderElement(super.provider);
+final class FetchSelectedTracksThumbnailFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Widget>>, List<Track>> {
+  FetchSelectedTracksThumbnailFamily._()
+    : super(
+        retry: null,
+        name: r'fetchSelectedTracksThumbnailProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FetchSelectedTracksThumbnailProvider call(List<Track> tracks) =>
+      FetchSelectedTracksThumbnailProvider._(argument: tracks, from: this);
 
   @override
-  List<Track> get tracks =>
-      (origin as FetchSelectedTracksThumbnailProvider).tracks;
+  String toString() => r'fetchSelectedTracksThumbnailProvider';
 }
 
-String _$trackThumbnailHash() => r'0d7bd294ef506e5b3bef39df3ddf5deb7796c052';
-
-/// See also [trackThumbnail].
 @ProviderFor(trackThumbnail)
-const trackThumbnailProvider = TrackThumbnailFamily();
+final trackThumbnailProvider = TrackThumbnailFamily._();
 
-/// See also [trackThumbnail].
-class TrackThumbnailFamily extends Family<AsyncValue<Widget>> {
-  /// See also [trackThumbnail].
-  const TrackThumbnailFamily();
+final class TrackThumbnailProvider
+    extends $FunctionalProvider<AsyncValue<Widget>, Widget, FutureOr<Widget>>
+    with $FutureModifier<Widget>, $FutureProvider<Widget> {
+  TrackThumbnailProvider._({
+    required TrackThumbnailFamily super.from,
+    required Track super.argument,
+  }) : super(
+         retry: null,
+         name: r'trackThumbnailProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [trackThumbnail].
-  TrackThumbnailProvider call(
-    Track track,
-  ) {
-    return TrackThumbnailProvider(
-      track,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$trackThumbnailHash();
+
+  @override
+  String toString() {
+    return r'trackThumbnailProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  TrackThumbnailProvider getProviderOverride(
-    covariant TrackThumbnailProvider provider,
-  ) {
-    return call(
-      provider.track,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<Widget> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'trackThumbnailProvider';
-}
-
-/// See also [trackThumbnail].
-class TrackThumbnailProvider extends AutoDisposeFutureProvider<Widget> {
-  /// See also [trackThumbnail].
-  TrackThumbnailProvider(
-    Track track,
-  ) : this._internal(
-          (ref) => trackThumbnail(
-            ref as TrackThumbnailRef,
-            track,
-          ),
-          from: trackThumbnailProvider,
-          name: r'trackThumbnailProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$trackThumbnailHash,
-          dependencies: TrackThumbnailFamily._dependencies,
-          allTransitiveDependencies:
-              TrackThumbnailFamily._allTransitiveDependencies,
-          track: track,
-        );
-
-  TrackThumbnailProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.track,
-  }) : super.internal();
-
-  final Track track;
-
-  @override
-  Override overrideWith(
-    FutureOr<Widget> Function(TrackThumbnailRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: TrackThumbnailProvider._internal(
-        (ref) => create(ref as TrackThumbnailRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        track: track,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Widget> createElement() {
-    return _TrackThumbnailProviderElement(this);
+  FutureOr<Widget> create(Ref ref) {
+    final argument = this.argument as Track;
+    return trackThumbnail(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is TrackThumbnailProvider && other.track == track;
+    return other is TrackThumbnailProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, track.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin TrackThumbnailRef on AutoDisposeFutureProviderRef<Widget> {
-  /// The parameter `track` of this provider.
-  Track get track;
-}
+String _$trackThumbnailHash() => r'573ae19486cfef8dffffc885a4b4d9912e524334';
 
-class _TrackThumbnailProviderElement
-    extends AutoDisposeFutureProviderElement<Widget> with TrackThumbnailRef {
-  _TrackThumbnailProviderElement(super.provider);
+final class TrackThumbnailFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Widget>, Track> {
+  TrackThumbnailFamily._()
+    : super(
+        retry: null,
+        name: r'trackThumbnailProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  TrackThumbnailProvider call(Track track) =>
+      TrackThumbnailProvider._(argument: track, from: this);
 
   @override
-  Track get track => (origin as TrackThumbnailProvider).track;
+  String toString() => r'trackThumbnailProvider';
 }
 
-String _$allTrackImagesHash() => r'8111aa7349399bd18798f0933e18abca1febdbb6';
-
-/// See also [allTrackImages].
 @ProviderFor(allTrackImages)
-final allTrackImagesProvider =
-    AutoDisposeFutureProvider<Iterable<Widget>>.internal(
-  allTrackImages,
-  name: r'allTrackImagesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$allTrackImagesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final allTrackImagesProvider = AllTrackImagesProvider._();
 
-typedef AllTrackImagesRef = AutoDisposeFutureProviderRef<Iterable<Widget>>;
-String _$allTrackImagesByTrackHash() =>
-    r'7d0103077448016a237fccc322b82effc8643e3c';
+final class AllTrackImagesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Widget>>,
+          Iterable<Widget>,
+          FutureOr<Iterable<Widget>>
+        >
+    with $FutureModifier<Iterable<Widget>>, $FutureProvider<Iterable<Widget>> {
+  AllTrackImagesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'allTrackImagesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [allTrackImagesByTrack].
-@ProviderFor(allTrackImagesByTrack)
-const allTrackImagesByTrackProvider = AllTrackImagesByTrackFamily();
+  @override
+  String debugGetCreateSourceHash() => _$allTrackImagesHash();
 
-/// See also [allTrackImagesByTrack].
-class AllTrackImagesByTrackFamily extends Family<AsyncValue<Iterable<Widget>>> {
-  /// See also [allTrackImagesByTrack].
-  const AllTrackImagesByTrackFamily();
+  @$internal
+  @override
+  $FutureProviderElement<Iterable<Widget>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
-  /// See also [allTrackImagesByTrack].
-  AllTrackImagesByTrackProvider call(
-    Track track,
-    bool highQuality,
-  ) {
-    return AllTrackImagesByTrackProvider(
-      track,
-      highQuality,
-    );
+  @override
+  FutureOr<Iterable<Widget>> create(Ref ref) {
+    return allTrackImages(ref);
   }
-
-  @override
-  AllTrackImagesByTrackProvider getProviderOverride(
-    covariant AllTrackImagesByTrackProvider provider,
-  ) {
-    return call(
-      provider.track,
-      provider.highQuality,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'allTrackImagesByTrackProvider';
 }
 
-/// See also [allTrackImagesByTrack].
-class AllTrackImagesByTrackProvider
-    extends AutoDisposeFutureProvider<Iterable<Widget>> {
-  /// See also [allTrackImagesByTrack].
-  AllTrackImagesByTrackProvider(
-    Track track,
-    bool highQuality,
-  ) : this._internal(
-          (ref) => allTrackImagesByTrack(
-            ref as AllTrackImagesByTrackRef,
-            track,
-            highQuality,
-          ),
-          from: allTrackImagesByTrackProvider,
-          name: r'allTrackImagesByTrackProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$allTrackImagesByTrackHash,
-          dependencies: AllTrackImagesByTrackFamily._dependencies,
-          allTransitiveDependencies:
-              AllTrackImagesByTrackFamily._allTransitiveDependencies,
-          track: track,
-          highQuality: highQuality,
-        );
+String _$allTrackImagesHash() => r'a3f4abbf7c482ac2b8bafba30abb940eecc4515d';
 
-  AllTrackImagesByTrackProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.track,
-    required this.highQuality,
-  }) : super.internal();
+@ProviderFor(allTrackImagesByTrack)
+final allTrackImagesByTrackProvider = AllTrackImagesByTrackFamily._();
 
-  final Track track;
-  final bool highQuality;
+final class AllTrackImagesByTrackProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Widget>>,
+          Iterable<Widget>,
+          FutureOr<Iterable<Widget>>
+        >
+    with $FutureModifier<Iterable<Widget>>, $FutureProvider<Iterable<Widget>> {
+  AllTrackImagesByTrackProvider._({
+    required AllTrackImagesByTrackFamily super.from,
+    required (Track, bool) super.argument,
+  }) : super(
+         retry: null,
+         name: r'allTrackImagesByTrackProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<Iterable<Widget>> Function(AllTrackImagesByTrackRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AllTrackImagesByTrackProvider._internal(
-        (ref) => create(ref as AllTrackImagesByTrackRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        track: track,
-        highQuality: highQuality,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$allTrackImagesByTrackHash();
+
+  @override
+  String toString() {
+    return r'allTrackImagesByTrackProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Iterable<Widget>> createElement() {
-    return _AllTrackImagesByTrackProviderElement(this);
+  $FutureProviderElement<Iterable<Widget>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Iterable<Widget>> create(Ref ref) {
+    final argument = this.argument as (Track, bool);
+    return allTrackImagesByTrack(ref, argument.$1, argument.$2);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AllTrackImagesByTrackProvider &&
-        other.track == track &&
-        other.highQuality == highQuality;
+    return other is AllTrackImagesByTrackProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, track.hashCode);
-    hash = _SystemHash.combine(hash, highQuality.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin AllTrackImagesByTrackRef
-    on AutoDisposeFutureProviderRef<Iterable<Widget>> {
-  /// The parameter `track` of this provider.
-  Track get track;
+String _$allTrackImagesByTrackHash() =>
+    r'7ab870ff43e6974fe8ec98ccf640d8fd5fcbef5b';
 
-  /// The parameter `highQuality` of this provider.
-  bool get highQuality;
+final class AllTrackImagesByTrackFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Iterable<Widget>>, (Track, bool)> {
+  AllTrackImagesByTrackFamily._()
+    : super(
+        retry: null,
+        name: r'allTrackImagesByTrackProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  AllTrackImagesByTrackProvider call(Track track, bool highQuality) =>
+      AllTrackImagesByTrackProvider._(
+        argument: (track, highQuality),
+        from: this,
+      );
+
+  @override
+  String toString() => r'allTrackImagesByTrackProvider';
 }
 
-class _AllTrackImagesByTrackProviderElement
-    extends AutoDisposeFutureProviderElement<Iterable<Widget>>
-    with AllTrackImagesByTrackRef {
-  _AllTrackImagesByTrackProviderElement(super.provider);
+@ProviderFor(allTrackImagesWithPaths)
+final allTrackImagesWithPathsProvider = AllTrackImagesWithPathsFamily._();
+
+final class AllTrackImagesWithPathsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Map<Widget, String>>,
+          Map<Widget, String>,
+          FutureOr<Map<Widget, String>>
+        >
+    with
+        $FutureModifier<Map<Widget, String>>,
+        $FutureProvider<Map<Widget, String>> {
+  AllTrackImagesWithPathsProvider._({
+    required AllTrackImagesWithPathsFamily super.from,
+    required Track super.argument,
+  }) : super(
+         retry: null,
+         name: r'allTrackImagesWithPathsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Track get track => (origin as AllTrackImagesByTrackProvider).track;
+  String debugGetCreateSourceHash() => _$allTrackImagesWithPathsHash();
+
   @override
-  bool get highQuality => (origin as AllTrackImagesByTrackProvider).highQuality;
+  String toString() {
+    return r'allTrackImagesWithPathsProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<Map<Widget, String>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Map<Widget, String>> create(Ref ref) {
+    final argument = this.argument as Track;
+    return allTrackImagesWithPaths(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AllTrackImagesWithPathsProvider &&
+        other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$allTrackImagesWithPathsHash() =>
-    r'47891a3c928c35b988b2ac9fe16426c04053f2e3';
+    r'780c54c1eeea899c6e93399a85b29f172c8d8257';
 
-/// See also [allTrackImagesWithPaths].
-@ProviderFor(allTrackImagesWithPaths)
-const allTrackImagesWithPathsProvider = AllTrackImagesWithPathsFamily();
+final class AllTrackImagesWithPathsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<Map<Widget, String>>, Track> {
+  AllTrackImagesWithPathsFamily._()
+    : super(
+        retry: null,
+        name: r'allTrackImagesWithPathsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
 
-/// See also [allTrackImagesWithPaths].
-class AllTrackImagesWithPathsFamily
-    extends Family<AsyncValue<Map<Widget, String>>> {
-  /// See also [allTrackImagesWithPaths].
-  const AllTrackImagesWithPathsFamily();
-
-  /// See also [allTrackImagesWithPaths].
-  AllTrackImagesWithPathsProvider call(
-    Track track,
-  ) {
-    return AllTrackImagesWithPathsProvider(
-      track,
-    );
-  }
+  AllTrackImagesWithPathsProvider call(Track track) =>
+      AllTrackImagesWithPathsProvider._(argument: track, from: this);
 
   @override
-  AllTrackImagesWithPathsProvider getProviderOverride(
-    covariant AllTrackImagesWithPathsProvider provider,
-  ) {
-    return call(
-      provider.track,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'allTrackImagesWithPathsProvider';
+  String toString() => r'allTrackImagesWithPathsProvider';
 }
 
-/// See also [allTrackImagesWithPaths].
-class AllTrackImagesWithPathsProvider
-    extends AutoDisposeFutureProvider<Map<Widget, String>> {
-  /// See also [allTrackImagesWithPaths].
-  AllTrackImagesWithPathsProvider(
-    Track track,
-  ) : this._internal(
-          (ref) => allTrackImagesWithPaths(
-            ref as AllTrackImagesWithPathsRef,
-            track,
-          ),
-          from: allTrackImagesWithPathsProvider,
-          name: r'allTrackImagesWithPathsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$allTrackImagesWithPathsHash,
-          dependencies: AllTrackImagesWithPathsFamily._dependencies,
-          allTransitiveDependencies:
-              AllTrackImagesWithPathsFamily._allTransitiveDependencies,
-          track: track,
-        );
+@ProviderFor(fetchCommentsByTrackId)
+final fetchCommentsByTrackIdProvider = FetchCommentsByTrackIdFamily._();
 
-  AllTrackImagesWithPathsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.track,
-  }) : super.internal();
-
-  final Track track;
+final class FetchCommentsByTrackIdProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Comment>>,
+          Iterable<Comment>,
+          Stream<Iterable<Comment>>
+        >
+    with
+        $FutureModifier<Iterable<Comment>>,
+        $StreamProvider<Iterable<Comment>> {
+  FetchCommentsByTrackIdProvider._({
+    required FetchCommentsByTrackIdFamily super.from,
+    required TrackId super.argument,
+  }) : super(
+         retry: null,
+         name: r'fetchCommentsByTrackIdProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  Override overrideWith(
-    FutureOr<Map<Widget, String>> Function(AllTrackImagesWithPathsRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AllTrackImagesWithPathsProvider._internal(
-        (ref) => create(ref as AllTrackImagesWithPathsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        track: track,
-      ),
-    );
+  String debugGetCreateSourceHash() => _$fetchCommentsByTrackIdHash();
+
+  @override
+  String toString() {
+    return r'fetchCommentsByTrackIdProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Map<Widget, String>> createElement() {
-    return _AllTrackImagesWithPathsProviderElement(this);
+  $StreamProviderElement<Iterable<Comment>> $createElement(
+    $ProviderPointer pointer,
+  ) => $StreamProviderElement(pointer);
+
+  @override
+  Stream<Iterable<Comment>> create(Ref ref) {
+    final argument = this.argument as TrackId;
+    return fetchCommentsByTrackId(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AllTrackImagesWithPathsProvider && other.track == track;
+    return other is FetchCommentsByTrackIdProvider &&
+        other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, track.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-mixin AllTrackImagesWithPathsRef
-    on AutoDisposeFutureProviderRef<Map<Widget, String>> {
-  /// The parameter `track` of this provider.
-  Track get track;
-}
-
-class _AllTrackImagesWithPathsProviderElement
-    extends AutoDisposeFutureProviderElement<Map<Widget, String>>
-    with AllTrackImagesWithPathsRef {
-  _AllTrackImagesWithPathsProviderElement(super.provider);
-
-  @override
-  Track get track => (origin as AllTrackImagesWithPathsProvider).track;
 }
 
 String _$fetchCommentsByTrackIdHash() =>
-    r'caae1c8154d8e4d68921a7948ea616d908716239';
+    r'64b3c08d62d76b4ee3d07a4ac3097e747c08b165';
 
-/// See also [fetchCommentsByTrackId].
-@ProviderFor(fetchCommentsByTrackId)
-const fetchCommentsByTrackIdProvider = FetchCommentsByTrackIdFamily();
-
-/// See also [fetchCommentsByTrackId].
-class FetchCommentsByTrackIdFamily
-    extends Family<AsyncValue<Iterable<Comment>>> {
-  /// See also [fetchCommentsByTrackId].
-  const FetchCommentsByTrackIdFamily();
-
-  /// See also [fetchCommentsByTrackId].
-  FetchCommentsByTrackIdProvider call(
-    String id,
-  ) {
-    return FetchCommentsByTrackIdProvider(
-      id,
-    );
-  }
-
-  @override
-  FetchCommentsByTrackIdProvider getProviderOverride(
-    covariant FetchCommentsByTrackIdProvider provider,
-  ) {
-    return call(
-      provider.id,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchCommentsByTrackIdProvider';
-}
-
-/// See also [fetchCommentsByTrackId].
-class FetchCommentsByTrackIdProvider
-    extends AutoDisposeStreamProvider<Iterable<Comment>> {
-  /// See also [fetchCommentsByTrackId].
-  FetchCommentsByTrackIdProvider(
-    String id,
-  ) : this._internal(
-          (ref) => fetchCommentsByTrackId(
-            ref as FetchCommentsByTrackIdRef,
-            id,
-          ),
-          from: fetchCommentsByTrackIdProvider,
-          name: r'fetchCommentsByTrackIdProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchCommentsByTrackIdHash,
-          dependencies: FetchCommentsByTrackIdFamily._dependencies,
-          allTransitiveDependencies:
-              FetchCommentsByTrackIdFamily._allTransitiveDependencies,
-          id: id,
-        );
-
-  FetchCommentsByTrackIdProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final String id;
-
-  @override
-  Override overrideWith(
-    Stream<Iterable<Comment>> Function(FetchCommentsByTrackIdRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FetchCommentsByTrackIdProvider._internal(
-        (ref) => create(ref as FetchCommentsByTrackIdRef),
-        from: from,
-        name: null,
+final class FetchCommentsByTrackIdFamily extends $Family
+    with $FunctionalFamilyOverride<Stream<Iterable<Comment>>, TrackId> {
+  FetchCommentsByTrackIdFamily._()
+    : super(
+        retry: null,
+        name: r'fetchCommentsByTrackIdProvider',
         dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
-  }
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FetchCommentsByTrackIdProvider call(TrackId id) =>
+      FetchCommentsByTrackIdProvider._(argument: id, from: this);
 
   @override
-  AutoDisposeStreamProviderElement<Iterable<Comment>> createElement() {
-    return _FetchCommentsByTrackIdProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is FetchCommentsByTrackIdProvider && other.id == id;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
+  String toString() => r'fetchCommentsByTrackIdProvider';
 }
 
-mixin FetchCommentsByTrackIdRef
-    on AutoDisposeStreamProviderRef<Iterable<Comment>> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
-
-class _FetchCommentsByTrackIdProviderElement
-    extends AutoDisposeStreamProviderElement<Iterable<Comment>>
-    with FetchCommentsByTrackIdRef {
-  _FetchCommentsByTrackIdProviderElement(super.provider);
-
-  @override
-  String get id => (origin as FetchCommentsByTrackIdProvider).id;
-}
-
-String _$openGoogleMapHash() => r'9aa75c3cf2173c20db8f42c53d19ff612a2ce948';
-
-/// See also [openGoogleMap].
 @ProviderFor(openGoogleMap)
-const openGoogleMapProvider = OpenGoogleMapFamily();
+final openGoogleMapProvider = OpenGoogleMapFamily._();
 
-/// See also [openGoogleMap].
-class OpenGoogleMapFamily extends Family<AsyncValue<bool>> {
-  /// See also [openGoogleMap].
-  const OpenGoogleMapFamily();
+final class OpenGoogleMapProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
+    with $FutureModifier<bool>, $FutureProvider<bool> {
+  OpenGoogleMapProvider._({
+    required OpenGoogleMapFamily super.from,
+    required Track super.argument,
+  }) : super(
+         retry: null,
+         name: r'openGoogleMapProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [openGoogleMap].
-  OpenGoogleMapProvider call(
-    Track track,
-  ) {
-    return OpenGoogleMapProvider(
-      track,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$openGoogleMapHash();
+
+  @override
+  String toString() {
+    return r'openGoogleMapProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  OpenGoogleMapProvider getProviderOverride(
-    covariant OpenGoogleMapProvider provider,
-  ) {
-    return call(
-      provider.track,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'openGoogleMapProvider';
-}
-
-/// See also [openGoogleMap].
-class OpenGoogleMapProvider extends AutoDisposeFutureProvider<bool> {
-  /// See also [openGoogleMap].
-  OpenGoogleMapProvider(
-    Track track,
-  ) : this._internal(
-          (ref) => openGoogleMap(
-            ref as OpenGoogleMapRef,
-            track,
-          ),
-          from: openGoogleMapProvider,
-          name: r'openGoogleMapProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$openGoogleMapHash,
-          dependencies: OpenGoogleMapFamily._dependencies,
-          allTransitiveDependencies:
-              OpenGoogleMapFamily._allTransitiveDependencies,
-          track: track,
-        );
-
-  OpenGoogleMapProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.track,
-  }) : super.internal();
-
-  final Track track;
-
-  @override
-  Override overrideWith(
-    FutureOr<bool> Function(OpenGoogleMapRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: OpenGoogleMapProvider._internal(
-        (ref) => create(ref as OpenGoogleMapRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        track: track,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<bool> createElement() {
-    return _OpenGoogleMapProviderElement(this);
+  FutureOr<bool> create(Ref ref) {
+    final argument = this.argument as Track;
+    return openGoogleMap(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is OpenGoogleMapProvider && other.track == track;
+    return other is OpenGoogleMapProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, track.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin OpenGoogleMapRef on AutoDisposeFutureProviderRef<bool> {
-  /// The parameter `track` of this provider.
-  Track get track;
-}
+String _$openGoogleMapHash() => r'17b1d1661163250e1c5ca7cb1e64d2db733b2f88';
 
-class _OpenGoogleMapProviderElement
-    extends AutoDisposeFutureProviderElement<bool> with OpenGoogleMapRef {
-  _OpenGoogleMapProviderElement(super.provider);
+final class OpenGoogleMapFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<bool>, Track> {
+  OpenGoogleMapFamily._()
+    : super(
+        retry: null,
+        name: r'openGoogleMapProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  OpenGoogleMapProvider call(Track track) =>
+      OpenGoogleMapProvider._(argument: track, from: this);
 
   @override
-  Track get track => (origin as OpenGoogleMapProvider).track;
+  String toString() => r'openGoogleMapProvider';
 }
 
-String _$fetchTracksByIdsHash() => r'220aecb9b9c6a5fce4feb477817b15af4232e9d0';
-
-/// See also [fetchTracksByIds].
 @ProviderFor(fetchTracksByIds)
-const fetchTracksByIdsProvider = FetchTracksByIdsFamily();
+final fetchTracksByIdsProvider = FetchTracksByIdsFamily._();
 
-/// See also [fetchTracksByIds].
-class FetchTracksByIdsFamily extends Family<AsyncValue<Iterable<Track>>> {
-  /// See also [fetchTracksByIds].
-  const FetchTracksByIdsFamily();
+final class FetchTracksByIdsProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<Iterable<Track>>,
+          Iterable<Track>,
+          FutureOr<Iterable<Track>>
+        >
+    with $FutureModifier<Iterable<Track>>, $FutureProvider<Iterable<Track>> {
+  FetchTracksByIdsProvider._({
+    required FetchTracksByIdsFamily super.from,
+    required (List<TrackId>, BuildContext) super.argument,
+  }) : super(
+         retry: null,
+         name: r'fetchTracksByIdsProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [fetchTracksByIds].
-  FetchTracksByIdsProvider call(
-    List<String> favoriteTracks,
-    BuildContext context,
-  ) {
-    return FetchTracksByIdsProvider(
-      favoriteTracks,
-      context,
-    );
+  @override
+  String debugGetCreateSourceHash() => _$fetchTracksByIdsHash();
+
+  @override
+  String toString() {
+    return r'fetchTracksByIdsProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  FetchTracksByIdsProvider getProviderOverride(
-    covariant FetchTracksByIdsProvider provider,
-  ) {
-    return call(
-      provider.favoriteTracks,
-      provider.context,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
+  $FutureProviderElement<Iterable<Track>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchTracksByIdsProvider';
-}
-
-/// See also [fetchTracksByIds].
-class FetchTracksByIdsProvider
-    extends AutoDisposeFutureProvider<Iterable<Track>> {
-  /// See also [fetchTracksByIds].
-  FetchTracksByIdsProvider(
-    List<String> favoriteTracks,
-    BuildContext context,
-  ) : this._internal(
-          (ref) => fetchTracksByIds(
-            ref as FetchTracksByIdsRef,
-            favoriteTracks,
-            context,
-          ),
-          from: fetchTracksByIdsProvider,
-          name: r'fetchTracksByIdsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchTracksByIdsHash,
-          dependencies: FetchTracksByIdsFamily._dependencies,
-          allTransitiveDependencies:
-              FetchTracksByIdsFamily._allTransitiveDependencies,
-          favoriteTracks: favoriteTracks,
-          context: context,
-        );
-
-  FetchTracksByIdsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.favoriteTracks,
-    required this.context,
-  }) : super.internal();
-
-  final List<String> favoriteTracks;
-  final BuildContext context;
-
-  @override
-  Override overrideWith(
-    FutureOr<Iterable<Track>> Function(FetchTracksByIdsRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FetchTracksByIdsProvider._internal(
-        (ref) => create(ref as FetchTracksByIdsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        favoriteTracks: favoriteTracks,
-        context: context,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<Iterable<Track>> createElement() {
-    return _FetchTracksByIdsProviderElement(this);
+  FutureOr<Iterable<Track>> create(Ref ref) {
+    final argument = this.argument as (List<TrackId>, BuildContext);
+    return fetchTracksByIds(ref, argument.$1, argument.$2);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FetchTracksByIdsProvider &&
-        other.favoriteTracks == favoriteTracks &&
-        other.context == context;
+    return other is FetchTracksByIdsProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, favoriteTracks.hashCode);
-    hash = _SystemHash.combine(hash, context.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-mixin FetchTracksByIdsRef on AutoDisposeFutureProviderRef<Iterable<Track>> {
-  /// The parameter `favoriteTracks` of this provider.
-  List<String> get favoriteTracks;
+String _$fetchTracksByIdsHash() => r'960b072f0d995c97cebae1017935ae6a13db39f3';
 
-  /// The parameter `context` of this provider.
-  BuildContext get context;
+final class FetchTracksByIdsFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<Iterable<Track>>,
+          (List<TrackId>, BuildContext)
+        > {
+  FetchTracksByIdsFamily._()
+    : super(
+        retry: null,
+        name: r'fetchTracksByIdsProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  FetchTracksByIdsProvider call(
+    List<TrackId> favoriteTracks,
+    BuildContext context,
+  ) => FetchTracksByIdsProvider._(
+    argument: (favoriteTracks, context),
+    from: this,
+  );
+
+  @override
+  String toString() => r'fetchTracksByIdsProvider';
 }
 
-class _FetchTracksByIdsProviderElement
-    extends AutoDisposeFutureProviderElement<Iterable<Track>>
-    with FetchTracksByIdsRef {
-  _FetchTracksByIdsProviderElement(super.provider);
+@ProviderFor(ToggleIconsServicesView)
+final toggleIconsServicesViewProvider = ToggleIconsServicesViewProvider._();
+
+final class ToggleIconsServicesViewProvider
+    extends $NotifierProvider<ToggleIconsServicesView, bool> {
+  ToggleIconsServicesViewProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'toggleIconsServicesViewProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
-  List<String> get favoriteTracks =>
-      (origin as FetchTracksByIdsProvider).favoriteTracks;
+  String debugGetCreateSourceHash() => _$toggleIconsServicesViewHash();
+
+  @$internal
   @override
-  BuildContext get context => (origin as FetchTracksByIdsProvider).context;
+  ToggleIconsServicesView create() => ToggleIconsServicesView();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
 }
 
 String _$toggleIconsServicesViewHash() =>
     r'dbf9ba248439d91ddfcc61e02ea37ced3dcaa509';
 
-/// See also [ToggleIconsServicesView].
-@ProviderFor(ToggleIconsServicesView)
-final toggleIconsServicesViewProvider =
-    AutoDisposeNotifierProvider<ToggleIconsServicesView, bool>.internal(
-  ToggleIconsServicesView.new,
-  name: r'toggleIconsServicesViewProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$toggleIconsServicesViewHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$ToggleIconsServicesView extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$ToggleIconsServicesView = AutoDisposeNotifier<bool>;
-String _$trackSelectedHash() => r'6504919610481210b3fc52781575960807ea423b';
-
-/// See also [TrackSelected].
 @ProviderFor(TrackSelected)
-final trackSelectedProvider =
-    AutoDisposeNotifierProvider<TrackSelected, Track>.internal(
-  TrackSelected.new,
-  name: r'trackSelectedProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$trackSelectedHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final trackSelectedProvider = TrackSelectedProvider._();
 
-typedef _$TrackSelected = AutoDisposeNotifier<Track>;
-String _$trackNotifierHash() => r'44ed6c1fe5872153715f43b0c0426ed8f2286a3a';
+final class TrackSelectedProvider
+    extends $NotifierProvider<TrackSelected, Track> {
+  TrackSelectedProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'trackSelectedProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [TrackNotifier].
+  @override
+  String debugGetCreateSourceHash() => _$trackSelectedHash();
+
+  @$internal
+  @override
+  TrackSelected create() => TrackSelected();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(Track value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<Track>(value),
+    );
+  }
+}
+
+String _$trackSelectedHash() => r'47399025a25896113791f1c4cc469add9c2f916d';
+
+abstract class _$TrackSelected extends $Notifier<Track> {
+  Track build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<Track, Track>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<Track, Track>,
+              Track,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
+
 @ProviderFor(TrackNotifier)
-final trackNotifierProvider =
-    AutoDisposeNotifierProvider<TrackNotifier, bool>.internal(
-  TrackNotifier.new,
-  name: r'trackNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$trackNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final trackProvider = TrackNotifierProvider._();
 
-typedef _$TrackNotifier = AutoDisposeNotifier<bool>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class TrackNotifierProvider
+    extends $NotifierProvider<TrackNotifier, bool> {
+  TrackNotifierProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'trackProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$trackNotifierHash();
+
+  @$internal
+  @override
+  TrackNotifier create() => TrackNotifier();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$trackNotifierHash() => r'a547a23b88f8e7f891077831386f091d39f9c19b';
+
+abstract class _$TrackNotifier extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

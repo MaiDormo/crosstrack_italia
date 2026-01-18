@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/common/responsive.dart';
 import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,7 +37,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
                     Text(
                       'Caricamento...',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).colorScheme.onSecondary,
                       ),
@@ -59,87 +60,88 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false, //to avoid overflow
+        resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).colorScheme.surface,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    //row containing exit button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.close),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                Text(
-                  'Accedi, Per ottenere più funzionalità',
-                  style: TextStyle(
-                    fontSize: 30.h,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.primary,
+        body: ResponsiveContainer(
+          maxWidth: 500,
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.close),
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
 
-                SvgPicture.asset(
-                  'assets/svgs/moto_icon.svg',
-                  height: 300.h,
-                  width: 300.w,
-                  colorFilter: ColorFilter.mode(
-                    Theme.of(context).colorScheme.primary,
-                    BlendMode.srcATop,
+                  Text(
+                    'Accedi, Per ottenere più funzionalità',
+                    style: TextStyle(
+                      fontSize: Responsive.value(context, mobile: 24.sp, tablet: 28.sp, desktop: 32.sp),
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                ),
 
-                //row containing google and facebook buttons
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google button
-                    SquareTile(
-                      imagePath: 'assets/svgs/g_logo.svg',
-                      onTap: () async {
-                        await performLogin(
-                          () => ref.watch(authRepositoryProvider).googleLogin(),
-                        );
-                        Navigator.pop(context);
-                      },
+                  SvgPicture.asset(
+                    'assets/svgs/moto_icon.svg',
+                    height: Responsive.value(context, mobile: 250.h, tablet: 300.h, desktop: 350.h),
+                    width: Responsive.value(context, mobile: 250.w, tablet: 300.w, desktop: 350.w),
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.primary,
+                      BlendMode.srcATop,
                     ),
+                  ),
 
-                    25.horizontalSpace,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // google button
+                      SquareTile(
+                        imagePath: 'assets/svgs/g_logo.svg',
+                        onTap: () async {
+                          await performLogin(
+                            () => ref.watch(authRepositoryProvider).googleLogin(),
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
 
-                    // facebook button
-                    SquareTile(
-                      imagePath: 'assets/svgs/f_logo.svg',
-                      onTap: () async {
-                        await performLogin(
-                          () =>
-                              ref.watch(authRepositoryProvider).facebookLogin(),
-                        );
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
-                ),
+                      25.horizontalSpace,
 
-                50.verticalSpace,
+                      // facebook button
+                      SquareTile(
+                        imagePath: 'assets/svgs/f_logo.svg',
+                        onTap: () async {
+                          await performLogin(
+                            () =>
+                                ref.watch(authRepositoryProvider).facebookLogin(),
+                          );
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
 
-                const HelperLineGestore(),
-              ],
+                  50.verticalSpace,
+
+                  const HelperLineGestore(),
+                ],
+              ),
             ),
           ),
         ),

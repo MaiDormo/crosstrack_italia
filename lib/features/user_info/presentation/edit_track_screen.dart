@@ -158,7 +158,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
 
         // Update the track in the data source
         await ref
-            .read(ownedTracksNotifierProvider.notifier)
+            .read(ownedTracksProvider.notifier)
             .updateTrackInfo(updatedTrack);
         if (_imagePath.isNotEmpty) {
           await uploadImage(

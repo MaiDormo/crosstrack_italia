@@ -6,47 +6,135 @@ part of 'firebase_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$firestoreHash() => r'ef4a6b0737caace50a6d79dd3e4e2aa1bc3031d5';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [firestore].
 @ProviderFor(firestore)
-final firestoreProvider = AutoDisposeProvider<FirebaseFirestore>.internal(
-  firestore,
-  name: r'firestoreProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$firestoreHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final firestoreProvider = FirestoreProvider._();
 
-typedef FirestoreRef = AutoDisposeProviderRef<FirebaseFirestore>;
-String _$authHash() => r'352e1b1338f57dc2753fdc9a19d4695c25cc71ee';
+final class FirestoreProvider
+    extends
+        $FunctionalProvider<
+          FirebaseFirestore,
+          FirebaseFirestore,
+          FirebaseFirestore
+        >
+    with $Provider<FirebaseFirestore> {
+  FirestoreProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'firestoreProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [auth].
+  @override
+  String debugGetCreateSourceHash() => _$firestoreHash();
+
+  @$internal
+  @override
+  $ProviderElement<FirebaseFirestore> $createElement(
+    $ProviderPointer pointer,
+  ) => $ProviderElement(pointer);
+
+  @override
+  FirebaseFirestore create(Ref ref) {
+    return firestore(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FirebaseFirestore value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FirebaseFirestore>(value),
+    );
+  }
+}
+
+String _$firestoreHash() => r'0e25e335c5657f593fc1baf3d9fd026e70bca7fa';
+
 @ProviderFor(auth)
-final authProvider = AutoDisposeProvider<FirebaseAuth>.internal(
-  auth,
-  name: r'authProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$authHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final authProvider = AuthProvider._();
 
-typedef AuthRef = AutoDisposeProviderRef<FirebaseAuth>;
-String _$storageHash() => r'61a75b8840c1391270bb31ed1518aeed8de5f77e';
+final class AuthProvider
+    extends $FunctionalProvider<FirebaseAuth, FirebaseAuth, FirebaseAuth>
+    with $Provider<FirebaseAuth> {
+  AuthProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'authProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
-/// See also [storage].
+  @override
+  String debugGetCreateSourceHash() => _$authHash();
+
+  @$internal
+  @override
+  $ProviderElement<FirebaseAuth> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  FirebaseAuth create(Ref ref) {
+    return auth(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FirebaseAuth value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FirebaseAuth>(value),
+    );
+  }
+}
+
+String _$authHash() => r'6dbd06af0cd85458991a3ba305e5ddbca0092b7e';
+
 @ProviderFor(storage)
-final storageProvider = AutoDisposeProvider<FirebaseStorage>.internal(
-  storage,
-  name: r'storageProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$storageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final storageProvider = StorageProvider._();
 
-typedef StorageRef = AutoDisposeProviderRef<FirebaseStorage>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class StorageProvider
+    extends
+        $FunctionalProvider<FirebaseStorage, FirebaseStorage, FirebaseStorage>
+    with $Provider<FirebaseStorage> {
+  StorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'storageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$storageHash();
+
+  @$internal
+  @override
+  $ProviderElement<FirebaseStorage> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  FirebaseStorage create(Ref ref) {
+    return storage(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(FirebaseStorage value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<FirebaseStorage>(value),
+    );
+  }
+}
+
+String _$storageHash() => r'c1f82625c688ab8f4207827158147c9522767701';

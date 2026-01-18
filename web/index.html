@@ -20,8 +20,11 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Cross Track Italia - Discover motocross tracks in Northern Italy">
 
+  <!-- Google Sign-In -->
+  <meta name="google-signin-client_id" content="737346394316-ar42ro1gs30idb0utl2ikdk08b9l5gd5.apps.googleusercontent.com">
+
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Cross Track Italia">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -32,22 +35,8 @@
   <title>Cross Track Italia</title>
   <link rel="manifest" href="manifest.json">
 
-  <script src="flutter.js" defer></script>
+  <script src="flutter_bootstrap.js" async></script>
 </head>
 <body>
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Use modern Flutter loader API
-      _flutter.loader.load({
-        serviceWorkerSettings: {
-          serviceWorkerVersion: '{{flutter_service_worker_version}}',
-        },
-        onEntrypointLoaded: async function(engineInitializer) {
-          const appRunner = await engineInitializer.initializeEngine();
-          await appRunner.runApp();
-        }
-      });
-    });
-  </script>
 </body>
 </html>

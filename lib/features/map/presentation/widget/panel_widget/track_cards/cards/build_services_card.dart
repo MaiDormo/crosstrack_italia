@@ -104,12 +104,15 @@ Widget buildServiceRow(
     children: [
       value
           ? Icon(icon, color: Theme.of(context).colorScheme.onSecondary)
-          : Text(
-              entryKeyCleaned + ':',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSecondary,
-                fontSize: 9.75.h,
-                fontWeight: FontWeight.bold,
+          : Flexible(
+              child: Text(
+                entryKeyCleaned + ':',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSecondary,
+                  fontSize: 9.75.h,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
       Padding(

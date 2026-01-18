@@ -7,7 +7,7 @@ part 'track.freezed.dart';
 part 'track.g.dart';
 
 @freezed
-class Track with _$Track {
+abstract class Track with _$Track {
   factory Track({
     @Default('') TrackId id,
     @JsonKey(name: FirebaseFieldName.trackName) @Default('') String trackName,

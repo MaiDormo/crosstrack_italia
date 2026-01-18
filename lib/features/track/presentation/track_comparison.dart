@@ -1,5 +1,6 @@
 import 'dart:math' as Math;
 
+import 'package:crosstrack_italia/common/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
@@ -23,7 +24,14 @@ class TrackComparison extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final columnWidth = 181.7.w;
+    // Responsive column width - use percentage of screen width
+    final screenWidth = Responsive.screenWidth(context);
+    final columnWidth = Responsive.value(
+      context,
+      mobile: (screenWidth * 0.42).clamp(120.0, 200.0),
+      tablet: (screenWidth * 0.35).clamp(200.0, 300.0),
+      desktop: (screenWidth * 0.3).clamp(250.0, 400.0),
+    );
 
     return SafeArea(
       child: Scaffold(
@@ -35,100 +43,101 @@ class TrackComparison extends StatelessWidget {
           backgroundColor: Theme.of(context).colorScheme.primary,
           forceMaterialTransparency: true,
         ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0).r,
-            child: Column(
-              children: [
-                _buildTextRow(
-                    context, track1.trackName, track2.trackName, columnWidth,
-                    isTitle: true),
+        body: ResponsiveContainer(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Padding(
+              padding: Responsive.padding(context),
+              child: Column(
+                children: [
+                  _buildTextRow(
+                      context, track1.trackName, track2.trackName, columnWidth,
+                      isTitle: true),
 
-                30.verticalSpace,
+                  30.verticalSpace,
 
-                _buildTitleSeparator("Motoclub", context),
-                _buildTextRow(
-                    context, track1.motoclub, track2.motoclub, columnWidth),
+                  _buildTitleSeparator("Motoclub", context),
+                  _buildTextRow(
+                      context, track1.motoclub, track2.motoclub, columnWidth),
 
-                10.verticalSpace,
+                  10.verticalSpace,
 
-                _buildTitleSeparator("Posizione", context),
-                _buildComparisonRow(
-                  "Regione",
-                  track1.region,
-                  track2.region,
-                  false,
-                  columnWidth,
-                  context,
-                ),
+                  _buildTitleSeparator("Posizione", context),
+                  _buildComparisonRow(
+                    "Regione",
+                    track1.region,
+                    track2.region,
+                    false,
+                    columnWidth,
+                    context,
+                  ),
 
-                _buildComparisonRow(
-                  "Città",
-                  track1.location,
-                  track2.location,
-                  false,
-                  columnWidth,
-                  context,
-                ),
+                  _buildComparisonRow(
+                    "Città",
+                    track1.location,
+                    track2.location,
+                    false,
+                    columnWidth,
+                    context,
+                  ),
 
-                _buildLocationComparisonRow(
-                  track1.latitude,
-                  track1.longitude,
-                  track2.latitude,
-                  track2.longitude,
-                  columnWidth,
-                  context,
-                ),
+                  _buildLocationComparisonRow(
+                    track1.latitude,
+                    track1.longitude,
+                    track2.latitude,
+                    track2.longitude,
+                    columnWidth,
+                    context,
+                  ),
 
-                10.verticalSpace,
+                  10.verticalSpace,
 
-                _buildTitleSeparator("Caratteristiche", context),
-                _buildComparisonRow(
-                  "Categoria",
-                  track1.category,
-                  track2.category,
-                  false,
-                  columnWidth,
-                  context,
-                ),
-                _buildComparisonRow(
-                  "Lunghezza",
-                  track1.trackLength,
-                  track2.trackLength,
-                  false,
-                  columnWidth,
-                  context,
-                ),
-                _buildComparisonRow(
-                  "Terreno",
-                  track1.terrainType,
-                  track2.terrainType,
-                  false,
-                  columnWidth,
-                  context,
-                ),
+                  _buildTitleSeparator("Caratteristiche", context),
+                  _buildComparisonRow(
+                    "Categoria",
+                    track1.category,
+                    track2.category,
+                    false,
+                    columnWidth,
+                    context,
+                  ),
+                  _buildComparisonRow(
+                    "Lunghezza",
+                    track1.trackLength,
+                    track2.trackLength,
+                    false,
+                    columnWidth,
+                    context,
+                  ),
+                  _buildComparisonRow(
+                    "Terreno",
+                    track1.terrainType,
+                    track2.terrainType,
+                    false,
+                    columnWidth,
+                    context,
+                  ),
 
-                10.verticalSpace,
+                  10.verticalSpace,
 
-                _buildTitleSeparator("Info Pilota", context),
-                _buildAcceptedLicensesRow(
-                  track1.acceptedLicenses,
-                  track2.acceptedLicenses,
-                  columnWidth,
-                ),
+                  _buildTitleSeparator("Info Pilota", context),
+                  _buildAcceptedLicensesRow(
+                    track1.acceptedLicenses,
+                    track2.acceptedLicenses,
+                    columnWidth,
+                  ),
 
-                10.verticalSpace,
+                  10.verticalSpace,
 
-                //add track characteristics here
-                _buildTitleSeparator("Servizi", context),
-                _buildServicesComparisonRow(
-                  track1.services,
-                  track2.services,
-                  columnWidth,
-                  context,
-                ),
-              ],
+                  _buildTitleSeparator("Servizi", context),
+                  _buildServicesComparisonRow(
+                    track1.services,
+                    track2.services,
+                    columnWidth,
+                    context,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -15,7 +15,7 @@ part 'track_repository.g.dart';
 
 /// Provides a [TrackRepository] instance with Firestore dependency injected.
 @riverpod
-TrackRepository trackRepository(TrackRepositoryRef ref) {
+TrackRepository trackRepository(Ref ref) {
   return TrackRepository(
     firestore: ref.watch(firestoreProvider),
   );

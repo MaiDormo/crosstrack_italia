@@ -21,7 +21,7 @@ part 'build_remove_image_field.g.dart';
 //when the user presses the save button,
 //the images in the map are deleted from the storage and the map is cleared
 @riverpod
-Map<Widget, String> undoImageDelete(UndoImageDeleteRef ref) {
+Map<Widget, String> undoImageDelete(Ref ref) {
   return ref.watch(imagesPathToBeDeletedProvider.notifier).undo();
 }
 

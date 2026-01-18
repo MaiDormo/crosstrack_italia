@@ -11,7 +11,7 @@ class FavoriteTracksScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteTrackState = ref.watch(favoriteTracksNotifierProvider);
+    final favoriteTrackState = ref.watch(favoriteTracksProvider);
 
     return SafeArea(
       child: Scaffold(
@@ -105,7 +105,7 @@ class FavoriteTracksScreen extends ConsumerWidget {
                                     color: Colors.red,
                                     onPressed: () {
                                       ref
-                                          .read(favoriteTracksNotifierProvider
+                                          .read(favoriteTracksProvider
                                               .notifier)
                                           .removeTrack(track.id);
                                       ScaffoldMessenger.of(context)

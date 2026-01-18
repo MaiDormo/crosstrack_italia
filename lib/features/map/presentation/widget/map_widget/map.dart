@@ -10,7 +10,7 @@ import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_
 import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,17 +52,24 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
     return FlutterMap(
       mapController: _animatedMapController.mapController,
       options: MapOptions(
-        center: const LatLng(46.066775, 11.149904),
-        zoom: 10.0,
+        initialCenter: const LatLng(46.066775, 11.149904),
+        initialZoom: 10.0,
         minZoom: 7.0,
         maxZoom: 18.0,
-        interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        interactionOptions: const InteractionOptions(
+          flags: InteractiveFlag.all & ~InteractiveFlag.rotate,
+        ),
         onTap: (tapPosition, position) {
           ref.read(panelControllerProvider).close();
           ref.read(popupControllerProvider).hideAllPopups();
         }, //close panel when tap on map
       ),
-      nonRotatedChildren: [
+      children: [
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.crosstrack_italia.app',
+          tileProvider: tile_provider.getTileProvider(),
+        ),
         RichAttributionWidget(
           attributions: [
             TextSourceAttribution(
@@ -77,19 +84,12 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-      ],
-      children: [
-        TileLayer(
-          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-          userAgentPackageName: 'com.crosstrack_italia.app',
-          tileProvider: tile_provider.getTileProvider(),
-        ),
         //contains layers
         //which themselves will contain all the makers
         locationPermission && showCurrentLocation
             ? CurrentLocationLayer(
-                followOnLocationUpdate: centerUserLocation,
-                turnOnHeadingUpdate: TurnOnHeadingUpdate.never,
+                alignPositionOnUpdate: centerUserLocation,
+                alignDirectionOnUpdate: AlignOnUpdate.never,
                 style: LocationMarkerStyle(
                   marker: DefaultLocationMarker(
                     color: Theme.of(context).colorScheme.secondary,

@@ -15,10 +15,10 @@ class TrentinoAltoAdigeTracksMarkers extends ConsumerWidget {
       data: (tracks) {
         return tracks.isNotEmpty
             ? TrackPopupMarkerLayer(tracks: tracks)
-            : const MarkerLayer();
+            : const MarkerLayer(markers: []);
       },
-      error: (error, stackTrace) => const MarkerLayer(),
-      loading: () => const MarkerLayer(),
+      error: (error, stackTrace) => const MarkerLayer(markers: []),
+      loading: () => const MarkerLayer(markers: []),
     );
   }
 }

@@ -30,6 +30,8 @@ Widget buildStyledText({
         fontWeight: fontWeight,
         color: color,
       ),
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
     );
 
 void showSnackBar(BuildContext context, bool value, String loadingMessage,

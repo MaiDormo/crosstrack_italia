@@ -9,7 +9,7 @@ part 'user_info_model.freezed.dart';
 part 'user_info_model.g.dart';
 
 @freezed
-class UserInfoModel with _$UserInfoModel {
+abstract class UserInfoModel with _$UserInfoModel {
   const factory UserInfoModel({
     required UserId id,
     @JsonKey(name: FirebaseFieldName.displayName)

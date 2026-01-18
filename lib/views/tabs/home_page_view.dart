@@ -1,3 +1,4 @@
+import 'package:crosstrack_italia/common/responsive.dart';
 import 'package:crosstrack_italia/features/map/presentation/map_screen.dart';
 import 'package:crosstrack_italia/views/components/bottom_bar/bottom_bar.dart';
 import 'package:crosstrack_italia/views/components/bottom_bar/nav_states/nav_notifier.dart';
@@ -22,21 +23,20 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false, //to avoid overflow
-        body: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //Top of the screen
-              const TopBar(),
-              5.verticalSpace,
-              //middle of the screen
-              const NavigationIndexedStack(),
-              5.verticalSpace,
-              //bottom of the screen
-              const BottomBar(),
-            ],
+        resizeToAvoidBottomInset: false,
+        body: ResponsiveContainer(
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const TopBar(),
+                Responsive.value(context, mobile: 5, tablet: 8, desktop: 10).verticalSpace,
+                const NavigationIndexedStack(),
+                Responsive.value(context, mobile: 5, tablet: 8, desktop: 10).verticalSpace,
+                const BottomBar(),
+              ],
+            ),
           ),
         ),
       ),
@@ -49,7 +49,7 @@ class NavigationIndexedStack extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final navIndex = ref.watch(navNotifierProvider).index;
+    final navIndex = ref.watch(navProvider).index;
     return Expanded(
       child: IndexedStack(
         index: navIndex,

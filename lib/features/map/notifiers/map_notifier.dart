@@ -22,17 +22,17 @@ class MapNotifier extends _$MapNotifier {
 }
 
 @riverpod
-VsyncContainer vsyncContainer(VsyncContainerRef ref) {
+VsyncContainer vsyncContainer(Ref ref) {
   return VsyncContainer();
 }
 
 @riverpod
-TickerProvider vsync(VsyncRef ref) {
+TickerProvider vsync(Ref ref) {
   return ref.watch(vsyncContainerProvider);
 }
 
 @riverpod
-AnimatedMapController animatedMapController(AnimatedMapControllerRef ref) {
+AnimatedMapController animatedMapController(Ref ref) {
   final vsync = ref.watch(vsyncProvider);
   return AnimatedMapController(
     vsync: vsync,

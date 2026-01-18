@@ -7,8 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'favorite_tracks_notifier.g.dart';
 
 @riverpod
-FavoriteTracksRepository favoriteTracksRepository(
-    FavoriteTracksRepositoryRef ref) {
+FavoriteTracksRepository favoriteTracksRepository(Ref ref) {
   final _firestore = ref.watch(firestoreProvider);
   final _userId = ref.watch(userIdProvider);
   final _isLogged = ref.watch(isLoggedInProvider);

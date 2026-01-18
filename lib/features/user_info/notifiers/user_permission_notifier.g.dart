@@ -6,54 +6,146 @@ part of 'user_permission_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(LocationPermission)
+final locationPermissionProvider = LocationPermissionProvider._();
+
+final class LocationPermissionProvider
+    extends $NotifierProvider<LocationPermission, bool> {
+  LocationPermissionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'locationPermissionProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$locationPermissionHash();
+
+  @$internal
+  @override
+  LocationPermission create() => LocationPermission();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
 String _$locationPermissionHash() =>
     r'27f3361f226b814d1ddc51bdc2b8433138278f9f';
 
-/// See also [LocationPermission].
-@ProviderFor(LocationPermission)
-final locationPermissionProvider =
-    NotifierProvider<LocationPermission, bool>.internal(
-  LocationPermission.new,
-  name: r'locationPermissionProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$locationPermissionHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$LocationPermission extends $Notifier<bool> {
+  bool build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<bool, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<bool, bool>,
+              bool,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$LocationPermission = Notifier<bool>;
+@ProviderFor(StoragePermission)
+final storagePermissionProvider = StoragePermissionProvider._();
+
+final class StoragePermissionProvider
+    extends $AsyncNotifierProvider<StoragePermission, bool> {
+  StoragePermissionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'storagePermissionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$storagePermissionHash();
+
+  @$internal
+  @override
+  StoragePermission create() => StoragePermission();
+}
+
 String _$storagePermissionHash() => r'a7cb18c8b72ddff57b0953536b69bc2c2f0f003f';
 
-/// See also [StoragePermission].
-@ProviderFor(StoragePermission)
-final storagePermissionProvider =
-    AutoDisposeAsyncNotifierProvider<StoragePermission, bool>.internal(
-  StoragePermission.new,
-  name: r'storagePermissionProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$storagePermissionHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$StoragePermission extends $AsyncNotifier<bool> {
+  FutureOr<bool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<bool>, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<bool>, bool>,
+              AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
-typedef _$StoragePermission = AutoDisposeAsyncNotifier<bool>;
+@ProviderFor(CameraPermission)
+final cameraPermissionProvider = CameraPermissionProvider._();
+
+final class CameraPermissionProvider
+    extends $AsyncNotifierProvider<CameraPermission, bool> {
+  CameraPermissionProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cameraPermissionProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$cameraPermissionHash();
+
+  @$internal
+  @override
+  CameraPermission create() => CameraPermission();
+}
+
 String _$cameraPermissionHash() => r'94fc1880b9c094e94aaa3d8718b994d62aed9de4';
 
-/// See also [CameraPermission].
-@ProviderFor(CameraPermission)
-final cameraPermissionProvider =
-    AutoDisposeAsyncNotifierProvider<CameraPermission, bool>.internal(
-  CameraPermission.new,
-  name: r'cameraPermissionProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$cameraPermissionHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$CameraPermission = AutoDisposeAsyncNotifier<bool>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+abstract class _$CameraPermission extends $AsyncNotifier<bool> {
+  FutureOr<bool> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<AsyncValue<bool>, bool>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<bool>, bool>,
+              AsyncValue<bool>,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}

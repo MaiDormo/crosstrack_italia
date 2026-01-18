@@ -99,7 +99,7 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<void> makeOwner(List<TrackId> ownedTracks) async {
-    final currentUser = state.valueOrNull;
+    final currentUser = state.value;
     if (currentUser == null) {
       return;
     }
@@ -112,7 +112,7 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<void> makeUser() async {
-    final currentUser = state.valueOrNull;
+    final currentUser = state.value;
     if (currentUser == null) {
       return;
     }

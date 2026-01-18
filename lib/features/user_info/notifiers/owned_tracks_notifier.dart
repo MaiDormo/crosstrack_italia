@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'owned_tracks_notifier.g.dart';
 
 @riverpod
-OwnedTracksRepository ownedTracksRepository(OwnedTracksRepositoryRef ref) {
+OwnedTracksRepository ownedTracksRepository(Ref ref) {
   final _firestore = ref.watch(firestoreProvider);
   final _userId = ref.watch(userIdProvider);
   return OwnedTracksRepository(firestore: _firestore, userId: _userId);

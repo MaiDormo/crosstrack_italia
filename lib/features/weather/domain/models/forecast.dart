@@ -5,7 +5,7 @@ import 'package:weather/weather.dart';
 part 'forecast.freezed.dart';
 
 @freezed
-class Forecast with _$Forecast {
+abstract class Forecast with _$Forecast {
   factory Forecast({
     required List<WeatherInfo> list,
   }) = _Forecast;

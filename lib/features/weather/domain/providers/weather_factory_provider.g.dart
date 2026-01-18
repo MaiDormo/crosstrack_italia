@@ -6,21 +6,44 @@ part of 'weather_factory_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$weatherFactoryHash() => r'60c045250898da8b818d39943b5267fa44617c10';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [weatherFactory].
 @ProviderFor(weatherFactory)
-final weatherFactoryProvider =
-    AutoDisposeFutureProvider<WeatherFactory>.internal(
-  weatherFactory,
-  name: r'weatherFactoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$weatherFactoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final weatherFactoryProvider = WeatherFactoryProvider._();
 
-typedef WeatherFactoryRef = AutoDisposeFutureProviderRef<WeatherFactory>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+final class WeatherFactoryProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<WeatherFactory>,
+          WeatherFactory,
+          FutureOr<WeatherFactory>
+        >
+    with $FutureModifier<WeatherFactory>, $FutureProvider<WeatherFactory> {
+  WeatherFactoryProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'weatherFactoryProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$weatherFactoryHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<WeatherFactory> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<WeatherFactory> create(Ref ref) {
+    return weatherFactory(ref);
+  }
+}
+
+String _$weatherFactoryHash() => r'4a4a44f3a286f28ee9df402870d091c426dd0f8c';

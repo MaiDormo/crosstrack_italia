@@ -31,12 +31,15 @@ class TopBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GeolocationButton(),
-                  Text(
-                    "Cross Track Italia",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Text(
+                      "Cross Track Italia",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   loginIcon(),
@@ -47,7 +50,7 @@ class TopBar extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    LocationText(),
+                    Flexible(child: LocationText()),
                     loginIconText(),
                   ],
                 ),

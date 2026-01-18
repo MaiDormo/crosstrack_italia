@@ -34,7 +34,7 @@ class SettingsPageView extends ConsumerWidget {
 
     Future<void> shouldDeleteAccount(BuildContext context) async {
       await confirmAction(context, const DeleteAccountDialog(),
-          () => ref.read(userStateNotifierProvider.notifier).deleteUserInfo());
+          () => ref.read(userStateProvider.notifier).deleteUserInfo());
     }
 
     Widget settingsTile(
@@ -134,28 +134,28 @@ class SettingsPageView extends ConsumerWidget {
                   context,
                   'Testo permanente nella barra di navigazione',
                   Icons.text_fields,
-                  () => null,
+                  () {},
                   settingKey: UserConstants.permanentTextBottomBar,
                 ),
                 settingsTile(
                   context,
                   'Mostra più informazioni all\'interno dell\'applicazione',
                   Icons.info,
-                  () => null,
+                  () {},
                   settingKey: UserConstants.showMoreInfo,
                 ),
                 settingsTile(
                   context,
                   'Mostra impostazioni in sviluppo',
                   Icons.developer_mode,
-                  () => null,
+                  () {},
                   settingKey: UserConstants.showSettingsInDevelopment,
                 ),
                 settingsTile(
                   context,
                   'Mostra posizione nella barra superiore',
                   Icons.location_on,
-                  () => null,
+                  () {},
                   settingKey: UserConstants.showLocationTopBar,
                 ),
               ],
@@ -170,38 +170,38 @@ class SettingsPageView extends ConsumerWidget {
                     context,
                     'Impostazioni ricerca tracciato',
                     Icons.track_changes,
-                    // () => null,
-                    () => null,
+                    // () {},
+                    () {},
                   ),
                   settingsTile(
                     context,
                     'Impostazioni notifiche',
                     Icons.notifications,
-                    () => null,
+                    () {},
                   ),
                   settingsTile(
                     context,
                     'Unità di misura',
                     Icons.straighten,
-                    () => null,
+                    () {},
                   ),
                   settingsTile(
                     context,
                     'Impostazioni Meteo',
                     Icons.wb_sunny,
-                    () => null,
+                    () {},
                   ),
                   settingsTile(
                     context,
                     'Tema applicazione',
                     Icons.brightness_6,
-                    () => null,
+                    () {},
                   ),
                   settingsTile(
                     context,
                     'Impostazioni lingua',
                     Icons.language,
-                    () => null,
+                    () {},
                   ),
                 ],
                 context,
