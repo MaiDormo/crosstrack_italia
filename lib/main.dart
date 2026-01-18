@@ -2,6 +2,7 @@ import 'package:crosstrack_italia/common/shared_preferences.dart';
 import 'package:crosstrack_italia/splash_screen.dart';
 import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
@@ -17,13 +18,20 @@ Future<void> initializeTileCache() async {
   await FMTC.instance('mapStore').manage.createAsync();
 }
 
+/// Initializes Firebase and App Check.
+///
+/// Uses debug provider in debug mode for easier development,
+/// and Play Integrity in release builds for production security.
 Future<void> initializeFirebase() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
+    // Use debug provider in debug mode, Play Integrity in release
+    androidProvider: kDebugMode 
+        ? AndroidProvider.debug 
+        : AndroidProvider.playIntegrity,
   );
 }
 

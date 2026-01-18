@@ -74,7 +74,7 @@ Widget buildServiceSwitch(
     ),
     child: Switch(
       value: _value,
-      activeColor: Theme.of(context).colorScheme.secondary,
+      activeThumbColor: Theme.of(context).colorScheme.secondary,
       activeTrackColor: Theme.of(context).colorScheme.onSecondary,
       inactiveThumbColor: Theme.of(context).colorScheme.secondary,
       inactiveTrackColor: Theme.of(context).colorScheme.onSecondary,

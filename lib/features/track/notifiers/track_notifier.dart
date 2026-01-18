@@ -155,16 +155,15 @@ class TrackNotifier extends _$TrackNotifier {
     };
   }
 
+  /// Fetches thumbnails for multiple tracks in parallel.
+  ///
+  /// Uses [Future.wait] for concurrent loading, which is significantly
+  /// faster than sequential loading when fetching multiple images.
   Future<List<Widget>> fetchSelectedTracksThumbnail(List<Track> tracks) async {
-    final List<Widget> images = [];
-    for (final track in tracks) {
-      final image = await trackThumbnail(track);
-      images.add(image);
-    }
-    return images;
+    return Future.wait(tracks.map((track) => trackThumbnail(track)));
   }
 
-  //collect track Thumbnail
+  /// Fetches the thumbnail image for a single track.
   Future<Widget> trackThumbnail(Track track) async {
     try {
       final imageUrl = await _storageRepository
@@ -218,11 +217,12 @@ class TrackNotifier extends _$TrackNotifier {
   ) async {
     final String id = Uuid().v1();
     final userId = ref.read(userIdProvider);
+    final currentUser = FirebaseAuth.instance.currentUser;
     final Comment comment = Comment(
       id: id,
       trackId: trackId,
       userId: userId,
-      userName: FirebaseAuth.instance.currentUser!.displayName!,
+      userName: currentUser?.displayName ?? 'Utente Anonimo',
       text: text,
       date: DateTime.now(),
       rating: rating,

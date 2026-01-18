@@ -1,6 +1,6 @@
 // providers.dart
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:riverpod/riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //this provider starts as a throw error provider,
 //but it is overridden in the main.dart file

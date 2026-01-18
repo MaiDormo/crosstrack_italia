@@ -29,7 +29,7 @@ class TrackSelectionScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Confronto Tracciati'),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         body: _buildSelectionForm(context),
       ),
     );

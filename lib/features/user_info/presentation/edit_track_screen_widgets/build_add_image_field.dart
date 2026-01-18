@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,7 +40,9 @@ Future<void> uploadImage(
     String firebasePath = 'tracks/$formattedTrackRegion/$trackId/$fileName';
 
     await ref.watch(storageProvider).ref(firebasePath).putFile(File(filePath));
-  } catch (e) {}
+  } catch (e) {
+    debugPrint('Upload image error: $e');
+  }
 }
 
 class ImageField extends StatefulWidget {

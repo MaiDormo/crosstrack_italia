@@ -68,36 +68,3 @@ class Utils {
         ),
       );
 }
-
-//------------------------BEFORE GRADLE PROBLEM------------------------
-
-//This commented code was used to compress the images.
-//It is not used anymore because importing the project in android studio,
-//created a problem with gradle and the project was not compiling anymore.
-
-//So i have decided to opt for a different solution, 
-//using the cached_network_image package
-
-
-
-// static Future<Uint8List> _getCompressedImage(
-  //     String imageUrl, int minHeight, int minWidth) async {
-  //   final ByteData imageData =
-  //       await NetworkAssetBundle(Uri.parse(imageUrl)).load("");
-  //   final Uint8List uint8list = imageData.buffer.asUint8List();
-  //   final compressedData = await FlutterImageCompress.compressWithList(
-  //     uint8list,
-  //     minHeight: minHeight.h.floor(),
-  //     minWidth: minWidth.w.floor(),
-  //     quality: 85,
-  //   );
-  //   return compressedData;
-  // }
-
-  // static Future<Uint8List> getCompressedImage(String imageUrl) {
-  //   return _getCompressedImage(imageUrl, 300, 400);
-  // }
-
-  // static Future<Uint8List> getCompressedThumbnail(String thumbnailUrl) {
-  //   return _getCompressedImage(thumbnailUrl, 150, 200);
-  // }

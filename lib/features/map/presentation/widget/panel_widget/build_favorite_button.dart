@@ -26,13 +26,13 @@ class HeartIcon extends ConsumerWidget {
 
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.pressed)) {
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.pressed)) {
             return Theme.of(context).colorScheme.onSecondary.withOpacity(0.5);
           }
           return Theme.of(context).colorScheme.onSecondary;
         }),
-        padding: MaterialStateProperty.all(
+        padding: WidgetStateProperty.all(
           EdgeInsets.symmetric(
             vertical: 4.h, // Use ScreenUtil to set height
             horizontal: 5.w, // Use ScreenUtil to set width

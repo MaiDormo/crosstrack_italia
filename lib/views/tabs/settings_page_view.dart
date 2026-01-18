@@ -58,7 +58,7 @@ class SettingsPageView extends ConsumerWidget {
         trailing: Visibility(
           visible: settingKey != null,
           child: Switch(
-            activeColor: Theme.of(context).colorScheme.onSecondary,
+            activeThumbColor: Theme.of(context).colorScheme.onSecondary,
             activeTrackColor: Colors.green,
             value: settingsMap[settingKey ?? ''] ?? false,
             onChanged: (value) {

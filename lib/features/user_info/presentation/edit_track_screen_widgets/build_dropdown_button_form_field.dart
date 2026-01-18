@@ -17,7 +17,7 @@ Widget buildDropdownButtonFormField(
       padding: const EdgeInsets.all(8.0).r,
       child: DropdownButtonFormField<String>(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
-        value: value,
+        initialValue: value,
         dropdownColor:
             Theme.of(context).colorScheme.secondary, // specify a color
         decoration: InputDecoration(

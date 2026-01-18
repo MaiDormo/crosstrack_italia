@@ -19,8 +19,6 @@ class MapNotifier extends _$MapNotifier {
           zoom: 13.0,
         );
   }
-
-  void animatedMoveTo(LatLng position) {}
 }
 
 @riverpod

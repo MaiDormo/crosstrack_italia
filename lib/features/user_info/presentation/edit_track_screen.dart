@@ -100,14 +100,14 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     }) {
       return ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             Colors.blueGrey, // choose a color that matches your app's design
           ),
-          overlayColor: MaterialStateProperty.all<Color>(
+          overlayColor: WidgetStateProperty.all<Color>(
             Colors.blueGrey
                 .shade700, // choose a color that matches your app's design
           ),
-          elevation: MaterialStateProperty.all<double>(2.0),
+          elevation: WidgetStateProperty.all<double>(2.0),
         ),
         onPressed: () {
           setState(() {
@@ -187,14 +187,14 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
       return Consumer(
         builder: (context, ref, child) => ElevatedButton(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
+            backgroundColor: WidgetStateProperty.all<Color>(
               Colors.blueGrey, // choose a color that matches your app's design
             ),
-            overlayColor: MaterialStateProperty.all<Color>(
+            overlayColor: WidgetStateProperty.all<Color>(
               Colors.blueGrey
                   .shade700, // choose a color that matches your app's design
             ),
-            elevation: MaterialStateProperty.all<double>(2.0),
+            elevation: WidgetStateProperty.all<double>(2.0),
           ),
           onPressed: _isUpdating ? null : () => _saveTrack(formKey, ref),
           child: _isUpdating

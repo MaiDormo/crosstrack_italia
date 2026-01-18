@@ -109,7 +109,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
           actions: [
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -125,7 +125,7 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
             15.horizontalSpace,
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -155,13 +155,13 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
         ElevatedButton(
           style: ButtonStyle(
             backgroundColor: isLoggedIn
-                ? MaterialStateProperty.all(
+                ? WidgetStateProperty.all(
                     Colors.blueGrey,
                   )
-                : MaterialStateProperty.all(
+                : WidgetStateProperty.all(
                     Colors.grey,
                   ),
-            foregroundColor: MaterialStateProperty.all(
+            foregroundColor: WidgetStateProperty.all(
               Theme.of(context).colorScheme.onSecondary,
             ),
           ),

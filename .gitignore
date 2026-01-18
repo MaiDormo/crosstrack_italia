@@ -45,3 +45,8 @@ app.*.map.json
 
 /android/app/build.gradle 
 /android/app/google-services.json
+
+# API Keys - never commit actual API keys
+lib/features/weather/backend/api/api_keys.dart
+.env
+*.env.local

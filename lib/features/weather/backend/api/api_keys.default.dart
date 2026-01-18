@@ -1,14 +1,27 @@
 import 'package:flutter/foundation.dart' show immutable;
 
-/// To get an API key, sign up here:
+/// API Keys configuration for external services.
+///
+/// To get an OpenWeatherMap API key, sign up here:
 /// https://home.openweathermap.org/users/sign_up
 ///
-/// Then paste it in here and rename this file to `api_keys.dart`.
+/// Then provide the API key via --dart-define at build time:
+/// ```bash
+/// flutter run --dart-define=OPENWEATHER_API_KEY=your_api_key_here
+/// flutter build apk --dart-define=OPENWEATHER_API_KEY=your_api_key_here
+/// ```
 ///
-/// You can also specify an API Key via --dart-define. Example:
-/// "flutter run --dart-define API_KEY=YOUR_API_KEY
-
+/// For CI/CD, set the OPENWEATHER_API_KEY as a secret environment variable.
 @immutable
 class APIKeys {
-  static const openWeatherAPIKey = 'bdded70173776df44988b2131c50d6bd';
+  /// OpenWeatherMap API key loaded from environment variables.
+  ///
+  /// Returns empty string if not configured - weather features will be disabled.
+  static const openWeatherAPIKey = String.fromEnvironment(
+    'OPENWEATHER_API_KEY',
+    defaultValue: '',
+  );
+
+  /// Returns true if the OpenWeatherMap API key is configured.
+  static bool get hasOpenWeatherKey => openWeatherAPIKey.isNotEmpty;
 }

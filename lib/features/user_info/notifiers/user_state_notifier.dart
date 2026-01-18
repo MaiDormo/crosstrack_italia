@@ -99,7 +99,11 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<void> makeOwner(List<TrackId> ownedTracks) async {
-    final user = state.value!.copyWith(
+    final currentUser = state.valueOrNull;
+    if (currentUser == null) {
+      return;
+    }
+    final user = currentUser.copyWith(
       role: UserRole.owner,
       ownedTracks: ownedTracks,
     );
@@ -108,7 +112,11 @@ class UserStateNotifier extends _$UserStateNotifier {
   }
 
   Future<void> makeUser() async {
-    final user = state.value!.copyWith(
+    final currentUser = state.valueOrNull;
+    if (currentUser == null) {
+      return;
+    }
+    final user = currentUser.copyWith(
       role: UserRole.user,
       ownedTracks: [],
     );

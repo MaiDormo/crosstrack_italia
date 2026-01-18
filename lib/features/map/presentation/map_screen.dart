@@ -40,7 +40,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
         ),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           body: SafeArea(
             child: SlidingUpPanel(
               controller: ref.watch(panelControllerProvider),

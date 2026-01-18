@@ -85,13 +85,13 @@ Widget buildMapButton(
                 },
               ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
+            backgroundColor: WidgetStateProperty.all(
               Colors.white,
             ),
-            foregroundColor: MaterialStateProperty.all(
+            foregroundColor: WidgetStateProperty.all(
               Theme.of(context).colorScheme.secondary,
             ),
-            padding: MaterialStateProperty.all(
+            padding: WidgetStateProperty.all(
               EdgeInsets.symmetric(
                 vertical: 4.h, // Use ScreenUtil to set height
                 horizontal: 5.w, // Use ScreenUtil to set width
