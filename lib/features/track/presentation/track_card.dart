@@ -1,9 +1,10 @@
-import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../map/providers/controller_utils.dart';
+import '../models/track.dart';
+import '../notifiers/track_notifier.dart';
 
 class TrackCard extends ConsumerWidget {
   const TrackCard({
@@ -16,8 +17,6 @@ class TrackCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final panelController = ref.watch(panelControllerProvider);
-    final floatingSearchBarController =
-        ref.watch(floatingSearchBarControllerProvider);
     return GestureDetector(
       onTap: () {
         ref.read(trackSelectedProvider.notifier).setTrack(track);
@@ -25,7 +24,8 @@ class TrackCard extends ConsumerWidget {
             ? panelController
                 .animatePanelToPosition(0.5) //50% of the open height
             : panelController.close();
-        floatingSearchBarController.close();
+        // Note: Search bar is now managed by Flutter's SearchAnchor
+        // and closes automatically when a selection is made
       },
       child: Card(
         color: Theme.of(context).colorScheme.secondary,

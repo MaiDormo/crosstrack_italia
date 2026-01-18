@@ -1,11 +1,9 @@
-import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('TrackRepository', () {
     group('calculateNewRating', () {
       // We can test this without mocking since it's pure logic
-      late TrackRepository mockRepository;
       // Note: For a full test, you'd mock FirebaseFirestore
       // For now, we test the pure calculation logic
 

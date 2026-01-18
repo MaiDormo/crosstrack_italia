@@ -1,23 +1,25 @@
 import 'dart:math' as Math;
 
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart';
 
-class TrackComparison extends StatelessWidget {
-  final Track track1;
-  final Track track2;
-  final bool userLocationAvailable;
-  final Position? userLocation;
+import '../models/track.dart';
+import '../models/typedefs/typedefs.dart';
 
-  TrackComparison({
+class TrackComparison extends StatelessWidget {
+
+  const TrackComparison({super.key, 
     required this.track1,
     required this.track2,
     required this.userLocationAvailable,
     required this.userLocation,
   });
+  
+  final Track track1;
+  final Track track2;
+  final bool userLocationAvailable;
+  final Position? userLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,8 @@ class TrackComparison extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          title: Text(
-            "Confronto tracciati",
+          title: const Text(
+            'Confronto tracciati',
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
           forceMaterialTransparency: true,
@@ -283,7 +285,7 @@ class TrackComparison extends StatelessWidget {
                   ...licenses2.map(
                     (value) => Text(
                       value.toString().split('.').last,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
                       ),
@@ -300,7 +302,7 @@ class TrackComparison extends StatelessWidget {
                   ...licenses1.map(
                     (value) => Text(
                       value.toString().split('.').last,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
                       ),
@@ -346,7 +348,7 @@ class TrackComparison extends StatelessWidget {
         context,
       );
     } else {
-      return SizedBox.shrink();
+      return const SizedBox.shrink();
     }
   }
 

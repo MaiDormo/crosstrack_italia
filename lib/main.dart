@@ -5,7 +5,6 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +12,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
-Future<void> initializeTileCache() async {
-  await FlutterMapTileCaching.initialise();
-  await FMTC.instance('mapStore').manage.createAsync();
-}
+// Conditional import for tile caching (not supported on web)
+import 'tile_cache_stub.dart'
+    if (dart.library.io) 'tile_cache_mobile.dart' as tile_cache;
 
 /// Initializes Firebase and App Check.
 ///
@@ -42,8 +40,9 @@ Future<void> main() async {
 
   try {
     await initializeFirebase();
-    await initializeTileCache();
+    await tile_cache.initializeTileCache();
   } catch (e) {
+    debugPrint('Initialization error: $e');
     return;
   }
 

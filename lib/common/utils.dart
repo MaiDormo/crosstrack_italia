@@ -15,8 +15,8 @@ class Utils {
       );
   }
 
-  static final thumbnailDimentions = Size(150, 200);
-  static final imageDimentions = Size(300, 400);
+  static const thumbnailDimentions = Size(150, 200);
+  static const imageDimentions = Size(300, 400);
 
   static Widget getImage(String imageUrl) {
     return _buildImage(imageUrl, imageDimentions);
@@ -47,7 +47,7 @@ class Utils {
   static Widget buildSkeletonScreenAnimation(
           BuildContext context, Size imageSize) =>
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4.0).w,
+        padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
         child: Shimmer(
           gradient: LinearGradient(
             colors: [

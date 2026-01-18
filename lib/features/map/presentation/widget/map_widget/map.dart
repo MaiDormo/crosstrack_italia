@@ -8,14 +8,18 @@ import 'package:crosstrack_italia/features/map/presentation/widget/marker/veneto
 import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
 import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_utils.dart';
 import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:flutter_map_tile_caching/flutter_map_tile_caching.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+// Conditional import for tile caching (not supported on web)
+import 'tile_provider_stub.dart'
+    if (dart.library.io) 'tile_provider_mobile.dart' as tile_provider;
 
 class Map extends ConsumerStatefulWidget {
   const Map({
@@ -78,7 +82,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
         TileLayer(
           urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
           userAgentPackageName: 'com.crosstrack_italia.app',
-          tileProvider: FMTC.instance('mapStore').getTileProvider(),
+          tileProvider: tile_provider.getTileProvider(),
         ),
         //contains layers
         //which themselves will contain all the makers

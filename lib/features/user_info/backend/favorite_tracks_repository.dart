@@ -11,13 +11,15 @@ abstract class FavoriteTracksRepository {
 }
 
 class FirebaseFavoriteTracksRepository implements FavoriteTracksRepository {
-  final FirebaseFirestore _firestore;
-  final String _userId;
 
   FirebaseFavoriteTracksRepository(
       {required FirebaseFirestore firestore, required String userId})
       : _firestore = firestore,
         _userId = userId;
+  
+  
+  final FirebaseFirestore _firestore;
+  final String _userId;
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseCollectionName.users);
@@ -36,7 +38,7 @@ class FirebaseFavoriteTracksRepository implements FavoriteTracksRepository {
 
       final userDocSnapshot = await transaction.get(userDocRef);
 
-      List<dynamic> favoriteTracks =
+      final List<dynamic> favoriteTracks =
           userDocSnapshot.get(FirebaseFieldName.favoriteTracks) ?? [];
       favoriteTracks.add(trackId);
       transaction.update(
@@ -71,7 +73,7 @@ class FirebaseFavoriteTracksRepository implements FavoriteTracksRepository {
     }
 
     // needed because cannot infer type from Object? to Map<String, dynamic>
-    var data = docSnapshot.data() as Map<String, dynamic>;
+    final data = docSnapshot.data() as Map<String, dynamic>;
 
     return (data[FirebaseFieldName.favoriteTracks] as List?)?.cast<TrackId>() ??
         [];
