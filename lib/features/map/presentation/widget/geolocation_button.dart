@@ -18,11 +18,12 @@ class GeolocationButton extends ConsumerWidget {
     // Show snackbar when GPS error occurs
     ref.listen<String?>(gpsErrorProvider, (previous, next) {
       if (next != null && previous == null) {
+        final colorScheme = Theme.of(context).colorScheme;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Row(
               children: [
-                Icon(Icons.gps_off, color: Colors.white, size: 20.r),
+                Icon(Icons.gps_off, color: colorScheme.onSecondary, size: 20.r),
                 SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
@@ -32,7 +33,7 @@ class GeolocationButton extends ConsumerWidget {
                 ),
               ],
             ),
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: colorScheme.secondary,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -40,7 +41,7 @@ class GeolocationButton extends ConsumerWidget {
             duration: const Duration(seconds: 4),
             action: SnackBarAction(
               label: 'OK',
-              textColor: Colors.white,
+              textColor: colorScheme.onSecondary,
               onPressed: () {
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
               },
@@ -50,13 +51,15 @@ class GeolocationButton extends ConsumerWidget {
       }
     });
 
+    final colorScheme = Theme.of(context).colorScheme;
+    
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.0),
       ),
       color: gpsError != null 
-          ? Colors.orange.shade700 
-          : Theme.of(context).colorScheme.secondary,
+          ? const Color(0xFFEA580C)  // Warning orange
+          : colorScheme.secondary,
       child: IconButton(
         onPressed: () async {
           debugPrint('📍 GPS Button pressed');
@@ -86,7 +89,7 @@ class GeolocationButton extends ConsumerWidget {
                   SnackBar(
                     content: Row(
                       children: [
-                        Icon(Icons.location_off, color: Colors.white, size: 20.r),
+                        Icon(Icons.location_off, color: colorScheme.onError, size: 20.r),
                         SizedBox(width: 12.w),
                         Expanded(
                           child: Text(
@@ -96,7 +99,7 @@ class GeolocationButton extends ConsumerWidget {
                         ),
                       ],
                     ),
-                    backgroundColor: Colors.red.shade600,
+                    backgroundColor: const Color(0xFFEF4444),
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -119,7 +122,7 @@ class GeolocationButton extends ConsumerWidget {
             : showCurrentLocation && locationPermission
                 ? const Icon(Icons.gps_fixed)
                 : const Icon(Icons.gps_not_fixed),
-        color: Colors.white,
+        color: colorScheme.onSecondary,
         iconSize: 20.6.w,
       ),
     );

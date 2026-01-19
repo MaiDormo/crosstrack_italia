@@ -97,7 +97,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
         title: const Text(
           'Modifica Tracciato',
@@ -426,11 +426,11 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: colorScheme.shadow.withValues(alpha: 0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -558,7 +558,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
         ),
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       ),
-      dropdownColor: Colors.white,
+      dropdownColor: colorScheme.surface,
       borderRadius: BorderRadius.circular(12),
       items: items.map((item) => DropdownMenuItem(
         value: item,
@@ -677,20 +677,20 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
                     SizedBox(
                       width: 20.r,
                       height: 20.r,
-                      child: const CircularProgressIndicator(
+                      child: CircularProgressIndicator(
                         strokeWidth: 2,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                       ),
                     )
                   else ...[
-                    Icon(Icons.save_rounded, color: Colors.white, size: 22.r),
+                    Icon(Icons.save_rounded, color: colorScheme.onPrimary, size: 22.r),
                     SizedBox(width: 10.w),
                     Text(
                       'Salva Modifiche',
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                       ),
                     ),
                   ],

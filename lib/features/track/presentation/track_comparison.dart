@@ -52,11 +52,11 @@ class TrackComparison extends StatelessWidget {
             icon: Container(
               padding: EdgeInsets.all(8.r),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorScheme.surface,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
+                    color: colorScheme.shadow.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: const Offset(0, 2),
                   ),
@@ -186,14 +186,14 @@ class TrackComparison extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                Icon(Icons.flag_rounded, color: Colors.white.withValues(alpha: 0.8), size: 24.r),
+                Icon(Icons.flag_rounded, color: colorScheme.onPrimary.withValues(alpha: 0.8), size: 24.r),
                 8.verticalSpace,
                 Text(
                   name1,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 15.sp,
-                    color: Colors.white,
+                    color: colorScheme.onPrimary,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -213,21 +213,21 @@ class TrackComparison extends StatelessWidget {
               style: GoogleFonts.poppins(
                 fontWeight: FontWeight.w700,
                 fontSize: 14.sp,
-                color: Colors.white,
+                color: colorScheme.onSecondary,
               ),
             ),
           ),
           Expanded(
             child: Column(
               children: [
-                Icon(Icons.flag_rounded, color: Colors.white.withValues(alpha: 0.8), size: 24.r),
+                Icon(Icons.flag_rounded, color: colorScheme.onPrimary.withValues(alpha: 0.8), size: 24.r),
                 8.verticalSpace,
                 Text(
                   name2,
                   style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 15.sp,
-                    color: Colors.white,
+                    color: colorScheme.onPrimary,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -246,11 +246,11 @@ class TrackComparison extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: colorScheme.shadow.withValues(alpha: 0.04),
             blurRadius: 15,
             offset: const Offset(0, 4),
           ),
@@ -325,7 +325,7 @@ class TrackComparison extends StatelessWidget {
                     border: Border.all(
                       color: compare && isValue1Better
                           ? colorScheme.secondary.withValues(alpha: 0.3)
-                          : Colors.grey.withValues(alpha: 0.15),
+                          : colorScheme.outlineVariant.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Text(
@@ -354,7 +354,7 @@ class TrackComparison extends StatelessWidget {
                     border: Border.all(
                       color: compare && !isValue1Better
                           ? colorScheme.secondary.withValues(alpha: 0.3)
-                          : Colors.grey.withValues(alpha: 0.15),
+                          : colorScheme.outlineVariant.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Text(

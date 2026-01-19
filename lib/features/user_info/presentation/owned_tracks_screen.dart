@@ -53,7 +53,7 @@ class OwnedTracksScreen extends ConsumerWidget {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
         title: const Text(
           'Tracciati Posseduti',
@@ -76,10 +76,10 @@ class OwnedTracksScreen extends ConsumerWidget {
                     : _buildEmptyState(
                         context, shouldRemoveOwnerPrivilege, colorScheme),
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stackTrace) => _buildErrorState(error),
+                error: (error, stackTrace) => _buildErrorState(error, colorScheme),
               ),
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (error, stackTrace) => _buildErrorState(error),
+          error: (error, stackTrace) => _buildErrorState(error, colorScheme),
         ),
       ),
     );
@@ -99,11 +99,11 @@ class OwnedTracksScreen extends ConsumerWidget {
         return Container(
           margin: EdgeInsets.only(bottom: 12.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
+                color: colorScheme.shadow.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -142,7 +142,7 @@ class OwnedTracksScreen extends ConsumerWidget {
                       ),
                       child: Icon(
                         Icons.terrain_rounded,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                         size: 24.r,
                       ),
                     ),
@@ -322,7 +322,7 @@ class OwnedTracksScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildErrorState(Object error) {
+  Widget _buildErrorState(Object error, ColorScheme colorScheme) {
     return Center(
       child: Padding(
         padding: EdgeInsets.all(32.r),
@@ -348,7 +348,7 @@ class OwnedTracksScreen extends ConsumerWidget {
               error.toString(),
               style: TextStyle(
                 fontSize: 14.sp,
-                color: Colors.grey[600],
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),

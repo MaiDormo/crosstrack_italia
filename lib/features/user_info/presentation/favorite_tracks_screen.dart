@@ -44,11 +44,11 @@ class FavoriteTracksScreen extends ConsumerWidget {
                             return Container(
                               margin: EdgeInsets.only(bottom: 12.h),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: colorScheme.surface,
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.05),
+                                    color: colorScheme.shadow.withValues(alpha: 0.05),
                                     blurRadius: 10,
                                     offset: const Offset(0, 4),
                                   ),

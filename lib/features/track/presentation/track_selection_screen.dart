@@ -29,7 +29,7 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
         backgroundColor: colorScheme.primary,
-        foregroundColor: Colors.white,
+        foregroundColor: colorScheme.onPrimary,
         elevation: 0,
         title: const Text(
           'Confronto Tracciati',
@@ -195,11 +195,11 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: colorScheme.shadow.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -230,7 +230,7 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                        color: colorScheme.onPrimary,
                       ),
                     ),
                   ),
@@ -308,7 +308,7 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
               ),
-              dropdownColor: Colors.white,
+              dropdownColor: colorScheme.surface,
               borderRadius: BorderRadius.circular(12),
               isExpanded: true,
               icon: Icon(
@@ -430,13 +430,13 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
                     height: 20.r,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: Colors.white,
+                      color: colorScheme.onPrimary,
                     ),
                   )
                 else ...[
                   Icon(
                     Icons.compare_arrows_rounded,
-                    color: isEnabled ? Colors.white : colorScheme.onSurface.withValues(alpha: 0.3),
+                    color: isEnabled ? colorScheme.onPrimary : colorScheme.onSurface.withValues(alpha: 0.3),
                     size: 22.r,
                   ),
                   SizedBox(width: 10.w),
@@ -445,7 +445,7 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
-                      color: isEnabled ? Colors.white : colorScheme.onSurface.withValues(alpha: 0.3),
+                      color: isEnabled ? colorScheme.onPrimary : colorScheme.onSurface.withValues(alpha: 0.3),
                     ),
                   ),
                 ],

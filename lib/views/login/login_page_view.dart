@@ -15,12 +15,13 @@ class LoginPageView extends StatefulHookConsumerWidget {
 
 class _LoginPageViewState extends ConsumerState<LoginPageView> {
   Future<void> performLogin(Future<void> Function() login) async {
+    final colorScheme = Theme.of(context).colorScheme;
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
-          backgroundColor: Colors.white,
+          backgroundColor: colorScheme.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -193,7 +194,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
     final isWhiteBackground = backgroundColor == null;
     
     return Material(
-      color: backgroundColor ?? Colors.white,
+      color: backgroundColor ?? colorScheme.surface,
       borderRadius: BorderRadius.circular(16),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
@@ -209,7 +210,7 @@ class _LoginPageViewState extends ConsumerState<LoginPageView> {
             boxShadow: isWhiteBackground 
                 ? [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
+                      color: colorScheme.shadow.withValues(alpha: 0.04),
                       blurRadius: 10,
                       offset: const Offset(0, 2),
                     ),
