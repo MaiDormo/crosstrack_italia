@@ -2,235 +2,108 @@
 
 # Crosstrack Italia
 
-[![Flutter CI](https://github.com/yourusername/crosstrack_italia/actions/workflows/main.yml/badge.svg)](https://github.com/yourusername/crosstrack_italia/actions/workflows/main.yml)
+[![Flutter CI](https://github.com/MaiDormo/crosstrack_italia/actions/workflows/main.yml/badge.svg)](https://github.com/MaiDormo/crosstrack_italia/actions/workflows/main.yml)
+[![Deploy](https://github.com/MaiDormo/crosstrack_italia/actions/workflows/deploy.yml/badge.svg)](https://github.com/MaiDormo/crosstrack_italia/actions/workflows/deploy.yml)
+
+**Discover motocross tracks across Northern Italy**
+
+[Live Demo](https://maidormo.github.io/crosstrack_italia/) · [Report Bug](https://github.com/MaiDormo/crosstrack_italia/issues)
 
 </div>
 
-Crosstrack Italia is a comprehensive Flutter application designed for tracking cross-country races across Veneto, Lombardia, and Trentino Alto-Adige. Built with Dart and powered by Firebase, this application serves as a platform for motocross drivers to discover new tracks for training and competing.
+---
+
+## Screenshots
+
+<div align="center">
+<table>
+  <tr>
+    <td><img src="docs/screenshots/map_view.png" width="200" alt="Map View"/></td>
+    <td><img src="docs/screenshots/track_details.png" width="200" alt="Track Details"/></td>
+    <td><img src="docs/screenshots/track_list.png" width="200" alt="Track List"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Map View</b></td>
+    <td align="center"><b>Track Details</b></td>
+    <td align="center"><b>Track List</b></td>
+  </tr>
+</table>
+</div>
 
 ---
 
-## Main Features
+## Features
 
-- **Track Discovery**: Utilize a map to locate tracks and a list of tracks that can be filtered by region and type.
-- **Track Details**: Each track has a dedicated page with a description, location, type of track, and the ability to add a review.
-- **Reviews**: Users can leave reviews for tracks, which are displayed on the track details page.
-- **Track Management**: Track owners can manage their track by adding, editing, and deleting track details.
-- **User Types**: The application caters to guest users, authenticated users, and track owners with varying levels of access and functionality.
-- **Authentication**: Google and Facebook authentication are used for user verification.
-- **User Profile**: Authenticated users have a profile page where they can view and edit their details.
-- **Favorites**: Users can add tracks to their favorites list for easy access.
-- **Search**: Users can search for tracks by name.
-- **Weather**: Real-time weather information for track locations.
-- **Responsive Design**: The application is designed to work on both mobile and web platforms.
+- **Interactive Map** — Browse tracks with OpenStreetMap integration
+- **Track Details** — View info, location, terrain type, and user reviews
+- **Search & Filter** — Find tracks by name, region, or category
+- **Reviews & Ratings** — Leave feedback on tracks you've visited
+- **Favorites** — Save tracks for quick access
+- **Weather** — Real-time weather for each track location
+- **Track Management** — Owners can edit their track information
+- **Cross-platform** — Works on Android, iOS, and Web
 
 ---
 
-## Technologies
+## Tech Stack
 
-- **Dart**: A client-optimized programming language for fast apps on any platform.
-- **Flutter**: A cross-platform UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
-- **Firebase**: A platform developed by Google for creating mobile and web applications (in this application Firestore, Cloud Storage and Authentication were used).
-- **OpenStreetMaps API**: A free, editable map of the world that is used to display the tracks on the map.
-- **OpenWeatherMap API**: Weather data for track locations.
-- **Facebook Login**: A secure, fast, and convenient way for users to log into an application.
-- **Google Sign-In**: A secure authentication system that reduces the burden of login for users.
-- **Riverpod 2.0**: A simple way to manage state in Flutter.
-- **Freezed**: A code generator for immutable classes that allows you to write less boilerplate code.
+| Category | Technologies |
+|----------|-------------|
+| Framework | Flutter 3.38+, Dart 3.10+ |
+| State | Riverpod 3.x, Freezed 3.x |
+| Backend | Firebase (Auth, Firestore, Storage) |
+| Maps | flutter_map, OpenStreetMap |
+| Auth | Google Sign-In, Facebook Login |
 
 ---
 
-## Getting Started
-
-### Prerequisites
-
-- Flutter SDK (>=3.0.6)
-- Dart SDK (>=3.0.6)
-- Firebase project configured
-- OpenWeatherMap API key (for weather features)
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/crosstrack_italia.git
-   ```
-
-2. Navigate into the project directory:
-   ```bash
-   cd crosstrack_italia
-   ```
-
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-
-4. Run code generation (required for Freezed and Riverpod):
-   ```bash
-   flutter pub run build_runner build --delete-conflicting-outputs
-   ```
-
-5. Run the app:
-   ```bash
-   flutter run
-   ```
-
-### Environment Configuration
-
-#### OpenWeatherMap API Key
-
-To enable weather features, you need to provide an OpenWeatherMap API key:
-
-1. Sign up at [OpenWeatherMap](https://home.openweathermap.org/users/sign_up)
-2. Get your API key from your account dashboard
-3. Run the app with your key:
+## Quick Start
 
 ```bash
-# Development
-flutter run --dart-define=OPENWEATHER_API_KEY=your_api_key_here
+# Clone and install
+git clone https://github.com/MaiDormo/crosstrack_italia.git
+cd crosstrack_italia
+flutter pub get
 
-# Production build
-flutter build apk --dart-define=OPENWEATHER_API_KEY=your_api_key_here
+# Generate code (Freezed/Riverpod)
+dart run build_runner build -d
+
+# Run
+flutter run --dart-define=OPENWEATHER_API_KEY=your_key
 ```
 
-#### CI/CD Configuration
-
-For GitHub Actions, add `OPENWEATHER_API_KEY` as a repository secret:
-1. Go to Settings > Secrets and variables > Actions
-2. Click "New repository secret"
-3. Name: `OPENWEATHER_API_KEY`, Value: your API key
+> Get a free API key at [OpenWeatherMap](https://openweathermap.org/api)
 
 ---
 
 ## Project Structure
 
-The project is organized into several directories (inside the `lib/` directory) that contain the source code for the application. The main directories are as follows:
-
-
-```plaintext
+```
 lib/
-├── common
-├── features
-│   ├── auth
-│   │   ├── backend
-│   │   └── constants
-│   ├── firebase_constants
-│   ├── map
-│   │   ├── constants
-│   │   ├── models
-│   │   ├── notifiers
-│   │   ├── presentation
-│   │   │   └── widget
-│   │   │       ├── map_widget
-│   │   │       ├── marker
-│   │   │       └── panel_widget
-│   │   │           └── track_cards
-│   │   │               └── cards
-│   │   └── providers
-│   ├── track
-│   │   ├── backend
-│   │   ├── models
-│   │   │   └── typedefs
-│   │   ├── notifiers
-│   │   ├── presentation
-│   │   │   └── widget
-│   │   └── providers
-│   ├── user_info
-│   │   ├── backend
-│   │   ├── constants
-│   │   ├── models
-│   │   │   └── typedefs
-│   │   ├── notifiers
-│   │   ├── presentation
-│   │   │   └── edit_track_screen_widgets
-│   │   └── providers
-│   └── weather
-│       ├── backend
-│       │   └── api
-│       ├── domain
-│       │   ├── models
-│       │   └── providers
-│       └── presentation
-│           └── view
-├── firebase_providers
-└── views
-    ├── components
-    │   ├── bottom_bar
-    │   │   └── nav_states
-    │   ├── constants
-    │   ├── dialogs
-    │   └── top_bar
-    ├── login
-    └── tabs
-```
-</div>
-
-The project is divided into several features, each of which is contained in a separate directory. Each feature directory contains the following subdirectories:
-
-- **backend**: Contains the code that interacts with the Firebase services.
-- **constants**: Contains the constants used in the feature.
-- **models**: Contains the models used in the feature.
-- **notifiers**: Contains the Riverpod notifiers used in the feature.
-- **presentation**: Contains the UI code for the feature.
-- **providers**: Contains the Riverpod providers used in the feature.
-
-The `common/` directory contains the code that is used across the entire application, such as the theme, the routes, and the responsive design.
-
-The `views/` directory contains the code for the different views of the application, such as the login view and the tabs view.
-
-The `firebase_providers/` directory contains the code that interacts with the Firebase services and provides the Riverpod providers for the entire application.
-
----
-
-## Further Information
-
-For a more detailed explanation of the project and the thought process behind it, please refer to the [project report](https://docs.google.com/document/d/14dFnmLqvft3BX01kEwfikdvIrsLHjTonX0VtNFWC6uc/edit?usp=sharing).
-
----
-
-## To-Do
-
-- [x] Implement basic unit tests for core functionality
-- [x] Proper error handling and logging
-- [x] Secure API key management
-- [ ] Add a feature to allow users to upload images of tracks
-- [ ] Manage correctly the data inside the Firestore database
-- [ ] Add the ability to add and remove tracks
-- [ ] Add a calendar to show the races and opening times of the tracks
-- [ ] Add more comprehensive test coverage
-
----
-
-## Learned Skills
-
-- This project has helped me understand the importance of good project management and the need to plan and organize the work to be done.
-- I have learned how to use Firebase and its services, such as Firestore, Cloud Storage, and Authentication.
-- I have learned how to use the OpenStreetMaps API and the Google Maps API to display maps and track locations.
-- I have learned how to use Riverpod 2.0 to manage the state of the application.
-- I have learned how to use Freezed to create immutable classes and reduce boilerplate code.
-- I have learned how to use the Facebook Login and Google Sign-In to authenticate users.
-- I have learned how to create a responsive design that works on both mobile and web platforms.
-- I have learned how to use the Flutter framework (and Dart) to create a cross-platform application.
-
----
-
-## Testing
-
-Run tests with:
-
-```bash
-flutter test
+├── features/
+│   ├── auth/          # Authentication
+│   ├── map/           # Map display & markers
+│   ├── track/         # Track data & UI
+│   ├── user_info/     # User profiles & favorites
+│   └── weather/       # Weather integration
+├── views/             # Main screens & components
+└── main.dart          # App entry point
 ```
 
-Run tests with coverage:
+---
 
-```bash
-flutter test --coverage
-```
+## Roadmap
+
+- [x] Core map and track browsing
+- [x] User authentication
+- [x] Reviews and ratings
+- [x] Web support
+- [ ] Track image uploads
+- [ ] Event calendar
+- [ ] Push notifications
 
 ---
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License — see [LICENSE](LICENSE) for details.
