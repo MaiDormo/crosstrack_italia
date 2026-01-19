@@ -16,6 +16,9 @@ import 'tile_cache_stub.dart'
     if (dart.library.io) 'tile_cache_mobile.dart' as tile_cache;
 import 'views/tabs/home_page_view.dart';
 
+/// Maximum width for the app on web - resembles a tablet
+const double kMaxAppWidth = 500.0;
+
 /// App color palette - Professional blue-oriented style
 class AppColors {
   AppColors._();
@@ -237,6 +240,21 @@ class MyApp extends StatelessWidget {
             behavior: SnackBarBehavior.floating,
           ),
         ),
+        builder: (context, child) {
+          // On web, constrain the app width to look like a mobile/tablet
+          if (kIsWeb) {
+            return Container(
+              color: AppColors.primaryDark,
+              child: Center(
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: kMaxAppWidth),
+                  child: child,
+                ),
+              ),
+            );
+          }
+          return child ?? const SizedBox.shrink();
+        },
         home: const HomePageView(),
       ),
     );
