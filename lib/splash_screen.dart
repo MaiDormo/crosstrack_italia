@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// Import AppColors for consistency
+const _primaryColor = Color(0xFF1E3A5F);
+const _secondaryColor = Color(0xFF3D5A80);
+
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -8,7 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xFFF5F7FA),
       ),
       home: Scaffold(
         body: SafeArea(
@@ -35,6 +39,13 @@ class SplashScreen extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: _primaryColor.withValues(alpha: 0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 8),
+                            ),
+                          ],
                         ),
                         width: logoWidth,
                         height: logoHeight,
@@ -52,11 +63,27 @@ class SplashScreen extends StatelessWidget {
                         style: GoogleFonts.poppins(
                           fontSize: titleFontSize,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: _primaryColor,
+                        ),
+                      ),
+                      SizedBox(height: spacing * 0.5),
+                      Text(
+                        'Caricamento in corso...',
+                        style: GoogleFonts.poppins(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: _secondaryColor.withValues(alpha: 0.7),
                         ),
                       ),
                       SizedBox(height: spacing),
-                      const CircularProgressIndicator(),
+                      SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: CircularProgressIndicator(
+                          color: _secondaryColor,
+                          strokeWidth: 3,
+                        ),
+                      ),
                     ],
                   ),
                 ),

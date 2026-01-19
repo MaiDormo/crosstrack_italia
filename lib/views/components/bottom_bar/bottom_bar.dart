@@ -16,9 +16,14 @@ class BottomBar extends ConsumerStatefulWidget {
 class _BottomBarState extends ConsumerState<BottomBar> {
   @override
   Widget build(BuildContext context) {
-    var navIndex = ref.watch(navProvider).index;
-    final _permanentTextBottomBar =
+    final navIndex = ref.watch(navProvider).index;
+    final permanentTextBottomBar =
         ref.watch(userSettingsProvider)[UserConstants.permanentTextBottomBar]!;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    // Colors for the bottom bar
+    const selectedColor = Colors.white;
+    final unselectedColor = Colors.white.withValues(alpha: 0.6);
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.0.h),
@@ -32,7 +37,7 @@ class _BottomBarState extends ConsumerState<BottomBar> {
           child: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             items: [
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.map),
                 label: 'Mappa',
               ),
@@ -42,30 +47,28 @@ class _BottomBarState extends ConsumerState<BottomBar> {
                   height: 24.h,
                   width: 24.w,
                   colorFilter: ColorFilter.mode(
-                    navIndex == 1
-                        ? Theme.of(context).colorScheme.onSecondary
-                        : Theme.of(context).colorScheme.tertiary,
+                    navIndex == 1 ? selectedColor : unselectedColor,
                     BlendMode.srcATop,
                   ),
                 ),
                 label: 'Tracciati',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: 'Impostazioni',
               ),
             ],
             currentIndex: navIndex,
-            selectedItemColor: Theme.of(context).colorScheme.onSecondary,
-            unselectedItemColor: Colors.white54,
+            selectedItemColor: selectedColor,
+            unselectedItemColor: unselectedColor,
             unselectedLabelStyle: TextStyle(
-              color: Colors.transparent,
+              color: unselectedColor,
             ),
-            showUnselectedLabels: _permanentTextBottomBar,
+            showUnselectedLabels: permanentTextBottomBar,
             onTap: (value) {
               ref.read(navProvider.notifier).onIndexChanged(value);
             },
-            backgroundColor: Theme.of(context).colorScheme.secondary,
+            backgroundColor: colorScheme.secondary,
             selectedFontSize: 14.0.sp,
             unselectedFontSize: 12.0.sp,
           ),

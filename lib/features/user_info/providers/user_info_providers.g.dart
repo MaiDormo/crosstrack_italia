@@ -168,7 +168,7 @@ final class UserImageProvider
   }
 }
 
-String _$userImageHash() => r'7954fbc3d4a20dfa72c50dd8a68542c8cdfefab3';
+String _$userImageHash() => r'38506fb95aca401f364dd850bf12d6fa8bc75943';
 
 @ProviderFor(fetchFavoriteTracks)
 final fetchFavoriteTracksProvider = FetchFavoriteTracksProvider._();

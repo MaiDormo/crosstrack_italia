@@ -15,11 +15,11 @@ final weatherFactoryProvider = WeatherFactoryProvider._();
 final class WeatherFactoryProvider
     extends
         $FunctionalProvider<
-          AsyncValue<WeatherFactory>,
-          WeatherFactory,
-          FutureOr<WeatherFactory>
+          AsyncValue<WeatherFactory?>,
+          WeatherFactory?,
+          FutureOr<WeatherFactory?>
         >
-    with $FutureModifier<WeatherFactory>, $FutureProvider<WeatherFactory> {
+    with $FutureModifier<WeatherFactory?>, $FutureProvider<WeatherFactory?> {
   WeatherFactoryProvider._()
     : super(
         from: null,
@@ -36,14 +36,14 @@ final class WeatherFactoryProvider
 
   @$internal
   @override
-  $FutureProviderElement<WeatherFactory> $createElement(
+  $FutureProviderElement<WeatherFactory?> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<WeatherFactory> create(Ref ref) {
+  FutureOr<WeatherFactory?> create(Ref ref) {
     return weatherFactory(ref);
   }
 }
 
-String _$weatherFactoryHash() => r'4a4a44f3a286f28ee9df402870d091c426dd0f8c';
+String _$weatherFactoryHash() => r'b40a7062ee4fd7a5168f7c283672c72a842a84b2';

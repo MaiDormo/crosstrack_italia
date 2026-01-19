@@ -1,8 +1,6 @@
 import 'package:crosstrack_italia/features/map/presentation/widget/panel_widget/utilities.dart';
 import 'package:crosstrack_italia/features/track/models/track.dart';
 import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,128 +11,163 @@ Widget buildTrackRatingAndMapButton(
   BuildContext context,
 ) =>
     Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) => Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              buildRatingRow(trackSelected, context),
-              buildMapButton(trackSelected, context, ref),
-            ],
-          ),
-          buildReviewCountText(trackSelected, context),
-        ],
-      ),
-    );
-
-Widget buildRatingRow(
-  Track trackSelected,
-  BuildContext context,
-) =>
-    Row(
-      children: [
-        Text(
-          'Valutazione: ' + trackSelected.rating.toStringAsFixed(1),
-          style: TextStyle(
-            fontSize: 12.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        RatingBarIndicator(
-          physics: NeverScrollableScrollPhysics(),
-          itemSize: 15.h,
-          rating: trackSelected.rating,
-          direction: Axis.horizontal,
-          itemCount: 5,
-          itemBuilder: (context, _) => Icon(
-            Icons.star,
-            color: Colors.amber,
-          ),
-          itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
-        ),
-      ],
-    );
-
-Widget buildMapButton(
-  Track trackSelected,
-  BuildContext context,
-  WidgetRef ref,
-) =>
-    Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        return ElevatedButton(
-          onPressed: () => ref
-              .read(
-                openGoogleMapProvider(trackSelected),
-              )
-              .when(
-                data: (value) => showSnackBar(
-                    context,
-                    value,
-                    'Apertura Google Maps in corso',
-                    'Google Maps non disponibile'),
-                loading: () {
-                  final snackBar =
-                      SnackBar(content: Text('Apertura Google Maps in corso'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
-                error: (error, stackTrace) {
-                  final snackBar =
-                      SnackBar(content: Text('Google Maps non disponibile'));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
-              ),
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(
-              Colors.white,
-            ),
-            foregroundColor: WidgetStateProperty.all(
-              Theme.of(context).colorScheme.secondary,
-            ),
-            padding: WidgetStateProperty.all(
-              EdgeInsets.symmetric(
-                vertical: 4.h, // Use ScreenUtil to set height
-                horizontal: 5.w, // Use ScreenUtil to set width
-              ),
-            ),
+        final colorScheme = Theme.of(context).colorScheme;
+        
+        return Container(
+          padding: EdgeInsets.all(16.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primary.withValues(alpha: 0.05),
+            borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             children: [
-              Visibility(
-                visible: ref.watch(userSettingsProvider)[
-                    UserConstants.showMoreInfo]!, // Use ScreenUtil to set p),
-                child: Text(
-                  'Indicazioni',
-                  style: TextStyle(
-                      fontSize: 12.sp), // Use ScreenUtil to set font size
+              // Rating section
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.w,
+                            vertical: 6.h,
+                          ),
+                          decoration: BoxDecoration(
+                            color: _getRatingColor(trackSelected.rating),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.star_rounded,
+                                size: 18.r,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 4.w),
+                              Text(
+                                trackSelected.rating.toStringAsFixed(1),
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 12.w),
+                        RatingBarIndicator(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemSize: 18.r,
+                          rating: trackSelected.rating,
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star_rounded,
+                            color: _getRatingColor(trackSelected.rating).withValues(alpha: 0.3),
+                          ),
+                          unratedColor: colorScheme.onSurface.withValues(alpha: 0.1),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      '${trackSelected.commentCount} recensioni',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(width: 3.w), // Use ScreenUtil to set width
-              Icon(Icons.directions,
-                  size: 24.sp), // Use ScreenUtil to set icon size
+              // Directions button
+              _buildDirectionsButton(trackSelected, context, ref),
             ],
           ),
         );
       },
     );
 
-Widget buildReviewCountText(
+Widget _buildDirectionsButton(
   Track trackSelected,
   BuildContext context,
-) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            'Recensioni: ' + trackSelected.commentCount.toString(),
-            style: TextStyle(
-              fontSize: 12.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSecondary,
+  WidgetRef ref,
+) {
+  final colorScheme = Theme.of(context).colorScheme;
+  
+  return Material(
+    color: colorScheme.primary,
+    borderRadius: BorderRadius.circular(14),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(14),
+      onTap: () => ref
+          .read(openGoogleMapProvider(trackSelected))
+          .when(
+            data: (value) => showSnackBar(
+              context,
+              value,
+              'Apertura Google Maps in corso',
+              'Google Maps non disponibile',
             ),
+            loading: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Apertura Google Maps in corso'),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
+            },
+            error: (error, stackTrace) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Google Maps non disponibile'),
+                  behavior: SnackBarBehavior.floating,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              );
+            },
           ),
-        ],
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 12.h,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.directions_rounded,
+              color: Colors.white,
+              size: 20.r,
+            ),
+            SizedBox(width: 8.w),
+            Text(
+              'Indicazioni',
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
-    );
+    ),
+  );
+}
+
+Color _getRatingColor(double rating) {
+  if (rating >= 4.0) return const Color(0xFF10B981);
+  if (rating >= 3.0) return const Color(0xFFF59E0B);
+  return const Color(0xFFEF4444);
+}

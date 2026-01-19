@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../firebase_providers/firebase_providers.dart';
+import '../../firebase_constants/firebase_collection_name.dart';
+import '../../firebase_constants/firebase_field_name.dart';
+import '../models/typedefs/typedefs.dart';
+import '../models/user_info_model.dart';
 
 part 'user_info_storage.g.dart';
 
@@ -129,7 +130,7 @@ class UserInfoStorage {
       await _deleteUserDocument(user.uid);
       await user.delete();
     } on firebase_auth.FirebaseAuthException catch (e) {
-      if (e.code == "requires-recent-login") {
+      if (e.code == 'requires-recent-login') {
         await _reauthenticateAndDelete();
       } else {
         debugPrint('Delete user info Firebase error: ${e.code} - ${e.message}');

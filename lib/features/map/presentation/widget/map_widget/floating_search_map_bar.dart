@@ -62,178 +62,263 @@ class _FloatingSearchMapBarState extends ConsumerState<FloatingSearchMapBar> {
   @override
   Widget build(BuildContext context) {
     final selectedRegion = ref.watch(selectedRegionProvider);
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      child: Row(
-        children: [
-          Expanded(
-            child: SearchAnchor(
-              searchController: _searchController,
-              viewHintText: 'Cerca piste...',
-              viewBackgroundColor: Theme.of(context).colorScheme.surface,
-              viewSurfaceTintColor: Colors.transparent,
-              headerHintStyle: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-              ),
-              headerTextStyle: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              viewLeading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  _searchController.closeView(null);
-                },
-              ),
-              builder: (BuildContext context, SearchController controller) {
-                return SearchBar(
-                  controller: controller,
-                  hintText: 'Cerca...',
-                  hintStyle: WidgetStateProperty.all(
-                    TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
+    return Positioned(
+      top: 0,
+      left: 0,
+      right: 0,
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 16.w,
+            right: 16.w,
+            top: 12.h,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: SearchAnchor(
+                  searchController: _searchController,
+                  viewHintText: 'Cerca piste...',
+                  viewBackgroundColor: colorScheme.surface,
+                  viewSurfaceTintColor: Colors.transparent,
+                  headerHintStyle: TextStyle(
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
-                  textStyle: WidgetStateProperty.all(
-                    TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.normal,
-                    ),
+                  headerTextStyle: TextStyle(
+                    color: colorScheme.onSurface,
                   ),
-                  backgroundColor: WidgetStateProperty.all(
-                    Theme.of(context).colorScheme.onSecondary,
+                  viewLeading: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () {
+                      _searchController.closeView(null);
+                    },
                   ),
-                  elevation: WidgetStateProperty.all(2.0),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  leading: Icon(
-                    Icons.search,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onTap: () {
-                    // Initialize search with all tracks when opening
+                  builder: (BuildContext context, SearchController controller) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: controller,
+                        readOnly: true,
+                        onTap: () {
+                          final tracks = ref.read(fetchAllTracksProvider).whenOrNull(
+                            data: (tracks) => tracks,
+                          );
+                          if (tracks != null) {
+                            ref.read(searchTrackProvider.notifier).onSearchTrack('', tracks);
+                          }
+                          controller.openView();
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Cerca piste...',
+                          hintStyle: TextStyle(
+                            color: colorScheme.onSurface.withValues(alpha: 0.5),
+                            fontWeight: FontWeight.w400,
+                          ),
+                          prefixIcon: Icon(
+                            Icons.search_rounded,
+                            color: colorScheme.primary,
+                          ),
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 14.h,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  viewBuilder: (Iterable<Widget> suggestions) {
+                    return Container(
+                      color: colorScheme.surface,
+                      child: ListView(
+                        padding: EdgeInsets.all(8.r),
+                        children: suggestions.toList(),
+                      ),
+                    );
+                  },
+                  suggestionsBuilder: (BuildContext context, SearchController controller) {
+                    final query = controller.text.trim();
+                    
                     final tracks = ref.read(fetchAllTracksProvider).whenOrNull(
                       data: (tracks) => tracks,
-                    );
-                    if (tracks != null) {
-                      ref.read(searchTrackProvider.notifier).onSearchTrack('', tracks);
-                    }
-                    controller.openView();
-                  },
-                  onChanged: (_) {
-                    controller.openView();
-                  },
-                );
-              },
-              viewBuilder: (Iterable<Widget> suggestions) {
-                return Container(
-                  color: Theme.of(context).colorScheme.primary,
-                  child: ListView(
-                    padding: EdgeInsets.all(8.r),
-                    children: suggestions.toList(),
-                  ),
-                );
-              },
-              suggestionsBuilder: (BuildContext context, SearchController controller) {
-                final query = controller.text.trim();
-                
-                // Get all tracks and filter
-                final tracks = ref.read(fetchAllTracksProvider).whenOrNull(
-                  data: (tracks) => tracks,
-                ) ?? [];
-                
-                // Update search results
-                ref.read(searchTrackProvider.notifier).onSearchTrack(query, tracks);
-                
-                // Get filtered results
-                final filteredTracks = ref.read(searchTrackProvider);
-                
-                if (filteredTracks.isEmpty) {
-                  return [
-                    Padding(
-                      padding: EdgeInsets.all(16.r),
-                      child: Text(
-                        query.isEmpty 
-                            ? 'Inizia a digitare per cercare...'
-                            : 'Nessun risultato trovato',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary,
+                    ) ?? [];
+                    
+                    ref.read(searchTrackProvider.notifier).onSearchTrack(query, tracks);
+                    
+                    final filteredTracks = ref.read(searchTrackProvider);
+                    
+                    if (filteredTracks.isEmpty) {
+                      return [
+                        Padding(
+                          padding: EdgeInsets.all(24.r),
+                          child: Column(
+                            children: [
+                              Icon(
+                                query.isEmpty ? Icons.search_rounded : Icons.search_off_rounded,
+                                size: 48.r,
+                                color: colorScheme.onSurface.withValues(alpha: 0.3),
+                              ),
+                              SizedBox(height: 12.h),
+                              Text(
+                                query.isEmpty 
+                                    ? 'Inizia a digitare per cercare...'
+                                    : 'Nessun risultato trovato',
+                                style: TextStyle(
+                                  color: colorScheme.onSurface.withValues(alpha: 0.6),
+                                  fontSize: 14.sp,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ];
-                }
-                
-                return filteredTracks.map((track) => GestureDetector(
-                  onTap: () {
-                    controller.closeView(track.name);
+                      ];
+                    }
                     
-                    // Navigate to track on map
-                    final animatedMapController = ref.read(animatedMapControllerProvider);
-                    animatedMapController.animateTo(
-                      dest: LatLng(track.latitude, track.longitude),
-                      zoom: 14.0,
-                    );
-                    
-                    // Open panel with track details
-                    ref.read(panelControllerProvider).open();
-                    ref.read(trackSelectedProvider.notifier).setTrack(track);
+                    return filteredTracks.map((track) => TrackCard(
+                      track: track,
+                      onTap: () {
+                        controller.closeView(track.trackName);
+                        
+                        final animatedMapController = ref.read(animatedMapControllerProvider);
+                        final lat = double.tryParse(track.latitude) ?? 0.0;
+                        final lng = double.tryParse(track.longitude) ?? 0.0;
+                        animatedMapController.animateTo(
+                          dest: LatLng(lat, lng),
+                          zoom: 14.0,
+                        );
+                        
+                        ref.read(panelControllerProvider).open();
+                        ref.read(trackSelectedProvider.notifier).setTrack(track);
+                      },
+                    ));
                   },
-                  child: TrackCard(track: track),
-                ));
-              },
-            ),
-          ),
-          SizedBox(width: 8.w),
-          // Region filter button
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSecondary,
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: PopupMenuButton<Regions>(
-              elevation: 4.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              icon: Tooltip(
-                message: 'Filtra per regione',
-                child: Icon(
-                  Icons.filter_alt,
-                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              color: Theme.of(context).colorScheme.onSecondary,
-              onSelected: _onRegionSelected,
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
-                CheckedPopupMenuItem<Regions>(
-                  value: Regions.all,
-                  checked: selectedRegion == Regions.all,
-                  child: Text(MapConstants.all),
+              SizedBox(width: 12.w),
+              // Region filter button
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 20,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
-                CheckedPopupMenuItem<Regions>(
-                  value: Regions.veneto,
-                  checked: selectedRegion == Regions.veneto,
-                  child: Text(MapConstants.veneto),
+                child: PopupMenuButton<Regions>(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  position: PopupMenuPosition.under,
+                  icon: Icon(
+                    Icons.tune_rounded,
+                    color: colorScheme.primary,
+                  ),
+                  tooltip: 'Filtra per regione',
+                  color: Colors.white,
+                  onSelected: _onRegionSelected,
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<Regions>>[
+                    _buildRegionMenuItem(
+                      Regions.all,
+                      MapConstants.all,
+                      Icons.public_rounded,
+                      selectedRegion == Regions.all,
+                      colorScheme,
+                    ),
+                    _buildRegionMenuItem(
+                      Regions.veneto,
+                      MapConstants.veneto,
+                      Icons.place_rounded,
+                      selectedRegion == Regions.veneto,
+                      colorScheme,
+                    ),
+                    _buildRegionMenuItem(
+                      Regions.lombardia,
+                      MapConstants.lombardia,
+                      Icons.place_rounded,
+                      selectedRegion == Regions.lombardia,
+                      colorScheme,
+                    ),
+                    _buildRegionMenuItem(
+                      Regions.trentinoAltoAdige,
+                      MapConstants.trentinoAltoAdige,
+                      Icons.place_rounded,
+                      selectedRegion == Regions.trentinoAltoAdige,
+                      colorScheme,
+                    ),
+                  ],
                 ),
-                CheckedPopupMenuItem<Regions>(
-                  value: Regions.lombardia,
-                  checked: selectedRegion == Regions.lombardia,
-                  child: Text(MapConstants.lombardia),
-                ),
-                CheckedPopupMenuItem<Regions>(
-                  value: Regions.trentinoAltoAdige,
-                  checked: selectedRegion == Regions.trentinoAltoAdige,
-                  child: Text(MapConstants.trentinoAltoAdige),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+
+  PopupMenuItem<Regions> _buildRegionMenuItem(
+    Regions region,
+    String label,
+    IconData icon,
+    bool isSelected,
+    ColorScheme colorScheme,
+  ) {
+    return PopupMenuItem<Regions>(
+      value: region,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 4.h),
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.r),
+              decoration: BoxDecoration(
+                color: isSelected 
+                    ? colorScheme.primary.withValues(alpha: 0.1)
+                    : Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                icon,
+                size: 20.r,
+                color: isSelected ? colorScheme.primary : Colors.grey,
+              ),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: isSelected ? colorScheme.primary : colorScheme.onSurface,
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+            if (isSelected)
+              Icon(
+                Icons.check_circle_rounded,
+                size: 20.r,
+                color: colorScheme.primary,
+              ),
+          ],
+        ),
       ),
     );
   }

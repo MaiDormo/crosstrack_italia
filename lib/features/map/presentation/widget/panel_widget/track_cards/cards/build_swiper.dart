@@ -52,24 +52,27 @@ Widget buildPlaceholderImage() => Image.asset(
       fit: BoxFit.cover,
     );
 
-Widget buildSkeletonScreenAnimation(BuildContext context) => Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
-      child: Shimmer(
-        gradient: LinearGradient(
-          colors: [
-            Theme.of(context).colorScheme.onSecondary,
-            Theme.of(context).colorScheme.onSecondary.withOpacity(0.5),
-            Theme.of(context).colorScheme.onSecondary,
-          ],
-          stops: const [0.0, 0.5, 1.0],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
-            width: 400.w,
-            height: 300.h,
-            color: Colors.white,
-          ),
+Widget buildSkeletonScreenAnimation(BuildContext context) {
+  final colorScheme = Theme.of(context).colorScheme;
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
+    child: Shimmer(
+      gradient: LinearGradient(
+        colors: [
+          colorScheme.surfaceContainerHighest,
+          colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+          colorScheme.surfaceContainerHighest,
+        ],
+        stops: const [0.0, 0.5, 1.0],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          width: 400.w,
+          height: 300.h,
+          color: colorScheme.surface,
         ),
       ),
-    );
+    ),
+  );
+}

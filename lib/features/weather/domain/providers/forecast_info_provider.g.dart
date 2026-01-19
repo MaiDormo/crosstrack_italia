@@ -14,8 +14,12 @@ final forecastInfoProvider = ForecastInfoProvider._();
 
 final class ForecastInfoProvider
     extends
-        $FunctionalProvider<AsyncValue<Forecast>, Forecast, FutureOr<Forecast>>
-    with $FutureModifier<Forecast>, $FutureProvider<Forecast> {
+        $FunctionalProvider<
+          AsyncValue<Forecast?>,
+          Forecast?,
+          FutureOr<Forecast?>
+        >
+    with $FutureModifier<Forecast?>, $FutureProvider<Forecast?> {
   ForecastInfoProvider._()
     : super(
         from: null,
@@ -32,13 +36,13 @@ final class ForecastInfoProvider
 
   @$internal
   @override
-  $FutureProviderElement<Forecast> $createElement($ProviderPointer pointer) =>
+  $FutureProviderElement<Forecast?> $createElement($ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Forecast> create(Ref ref) {
+  FutureOr<Forecast?> create(Ref ref) {
     return forecastInfo(ref);
   }
 }
 
-String _$forecastInfoHash() => r'c4063209b50f25f8bbd0cdd843cb0da8806ac7fc';
+String _$forecastInfoHash() => r'5436381e4267b615898083178086b87fc0549da5';

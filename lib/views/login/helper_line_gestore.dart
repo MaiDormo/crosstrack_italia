@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HelperLineGestore extends StatelessWidget {
   const HelperLineGestore({
@@ -7,23 +8,27 @@ class HelperLineGestore extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Wrap(
       children: [
         RichText(
           text: TextSpan(
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
             children: <TextSpan>[
               const TextSpan(
                 text:
                     'Nel caso sei un gestore di un tracciato, dopo l\'accesso puoi cominciare la procedura all\'interno delle ',
-                style: TextStyle(
-                  color: Colors.black54,
-                ),
               ),
               TextSpan(
                 text: 'Impostazioni',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
+                style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.primary,
                 ),
               ),
             ],

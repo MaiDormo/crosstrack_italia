@@ -5,106 +5,193 @@ import 'package:crosstrack_italia/features/user_info/presentation/owned_tracks_s
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TrackAction extends StatelessWidget {
   const TrackAction({Key? key}) : super(key: key);
 
-  Widget _buildElevatedButton({
-    required IconData icon,
-    required String label,
-    required Color foregroudColor,
-    required Color backgroundColor,
-    required VoidCallback onPressed,
-  }) {
-    return Flexible(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0).r,
-        child: ElevatedButton.icon(
-          icon: Icon(
-            icon,
-            size: 50.h,
-            color: foregroudColor,
-          ),
-          label: Text(
-            label,
-            style: TextStyle(
-              fontSize: 18.sp,
-              color: foregroudColor,
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Header
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 12.h),
+            child: Text(
+              'Tracciati',
+              style: GoogleFonts.poppins(
+                fontSize: 28.sp,
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onSurface,
+                letterSpacing: -0.5,
+              ),
             ),
           ),
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
-            backgroundColor: backgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+          
+          // Action Cards
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                _buildActionCard(
+                  context: context,
+                  icon: Icons.compare_arrows_rounded,
+                  title: 'Confronto Tracciati',
+                  subtitle: 'Confronta due tracciati fianco a fianco',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TrackSelectionScreen(),
+                      ),
+                    );
+                  },
+                ),
+                
+                SizedBox(height: 12.h),
+                
+                _buildActionCard(
+                  context: context,
+                  icon: Icons.favorite_rounded,
+                  title: 'Tracciati Preferiti',
+                  subtitle: 'I tuoi tracciati salvati',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FavoriteTracksScreen(),
+                      ),
+                    );
+                  },
+                ),
+                
+                // Owner-only section
+                Consumer(
+                  builder: (context, ref, child) {
+                    final isOwner = ref.watch(isOwnerProvider);
+                    if (!isOwner) return const SizedBox.shrink();
+                    
+                    return Column(
+                      children: [
+                        SizedBox(height: 12.h),
+                        _buildActionCard(
+                          context: context,
+                          icon: Icons.edit_road_rounded,
+                          title: 'Gestione Tracciati',
+                          subtitle: 'Modifica i tracciati che gestisci',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const OwnedTracksScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                
+                SizedBox(height: 20.h),
+              ],
             ),
           ),
-          onPressed: onPressed,
-        ),
+        ],
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0).h,
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildElevatedButton(
-              icon: Icons.compare_arrows,
-              label: 'Confronto Tracciati',
-              foregroudColor: Theme.of(context).colorScheme.onSecondary,
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TrackSelectionScreen()),
-                );
-              },
-            ),
-            _buildElevatedButton(
-              icon: Icons.favorite,
-              label: 'Tracciati Preferiti',
-              foregroudColor: Theme.of(context).colorScheme.secondary,
-              backgroundColor: Colors.white,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FavoriteTracksScreen()),
-                );
-              },
-            ),
-            Consumer(
-              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                final isOwner = ref.watch(isOwnerProvider);
-                return Visibility(
-                  visible: isOwner,
-                  child: _buildElevatedButton(
-                    icon: Icons.edit,
-                    label: 'Gestione Tracciati',
-                    foregroudColor: Theme.of(context).colorScheme.onSecondary,
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OwnedTracksScreen(),
+  Widget _buildActionCard({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+  }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          padding: EdgeInsets.all(20.r),
+          decoration: BoxDecoration(
+            color: colorScheme.primary,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: colorScheme.primary.withValues(alpha: 0.3),
+                blurRadius: 15,
+                offset: const Offset(0, 8),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              // Icon container
+              Container(
+                width: 56.r,
+                height: 56.r,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: 28.r,
+                ),
+              ),
+              SizedBox(width: 16.w),
+              // Text content
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: GoogleFonts.poppins(
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                        letterSpacing: -0.3,
                       ),
                     ),
-                  ),
-                );
-              },
-            )
-          ],
+                    SizedBox(height: 4.h),
+                    Text(
+                      subtitle,
+                      style: GoogleFonts.poppins(
+                        fontSize: 13.sp,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Arrow
+              Container(
+                width: 36.r,
+                height: 36.r,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  Icons.arrow_forward_rounded,
+                  color: Colors.white,
+                  size: 20.r,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

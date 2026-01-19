@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
+import '../../firebase_constants/firebase_collection_name.dart';
+import '../../firebase_constants/firebase_field_name.dart';
+import '../../track/models/track.dart';
+import '../../track/models/typedefs/typedefs.dart';
 
 class OwnedTracksRepository {
-  final FirebaseFirestore _firestore;
-  final String _userId;
 
   OwnedTracksRepository(
       {required FirebaseFirestore firestore, required String userId})
       : _firestore = firestore,
         _userId = userId;
+      
+  final FirebaseFirestore _firestore;
+  final String _userId;
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseCollectionName.users);
@@ -29,7 +30,7 @@ class OwnedTracksRepository {
         throw Exception('User not found');
       }
 
-      List<dynamic> ownedTracks =
+      final List<dynamic> ownedTracks =
           userDocSnapshot.get(FirebaseFieldName.ownedTracks) ?? [];
       ownedTracks.addAll(trackIds);
       transaction
@@ -66,7 +67,7 @@ class OwnedTracksRepository {
       }
 
       //needed to cast because cannot infer type from Object? to Map<String, dynamic>
-      var data = userDocSnapshot.data() as Map<String, dynamic>;
+      final data = userDocSnapshot.data() as Map<String, dynamic>;
 
       return (data[FirebaseFieldName.ownedTracks] as List?)?.cast<TrackId>() ??
           [];

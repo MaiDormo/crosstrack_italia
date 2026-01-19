@@ -108,6 +108,8 @@ class UserStateNotifier extends _$UserStateNotifier {
       ownedTracks: ownedTracks,
     );
     await saveUserInfo(userInfoModel: user);
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(user);
   }
 
@@ -121,6 +123,8 @@ class UserStateNotifier extends _$UserStateNotifier {
       ownedTracks: [],
     );
     await saveUserInfo(userInfoModel: user);
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(user);
   }
 

@@ -1,20 +1,54 @@
-import 'package:crosstrack_italia/common/shared_preferences.dart';
-import 'package:crosstrack_italia/splash_screen.dart';
-import 'package:crosstrack_italia/views/tabs/home_page_view.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'firebase_options.dart';
 
+import 'common/shared_preferences.dart';
+import 'firebase_options.dart';
+import 'splash_screen.dart';
 // Conditional import for tile caching (not supported on web)
 import 'tile_cache_stub.dart'
     if (dart.library.io) 'tile_cache_mobile.dart' as tile_cache;
+import 'views/tabs/home_page_view.dart';
+
+/// App color palette - Professional blue-oriented style
+class AppColors {
+  AppColors._();
+
+  // Primary - Deep professional blue
+  static const primary = Color(0xFF1E3A5F);
+  static const primaryLight = Color(0xFF2E5077);
+  static const primaryDark = Color(0xFF0F2744);
+
+  // Secondary - Complementary steel blue
+  static const secondary = Color(0xFF3D5A80);
+  static const secondaryLight = Color(0xFF5C7A99);
+
+  // Accent - Subtle teal for highlights
+  static const accent = Color(0xFF4A90A4);
+  static const accentLight = Color(0xFF6BB3C9);
+
+  // Background
+  static const background = Color(0xFFF5F7FA);
+  static const surface = Colors.white;
+  static const surfaceVariant = Color(0xFFEEF2F6);
+
+  // Text
+  static const textPrimary = Color(0xFF1A2B3C);
+  static const textSecondary = Color(0xFF5A6978);
+  static const textMuted = Color(0xFF8A96A3);
+
+  // Semantic
+  static const success = Color(0xFF2E7D5A);
+  static const warning = Color(0xFFD4A534);
+  static const error = Color(0xFFC54B4B);
+  static const info = Color(0xFF4A90A4);
+}
 
 /// Initializes Firebase and App Check.
 ///
@@ -90,27 +124,117 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MaterialApp(
         title: 'Cross Track Italia',
         theme: ThemeData(
-          scaffoldBackgroundColor:
-              const Color.fromRGBO(120, 135, 155, 0.9),
+          scaffoldBackgroundColor: AppColors.background,
           colorScheme: ColorScheme.fromSeed(
-            seedColor:
-                const Color.fromRGBO(50, 65, 85, 0.9), // dark, desaturated blue
+            seedColor: AppColors.primary,
             brightness: Brightness.light,
-            primary: const Color.fromRGBO(
-                50, 65, 85, 0.9), // dark, desaturated green
-            secondary: const Color.fromRGBO(
-                50, 65, 85, 0.96), // dark, desaturated orange
-            tertiary: const Color.fromRGBO(211, 211, 211, 0.9), // light gray
+            primary: AppColors.primary,
+            secondary: AppColors.secondary,
+            tertiary: AppColors.accent,
+            surface: AppColors.surface,
+            surfaceContainerHighest: AppColors.surfaceVariant,
+            onSurface: AppColors.textPrimary,
+            onPrimary: Colors.white,
+            onSecondary: Colors.white,
+            error: AppColors.error,
           ),
           useMaterial3: true,
-          hintColor:
-              const Color.fromRGBO(85, 65, 50, 0.9), // dark, desaturated orange
+          cardTheme: CardThemeData(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            color: AppColors.surface,
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppColors.primary,
+            elevation: 0,
+            centerTitle: true,
+            titleTextStyle: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+            iconTheme: const IconThemeData(color: Colors.white),
+            foregroundColor: Colors.white,
+          ),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              backgroundColor: AppColors.primary,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              textStyle: GoogleFonts.poppins(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: OutlinedButton.styleFrom(
+              foregroundColor: AppColors.primary,
+              side: const BorderSide(color: AppColors.primary, width: 1.5),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              textStyle: GoogleFonts.poppins(
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ),
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: AppColors.surfaceVariant,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            hintStyle: GoogleFonts.poppins(
+              color: AppColors.textMuted,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
           textTheme: GoogleFonts.poppinsTextTheme(
             Theme.of(context).textTheme.apply(
-                  bodyColor: Colors.white,
-                  displayColor: Colors.white,
-                  fontSizeFactor: 1.0.sp,
+                  bodyColor: AppColors.textPrimary,
+                  displayColor: AppColors.textPrimary,
                 ),
+          ),
+          floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            backgroundColor: AppColors.accent,
+            foregroundColor: Colors.white,
+          ),
+          chipTheme: ChipThemeData(
+            backgroundColor: AppColors.surfaceVariant,
+            selectedColor: AppColors.accent.withValues(alpha: 0.2),
+            labelStyle: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          dividerTheme: DividerThemeData(
+            color: AppColors.textMuted.withValues(alpha: 0.2),
+            thickness: 1,
+          ),
+          snackBarTheme: SnackBarThemeData(
+            backgroundColor: AppColors.primaryDark,
+            contentTextStyle: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            behavior: SnackBarBehavior.floating,
           ),
         ),
         home: const HomePageView(),

@@ -66,15 +66,123 @@ class AuthRepository {
   Future<void> logOut() async {
     await _firebaseAuth.signOut();
     try {
-      await _googleSignIn?.disconnect();
+      if (!kIsWeb && _googleSignIn != null) {
+        await _googleSignIn!.disconnect();
+      }
     } catch (e) {
       debugPrint('Google sign out error: $e');
     }
     await FacebookAuth.i.logOut();
   }
 
-  /// Ensures Google Sign-In is initialized before use.
-  /// Returns false if Google Sign-In is not available (e.g., on web without client ID).
+  /// Initiates Google Sign-In flow.
+  ///
+  /// On web, uses Firebase Auth's signInWithPopup for better compatibility.
+  /// On mobile, uses the google_sign_in package.
+  Future<void> googleLogin() async {
+    if (kIsWeb) {
+      await _googleLoginWeb();
+    } else {
+      await _googleLoginMobile();
+    }
+  }
+
+  /// Google Sign-In for web using Firebase Auth popup
+  Future<void> _googleLoginWeb() async {
+    try {
+      debugPrint('Starting Google Sign-In for web...');
+      
+      final googleProvider = GoogleAuthProvider();
+      googleProvider.addScope('email');
+      googleProvider.addScope('profile');
+      
+      // Use popup for web - this is the most reliable method
+      final userCredential = await _firebaseAuth.signInWithPopup(googleProvider);
+      
+      debugPrint('Web Google Sign-In successful: ${userCredential.user?.email}');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'popup-closed-by-user' || e.code == 'cancelled-popup-request') {
+        debugPrint('Google Sign-In popup closed by user');
+        return;
+      }
+      debugPrint('Firebase Auth error: ${e.code} - ${e.message}');
+      rethrow;
+    } catch (e, stack) {
+      debugPrint('Web Google login error: $e');
+      debugPrint('Stack: $stack');
+      rethrow;
+    }
+  }
+
+  /// Google Sign-In for mobile using google_sign_in package
+  Future<void> _googleLoginMobile() async {
+    try {
+      final initialized = await _ensureGoogleSignInInitialized();
+      if (!initialized || _googleSignIn == null) {
+        debugPrint('Google Sign-In not available');
+        return;
+      }
+      
+      GoogleSignInAccount? googleUser;
+      
+      // Try silent sign-in first
+      try {
+        final lightweightFuture = _googleSignIn!.attemptLightweightAuthentication();
+        if (lightweightFuture != null) {
+          googleUser = await lightweightFuture;
+          debugPrint('Lightweight auth result: $googleUser');
+        }
+      } catch (e) {
+        debugPrint('Lightweight auth failed: $e');
+      }
+      
+      // If no user from lightweight auth, try full authentication
+      if (googleUser == null) {
+        if (_googleSignIn!.supportsAuthenticate()) {
+          debugPrint('Attempting full authentication...');
+          googleUser = await _googleSignIn!.authenticate();
+          debugPrint('Full auth result: $googleUser');
+        } else {
+          debugPrint('Full authentication not supported on this platform');
+          return;
+        }
+      }
+      
+      if (googleUser == null) {
+        debugPrint('Google Sign-In cancelled or failed');
+        return;
+      }
+
+      // Get authorization for accessing user info
+      debugPrint('Getting authorization...');
+      final authorization = await googleUser.authorizationClient.authorizeScopes(['email']);
+      debugPrint('Got access token: ${authorization.accessToken != null}');
+      
+      if (authorization.accessToken == null) {
+        debugPrint('No access token received');
+        return;
+      }
+
+      final oauthCredentials = GoogleAuthProvider.credential(
+        accessToken: authorization.accessToken,
+      );
+
+      debugPrint('Signing in with Firebase...');
+      await _firebaseAuth.signInWithCredential(oauthCredentials);
+      debugPrint('Firebase sign-in successful');
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        debugPrint('Google Sign-In cancelled by user');
+        return;
+      }
+      debugPrint('Google Sign-In exception: ${e.code}');
+    } catch (e, stack) {
+      debugPrint('Mobile Google login error: $e');
+      debugPrint('Stack trace: $stack');
+    }
+  }
+
+  /// Ensures Google Sign-In is initialized before use (mobile only).
   Future<bool> _ensureGoogleSignInInitialized() async {
     if (!_googleSignInAvailable) return false;
     
@@ -83,6 +191,7 @@ class AuthRepository {
         _googleSignIn = GoogleSignIn.instance;
         await _googleSignIn!.initialize();
         _googleSignInInitialized = true;
+        debugPrint('Google Sign-In initialized successfully');
       } catch (e) {
         debugPrint('Google Sign-In initialization failed: $e');
         _googleSignInAvailable = false;
@@ -90,57 +199,6 @@ class AuthRepository {
       }
     }
     return true;
-  }
-
-  /// Initiates Google Sign-In flow.
-  ///
-  /// Opens the Google Sign-In dialog and authenticates with Firebase
-  /// upon successful Google authentication.
-  ///
-  /// Does nothing if the user cancels the sign-in dialog.
-  Future<void> googleLogin() async {
-    try {
-      final initialized = await _ensureGoogleSignInInitialized();
-      if (!initialized || _googleSignIn == null) {
-        debugPrint('Google Sign-In not available');
-        return;
-      }
-      
-      // Try lightweight authentication first (silent sign in)
-      GoogleSignInAccount? googleUser;
-      final lightweightFuture = _googleSignIn!.attemptLightweightAuthentication();
-      if (lightweightFuture != null) {
-        googleUser = await lightweightFuture;
-      }
-      
-      // If no user from lightweight auth, try full authentication
-      if (googleUser == null && _googleSignIn!.supportsAuthenticate()) {
-        googleUser = await _googleSignIn!.authenticate();
-      }
-      
-      if (googleUser == null) {
-        return;
-      }
-
-      // Get authorization for accessing user info
-      final authorization = await googleUser.authorizationClient.authorizeScopes(['email']);
-      
-      final oauthCredentials = GoogleAuthProvider.credential(
-        accessToken: authorization.accessToken,
-      );
-
-      await _firebaseAuth.signInWithCredential(
-        oauthCredentials,
-      );
-    } on GoogleSignInException catch (e) {
-      if (e.code == GoogleSignInExceptionCode.canceled) {
-        // User cancelled, do nothing
-        return;
-      }
-      debugPrint('Google login error: $e');
-    } catch (e) {
-      debugPrint('Google login error: $e');
-    }
   }
 
   /// Initiates Facebook Login flow.

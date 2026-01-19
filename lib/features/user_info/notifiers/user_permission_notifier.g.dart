@@ -42,7 +42,7 @@ final class LocationPermissionProvider
 }
 
 String _$locationPermissionHash() =>
-    r'27f3361f226b814d1ddc51bdc2b8433138278f9f';
+    r'ab32f258dd906a958db90f33e968917487629089';
 
 abstract class _$LocationPermission extends $Notifier<bool> {
   bool build();
@@ -86,7 +86,7 @@ final class StoragePermissionProvider
   StoragePermission create() => StoragePermission();
 }
 
-String _$storagePermissionHash() => r'a7cb18c8b72ddff57b0953536b69bc2c2f0f003f';
+String _$storagePermissionHash() => r'476f643c267ae4d0aae0d87b4c5671ceb08f905e';
 
 abstract class _$StoragePermission extends $AsyncNotifier<bool> {
   FutureOr<bool> build();
@@ -130,7 +130,7 @@ final class CameraPermissionProvider
   CameraPermission create() => CameraPermission();
 }
 
-String _$cameraPermissionHash() => r'94fc1880b9c094e94aaa3d8718b994d62aed9de4';
+String _$cameraPermissionHash() => r'564a8c98d6a7179189dd8aa913edaa3a969388d6';
 
 abstract class _$CameraPermission extends $AsyncNotifier<bool> {
   FutureOr<bool> build();

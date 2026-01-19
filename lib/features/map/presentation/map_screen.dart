@@ -1,16 +1,17 @@
-import 'package:crosstrack_italia/common/responsive.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/map_widget/floating_search_map_bar.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/map_widget/map.dart';
-import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
-import 'package:crosstrack_italia/features/map/presentation/panel_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../../common/responsive.dart';
+import '../providers/controller_utils.dart';
+import 'panel_widget.dart';
+import 'widget/map_widget/floating_search_map_bar.dart';
+import 'widget/map_widget/map.dart';
+
 //------------------RIVERPOD------------------//
 class MapScreen extends ConsumerStatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+  const MapScreen({super.key});
 
   @override
   _MapScreenState createState() => _MapScreenState();
@@ -56,7 +57,7 @@ class _MapScreenState extends ConsumerState<MapScreen>
               maxHeight: panelHeightOpen,
               parallaxEnabled: true,
               parallaxOffset: 0.5,
-              color: Theme.of(context).colorScheme.secondary,
+              color: Colors.transparent,
               body: const ClipRRect(
                 borderRadius: BorderRadius.all(
                   Radius.circular(20),
@@ -69,16 +70,14 @@ class _MapScreenState extends ConsumerState<MapScreen>
                   ],
                 ),
               ),
-              panelBuilder: (scrollController) => SafeArea(
-                child: PanelWidget(
-                  null,
-                  hideDragHandle: false,
-                  scrollController: scrollController,
-                  panelController: panelController,
-                ),
+              panelBuilder: (scrollController) => PanelWidget(
+                null,
+                hideDragHandle: false,
+                scrollController: scrollController,
+                panelController: panelController,
               ),
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
+                top: Radius.circular(24),
               ),
             ),
           ),

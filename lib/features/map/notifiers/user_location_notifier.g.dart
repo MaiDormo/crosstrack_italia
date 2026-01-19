@@ -8,6 +8,62 @@ part of 'user_location_notifier.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// Tracks whether GPS is currently having errors (especially on web)
+
+@ProviderFor(GpsError)
+final gpsErrorProvider = GpsErrorProvider._();
+
+/// Tracks whether GPS is currently having errors (especially on web)
+final class GpsErrorProvider extends $NotifierProvider<GpsError, String?> {
+  /// Tracks whether GPS is currently having errors (especially on web)
+  GpsErrorProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'gpsErrorProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$gpsErrorHash();
+
+  @$internal
+  @override
+  GpsError create() => GpsError();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String? value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String?>(value),
+    );
+  }
+}
+
+String _$gpsErrorHash() => r'3ce90406c8499fc13402196ce138577c0ce2d28e';
+
+/// Tracks whether GPS is currently having errors (especially on web)
+
+abstract class _$GpsError extends $Notifier<String?> {
+  String? build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<String?, String?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String?, String?>,
+              String?,
+              Object?,
+              Object?
+            >;
+    element.handleCreate(ref, build);
+  }
+}
 
 @ProviderFor(getLocationPlaceString)
 final getLocationPlaceStringProvider = GetLocationPlaceStringProvider._();
@@ -49,11 +105,11 @@ final getPositionProvider = GetPositionProvider._();
 final class GetPositionProvider
     extends
         $FunctionalProvider<
-          AsyncValue<Position?>,
-          Position?,
-          FutureOr<Position?>
+          AsyncValue<geo.Position?>,
+          geo.Position?,
+          FutureOr<geo.Position?>
         >
-    with $FutureModifier<Position?>, $FutureProvider<Position?> {
+    with $FutureModifier<geo.Position?>, $FutureProvider<geo.Position?> {
   GetPositionProvider._()
     : super(
         from: null,
@@ -70,16 +126,17 @@ final class GetPositionProvider
 
   @$internal
   @override
-  $FutureProviderElement<Position?> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $FutureProviderElement<geo.Position?> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<Position?> create(Ref ref) {
+  FutureOr<geo.Position?> create(Ref ref) {
     return getPosition(ref);
   }
 }
 
-String _$getPositionHash() => r'a69943db8e81ee6ee513e1dbf1c43b57dac2fecf';
+String _$getPositionHash() => r'b8b4db380e358668cc59da9ee82f4586b1e5d61b';
 
 @ProviderFor(ShowCurrentLocation)
 final showCurrentLocationProvider = ShowCurrentLocationProvider._();
@@ -220,7 +277,7 @@ final class UserLocationNotifierProvider
 }
 
 String _$userLocationNotifierHash() =>
-    r'500c9e1a312a2c4eeb2b90aaf3e98c3fea6a6d60';
+    r'9179141198276f792140b734b9833c82c76d16e2';
 
 abstract class _$UserLocationNotifier extends $Notifier<void> {
   void build();

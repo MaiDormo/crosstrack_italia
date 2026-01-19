@@ -1,14 +1,30 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, debugPrint;
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart' as geo;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../user_info/notifiers/user_permission_notifier.dart';
+import '../constants/map_constants.dart';
 
 part 'user_location_notifier.g.dart';
 
 //------------------------PROVIDERS------------------------//
+
+/// Tracks whether GPS is currently having errors (especially on web)
+@Riverpod(keepAlive: true)
+class GpsError extends _$GpsError {
+  @override
+  String? build() => null;
+
+  void setError(String? error) {
+    state = error;
+  }
+
+  void clearError() {
+    state = null;
+  }
+}
 
 @riverpod
 Future<String> getLocationPlaceString(Ref ref) async {
@@ -21,19 +37,29 @@ Future<String> getLocationPlaceString(Ref ref) async {
 }
 
 @riverpod
-Future<Position?> getPosition(Ref ref) async {
+Future<geo.Position?> getPosition(Ref ref) async {
   final locationPermission = ref.watch(locationPermissionProvider);
   final showCurrentLocation = ref.watch(showCurrentLocationProvider);
 
   final userLocationNotifier = ref.watch(userLocationProvider.notifier);
+  final gpsErrorNotifier = ref.watch(gpsErrorProvider.notifier);
 
   if (!locationPermission || !showCurrentLocation) {
     return null;
   }
   
   try {
-    return await userLocationNotifier.getPosition();
+    final position = await userLocationNotifier.getPosition();
+    gpsErrorNotifier.clearError();
+    return position;
   } catch (e) {
+    debugPrint('getPosition error: $e');
+    // Set error state for UI to display
+    if (kIsWeb) {
+      gpsErrorNotifier.setError('GPS non disponibile sul browser. Prova su dispositivo mobile.');
+    } else {
+      gpsErrorNotifier.setError('Errore GPS: $e');
+    }
     // Return null on error (especially for web where geolocation might fail)
     return null;
   }
@@ -79,10 +105,26 @@ class UserLocationNotifier extends _$UserLocationNotifier {
   Future<String> getLocationPlaceString(bool canShow) async {
     if (canShow) {
       try {
-        final location = await Geolocator.getCurrentPosition(
-            locationSettings: const LocationSettings(
-              accuracy: LocationAccuracy.high,
-            ));
+        // First check if location service is enabled
+        final serviceEnabled = await geo.Geolocator.isLocationServiceEnabled();
+        if (!serviceEnabled) {
+          return MapConstants.errorLocation;
+        }
+
+        // Check permission
+        final permission = await geo.Geolocator.checkPermission();
+        if (permission == geo.LocationPermission.denied ||
+            permission == geo.LocationPermission.deniedForever) {
+          return MapConstants.errorLocation;
+        }
+
+        final location = await geo.Geolocator.getCurrentPosition(
+          locationSettings: const geo.LocationSettings(
+            accuracy: kIsWeb ? geo.LocationAccuracy.medium : geo.LocationAccuracy.high,
+            // Web has longer timeouts
+            timeLimit: Duration(seconds: kIsWeb ? 30 : 10),
+          ),
+        );
         final userLatitude = location.latitude;
         final userLongitude = location.longitude;
 
@@ -91,14 +133,14 @@ class UserLocationNotifier extends _$UserLocationNotifier {
           return 'Lat: ${userLatitude.toStringAsFixed(4)}, Lon: ${userLongitude.toStringAsFixed(4)}';
         }
 
-        List<Placemark> placemarks = await placemarkFromCoordinates(
+        final List<Placemark> placemarks = await placemarkFromCoordinates(
           userLatitude,
           userLongitude,
         );
 
         if (placemarks.isNotEmpty) {
-          Placemark closestPlacemark = placemarks.first;
-          String? closestLocation = closestPlacemark.locality ??
+          final Placemark closestPlacemark = placemarks.first;
+          final String? closestLocation = closestPlacemark.locality ??
               closestPlacemark.subAdministrativeArea ??
               closestPlacemark.administrativeArea;
           return closestLocation ?? MapConstants.noLocationFound;
@@ -106,6 +148,7 @@ class UserLocationNotifier extends _$UserLocationNotifier {
 
         return MapConstants.noLocationFound;
       } catch (e) {
+        debugPrint('getLocationPlaceString error: $e');
         return MapConstants.errorLocation;
       }
     } else {
@@ -113,16 +156,37 @@ class UserLocationNotifier extends _$UserLocationNotifier {
     }
   }
 
-  Future<Position> getPosition() async {
+  Future<geo.Position> getPosition() async {
     try {
-      final location = await Geolocator.getCurrentPosition(
-          locationSettings: const LocationSettings(
-            accuracy: LocationAccuracy.high,
-          )); // Get users location
+      // Check if location service is enabled
+      final serviceEnabled = await geo.Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        throw Exception('Location services are disabled');
+      }
+
+      // Check permission
+      var permission = await geo.Geolocator.checkPermission();
+      if (permission == geo.LocationPermission.denied) {
+        permission = await geo.Geolocator.requestPermission();
+        if (permission == geo.LocationPermission.denied) {
+          throw Exception('Location permission denied');
+        }
+      }
+      
+      if (permission == geo.LocationPermission.deniedForever) {
+        throw Exception('Location permission permanently denied');
+      }
+
+      final location = await geo.Geolocator.getCurrentPosition(
+        locationSettings: const geo.LocationSettings(
+          accuracy: kIsWeb ? geo.LocationAccuracy.medium : geo.LocationAccuracy.high,
+          timeLimit: Duration(seconds: kIsWeb ? 30 : 10),
+        ),
+      );
       return location;
     } catch (e) {
-      // Re-throw with more context for debugging
-      throw Exception('Failed to get position: $e');
+      debugPrint('getPosition error: $e');
+      rethrow;
     }
   }
 }

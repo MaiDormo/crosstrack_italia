@@ -26,20 +26,28 @@ class OwnedTracksNotifier extends _$OwnedTracksNotifier {
 
   Future<void> addTracks(List<TrackId> trackIds) async {
     await _service.addTracks(trackIds);
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(await _service.getOwnedTracks());
   }
 
   Future<void> removeTrack(TrackId trackId) async {
     await _service.removeTrack(trackId);
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(await _service.getOwnedTracks());
   }
 
   Future<void> fetchOwnedTracks() async {
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(await _service.getOwnedTracks());
   }
 
   Future<void> updateTrackInfo(Track track) async {
     await _service.updateTrackInfo(track);
+    // Check if still mounted before updating state
+    if (!ref.mounted) return;
     state = AsyncData(await _service.getOwnedTracks());
   }
 }

@@ -49,12 +49,33 @@ Widget userImage(Ref ref) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: switch (_userState) {
-        AsyncData(:final value) => providerId != 'facebook.com'
+        AsyncData(:final value) => providerId != 'facebook.com' &&
+                value.profileImageUrl != null &&
+                value.profileImageUrl!.isNotEmpty
             ? Image.network(
                 value.profileImageUrl!,
                 height: 35.h,
                 width: 35.w,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  // Fallback to default icon on error (e.g., 429 rate limit)
+                  return Icon(
+                    Icons.account_circle,
+                    size: 35.h,
+                    color: Colors.white,
+                  );
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return SizedBox(
+                    height: 35.h,
+                    width: 35.w,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: Colors.white,
+                    ),
+                  );
+                },
               )
             : SvgPicture.asset(
                 'assets/svgs/f_logo.svg',
@@ -67,7 +88,11 @@ Widget userImage(Ref ref) {
                 ),
               ),
         AsyncError() => Icon(Icons.error),
-        _ => CircularProgressIndicator(),
+        _ => SizedBox(
+            height: 35.h,
+            width: 35.w,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
       },
     );
   } else {
