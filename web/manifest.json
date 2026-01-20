@@ -1,12 +1,12 @@
 {
-    "name": "crosstrack_italia",
-    "short_name": "crosstrack_italia",
+    "name": "Cross Track Italia",
+    "short_name": "CrossTrack",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#0F2744",
+    "theme_color": "#1E3A5F",
+    "description": "Scopri i migliori tracciati motocross del Nord Italia",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {

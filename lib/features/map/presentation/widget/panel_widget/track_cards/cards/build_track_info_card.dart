@@ -3,15 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../track/models/track.dart';
 
-Widget buildTrackInfoCard(
-  Track trackSelected,
-  BuildContext context,
-) {
+Widget buildTrackInfoCard(Track trackSelected, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Expanded(
     child: Container(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(12.r.clamp(10.0, 16.0)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -29,43 +26,45 @@ Widget buildTrackInfoCard(
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.r),
+                padding: EdgeInsets.all(6.r.clamp(5.0, 8.0)),
                 decoration: BoxDecoration(
                   color: colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
                   Icons.info_outline_rounded,
-                  size: 18.r,
+                  size: 16.r.clamp(14.0, 18.0),
                   color: colorScheme.primary,
                 ),
               ),
-              SizedBox(width: 10.w),
-              Text(
-                'Info Tracciato',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
+              SizedBox(width: 8.w.clamp(6.0, 10.0)),
+              Expanded(
+                child: Text(
+                  'Info',
+                  style: TextStyle(
+                    fontSize: 13.sp.clamp(12.0, 14.0),
+                    fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 14.h),
+          SizedBox(height: 12.h),
           _buildAttributeRow(
             Icons.military_tech_rounded,
-            'Categoria',
+            'Cat.',
             trackSelected.category,
             context,
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 8.h),
           _buildAttributeRow(
             Icons.straighten_rounded,
-            'Lunghezza',
+            'Lung.',
             trackSelected.trackLength,
             context,
           ),
-          SizedBox(height: 10.h),
+          SizedBox(height: 8.h),
           _buildAttributeRow(
             Icons.terrain_rounded,
             'Terreno',
@@ -85,15 +84,11 @@ Widget _buildAttributeRow(
   BuildContext context,
 ) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Row(
     children: [
-      Icon(
-        icon,
-        size: 16.r,
-        color: colorScheme.tertiary,
-      ),
-      SizedBox(width: 8.w),
+      Icon(icon, size: 14.r.clamp(12.0, 16.0), color: colorScheme.tertiary),
+      SizedBox(width: 6.w.clamp(4.0, 8.0)),
       Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +96,7 @@ Widget _buildAttributeRow(
             Text(
               label,
               style: TextStyle(
-                fontSize: 12.sp,
+                fontSize: 11.sp.clamp(10.0, 12.0),
                 color: colorScheme.tertiary,
               ),
             ),
@@ -109,7 +104,7 @@ Widget _buildAttributeRow(
               child: Text(
                 value,
                 style: TextStyle(
-                  fontSize: 12.sp,
+                  fontSize: 11.sp.clamp(10.0, 12.0),
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurface,
                 ),

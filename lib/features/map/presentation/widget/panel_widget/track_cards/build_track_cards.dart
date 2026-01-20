@@ -14,51 +14,52 @@ Widget buildTrackCards(
   Track trackSelected,
   AsyncValue<Iterable<Widget>> allTrackImages,
   BuildContext context,
-) =>
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // First row: Motoclub + Track Info
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildMotoclubCard(trackSelected, context),
-            SizedBox(width: 12.w),
-            buildTrackInfoCard(trackSelected, context),
-          ],
-        ),
-        SizedBox(height: 12.h),
-        // Second row: Pilot Info + Services
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildPilotInfoCard(trackSelected, context),
-            SizedBox(width: 12.w),
-            buildServicesCard(trackSelected, context),
-          ],
-        ),
-        SizedBox(height: 16.h),
-        // Image swiper
-        buildTrackImagesSwiper(allTrackImages, context),
-        SizedBox(height: 16.h),
-        // Weather section
-        _buildSectionCard(
-          context,
-          'Meteo',
-          Icons.wb_sunny_rounded,
-          const WeatherView(),
-        ),
-        SizedBox(height: 12.h),
-        // Comments section
-        _buildSectionCard(
-          context,
-          'Recensioni',
-          Icons.chat_bubble_outline_rounded,
-          CommentsSection(trackId: trackSelected.id),
-        ),
-      ],
-    );
+) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      // First row: Motoclub + Track Info
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildMotoclubCard(trackSelected, context),
+          SizedBox(width: 10.w.clamp(6.0, 12.0)),
+          buildTrackInfoCard(trackSelected, context),
+        ],
+      ),
+      SizedBox(height: 10.h),
+      // Second row: Pilot Info + Services
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          buildPilotInfoCard(trackSelected, context),
+          SizedBox(width: 10.w.clamp(6.0, 12.0)),
+          buildServicesCard(trackSelected, context),
+        ],
+      ),
+      SizedBox(height: 14.h),
+      // Image swiper
+      buildTrackImagesSwiper(allTrackImages, context),
+      SizedBox(height: 14.h),
+      // Weather section
+      _buildSectionCard(
+        context,
+        'Meteo',
+        Icons.wb_sunny_rounded,
+        const WeatherView(),
+      ),
+      SizedBox(height: 10.h),
+      // Comments section
+      _buildSectionCard(
+        context,
+        'Recensioni',
+        Icons.chat_bubble_outline_rounded,
+        CommentsSection(trackId: trackSelected.id),
+      ),
+    ],
+  );
+}
 
 Widget _buildSectionCard(
   BuildContext context,
@@ -67,7 +68,7 @@ Widget _buildSectionCard(
   Widget child,
 ) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
@@ -85,28 +86,30 @@ Widget _buildSectionCard(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.all(16.r),
+          padding: EdgeInsets.all(14.r.clamp(10.0, 16.0)),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.r),
+                padding: EdgeInsets.all(6.r.clamp(5.0, 8.0)),
                 decoration: BoxDecoration(
                   color: colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
                   icon,
-                  size: 18.r,
+                  size: 16.r.clamp(14.0, 18.0),
                   color: colorScheme.primary,
                 ),
               ),
-              SizedBox(width: 10.w),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface,
+              SizedBox(width: 8.w.clamp(6.0, 10.0)),
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 13.sp.clamp(12.0, 14.0),
+                    fontWeight: FontWeight.w600,
+                    color: colorScheme.onSurface,
+                  ),
                 ),
               ),
             ],

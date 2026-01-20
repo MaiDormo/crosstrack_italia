@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// Responsive breakpoints and utilities for adaptive layouts
@@ -21,6 +22,23 @@ class Responsive {
   static bool isDesktop(BuildContext context) =>
       MediaQuery.of(context).size.width >= tabletBreakpoint;
 
+  /// Check if the current screen is in landscape orientation
+  static bool isLandscape(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return size.width > size.height;
+  }
+
+  /// Check if the screen has a wide aspect ratio (like 16:9 or wider)
+  static bool isWideAspectRatio(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return size.width / size.height > 1.2;
+  }
+
+  /// Check if we're running on web with a landscape/desktop viewport
+  static bool isWebLandscape(BuildContext context) {
+    return kIsWeb && isWideAspectRatio(context);
+  }
+
   /// Get screen width
   static double screenWidth(BuildContext context) =>
       MediaQuery.of(context).size.width;
@@ -28,6 +46,12 @@ class Responsive {
   /// Get screen height
   static double screenHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+
+  /// Get screen aspect ratio (width / height)
+  static double aspectRatio(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return size.width / size.height;
+  }
 
   /// Get a value based on screen size
   /// Returns [mobile] for phones, [tablet] for tablets, [desktop] for large screens
@@ -45,6 +69,16 @@ class Responsive {
     return mobile;
   }
 
+  /// Get a value based on orientation and screen size
+  /// Useful for layouts that need different behavior in landscape
+  static T orientedValue<T>(
+    BuildContext context, {
+    required T portrait,
+    required T landscape,
+  }) {
+    return isLandscape(context) ? landscape : portrait;
+  }
+
   /// Get responsive padding based on screen size
   static EdgeInsets padding(BuildContext context) {
     return value(
@@ -58,12 +92,7 @@ class Responsive {
   /// Get the maximum content width for larger screens
   /// Returns null for mobile (no max width)
   static double? maxContentWidth(BuildContext context) {
-    return value<double?>(
-      context,
-      mobile: null,
-      tablet: 700,
-      desktop: 1000,
-    );
+    return value<double?>(context, mobile: null, tablet: 700, desktop: 1000);
   }
 }
 
@@ -73,16 +102,12 @@ class ResponsiveContainer extends StatelessWidget {
   final Widget child;
   final double? maxWidth;
 
-  const ResponsiveContainer({
-    super.key,
-    required this.child,
-    this.maxWidth,
-  });
+  const ResponsiveContainer({super.key, required this.child, this.maxWidth});
 
   @override
   Widget build(BuildContext context) {
     final effectiveMaxWidth = maxWidth ?? Responsive.maxContentWidth(context);
-    
+
     if (effectiveMaxWidth == null) {
       return child;
     }

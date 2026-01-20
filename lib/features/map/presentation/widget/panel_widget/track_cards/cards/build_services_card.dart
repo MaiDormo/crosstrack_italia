@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Widget buildServicesCard(
-  Track trackSelected,
-  BuildContext context,
-) {
+Widget buildServicesCard(Track trackSelected, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Expanded(
     child: Container(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(12.r.clamp(10.0, 16.0)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -32,23 +29,23 @@ Widget buildServicesCard(
               Row(
                 children: [
                   Container(
-                    padding: EdgeInsets.all(8.r),
+                    padding: EdgeInsets.all(6.r.clamp(5.0, 8.0)),
                     decoration: BoxDecoration(
                       color: colorScheme.primary.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
                       Icons.build_circle_outlined,
-                      size: 18.r,
+                      size: 16.r.clamp(14.0, 18.0),
                       color: colorScheme.primary,
                     ),
                   ),
-                  SizedBox(width: 10.w),
+                  SizedBox(width: 8.w.clamp(6.0, 10.0)),
                   Expanded(
                     child: Text(
                       'Servizi',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize: 13.sp.clamp(12.0, 14.0),
                         fontWeight: FontWeight.w600,
                         color: colorScheme.onSurface,
                       ),
@@ -57,7 +54,7 @@ Widget buildServicesCard(
                   _buildViewToggle(context, ref),
                 ],
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 10.h),
               ...trackSelected.services!.entries
                   .map((entry) => _buildServiceRow(context, ref, entry))
                   .toList(),
@@ -72,18 +69,18 @@ Widget buildServicesCard(
 Widget _buildViewToggle(BuildContext context, WidgetRef ref) {
   final value = ref.watch(toggleIconsServicesViewProvider);
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return GestureDetector(
     onTap: () => ref.read(toggleIconsServicesViewProvider.notifier).toggle(),
     child: Container(
-      padding: EdgeInsets.all(6.r),
+      padding: EdgeInsets.all(5.r.clamp(4.0, 6.0)),
       decoration: BoxDecoration(
         color: colorScheme.onSurface.withValues(alpha: 0.05),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: Icon(
         value ? Icons.short_text_rounded : Icons.apps_rounded,
-        size: 16.r,
+        size: 14.r.clamp(12.0, 16.0),
         color: colorScheme.tertiary,
       ),
     ),
@@ -98,7 +95,7 @@ Widget _buildServiceRow(
   final value = ref.watch(toggleIconsServicesViewProvider);
   final entryKeyCleaned = entry.key.replaceAll('_', ' ');
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   final icon = switch (entryKeyCleaned) {
     'prese 220V' => Icons.bolt_rounded,
     'bar' => Icons.local_cafe_rounded,
@@ -111,34 +108,34 @@ Widget _buildServiceRow(
   final isAvailable = entry.value == 'si';
 
   return Padding(
-    padding: EdgeInsets.symmetric(vertical: 4.h),
+    padding: EdgeInsets.symmetric(vertical: 3.h),
     child: Row(
       children: [
         Container(
-          width: 28.r,
-          height: 28.r,
+          width: 24.r.clamp(20.0, 28.0),
+          height: 24.r.clamp(20.0, 28.0),
           decoration: BoxDecoration(
-            color: isAvailable 
+            color: isAvailable
                 ? const Color(0xFF10B981).withValues(alpha: 0.1)
                 : colorScheme.onSurface.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
           ),
           child: Icon(
             icon,
-            size: 16.r,
-            color: isAvailable 
+            size: 14.r.clamp(12.0, 16.0),
+            color: isAvailable
                 ? const Color(0xFF10B981)
                 : colorScheme.onSurface.withValues(alpha: 0.3),
           ),
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: 8.w.clamp(6.0, 10.0)),
         Expanded(
           child: value
               ? const SizedBox.shrink()
               : Text(
                   _capitalizeFirst(entryKeyCleaned),
                   style: TextStyle(
-                    fontSize: 11.sp,
+                    fontSize: 10.sp.clamp(9.0, 11.0),
                     fontWeight: FontWeight.w500,
                     color: colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
@@ -147,8 +144,8 @@ Widget _buildServiceRow(
         ),
         Icon(
           isAvailable ? Icons.check_rounded : Icons.close_rounded,
-          size: 16.r,
-          color: isAvailable 
+          size: 14.r.clamp(12.0, 16.0),
+          color: isAvailable
               ? const Color(0xFF10B981)
               : const Color(0xFFEF4444),
         ),

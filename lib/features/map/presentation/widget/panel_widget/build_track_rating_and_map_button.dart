@@ -9,89 +9,96 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 Widget buildTrackRatingAndMapButton(
   Track trackSelected,
   BuildContext context,
-) =>
-    Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final colorScheme = Theme.of(context).colorScheme;
-        
-        return Container(
-          padding: EdgeInsets.all(16.r),
-          decoration: BoxDecoration(
-            color: colorScheme.primary.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Row(
-            children: [
-              // Rating section
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+) => Consumer(
+  builder: (BuildContext context, WidgetRef ref, Widget? child) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: EdgeInsets.all(12.r),
+      decoration: BoxDecoration(
+        color: colorScheme.primary.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          // Rating section - takes available space
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Rating badge and stars - wrap to prevent overflow
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10.w,
-                            vertical: 6.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: _getRatingColor(trackSelected.rating),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.star_rounded,
-                                size: 18.r,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 4.w),
-                              Text(
-                                trackSelected.rating.toStringAsFixed(1),
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 12.w),
-                        RatingBarIndicator(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemSize: 18.r,
-                          rating: trackSelected.rating,
-                          direction: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context, _) => Icon(
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: _getRatingColor(trackSelected.rating),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
                             Icons.star_rounded,
-                            color: _getRatingColor(trackSelected.rating).withValues(alpha: 0.3),
+                            size: 16.r.clamp(14.0, 18.0),
+                            color: Colors.white,
                           ),
-                          unratedColor: colorScheme.onSurface.withValues(alpha: 0.1),
-                        ),
-                      ],
+                          const SizedBox(width: 3),
+                          Text(
+                            trackSelected.rating.toStringAsFixed(1),
+                            style: TextStyle(
+                              fontSize: 13.sp.clamp(12.0, 15.0),
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 8.h),
-                    Text(
-                      '${trackSelected.commentCount} recensioni',
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w500,
-                        color: colorScheme.onSurface.withValues(alpha: 0.6),
+                    RatingBarIndicator(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemSize: 16.r.clamp(14.0, 18.0),
+                      rating: trackSelected.rating,
+                      direction: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star_rounded,
+                        color: _getRatingColor(
+                          trackSelected.rating,
+                        ).withValues(alpha: 0.3),
+                      ),
+                      unratedColor: colorScheme.onSurface.withValues(
+                        alpha: 0.1,
                       ),
                     ),
                   ],
                 ),
-              ),
-              // Directions button
-              _buildDirectionsButton(trackSelected, context, ref),
-            ],
+                SizedBox(height: 6.h),
+                Text(
+                  '${trackSelected.commentCount} recensioni',
+                  style: TextStyle(
+                    fontSize: 12.sp.clamp(11.0, 13.0),
+                    fontWeight: FontWeight.w500,
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
+                  ),
+                ),
+              ],
+            ),
           ),
-        );
-      },
+          const SizedBox(width: 8),
+          // Directions button - flexible size
+          _buildDirectionsButton(trackSelected, context, ref),
+        ],
+      ),
     );
+  },
+);
 
 Widget _buildDirectionsButton(
   Track trackSelected,
@@ -99,12 +106,12 @@ Widget _buildDirectionsButton(
   WidgetRef ref,
 ) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Material(
     color: colorScheme.primary,
-    borderRadius: BorderRadius.circular(14),
+    borderRadius: BorderRadius.circular(12),
     child: InkWell(
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(12),
       onTap: () => ref
           .read(openGoogleMapProvider(trackSelected))
           .when(
@@ -137,24 +144,21 @@ Widget _buildDirectionsButton(
               );
             },
           ),
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.w,
-          vertical: 12.h,
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.directions_rounded,
               color: Colors.white,
-              size: 20.r,
+              size: 18.r.clamp(16.0, 20.0),
             ),
-            SizedBox(width: 8.w),
+            const SizedBox(width: 6),
             Text(
-              'Indicazioni',
+              'Vai',
               style: TextStyle(
-                fontSize: 14.sp,
+                fontSize: 13.sp.clamp(12.0, 14.0),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),

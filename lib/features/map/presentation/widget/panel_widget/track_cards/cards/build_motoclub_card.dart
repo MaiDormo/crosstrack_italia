@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-Widget buildMotoclubCard(
-  Track selectedTrack,
-  BuildContext context,
-) {
+Widget buildMotoclubCard(Track selectedTrack, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;
-  
+
   return Expanded(
     child: Container(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(12.r.clamp(10.0, 16.0)),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -28,23 +25,23 @@ Widget buildMotoclubCard(
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.r),
+                padding: EdgeInsets.all(6.r.clamp(5.0, 8.0)),
                 decoration: BoxDecoration(
                   color: colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 child: Icon(
                   Icons.groups_rounded,
-                  size: 18.r,
+                  size: 16.r.clamp(14.0, 18.0),
                   color: colorScheme.primary,
                 ),
               ),
-              SizedBox(width: 10.w),
+              SizedBox(width: 8.w.clamp(6.0, 10.0)),
               Expanded(
                 child: Text(
                   'Motoclub',
                   style: TextStyle(
-                    fontSize: 14.sp,
+                    fontSize: 13.sp.clamp(12.0, 14.0),
                     fontWeight: FontWeight.w600,
                     color: colorScheme.onSurface,
                   ),
@@ -52,11 +49,11 @@ Widget buildMotoclubCard(
               ),
             ],
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 10.h),
           Text(
             selectedTrack.motoclub,
             style: TextStyle(
-              fontSize: 13.sp,
+              fontSize: 12.sp.clamp(11.0, 13.0),
               fontWeight: FontWeight.w500,
               color: colorScheme.onSurface.withValues(alpha: 0.8),
             ),
@@ -64,7 +61,7 @@ Widget buildMotoclubCard(
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 10.h),
           _buildWebsiteButton(selectedTrack, context),
         ],
       ),
@@ -75,42 +72,42 @@ Widget buildMotoclubCard(
 Widget _buildWebsiteButton(Track selectedTrack, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;
   final hasWebsite = selectedTrack.website.isNotEmpty;
-  
+
   return Material(
-    color: hasWebsite 
-        ? colorScheme.primary 
+    color: hasWebsite
+        ? colorScheme.primary
         : colorScheme.onSurface.withValues(alpha: 0.1),
-    borderRadius: BorderRadius.circular(12),
+    borderRadius: BorderRadius.circular(10),
     child: InkWell(
-      borderRadius: BorderRadius.circular(12),
-      onTap: hasWebsite 
+      borderRadius: BorderRadius.circular(10),
+      onTap: hasWebsite
           ? () => _launchWebsite(selectedTrack.website, context)
           : null,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.w,
-          vertical: 10.h,
-        ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               Icons.language_rounded,
-              size: 18.r,
-              color: hasWebsite 
-                  ? Colors.white 
+              size: 16.r.clamp(14.0, 18.0),
+              color: hasWebsite
+                  ? Colors.white
                   : colorScheme.onSurface.withValues(alpha: 0.4),
             ),
-            SizedBox(width: 8.w),
-            Text(
-              hasWebsite ? 'Visita sito' : 'Nessun sito',
-              style: TextStyle(
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w600,
-                color: hasWebsite 
-                    ? Colors.white 
-                    : colorScheme.onSurface.withValues(alpha: 0.4),
+            const SizedBox(width: 6),
+            Flexible(
+              child: Text(
+                hasWebsite ? 'Sito' : 'N/D',
+                style: TextStyle(
+                  fontSize: 12.sp.clamp(11.0, 13.0),
+                  fontWeight: FontWeight.w600,
+                  color: hasWebsite
+                      ? Colors.white
+                      : colorScheme.onSurface.withValues(alpha: 0.4),
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],
@@ -126,16 +123,14 @@ Future<void> _launchWebsite(String website, BuildContext context) async {
       SnackBar(
         content: const Text('Apertura sito web...'),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
 
     bool launched = await launchUrlString(website);
 
     if (!context.mounted) return;
-    
+
     Future.delayed(const Duration(seconds: 1), () {
       if (context.mounted) {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -160,9 +155,7 @@ Future<void> _launchWebsite(String website, BuildContext context) async {
       SnackBar(
         content: const Text('Errore nell\'apertura del sito web'),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     );
   }

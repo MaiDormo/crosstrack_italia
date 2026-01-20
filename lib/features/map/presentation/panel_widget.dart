@@ -11,7 +11,6 @@ import 'widget/panel_widget/build_track_rating_and_map_button.dart';
 import 'widget/panel_widget/track_cards/build_track_cards.dart';
 
 class PanelWidget extends ConsumerWidget {
-
   const PanelWidget(
     this.track, {
     super.key,
@@ -19,7 +18,6 @@ class PanelWidget extends ConsumerWidget {
     required this.panelController,
     required this.hideDragHandle,
   });
-
 
   final ScrollController scrollController;
   final PanelController panelController;
@@ -29,8 +27,9 @@ class PanelWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final trackSelected = ref.watch(trackSelectedProvider);
-    final allTrackImages =
-        ref.watch(allTrackImagesByTrackProvider(track ?? trackSelected, true));
+    final allTrackImages = ref.watch(
+      allTrackImagesByTrackProvider(track ?? trackSelected, true),
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -48,17 +47,14 @@ class PanelWidget extends ConsumerWidget {
         padding: EdgeInsets.zero,
         controller: scrollController,
         children: <Widget>[
-          SizedBox(height: 12.h),
+          SizedBox(height: 10.h),
           if (!hideDragHandle) buildDragHandle(context),
-          SizedBox(height: 8.h),
+          SizedBox(height: 6.h),
           Consumer(
-            builder: (ctx, ref, child) => buildTrackInfo(
-              track ?? trackSelected,
-              allTrackImages,
-              context,
-            ),
+            builder: (ctx, ref, child) =>
+                buildTrackInfo(track ?? trackSelected, allTrackImages, context),
           ),
-          SizedBox(height: 16.h),
+          SizedBox(height: 14.h),
         ],
       ),
     );
@@ -68,51 +64,50 @@ class PanelWidget extends ConsumerWidget {
     Track trackSelected,
     AsyncValue<Iterable<Widget>> allTrackImages,
     BuildContext context,
-  ) =>
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
+  ) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: 16.w.clamp(12.0, 20.0)),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header with favorite button
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header with favorite button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      buildTrackName(trackSelected, context),
-                      SizedBox(height: 4.h),
-                      buildTrackLocation(trackSelected),
-                    ],
-                  ),
-                ),
-                buildFavoriteButton(trackSelected, context),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildTrackName(trackSelected, context),
+                  SizedBox(height: 4.h),
+                  buildTrackLocation(trackSelected),
+                ],
+              ),
             ),
-            SizedBox(height: 16.h),
-            buildTrackRatingAndMapButton(trackSelected, context),
-            SizedBox(height: 20.h),
-            buildTrackCards(trackSelected, allTrackImages, context),
+            buildFavoriteButton(trackSelected, context),
           ],
         ),
-      );
+        SizedBox(height: 12.h),
+        buildTrackRatingAndMapButton(trackSelected, context),
+        SizedBox(height: 16.h),
+        buildTrackCards(trackSelected, allTrackImages, context),
+      ],
+    ),
+  );
 
   Widget buildDragHandle(BuildContext context) => GestureDetector(
-        onTap: togglePanel,
-        child: Center(
-          child: Container(
-            width: 40.w,
-            height: 4.h,
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+    onTap: togglePanel,
+    child: Center(
+      child: Container(
+        width: 36.w.clamp(32.0, 40.0),
+        height: 4.h.clamp(3.0, 5.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.2),
+          borderRadius: BorderRadius.circular(2),
         ),
-      );
+      ),
+    ),
+  );
 
   void togglePanel() => panelController.isPanelOpen
       ? panelController.close()
