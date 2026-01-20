@@ -1,17 +1,17 @@
-import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/backend/owned_tracks_repository.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../providers/user_info_providers.dart';
+import '../../track/models/track.dart';
+import '../../track/models/typedefs/typedefs.dart';
+import '../backend/owned_tracks_repository.dart';
+import '../../../firebase_providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'owned_tracks_notifier.g.dart';
 
 @riverpod
 OwnedTracksRepository ownedTracksRepository(Ref ref) {
-  final _firestore = ref.watch(firestoreProvider);
-  final _userId = ref.watch(userIdProvider);
-  return OwnedTracksRepository(firestore: _firestore, userId: _userId);
+  final firestore = ref.watch(firestoreProvider);
+  final userId = ref.watch(userIdProvider);
+  return OwnedTracksRepository(firestore: firestore, userId: userId);
 }
 
 @riverpod

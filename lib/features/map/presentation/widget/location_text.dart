@@ -1,7 +1,7 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
-import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
+import '../../constants/map_constants.dart';
+import '../../notifiers/user_location_notifier.dart';
+import '../../../user_info/constants/user_constants.dart';
+import '../../../user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

@@ -1,8 +1,10 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
+import '../../../constants/map_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TrackMarkerIcon extends StatelessWidget {
+  const TrackMarkerIcon({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(

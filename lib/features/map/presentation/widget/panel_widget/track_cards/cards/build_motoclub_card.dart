@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
+import '../../../../../../track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -127,7 +127,7 @@ Future<void> _launchWebsite(String website, BuildContext context) async {
       ),
     );
 
-    bool launched = await launchUrlString(website);
+    final bool launched = await launchUrlString(website);
 
     if (!context.mounted) return;
 

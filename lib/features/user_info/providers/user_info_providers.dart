@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../../track/models/typedefs/typedefs.dart';
+import '../models/typedefs/typedefs.dart';
+import '../models/user_roles.dart';
+import '../notifiers/user_state_notifier.dart';
+import '../../../firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,8 +14,8 @@ part 'user_info_providers.g.dart';
 
 @riverpod
 bool isLoggedIn(Ref ref) {
-  final _userState = ref.watch(userStateProvider);
-  return switch (_userState) {
+  final userState = ref.watch(userStateProvider);
+  return switch (userState) {
     AsyncData(:final value) => value.id.isNotEmpty,
     _ => false,
   };
@@ -23,8 +23,8 @@ bool isLoggedIn(Ref ref) {
 
 @riverpod
 UserId userId(Ref ref) {
-  final _userState = ref.watch(userStateProvider);
-  return switch (_userState) {
+  final userState = ref.watch(userStateProvider);
+  return switch (userState) {
     AsyncData(:final value) => value.id,
     _ => '',
   };
@@ -32,8 +32,8 @@ UserId userId(Ref ref) {
 
 @riverpod
 bool isOwner(Ref ref) {
-  final _userState = ref.watch(userStateProvider);
-  return switch (_userState) {
+  final userState = ref.watch(userStateProvider);
+  return switch (userState) {
     AsyncData(:final value) => value.role == UserRole.owner,
     _ => false,
   };
@@ -41,14 +41,14 @@ bool isOwner(Ref ref) {
 
 @riverpod
 Widget userImage(Ref ref) {
-  final _userState = ref.watch(userStateProvider);
-  final _isLogged = ref.watch(isLoggedInProvider);
-  if (_isLogged) {
+  final userState = ref.watch(userStateProvider);
+  final isLogged = ref.watch(isLoggedInProvider);
+  if (isLogged) {
     final providerId =
         ref.watch(authProvider).currentUser?.providerData[0].providerId;
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
-      child: switch (_userState) {
+      child: switch (userState) {
         AsyncData(:final value) => providerId != 'facebook.com' &&
                 value.profileImageUrl != null &&
                 value.profileImageUrl!.isNotEmpty
@@ -70,7 +70,7 @@ Widget userImage(Ref ref) {
                   return SizedBox(
                     height: 35.h,
                     width: 35.w,
-                    child: CircularProgressIndicator(
+                    child: const CircularProgressIndicator(
                       strokeWidth: 2,
                       color: Colors.white,
                     ),
@@ -82,26 +82,26 @@ Widget userImage(Ref ref) {
                 height: 35.h,
                 width: 35.w,
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
+                colorFilter: const ColorFilter.mode(
                   Colors.white,
                   BlendMode.srcIn,
                 ),
               ),
-        AsyncError() => Icon(Icons.error),
+        AsyncError() => const Icon(Icons.error),
         _ => SizedBox(
             height: 35.h,
             width: 35.w,
-            child: CircularProgressIndicator(strokeWidth: 2),
+            child: const CircularProgressIndicator(strokeWidth: 2),
           ),
       },
     );
   } else {
-    return Icon(Icons.account_circle);
+    return const Icon(Icons.account_circle);
   }
 }
 
 @riverpod
 Future<List<TrackId>> fetchFavoriteTracks(Ref ref) async {
-  final _userState = ref.watch(userStateProvider.notifier);
-  return await _userState.fetchFavoriteTracks();
+  final userState = ref.watch(userStateProvider.notifier);
+  return await userState.fetchFavoriteTracks();
 }

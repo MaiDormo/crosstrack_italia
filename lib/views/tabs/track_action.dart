@@ -1,14 +1,14 @@
-import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
-import 'package:crosstrack_italia/features/track/presentation/track_selection_screen.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/favorite_tracks_screen.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/owned_tracks_screen.dart';
+import '../../features/user_info/providers/user_info_providers.dart';
+import '../../features/track/presentation/track_selection_screen.dart';
+import '../../features/user_info/presentation/favorite_tracks_screen.dart';
+import '../../features/user_info/presentation/owned_tracks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TrackAction extends StatelessWidget {
-  const TrackAction({Key? key}) : super(key: key);
+  const TrackAction({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TrackAction extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TrackSelectionScreen(),
+                        builder: (context) => const TrackSelectionScreen(),
                       ),
                     );
                   },

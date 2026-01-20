@@ -6,7 +6,7 @@ const _primaryColor = Color(0xFF1E3A5F);
 const _secondaryColor = Color(0xFF3D5A80);
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class SplashScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: spacing),
-                      SizedBox(
+                      const SizedBox(
                         width: 32,
                         height: 32,
                         child: CircularProgressIndicator(

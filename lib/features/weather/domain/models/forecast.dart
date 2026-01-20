@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/weather/domain/models/weather_info.dart';
+import 'weather_info.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:weather/weather.dart';
 
@@ -15,8 +15,8 @@ abstract class Forecast with _$Forecast {
       return Forecast(list: []);
     }
 
-    int days = 5;
-    int intervalsPerDay = 8; // 24 hours / 3 hours per interval
+    final int days = 5;
+    final int intervalsPerDay = 8; // 24 hours / 3 hours per interval
 
     return Forecast(
       list: List.generate(days, (i) => i * intervalsPerDay)

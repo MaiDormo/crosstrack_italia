@@ -1,13 +1,13 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crosstrack_italia/common/failure.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_collection_name.dart';
-import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/track/models/comment.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../../../common/failure.dart';
+import '../../firebase_constants/firebase_collection_name.dart';
+import '../../firebase_constants/firebase_field_name.dart';
+import '../models/comment.dart';
+import '../models/track.dart';
+import '../models/typedefs/typedefs.dart';
+import '../../../firebase_providers/firebase_providers.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -32,11 +32,11 @@ TrackRepository trackRepository(Ref ref) {
 /// final tracks = repo.fetchAllTracks();
 /// ```
 class TrackRepository {
-  final FirebaseFirestore _firestore;
 
   /// Creates a new [TrackRepository] with the given Firestore instance.
   TrackRepository({required FirebaseFirestore firestore})
       : _firestore = firestore;
+  final FirebaseFirestore _firestore;
 
   CollectionReference get _tracks =>
       _firestore.collection(FirebaseCollectionName.tracks);
@@ -154,11 +154,11 @@ class TrackRepository {
   /// Returns an empty list if [ids] is empty.
   Future<Either<Failure, Iterable<Track>>> fetchTracksByIds(
       Iterable<TrackId> ids) async {
-    if (ids.isEmpty) return Right([]);
+    if (ids.isEmpty) return const Right([]);
 
     try {
-      List<Track> tracks = [];
-      for (var chunk in partition(ids.toList(), 10)) {
+      final List<Track> tracks = [];
+      for (final chunk in partition(ids.toList(), 10)) {
         final querySnapshot = await _tracks
             .where(FirebaseFieldName.id, whereIn: chunk.toList())
             .get();
@@ -184,8 +184,8 @@ class TrackRepository {
 /// Returns a list of lists, where each inner list has at most [size] elements.
 List<List<T>> partition<T>(List<T> list, int size) {
   return List.generate((list.length / size).ceil(), (index) {
-    int start = index * size;
-    int end = min(start + size, list.length);
+    final int start = index * size;
+    final int end = min(start + size, list.length);
     return list.sublist(start, end);
   });
 }

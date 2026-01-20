@@ -1,6 +1,6 @@
-import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import '../../../providers/controller_utils.dart';
+import '../../../../track/models/track.dart';
+import '../../../../track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +9,9 @@ import 'package:shimmer/shimmer.dart';
 
 class TrackMarkerPopup extends ConsumerWidget {
   const TrackMarkerPopup({
-    Key? key,
+    super.key,
     required this.track,
-  }) : super(key: key);
+  });
   final Track track;
 
   @override

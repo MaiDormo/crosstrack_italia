@@ -1,9 +1,9 @@
-import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/backend/user_info_storage.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_info_model.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
+import '../../auth/backend/auth_repository.dart';
+import '../../track/models/typedefs/typedefs.dart';
+import '../backend/user_info_storage.dart';
+import '../models/typedefs/typedefs.dart';
+import '../models/user_info_model.dart';
+import '../models/user_roles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -29,22 +29,22 @@ class UserStateNotifier extends _$UserStateNotifier {
       return UserInfoModel.empty();
     }
 
-    final UserInfoModel _fetchedUser = await fetchUserInfo(user.uid);
+    final UserInfoModel fetchedUser = await fetchUserInfo(user.uid);
 
-    if (_fetchedUser == UserInfoModel.empty()) {
-      final _newUser = UserInfoModel.fromUser(user).copyWith(
+    if (fetchedUser == UserInfoModel.empty()) {
+      final newUser = UserInfoModel.fromUser(user).copyWith(
         role: UserRole.user,
       );
-      await saveUserInfo(userInfoModel: _newUser);
-      return _newUser;
+      await saveUserInfo(userInfoModel: newUser);
+      return newUser;
     } else {
-      final UserInfoModel _updatedUser = UserInfoModel.fromUser(user).copyWith(
-        role: _fetchedUser.role,
-        favoriteTracks: _fetchedUser.favoriteTracks,
-        ownedTracks: _fetchedUser.ownedTracks,
+      final UserInfoModel updatedUser = UserInfoModel.fromUser(user).copyWith(
+        role: fetchedUser.role,
+        favoriteTracks: fetchedUser.favoriteTracks,
+        ownedTracks: fetchedUser.ownedTracks,
       );
-      await saveUserInfo(userInfoModel: _updatedUser);
-      return _updatedUser;
+      await saveUserInfo(userInfoModel: updatedUser);
+      return updatedUser;
     }
   }
 
@@ -66,7 +66,7 @@ class UserStateNotifier extends _$UserStateNotifier {
       _ => UserInfoModel.empty(),
     };
 
-    state = AsyncLoading();
+    state = const AsyncLoading();
 
     if (user.id == '') {
       return [];
@@ -85,7 +85,7 @@ class UserStateNotifier extends _$UserStateNotifier {
       _ => UserInfoModel.empty(),
     };
 
-    state = AsyncLoading();
+    state = const AsyncLoading();
 
     if (user.id == '') {
       return [];

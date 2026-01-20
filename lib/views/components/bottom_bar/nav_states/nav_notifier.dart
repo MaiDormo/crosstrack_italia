@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/views/components/bottom_bar/nav_states/nav_states.dart';
+import 'nav_states.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'nav_notifier.g.dart';

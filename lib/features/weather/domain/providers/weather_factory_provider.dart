@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/weather/backend/api/api_keys.default.dart';
+import '../../backend/api/api_keys.default.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:weather/weather.dart';
 

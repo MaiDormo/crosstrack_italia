@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
+import 'typedefs/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'comment.freezed.dart';

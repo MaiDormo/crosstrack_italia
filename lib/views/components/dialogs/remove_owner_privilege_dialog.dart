@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
-import 'package:crosstrack_italia/views/components/constants/strings.dart';
+import 'alert_dialog_model.dart';
+import '../constants/strings.dart';
 import 'package:flutter/foundation.dart' show immutable;
 
 @immutable

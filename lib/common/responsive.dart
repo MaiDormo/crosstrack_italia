@@ -99,10 +99,10 @@ class Responsive {
 /// A widget that constrains its child to a maximum width on larger screens
 /// and centers it horizontally
 class ResponsiveContainer extends StatelessWidget {
-  final Widget child;
-  final double? maxWidth;
 
   const ResponsiveContainer({super.key, required this.child, this.maxWidth});
+  final Widget child;
+  final double? maxWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -123,9 +123,6 @@ class ResponsiveContainer extends StatelessWidget {
 
 /// A widget that builds different layouts for mobile, tablet, and desktop
 class ResponsiveBuilder extends StatelessWidget {
-  final Widget Function(BuildContext context) mobile;
-  final Widget Function(BuildContext context)? tablet;
-  final Widget Function(BuildContext context)? desktop;
 
   const ResponsiveBuilder({
     super.key,
@@ -133,6 +130,9 @@ class ResponsiveBuilder extends StatelessWidget {
     this.tablet,
     this.desktop,
   });
+  final Widget Function(BuildContext context) mobile;
+  final Widget Function(BuildContext context)? tablet;
+  final Widget Function(BuildContext context)? desktop;
 
   @override
   Widget build(BuildContext context) {

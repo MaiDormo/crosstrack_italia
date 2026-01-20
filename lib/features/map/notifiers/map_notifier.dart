@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
+import '../constants/map_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
@@ -42,11 +42,11 @@ AnimatedMapController animatedMapController(Ref ref) {
 }
 
 class VsyncContainer extends TickerProvider {
-  late Ticker vsync;
 
   VsyncContainer() {
     vsync = createTicker((_) {});
   }
+  late Ticker vsync;
 
   @override
   Ticker createTicker(TickerCallback onTick) {

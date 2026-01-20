@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/weather/domain/models/forecast.dart';
-import 'package:crosstrack_italia/features/weather/domain/providers/forecast_info_provider.dart';
+import '../../domain/models/forecast.dart';
+import '../../domain/providers/forecast_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -142,11 +142,11 @@ class WeatherView extends ConsumerWidget {
 }
 
 class WeatherWidget extends ConsumerWidget {
-  final Forecast forecast;
   const WeatherWidget({
     super.key,
     required this.forecast,
   });
+  final Forecast forecast;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

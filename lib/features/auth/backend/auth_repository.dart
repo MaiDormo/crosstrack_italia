@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/auth/constants/constants.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../constants/constants.dart';
+import '../../../firebase_providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -42,15 +42,15 @@ AuthRepository authRepository(Ref ref) {
 /// await authRepo.googleLogin();
 /// ```
 class AuthRepository {
-  final FirebaseAuth _firebaseAuth;
-  GoogleSignIn? _googleSignIn;
-  bool _googleSignInInitialized = false;
-  bool _googleSignInAvailable = true;
 
   /// Creates a new [AuthRepository] with the given Firebase Auth instance.
   AuthRepository({
     required FirebaseAuth firebaseAuth,
   }) : _firebaseAuth = firebaseAuth;
+  final FirebaseAuth _firebaseAuth;
+  GoogleSignIn? _googleSignIn;
+  bool _googleSignInInitialized = false;
+  bool _googleSignInAvailable = true;
 
   /// Returns the currently authenticated user, or null if not logged in.
   User? get currentUser => _firebaseAuth.currentUser;
@@ -147,21 +147,11 @@ class AuthRepository {
           return;
         }
       }
-      
-      if (googleUser == null) {
-        debugPrint('Google Sign-In cancelled or failed');
-        return;
-      }
 
       // Get authorization for accessing user info
       debugPrint('Getting authorization...');
       final authorization = await googleUser.authorizationClient.authorizeScopes(['email']);
       debugPrint('Got access token: ${authorization.accessToken != null}');
-      
-      if (authorization.accessToken == null) {
-        debugPrint('No access token received');
-        return;
-      }
 
       final oauthCredentials = GoogleAuthProvider.credential(
         accessToken: authorization.accessToken,

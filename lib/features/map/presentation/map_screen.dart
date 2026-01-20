@@ -24,10 +24,6 @@ class _MapScreenState extends ConsumerState<MapScreen>
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

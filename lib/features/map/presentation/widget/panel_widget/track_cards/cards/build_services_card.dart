@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import '../../../../../../track/models/track.dart';
+import '../../../../../../track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +57,7 @@ Widget buildServicesCard(Track trackSelected, BuildContext context) {
               SizedBox(height: 10.h),
               ...trackSelected.services!.entries
                   .map((entry) => _buildServiceRow(context, ref, entry))
-                  .toList(),
+                  ,
             ],
           );
         },

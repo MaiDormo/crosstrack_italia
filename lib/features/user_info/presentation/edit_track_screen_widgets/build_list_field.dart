@@ -13,7 +13,7 @@ Widget buildListField({
     color: Theme.of(context).colorScheme.secondary,
     margin: EdgeInsets.symmetric(horizontal: 4.0.w, vertical: 5.0.h),
     child: ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: items.length,
       itemBuilder: itemBuilder,

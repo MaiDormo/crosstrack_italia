@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:crosstrack_italia/features/map/models/regions.dart';
-import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
-import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/all_tracks_markers.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/lombardia_tracks_markers.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/trentino_alto_adige_tracks_markers.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/veneto_tracks_markers.dart';
-import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
-import 'package:crosstrack_italia/features/map/providers/floating_searching_bar_utils.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
+import '../../../models/regions.dart';
+import '../../../notifiers/map_notifier.dart';
+import '../../../notifiers/user_location_notifier.dart';
+import '../marker/all_tracks_markers.dart';
+import '../marker/lombardia_tracks_markers.dart';
+import '../marker/trentino_alto_adige_tracks_markers.dart';
+import '../marker/veneto_tracks_markers.dart';
+import '../../../providers/controller_utils.dart';
+import '../../../providers/floating_searching_bar_utils.dart';
+import '../../../../user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -26,8 +26,8 @@ import 'tile_provider_stub.dart'
 
 class Map extends ConsumerStatefulWidget {
   const Map({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _MapState createState() => _MapState();
@@ -97,7 +97,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
     try {
       debugPrint('🗺️ Fetching position...');
       final position = await geo.Geolocator.getCurrentPosition(
-        locationSettings: geo.LocationSettings(
+        locationSettings: const geo.LocationSettings(
           accuracy: kIsWeb ? geo.LocationAccuracy.medium : geo.LocationAccuracy.high,
           timeLimit: Duration(seconds: kIsWeb ? 15 : 10),
         ),
@@ -128,7 +128,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
   }
 
   void _startMobileLocationStream() {
-    final locationSettings = const geo.LocationSettings(
+    const locationSettings = geo.LocationSettings(
       accuracy: geo.LocationAccuracy.high,
       distanceFilter: 5,
     );
@@ -154,7 +154,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final _animatedMapController = ref.watch(animatedMapControllerProvider);
+    final animatedMapController = ref.watch(animatedMapControllerProvider);
     final locationPermission = ref.watch(locationPermissionProvider);
     final showCurrentLocation = ref.watch(showCurrentLocationProvider);
     final centerUserLocation = ref.watch(centerUserLocationProvider);
@@ -168,7 +168,7 @@ class _MapState extends ConsumerState<Map> with SingleTickerProviderStateMixin {
     }
 
     return FlutterMap(
-      mapController: _animatedMapController.mapController,
+      mapController: animatedMapController.mapController,
       options: MapOptions(
         initialCenter: const LatLng(46.066775, 11.149904),
         initialZoom: 10.0,

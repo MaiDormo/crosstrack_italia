@@ -2,6 +2,9 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class Strings {
+
+  //private const constructor
+  const Strings._();
   //Log out
   static const logOut = 'Esci';
   static const areYouSureThatYouWantToLogOutOfTheApp =
@@ -31,7 +34,4 @@ class Strings {
   static const areYouSureThatYouWantToRemoveOwnerPrivilege =
       'Sei sicuro di voler rimuovere il privilegio di gestore del tracciato?';
   static const giveUp = 'Rinuncia';
-
-  //private const constructor
-  const Strings._();
 }

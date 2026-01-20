@@ -1,10 +1,10 @@
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/features/track/presentation/tracks_list_view.dart';
+import '../notifiers/track_notifier.dart';
+import 'tracks_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AllTracksView extends ConsumerWidget {
-  const AllTracksView({Key? key}) : super(key: key);
+  const AllTracksView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

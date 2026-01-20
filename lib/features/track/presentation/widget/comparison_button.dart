@@ -1,13 +1,13 @@
-import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
-import 'package:crosstrack_italia/features/track/presentation/track_comparison.dart';
-import 'package:crosstrack_italia/features/track/presentation/widget/track_selector.dart';
+import '../../../map/notifiers/user_location_notifier.dart';
+import '../track_comparison.dart';
+import 'track_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ComparisonButton extends ConsumerStatefulWidget {
   const ComparisonButton({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _ComparisonButtonState createState() => _ComparisonButtonState();
@@ -36,7 +36,7 @@ class _ComparisonButtonState extends ConsumerState<ComparisonButton> {
                 setState(() {
                   _isLoading = true;
                 });
-                await switch (position) {
+                switch (position) {
                   AsyncData(:final value) => Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -60,8 +60,8 @@ class _ComparisonButtonState extends ConsumerState<ComparisonButton> {
                       ),
                     ),
                   _ => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Caricando..."),
+                      const SnackBar(
+                        content: Text('Caricando...'),
                       ),
                     ),
                 };
@@ -71,18 +71,18 @@ class _ComparisonButtonState extends ConsumerState<ComparisonButton> {
               } else {
                 // Inform the user to select two tracks
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content:
-                        Text("Seleziona due tracciati tra i disponibliti."),
+                        Text('Seleziona due tracciati tra i disponibliti.'),
                   ),
                 );
               }
             },
       child: _isLoading
-          ? CircularProgressIndicator(
+          ? const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             )
-          : Text("Confronta"),
+          : const Text('Confronta'),
     );
   }
 }

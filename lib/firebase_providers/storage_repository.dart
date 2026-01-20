@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import 'firebase_providers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,9 +12,9 @@ StorageRepository storageRepository(Ref ref) {
 }
 
 class StorageRepository {
-  final FirebaseStorage _firebaseStorage;
   StorageRepository({required FirebaseStorage firebaseStorage})
       : _firebaseStorage = firebaseStorage;
+  final FirebaseStorage _firebaseStorage;
 
   Future<String> getDownloadUrl(String path) async {
     return await _firebaseStorage.ref(path).getDownloadURL();

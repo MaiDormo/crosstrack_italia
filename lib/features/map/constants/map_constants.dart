@@ -3,6 +3,8 @@ import 'package:latlong2/latlong.dart';
 
 @immutable
 class MapConstants {
+
+  const MapConstants._();
   //used for the marker
   static const markerSize = 40.0;
   static const thumbnail = 'img1.jpg';
@@ -29,6 +31,4 @@ class MapConstants {
 
   //vsync
   static const vsyncLabel = 'vsync';
-
-  const MapConstants._();
 }

@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
+import '../../models/track.dart';
+import '../../notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,8 +25,8 @@ class SelectedTracks extends _$SelectedTracks {
 
 class TrackSelector extends ConsumerWidget {
   const TrackSelector({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +43,7 @@ class TrackSelector extends ConsumerWidget {
               children: [
                 SizedBox(height: 16.sp),
                 Text(
-                  "Scegli il primo tracciato:",
+                  'Scegli il primo tracciato:',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class TrackSelector extends ConsumerWidget {
                 TrackDropDown(tracks: value, trackNumber: 0),
                 16.verticalSpace,
                 Text(
-                  "Scegli il secondo tracciato:",
+                  'Scegli il secondo tracciato:',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -68,20 +68,20 @@ class TrackSelector extends ConsumerWidget {
           ),
         ),
       AsyncError() =>
-        const Center(child: Text("Errore nel caricamento dei tracciati")),
+        const Center(child: Text('Errore nel caricamento dei tracciati')),
       _ => const Center(child: CircularProgressIndicator())
     };
   }
 }
 
 class TrackDropDown extends ConsumerWidget {
-  final Iterable<Track> tracks;
-  final int trackNumber;
   const TrackDropDown({
     Key? key,
     required this.tracks,
     required this.trackNumber,
   }) : super(key: key);
+  final Iterable<Track> tracks;
+  final int trackNumber;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -110,7 +110,7 @@ class TrackDropDown extends ConsumerWidget {
         DropdownMenuItem<Track>(
           value: null,
           child: Text(
-            "Nessuna scelta",
+            'Nessuna scelta',
             style: TextStyle(
               color: Theme.of(context).colorScheme.onSecondary,
             ),
@@ -121,7 +121,7 @@ class TrackDropDown extends ConsumerWidget {
             value: track,
             child: Text(track.trackName),
           );
-        }).toList(),
+        }),
       ],
     );
   }

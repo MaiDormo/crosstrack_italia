@@ -1,10 +1,10 @@
-import 'package:crosstrack_italia/common/responsive.dart';
-import 'package:crosstrack_italia/features/map/presentation/map_screen.dart';
-import 'package:crosstrack_italia/views/components/bottom_bar/bottom_bar.dart';
-import 'package:crosstrack_italia/views/components/bottom_bar/nav_states/nav_notifier.dart';
-import 'package:crosstrack_italia/views/components/top_bar/top_bar.dart';
-import 'package:crosstrack_italia/views/tabs/settings_page_view.dart';
-import 'package:crosstrack_italia/views/tabs/track_action.dart';
+import '../../common/responsive.dart';
+import '../../features/map/presentation/map_screen.dart';
+import '../components/bottom_bar/bottom_bar.dart';
+import '../components/bottom_bar/nav_states/nav_notifier.dart';
+import '../components/top_bar/top_bar.dart';
+import 'settings_page_view.dart';
+import 'track_action.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +45,7 @@ class HomePageView extends StatelessWidget {
 }
 
 class NavigationIndexedStack extends ConsumerWidget {
-  const NavigationIndexedStack({Key? key}) : super(key: key);
+  const NavigationIndexedStack({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

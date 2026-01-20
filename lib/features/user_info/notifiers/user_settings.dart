@@ -1,4 +1,4 @@
-import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
+import '../constants/user_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_settings.g.dart';

@@ -31,7 +31,7 @@ Widget buildSwiper(
           itemBuilder: (BuildContext context, int index) {
             return images.elementAt(index);
           },
-          pagination: SwiperPagination(
+          pagination: const SwiperPagination(
             builder: SwiperPagination.dots,
           ),
           autoplay: true,

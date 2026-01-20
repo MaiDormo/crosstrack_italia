@@ -1,12 +1,12 @@
-import 'package:crosstrack_italia/features/auth/backend/auth_repository.dart';
-import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
-import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_state_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/presentation/track_ownership_stepper.dart';
-import 'package:crosstrack_italia/views/components/dialogs/alert_dialog_model.dart';
-import 'package:crosstrack_italia/views/components/dialogs/delete_account_dialog.dart';
-import 'package:crosstrack_italia/views/components/dialogs/logout_dialog.dart';
+import '../../features/auth/backend/auth_repository.dart';
+import '../../features/user_info/constants/user_constants.dart';
+import '../../features/user_info/notifiers/user_settings.dart';
+import '../../features/user_info/providers/user_info_providers.dart';
+import '../../features/user_info/notifiers/user_state_notifier.dart';
+import '../../features/user_info/presentation/track_ownership_stepper.dart';
+import '../components/dialogs/alert_dialog_model.dart';
+import '../components/dialogs/delete_account_dialog.dart';
+import '../components/dialogs/logout_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -100,7 +100,7 @@ class SettingsPageView extends ConsumerWidget {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TrackOwnershipStepper(),
+                          builder: (context) => const TrackOwnershipStepper(),
                         ),
                       ),
                       colorScheme: colorScheme,

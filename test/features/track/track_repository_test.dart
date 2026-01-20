@@ -123,8 +123,8 @@ double _calculateNewRating(
 /// This mirrors the logic in track_repository.dart
 List<List<T>> partition<T>(List<T> list, int size) {
   return List.generate((list.length / size).ceil(), (index) {
-    int start = index * size;
-    int end = min(start + size, list.length);
+    final int start = index * size;
+    final int end = min(start + size, list.length);
     return list.sublist(start, end);
   });
 }

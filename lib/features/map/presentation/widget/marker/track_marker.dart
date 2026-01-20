@@ -1,6 +1,6 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker_icon.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
+import '../../../constants/map_constants.dart';
+import 'track_marker_icon.dart';
+import '../../../../track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

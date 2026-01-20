@@ -9,9 +9,9 @@ import 'edit_track_screen_widgets/build_add_image_field.dart';
 import 'edit_track_screen_widgets/build_remove_image_field.dart';
 
 class EditTrackScreen extends StatefulWidget {
-  final Track track;
 
   const EditTrackScreen({super.key, required this.track});
+  final Track track;
 
   @override
   _EditTrackScreenState createState() => _EditTrackScreenState();
@@ -75,10 +75,10 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     _lengthController.dispose();
     _hasMinicrossController.dispose();
     _servicesController.dispose();
-    for (var controller in _phoneControllers) {
+    for (final controller in _phoneControllers) {
       controller.dispose();
     }
-    for (var controller in _faxControllers) {
+    for (final controller in _faxControllers) {
       controller.dispose();
     }
     _emailController.dispose();
@@ -535,7 +535,7 @@ class _EditTrackScreenState extends State<EditTrackScreen> {
     final colorScheme = Theme.of(context).colorScheme;
 
     return DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(

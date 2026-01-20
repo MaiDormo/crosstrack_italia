@@ -5,15 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 //model for a reausable dialog
 @immutable
 class AlertDialogModel<T> {
-  final String title;
-  final String message;
-  final Map<String, T> buttons;
 
   const AlertDialogModel({
     required this.title,
     required this.message,
     required this.buttons,
   });
+  final String title;
+  final String message;
+  final Map<String, T> buttons;
 }
 
 //extend the model with a presentation layer

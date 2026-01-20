@@ -1,6 +1,6 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../../../track/models/track.dart';
+import '../../../track/notifiers/track_notifier.dart';
+import '../../../../firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,9 +62,9 @@ class ImagesPathToBeDeleted extends _$ImagesPathToBeDeleted {
 }
 
 class RemoveImageField extends ConsumerStatefulWidget {
-  final Track track;
 
   const RemoveImageField({required this.track});
+  final Track track;
 
   @override
   _RemoveImageFieldState createState() => _RemoveImageFieldState();
@@ -105,7 +105,7 @@ class _RemoveImageFieldState extends ConsumerState<RemoveImageField>
                     Tooltip(
                       message: 'Annulla rimozione',
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.undo,
                           color: Colors.green,
                         ),
@@ -131,19 +131,19 @@ class _RemoveImageFieldState extends ConsumerState<RemoveImageField>
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: value.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
                   ),
                   itemBuilder: (context, index) {
-                    Widget key = value.keys.elementAt(index);
+                    final Widget key = value.keys.elementAt(index);
                     return Stack(
                       alignment: Alignment.topRight,
                       children: [
                         key, //key here
                         IconButton(
-                          icon: Icon(Icons.delete, color: Colors.red),
+                          icon: const Icon(Icons.delete, color: Colors.red),
                           onPressed: () async {
                             imagesPathToBeDeletedNotifier
                                 .addEntry({key: value[key]!});

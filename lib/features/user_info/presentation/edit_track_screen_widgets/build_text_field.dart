@@ -22,13 +22,13 @@ Widget buildTextField({
         cursorColor: Colors.blueGrey,
         validator: validator,
         maxLines: maxLines, // specify a color
-        style: TextStyle(
+        style: const TextStyle(
           // adjust the font size
           color: Colors.white,
           fontWeight: FontWeight.bold, // adjust the text color
         ),
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labelText,
           labelStyle: TextStyle(
             color: Colors.grey.shade300, // same color as the ListTile text

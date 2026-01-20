@@ -1,7 +1,7 @@
-import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/constants/user_constants.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_permission_notifier.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/user_settings.dart';
+import '../../../map/notifiers/user_location_notifier.dart';
+import '../../../user_info/constants/user_constants.dart';
+import '../../../user_info/notifiers/user_permission_notifier.dart';
+import '../../../user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,13 +21,13 @@ class LocationSelector extends ConsumerWidget {
 
     return locationPermission
         ? Padding(
-            padding: EdgeInsets.all(16.0).r,
+            padding: const EdgeInsets.all(16.0).r,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 16.verticalSpace,
                 Text(
-                  "Condividi la tua posizione:",
+                  'Condividi la tua posizione:',
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -36,8 +36,8 @@ class LocationSelector extends ConsumerWidget {
                 ),
                 8.verticalSpace,
                 ListTile(
-                  title: Text(
-                    "Posizione: ",
+                  title: const Text(
+                    'Posizione: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -56,12 +56,12 @@ class LocationSelector extends ConsumerWidget {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                    "Errore nel caricamento della posizione: $error"),
+                                    'Errore nel caricamento della posizione: $error'),
                               ),
                             );
                             return null;
                           })
-                      : Text(""),
+                      : const Text(''),
                   trailing: Card(
                     color: Theme.of(context).colorScheme.secondary,
                     child: IconButton(
@@ -71,7 +71,7 @@ class LocationSelector extends ConsumerWidget {
                           Visibility(
                             visible: showMoreInfo,
                             child: Text(
-                              showCurrentLocation ? "Rimuovi" : "Aggiungi",
+                              showCurrentLocation ? 'Rimuovi' : 'Aggiungi',
                               style: TextStyle(
                                 color:
                                     Theme.of(context).colorScheme.onSecondary,
@@ -93,8 +93,8 @@ class LocationSelector extends ConsumerWidget {
                             builder: (context) => AlertDialog(
                               backgroundColor:
                                   Theme.of(context).colorScheme.secondary,
-                              title: Text('Attenzione'),
-                              content: Text(
+                              title: const Text('Attenzione'),
+                              content: const Text(
                                   'Sei sicuro di voler rimuovere la posizione?'),
                               actions: [
                                 TextButton(
@@ -105,7 +105,7 @@ class LocationSelector extends ConsumerWidget {
                                     backgroundColor:
                                         Theme.of(context).colorScheme.secondary,
                                   ),
-                                  child: Text('Annulla'),
+                                  child: const Text('Annulla'),
                                   onPressed: () =>
                                       Navigator.of(context).pop(false),
                                 ),
@@ -117,7 +117,7 @@ class LocationSelector extends ConsumerWidget {
                                     backgroundColor:
                                         Theme.of(context).colorScheme.secondary,
                                   ),
-                                  child: Text('Conferma'),
+                                  child: const Text('Conferma'),
                                   onPressed: () =>
                                       Navigator.of(context).pop(true),
                                 ),
@@ -148,7 +148,7 @@ class LocationSelector extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Abilita la tua posizione per aggiungere informazioni: ",
+                    'Abilita la tua posizione per aggiungere informazioni: ',
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -162,7 +162,7 @@ class LocationSelector extends ConsumerWidget {
                           Visibility(
                               visible: showMoreInfo,
                               child: Text(
-                                "Abilita posizione",
+                                'Abilita posizione',
                                 style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.onSecondary,

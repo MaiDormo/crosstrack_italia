@@ -1,8 +1,8 @@
-import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
-import 'package:crosstrack_italia/features/track/models/comment.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/features/track/presentation/widget/comment_card.dart';
+import '../../user_info/providers/user_info_providers.dart';
+import '../models/comment.dart';
+import '../models/typedefs/typedefs.dart';
+import '../notifiers/track_notifier.dart';
+import 'widget/comment_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,12 +10,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommentsSection extends ConsumerStatefulWidget {
-  final TrackId trackId;
 
   const CommentsSection({
     super.key,
     required this.trackId,
   });
+  final TrackId trackId;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _CommentsScreenState();
@@ -137,10 +137,10 @@ class _CommentsScreenState extends ConsumerState<CommentsSection> {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0).w,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
                         ratingWidget: RatingWidget(
-                          full: Icon(Icons.star_rounded, color: const Color(0xFFFBBF24)),
-                          half: Icon(Icons.star_half_rounded, color: const Color(0xFFFBBF24)),
+                          full: const Icon(Icons.star_rounded, color: Color(0xFFFBBF24)),
+                          half: const Icon(Icons.star_half_rounded, color: Color(0xFFFBBF24)),
                           empty: Icon(Icons.star_outline_rounded, color: colorScheme.onSurface.withValues(alpha: 0.2)),
                         ),
                         onRatingUpdate: (rating) {

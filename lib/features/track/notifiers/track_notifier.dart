@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:crosstrack_italia/common/utils.dart';
-import 'package:crosstrack_italia/features/user_info/providers/user_info_providers.dart';
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
-import 'package:crosstrack_italia/features/map/notifiers/map_notifier.dart';
-import 'package:crosstrack_italia/features/track/backend/track_repository.dart';
-import 'package:crosstrack_italia/features/track/models/comment.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/firebase_providers/storage_repository.dart';
+import '../../../common/utils.dart';
+import '../../user_info/providers/user_info_providers.dart';
+import '../../map/constants/map_constants.dart';
+import '../../map/notifiers/map_notifier.dart';
+import '../backend/track_repository.dart';
+import '../models/comment.dart';
+import '../models/track.dart';
+import '../models/typedefs/typedefs.dart';
+import '../../../firebase_providers/storage_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -77,11 +77,12 @@ Stream<Iterable<Comment>> fetchCommentsByTrackId(Ref ref, TrackId id) async* {
 
 @riverpod
 Future<bool> openGoogleMap(Ref ref, Track track) async {
-  final _trackNotifier = ref.watch(trackProvider.notifier);
-  if (track != Track.empty())
-    return await _trackNotifier.openGoogleMap(track);
-  else
+  final trackNotifier = ref.watch(trackProvider.notifier);
+  if (track != Track.empty()) {
+    return await trackNotifier.openGoogleMap(track);
+  } else {
     return false;
+  }
 }
 
 @riverpod
@@ -165,7 +166,7 @@ class TrackNotifier extends _$TrackNotifier {
     try {
       final imageUrl = await _storageRepository
           .getDownloadUrl(track.photosUrl + MapConstants.thumbnail);
-      final image = await Utils.getThumbnail(
+      final image = Utils.getThumbnail(
           imageUrl); // Ensure this returns Future<Uint8List>
       return image;
     } catch (e) {
@@ -181,7 +182,7 @@ class TrackNotifier extends _$TrackNotifier {
     //get all images inside the tracks/{track.region}/{track.trackWebCode}/
     if (track != Track.empty()) {
       final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
-      final path = 'tracks/${storageRegion}/${track.id}/';
+      final path = 'tracks/$storageRegion/${track.id}/';
       final urls = await _storageRepository.listDownloadUrl(path);
 
       // Ensure Utils.getImage returns a Future<Widget>
@@ -195,7 +196,7 @@ class TrackNotifier extends _$TrackNotifier {
 
   Future<Iterable<String>> allPathsTrack(Track track) async {
     final storageRegion = track.region.toLowerCase().replaceAll(' ', '_');
-    final directory = 'tracks/${storageRegion}/${track.id}/';
+    final directory = 'tracks/$storageRegion/${track.id}/';
     return await _storageRepository.listPaths(directory);
   }
 
@@ -212,7 +213,7 @@ class TrackNotifier extends _$TrackNotifier {
     TrackId trackId,
     double rating,
   ) async {
-    final String id = Uuid().v1();
+    final String id = const Uuid().v1();
     final userId = ref.read(userIdProvider);
     final currentUser = FirebaseAuth.instance.currentUser;
     final Comment comment = Comment(
@@ -236,7 +237,7 @@ class TrackNotifier extends _$TrackNotifier {
       commentCount: trackSelected.commentCount + 1,
     );
     await updateTrack(updatedTrack);
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       ref.read(trackSelectedProvider.notifier).setTrack(updatedTrack);
     });
 
@@ -269,14 +270,10 @@ class TrackNotifier extends _$TrackNotifier {
   }
 
   Future<bool> openGoogleMap(Track track) async {
-    final _url = Uri.parse(
-        'https://www.google.com/maps/dir/?api=1&destination=' +
-            track.latitude +
-            ',' +
-            track.longitude +
-            '&travelmode=driving');
+    final url = Uri.parse(
+        'https://www.google.com/maps/dir/?api=1&destination=${track.latitude},${track.longitude}&travelmode=driving');
 
-    return await launchUrl(_url);
+    return await launchUrl(url);
   }
 
   //update track

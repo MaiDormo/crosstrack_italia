@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../../../track/models/track.dart';
+import '../../../../firebase_providers/firebase_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,12 +33,12 @@ Future<void> uploadImage(
 ) async {
   try {
     //get the image name from filepath
-    String fileName = filePath.split('/').last;
+    final String fileName = filePath.split('/').last;
 
     // Make sure to replace spaces with underscores in the trackRegion
-    String formattedTrackRegion =
+    final String formattedTrackRegion =
         trackRegion.replaceAll(' ', '_').toLowerCase();
-    String firebasePath = 'tracks/$formattedTrackRegion/$trackId/$fileName';
+    final String firebasePath = 'tracks/$formattedTrackRegion/$trackId/$fileName';
 
     await ref.watch(storageProvider).ref(firebasePath).putFile(File(filePath));
   } catch (e) {
@@ -47,13 +47,13 @@ Future<void> uploadImage(
 }
 
 class ImageField extends StatefulWidget {
-  final Track track;
-  final Function(String) onChanged;
 
   ImageField({
     required this.track,
     required this.onChanged,
   });
+  final Track track;
+  final Function(String) onChanged;
 
   @override
   _ImageFieldState createState() => _ImageFieldState();

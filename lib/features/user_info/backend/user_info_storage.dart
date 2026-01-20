@@ -36,8 +36,6 @@ UserInfoStorage userInfoStorage(Ref ref) {
 /// final userInfo = await storage.fetchUserInfo(userId);
 /// ```
 class UserInfoStorage {
-  final firebase_auth.FirebaseAuth _auth;
-  final FirebaseFirestore _firestore;
 
   /// Creates a new [UserInfoStorage] with the given Firebase dependencies.
   const UserInfoStorage({
@@ -45,6 +43,8 @@ class UserInfoStorage {
     required FirebaseFirestore firestore,
   })  : _auth = auth,
         _firestore = firestore;
+  final firebase_auth.FirebaseAuth _auth;
+  final FirebaseFirestore _firestore;
 
   CollectionReference get _users =>
       _firestore.collection(FirebaseCollectionName.users);

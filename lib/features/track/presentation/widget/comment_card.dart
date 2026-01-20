@@ -1,5 +1,5 @@
-import 'package:crosstrack_italia/features/track/models/comment.dart';
-import 'package:crosstrack_italia/firebase_providers/firebase_providers.dart';
+import '../../models/comment.dart';
+import '../../../../firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,14 +7,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommentCard extends ConsumerWidget {
-  final Comment comment;
-  final VoidCallback? onRemove;
 
   const CommentCard({
     Key? key,
     required this.comment,
     required this.onRemove,
   }) : super(key: key);
+  final Comment comment;
+  final VoidCallback? onRemove;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

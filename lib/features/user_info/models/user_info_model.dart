@@ -1,7 +1,7 @@
-import 'package:crosstrack_italia/features/firebase_constants/firebase_field_name.dart';
-import 'package:crosstrack_italia/features/track/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/typedefs/typedefs.dart';
-import 'package:crosstrack_italia/features/user_info/models/user_roles.dart';
+import '../../firebase_constants/firebase_field_name.dart';
+import '../../track/models/typedefs/typedefs.dart';
+import 'typedefs/typedefs.dart';
+import 'user_roles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -40,5 +40,5 @@ abstract class UserInfoModel with _$UserInfoModel {
         profileImageUrl: user.photoURL,
       );
 
-  factory UserInfoModel.empty() => UserInfoModel(id: '');
+  factory UserInfoModel.empty() => const UserInfoModel(id: '');
 }

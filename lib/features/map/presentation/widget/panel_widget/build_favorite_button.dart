@@ -1,13 +1,13 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/user_info/notifiers/favorite_tracks_notifier.dart';
+import '../../../../track/models/track.dart';
+import '../../../../user_info/notifiers/favorite_tracks_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HeartIcon extends ConsumerWidget {
-  final String trackId;
 
   const HeartIcon({super.key, required this.trackId});
+  final String trackId;
 
   @override
   Widget build(

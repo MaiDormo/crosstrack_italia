@@ -599,16 +599,16 @@ class TrackComparison extends StatelessWidget {
       return degree * (3.141592653589793238462643383279 / 180.0);
     }
 
-    double dLat = toRadians(lat2 - lat1);
-    double dLon = toRadians(lon2 - lon1);
+    final double dLat = toRadians(lat2 - lat1);
+    final double dLon = toRadians(lon2 - lon1);
 
-    double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    final double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(toRadians(lat1)) *
             Math.cos(toRadians(lat2)) *
             Math.sin(dLon / 2) *
             Math.sin(dLon / 2);
 
-    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    final double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     return radius * c;
   }

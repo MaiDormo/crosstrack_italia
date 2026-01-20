@@ -21,7 +21,7 @@ Widget buildDropdownButtonFormField(
         dropdownColor:
             Theme.of(context).colorScheme.secondary, // specify a color
         decoration: InputDecoration(
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labelText,
           labelStyle: TextStyle(
             color: Theme.of(context)

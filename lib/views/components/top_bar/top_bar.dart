@@ -1,7 +1,7 @@
-import 'package:crosstrack_italia/features/map/presentation/widget/geolocation_button.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/location_text.dart';
-import 'package:crosstrack_italia/views/components/top_bar/login_icon.dart';
-import 'package:crosstrack_italia/views/components/top_bar/login_icon_text.dart';
+import '../../../features/map/presentation/widget/geolocation_button.dart';
+import '../../../features/map/presentation/widget/location_text.dart';
+import 'login_icon.dart';
+import 'login_icon_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,10 +30,10 @@ class TopBar extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GeolocationButton(),
+                  const GeolocationButton(),
                   Flexible(
                     child: Text(
-                      "Cross Track Italia",
+                      'Cross Track Italia',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onSecondary,
                         fontSize: 20.sp,
@@ -42,12 +42,12 @@ class TopBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  loginIcon(),
+                  const loginIcon(),
                 ],
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(child: LocationText()),

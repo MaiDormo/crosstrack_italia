@@ -14,9 +14,9 @@ abstract class WeatherInfo with _$WeatherInfo {
 
   factory WeatherInfo.fromAPI(Weather weather) => WeatherInfo(
         date:
-            weather.date!.day.toString() + '/' + weather.date!.month.toString(),
+            '${weather.date!.day}/${weather.date!.month}',
         iconUrl: weather.weatherIcon!,
-        temperature: weather.temperature!.celsius!.floor().toString() + '°C',
+        temperature: '${weather.temperature!.celsius!.floor()}°C',
         weatherCondition: weather.weatherMain!,
       );
 }

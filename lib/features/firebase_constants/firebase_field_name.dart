@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart' show immutable;
 
 @immutable
 class FirebaseFieldName {
+
+  const FirebaseFieldName._();
   //shared
   static const id = 'id';
   static const userId = 'userId';
@@ -40,6 +42,4 @@ class FirebaseFieldName {
   //comment info
   static const comment = 'comment';
   static const date = 'date';
-
-  const FirebaseFieldName._();
 }

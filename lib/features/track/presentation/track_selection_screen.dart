@@ -1,8 +1,8 @@
-import 'package:crosstrack_italia/features/track/models/track.dart';
-import 'package:crosstrack_italia/features/track/notifiers/track_notifier.dart';
-import 'package:crosstrack_italia/features/track/presentation/track_comparison.dart';
-import 'package:crosstrack_italia/features/track/presentation/widget/track_selector.dart';
-import 'package:crosstrack_italia/features/map/notifiers/user_location_notifier.dart';
+import '../models/track.dart';
+import '../notifiers/track_notifier.dart';
+import 'track_comparison.dart';
+import 'widget/track_selector.dart';
+import '../../map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart' as geo;
@@ -279,7 +279,7 @@ class _TrackSelectionScreenState extends ConsumerState<TrackSelectionScreen> {
           Padding(
             padding: EdgeInsets.all(16.r),
             child: DropdownButtonFormField<Track>(
-              value: selectedTrack,
+              initialValue: selectedTrack,
               decoration: InputDecoration(
                 hintText: 'Seleziona un tracciato',
                 hintStyle: TextStyle(

@@ -1,8 +1,8 @@
-import 'package:crosstrack_italia/features/map/constants/map_constants.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker.dart';
-import 'package:crosstrack_italia/features/map/presentation/widget/marker/track_marker_popup.dart';
-import 'package:crosstrack_italia/features/map/providers/controller_utils.dart';
-import 'package:crosstrack_italia/features/track/models/track.dart';
+import '../../../constants/map_constants.dart';
+import 'track_marker.dart';
+import 'track_marker_popup.dart';
+import '../../../providers/controller_utils.dart';
+import '../../../../track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
@@ -38,11 +38,11 @@ class TrackPopupMarkerLayer extends ConsumerWidget {
               return const SizedBox();
             }
           },
-          animation: PopupAnimation.fade(),
+          animation: const PopupAnimation.fade(),
         ),
-        markerCenterAnimation: MarkerCenterAnimation(
+        markerCenterAnimation: const MarkerCenterAnimation(
           curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 500),
+          duration: Duration(milliseconds: 500),
         ),
         markerTapBehavior: MarkerTapBehavior.togglePopupAndHideRest(),
         selectedMarkerBuilder: (context, marker) => Container(
