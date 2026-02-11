@@ -1,5 +1,6 @@
-import 'typedefs/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'typedefs/typedefs.dart';
 
 part 'comment.freezed.dart';
 part 'comment.g.dart';

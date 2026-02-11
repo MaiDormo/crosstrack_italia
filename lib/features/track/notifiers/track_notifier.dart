@@ -1,19 +1,21 @@
 import 'dart:async';
-import '../../../common/utils.dart';
-import '../../user_info/providers/user_info_providers.dart';
-import '../../map/constants/map_constants.dart';
-import '../../map/notifiers/map_notifier.dart';
-import '../backend/track_repository.dart';
-import '../models/comment.dart';
-import '../models/track.dart';
-import '../models/typedefs/typedefs.dart';
-import '../../../firebase_providers/storage_repository.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../common/utils.dart';
+import '../../../firebase_providers/storage_repository.dart';
+import '../../map/constants/map_constants.dart';
+import '../../map/notifiers/map_notifier.dart';
+import '../../user_info/providers/user_info_providers.dart';
+import '../backend/track_repository.dart';
+import '../models/comment.dart';
+import '../models/track.dart';
+import '../models/typedefs/typedefs.dart';
 
 part 'track_notifier.g.dart';
 

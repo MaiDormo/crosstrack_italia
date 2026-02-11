@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../firebase_constants/firebase_field_name.dart';
 import '../../track/models/typedefs/typedefs.dart';
 import 'typedefs/typedefs.dart';
 import 'user_roles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_info_model.freezed.dart';
 part 'user_info_model.g.dart';

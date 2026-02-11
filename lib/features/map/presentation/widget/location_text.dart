@@ -1,10 +1,11 @@
-import '../../constants/map_constants.dart';
-import '../../notifiers/user_location_notifier.dart';
-import '../../../user_info/constants/user_constants.dart';
-import '../../../user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../../user_info/constants/user_constants.dart';
+import '../../../user_info/notifiers/user_settings.dart';
+import '../../constants/map_constants.dart';
+import '../../notifiers/user_location_notifier.dart';
 
 class LocationText extends ConsumerWidget {
   const LocationText({super.key});

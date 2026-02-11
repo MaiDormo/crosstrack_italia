@@ -1,12 +1,13 @@
-import '../models/track.dart';
-import '../notifiers/track_notifier.dart';
-import 'track_comparison.dart';
-import 'widget/track_selector.dart';
-import '../../map/notifiers/user_location_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../../map/notifiers/user_location_notifier.dart';
+import '../models/track.dart';
+import '../notifiers/track_notifier.dart';
+import 'track_comparison.dart';
+import 'widget/track_selector.dart';
 
 class TrackSelectionScreen extends ConsumerStatefulWidget {
   const TrackSelectionScreen({super.key});

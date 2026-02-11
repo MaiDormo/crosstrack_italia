@@ -1,6 +1,7 @@
-import 'firebase_providers.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'firebase_providers.dart';
 
 part 'storage_repository.g.dart';
 

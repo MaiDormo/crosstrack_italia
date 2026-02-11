@@ -1,10 +1,11 @@
-import '../../../features/user_info/constants/user_constants.dart';
-import '../../../features/user_info/notifiers/user_settings.dart';
-import 'nav_states/nav_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../features/user_info/constants/user_constants.dart';
+import '../../../features/user_info/notifiers/user_settings.dart';
+import 'nav_states/nav_notifier.dart';
 
 class BottomBar extends ConsumerStatefulWidget {
   const BottomBar({super.key});

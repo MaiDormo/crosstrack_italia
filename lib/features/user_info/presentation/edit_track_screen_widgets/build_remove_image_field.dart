@@ -63,7 +63,7 @@ class ImagesPathToBeDeleted extends _$ImagesPathToBeDeleted {
 
 class RemoveImageField extends ConsumerStatefulWidget {
 
-  const RemoveImageField({required this.track});
+  const RemoveImageField({super.key, required this.track});
   final Track track;
 
   @override

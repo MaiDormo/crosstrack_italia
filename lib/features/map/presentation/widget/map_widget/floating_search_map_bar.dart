@@ -1,15 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:latlong2/latlong.dart';
+
+import '../../../../track/notifiers/track_notifier.dart';
+import '../../../../track/presentation/track_card.dart';
+import '../../../../track/providers/search_track_provider.dart';
 import '../../../constants/map_constants.dart';
 import '../../../models/regions.dart';
 import '../../../notifiers/map_notifier.dart';
 import '../../../providers/controller_utils.dart';
 import '../../../providers/floating_searching_bar_utils.dart';
-import '../../../../track/notifiers/track_notifier.dart';
-import '../../../../track/presentation/track_card.dart';
-import '../../../../track/providers/search_track_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:latlong2/latlong.dart';
 
 /// A floating search bar for searching and filtering tracks on the map.
 /// 

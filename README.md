@@ -18,14 +18,14 @@
 <div align="center">
 <table>
   <tr>
-    <td><img src="docs/screenshots/map_view.png" width="200" alt="Map View"/></td>
-    <td><img src="docs/screenshots/track_details.png" width="200" alt="Track Details"/></td>
-    <td><img src="docs/screenshots/track_list.png" width="200" alt="Track List"/></td>
+    <td><img src="docs/screenshots/map.png" width="200" alt="Map View"/></td>
+    <td><img src="docs/screenshots/track-details.png" width="200" alt="Track Details"/></td>
+    <td><img src="docs/screenshots/track-comparison.png" width="200" alt="Track Comparison"/></td>
   </tr>
   <tr>
     <td align="center"><b>Map View</b></td>
     <td align="center"><b>Track Details</b></td>
-    <td align="center"><b>Track List</b></td>
+    <td align="center"><b>Track Comparison</b></td>
   </tr>
 </table>
 </div>

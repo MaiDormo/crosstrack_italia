@@ -1,9 +1,10 @@
-import '../../domain/models/forecast.dart';
-import '../../domain/providers/forecast_info_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../domain/models/forecast.dart';
+import '../../domain/providers/forecast_info_provider.dart';
 
 class WeatherView extends ConsumerWidget {
   const WeatherView({super.key});

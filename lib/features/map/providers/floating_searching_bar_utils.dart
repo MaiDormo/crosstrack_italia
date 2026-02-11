@@ -1,5 +1,6 @@
-import '../models/regions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../models/regions.dart';
 
 part 'floating_searching_bar_utils.g.dart';
 

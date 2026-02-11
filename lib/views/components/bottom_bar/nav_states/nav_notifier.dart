@@ -1,5 +1,6 @@
-import 'nav_states.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import 'nav_states.dart';
 
 part 'nav_notifier.g.dart';
 

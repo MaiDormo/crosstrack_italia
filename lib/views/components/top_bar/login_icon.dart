@@ -1,8 +1,9 @@
-import '../../../features/user_info/providers/user_info_providers.dart';
-import '../../login/login_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../features/user_info/providers/user_info_providers.dart';
+import '../../login/login_page_view.dart';
 
 class loginIcon extends ConsumerWidget {
   const loginIcon({

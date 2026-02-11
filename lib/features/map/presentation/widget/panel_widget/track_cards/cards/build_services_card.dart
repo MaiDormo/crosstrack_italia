@@ -1,8 +1,9 @@
-import '../../../../../../track/models/track.dart';
-import '../../../../../../track/notifiers/track_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../../track/models/track.dart';
+import '../../../../../../track/notifiers/track_notifier.dart';
 
 Widget buildServicesCard(Track trackSelected, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;

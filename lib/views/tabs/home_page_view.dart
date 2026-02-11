@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../common/responsive.dart';
 import '../../features/map/presentation/map_screen.dart';
 import '../components/bottom_bar/bottom_bar.dart';
@@ -5,10 +9,6 @@ import '../components/bottom_bar/nav_states/nav_notifier.dart';
 import '../components/top_bar/top_bar.dart';
 import 'settings_page_view.dart';
 import 'track_action.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePageView extends StatelessWidget {
   const HomePageView({super.key});

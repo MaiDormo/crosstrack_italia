@@ -1,8 +1,9 @@
-import '../providers/user_info_providers.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../firebase_providers/firebase_providers.dart';
 import '../../track/models/typedefs/typedefs.dart';
 import '../backend/favorite_tracks_repository.dart';
-import '../../../firebase_providers/firebase_providers.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../providers/user_info_providers.dart';
 
 part 'favorite_tracks_notifier.g.dart';
 

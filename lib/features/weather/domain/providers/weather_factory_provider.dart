@@ -1,6 +1,7 @@
-import '../../backend/api/api_keys.default.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:weather/weather.dart';
+
+import '../../backend/api/api_keys.default.dart';
 
 part 'weather_factory_provider.g.dart';
 

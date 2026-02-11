@@ -1,11 +1,12 @@
-import '../../features/user_info/providers/user_info_providers.dart';
-import '../../features/track/presentation/track_selection_screen.dart';
-import '../../features/user_info/presentation/favorite_tracks_screen.dart';
-import '../../features/user_info/presentation/owned_tracks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../features/track/presentation/track_selection_screen.dart';
+import '../../features/user_info/presentation/favorite_tracks_screen.dart';
+import '../../features/user_info/presentation/owned_tracks_screen.dart';
+import '../../features/user_info/providers/user_info_providers.dart';
 
 class TrackAction extends StatelessWidget {
   const TrackAction({super.key});

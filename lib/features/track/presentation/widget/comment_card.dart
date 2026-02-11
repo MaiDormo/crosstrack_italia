@@ -9,10 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 class CommentCard extends ConsumerWidget {
 
   const CommentCard({
-    Key? key,
+    super.key,
     required this.comment,
     required this.onRemove,
-  }) : super(key: key);
+  });
   final Comment comment;
   final VoidCallback? onRemove;
 

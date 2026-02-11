@@ -1,15 +1,5 @@
 import 'dart:async';
 
-import '../../../models/regions.dart';
-import '../../../notifiers/map_notifier.dart';
-import '../../../notifiers/user_location_notifier.dart';
-import '../marker/all_tracks_markers.dart';
-import '../marker/lombardia_tracks_markers.dart';
-import '../marker/trentino_alto_adige_tracks_markers.dart';
-import '../marker/veneto_tracks_markers.dart';
-import '../../../providers/controller_utils.dart';
-import '../../../providers/floating_searching_bar_utils.dart';
-import '../../../../user_info/notifiers/user_permission_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -20,6 +10,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../user_info/notifiers/user_permission_notifier.dart';
+import '../../../models/regions.dart';
+import '../../../notifiers/map_notifier.dart';
+import '../../../notifiers/user_location_notifier.dart';
+import '../../../providers/controller_utils.dart';
+import '../../../providers/floating_searching_bar_utils.dart';
+import '../marker/all_tracks_markers.dart';
+import '../marker/lombardia_tracks_markers.dart';
+import '../marker/trentino_alto_adige_tracks_markers.dart';
+import '../marker/veneto_tracks_markers.dart';
 // Conditional import for tile caching (not supported on web)
 import 'tile_provider_stub.dart'
     if (dart.library.io) 'tile_provider_mobile.dart' as tile_provider;

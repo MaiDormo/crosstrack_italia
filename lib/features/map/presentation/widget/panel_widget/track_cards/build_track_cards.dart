@@ -1,14 +1,15 @@
-import 'cards/build_swiper.dart';
-import 'cards/build_motoclub_card.dart';
-import 'cards/build_pilot_info_card.dart';
-import 'cards/build_services_card.dart';
-import 'cards/build_track_info_card.dart';
-import '../../../../../track/models/track.dart';
-import '../../../../../track/presentation/comment_section.dart';
-import '../../../../../weather/presentation/view/weather_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../../../track/models/track.dart';
+import '../../../../../track/presentation/comment_section.dart';
+import '../../../../../weather/presentation/view/weather_view.dart';
+import 'cards/build_motoclub_card.dart';
+import 'cards/build_pilot_info_card.dart';
+import 'cards/build_services_card.dart';
+import 'cards/build_swiper.dart';
+import 'cards/build_track_info_card.dart';
 
 Widget buildTrackCards(
   Track trackSelected,

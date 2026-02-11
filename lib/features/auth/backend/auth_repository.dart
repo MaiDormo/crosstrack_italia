@@ -1,10 +1,11 @@
-import '../constants/constants.dart';
-import '../../../firebase_providers/firebase_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../firebase_providers/firebase_providers.dart';
+import '../constants/constants.dart';
 
 part 'auth_repository.g.dart';
 

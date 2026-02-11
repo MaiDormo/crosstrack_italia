@@ -1,6 +1,7 @@
-import '../../../constants/map_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../constants/map_constants.dart';
 
 class TrackMarkerIcon extends StatelessWidget {
   const TrackMarkerIcon({super.key});

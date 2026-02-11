@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../features/map/presentation/widget/geolocation_button.dart';
 import '../../../features/map/presentation/widget/location_text.dart';
 import 'login_icon.dart';
 import 'login_icon_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({

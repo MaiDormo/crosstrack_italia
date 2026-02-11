@@ -76,10 +76,10 @@ class TrackSelector extends ConsumerWidget {
 
 class TrackDropDown extends ConsumerWidget {
   const TrackDropDown({
-    Key? key,
+    super.key,
     required this.tracks,
     required this.trackNumber,
-  }) : super(key: key);
+  });
   final Iterable<Track> tracks;
   final int trackNumber;
 

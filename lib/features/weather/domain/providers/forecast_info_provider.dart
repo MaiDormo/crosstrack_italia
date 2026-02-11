@@ -1,7 +1,8 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../../track/notifiers/track_notifier.dart';
 import '../models/forecast.dart';
 import 'weather_factory_provider.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'forecast_info_provider.g.dart';
 

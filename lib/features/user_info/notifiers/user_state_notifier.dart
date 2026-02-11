@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '../../auth/backend/auth_repository.dart';
 import '../../track/models/typedefs/typedefs.dart';
 import '../backend/user_info_storage.dart';
 import '../models/typedefs/typedefs.dart';
 import '../models/user_info_model.dart';
 import '../models/user_roles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'user_state_notifier.g.dart';
 

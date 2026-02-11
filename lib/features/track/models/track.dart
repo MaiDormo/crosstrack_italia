@@ -1,7 +1,7 @@
-import 'typedefs/typedefs.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../firebase_constants/firebase_field_name.dart';
+import 'typedefs/typedefs.dart';
 
 part 'track.freezed.dart';
 part 'track.g.dart';

@@ -1,7 +1,8 @@
-import '../notifiers/track_notifier.dart';
-import 'tracks_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '../notifiers/track_notifier.dart';
+import 'tracks_list_view.dart';
 
 class AllTracksView extends ConsumerWidget {
   const AllTracksView({super.key});

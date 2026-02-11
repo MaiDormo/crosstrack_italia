@@ -64,7 +64,7 @@ class _ComparisonButtonState extends ConsumerState<ComparisonButton> {
                         content: Text('Caricando...'),
                       ),
                     ),
-                };
+                }
                 setState(() {
                   _isLoading = false;
                 });

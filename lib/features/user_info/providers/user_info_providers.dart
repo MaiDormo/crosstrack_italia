@@ -1,14 +1,15 @@
 import 'dart:async';
 
-import '../../track/models/typedefs/typedefs.dart';
-import '../models/typedefs/typedefs.dart';
-import '../models/user_roles.dart';
-import '../notifiers/user_state_notifier.dart';
-import '../../../firebase_providers/firebase_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../firebase_providers/firebase_providers.dart';
+import '../../track/models/typedefs/typedefs.dart';
+import '../models/typedefs/typedefs.dart';
+import '../models/user_roles.dart';
+import '../notifiers/user_state_notifier.dart';
 
 part 'user_info_providers.g.dart';
 

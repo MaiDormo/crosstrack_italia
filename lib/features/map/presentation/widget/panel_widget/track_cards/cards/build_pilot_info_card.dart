@@ -1,7 +1,8 @@
-import '../../../../../../track/models/track.dart';
-import '../../../../../../track/models/typedefs/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../../../track/models/track.dart';
+import '../../../../../../track/models/typedefs/typedefs.dart';
 
 Widget buildPilotInfoCard(Track trackSelected, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;

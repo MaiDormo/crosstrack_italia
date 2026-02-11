@@ -1,11 +1,12 @@
-import '../../../map/notifiers/user_location_notifier.dart';
-import '../../../user_info/constants/user_constants.dart';
-import '../../../user_info/notifiers/user_permission_notifier.dart';
-import '../../../user_info/notifiers/user_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../map/notifiers/user_location_notifier.dart';
+import '../../../user_info/constants/user_constants.dart';
+import '../../../user_info/notifiers/user_permission_notifier.dart';
+import '../../../user_info/notifiers/user_settings.dart';
 
 class LocationSelector extends ConsumerWidget {
   const LocationSelector({

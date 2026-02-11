@@ -14,7 +14,7 @@ class TrackMarker extends Marker {
           width: MapConstants.markerSize.h,
           point: LatLng(
               double.parse(track.latitude), double.parse(track.longitude)),
-          child: TrackMarkerIcon(),
+          child: const TrackMarkerIcon(),
         );
 
   final Track track;

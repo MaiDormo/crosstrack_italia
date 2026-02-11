@@ -1,5 +1,6 @@
-import '../constants/user_constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../constants/user_constants.dart';
 
 part 'user_settings.g.dart';
 

@@ -15,8 +15,8 @@ abstract class Forecast with _$Forecast {
       return Forecast(list: []);
     }
 
-    final int days = 5;
-    final int intervalsPerDay = 8; // 24 hours / 3 hours per interval
+    const int days = 5;
+    const int intervalsPerDay = 8; // 24 hours / 3 hours per interval
 
     return Forecast(
       list: List.generate(days, (i) => i * intervalsPerDay)

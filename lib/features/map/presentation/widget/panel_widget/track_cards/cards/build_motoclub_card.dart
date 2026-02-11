@@ -1,7 +1,8 @@
-import '../../../../../../track/models/track.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
+import '../../../../../../track/models/track.dart';
 
 Widget buildMotoclubCard(Track selectedTrack, BuildContext context) {
   final colorScheme = Theme.of(context).colorScheme;

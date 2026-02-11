@@ -1,10 +1,11 @@
-import '../constants/map_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:flutter/scheduler.dart';
+
+import '../constants/map_constants.dart';
 
 part 'map_notifier.g.dart';
 
